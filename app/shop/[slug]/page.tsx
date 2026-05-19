@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
 import { getProduct, products } from "@/data/products";
@@ -27,22 +28,30 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   return (
     <section className="mx-auto grid max-w-sgl gap-10 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
       <div>
-        <div className="border border-sglInk bg-sglGraphite p-8">
-          <img
+        <div className="relative aspect-square border border-sglInk bg-sglGraphite p-8">
+          <Image
             src={image}
             alt={product.title}
-            className="aspect-square w-full object-contain"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-contain p-8"
           />
         </div>
 
         {product.images.length > 1 && (
           <div className="mt-4 grid grid-cols-4 gap-3">
             {product.images.slice(0, 8).map((src) => (
-              <div key={src} className="border border-sglInk bg-sglPaper p-2">
-                <img
+              <div
+                key={src}
+                className="relative aspect-square border border-sglInk bg-sglPaper p-2"
+              >
+                <Image
                   src={src}
                   alt={product.title}
-                  className="aspect-square w-full object-contain"
+                  fill
+                  sizes="25vw"
+                  className="object-contain p-2"
                 />
               </div>
             ))}
