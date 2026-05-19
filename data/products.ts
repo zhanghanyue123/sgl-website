@@ -36,8 +36,8 @@ export const products: Product[] = [
     "priceLabel": "899",
     "badge": "2 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/5cad0ba2531be0c6694129ca0393463f.png?v=1717040536",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/fab3c25ae934bf4c659bc683ee646a63.png?v=1717040536"
+      "/products/sgl-product-001.png",
+      "/products/sgl-product-002.png"
     ],
     "description": "Chrissy P from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -58,7 +58,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/5cad0ba2531be0c6694129ca0393463f.png?v=1717040536"
+        "image": "/products/sgl-product-001.png"
       },
       {
         "sku": "",
@@ -74,7 +74,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/fab3c25ae934bf4c659bc683ee646a63.png?v=1717040536"
+        "image": "/products/sgl-product-002.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/chrissy-p",
@@ -93,7 +93,7 @@ export const products: Product[] = [
     "priceLabel": "1299",
     "badge": "2 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/316b3cdb48567ea0ce54f959c96fd33a.png?v=1717040776"
+      "/products/sgl-product-003.png"
     ],
     "description": "Chrissy M from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -111,7 +111,7 @@ export const products: Product[] = [
         ],
         "price": 1299.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/316b3cdb48567ea0ce54f959c96fd33a.png?v=1717040776"
+        "image": "/products/sgl-product-003.png"
       },
       {
         "sku": "",
@@ -142,9 +142,9 @@ export const products: Product[] = [
     "priceLabel": "899",
     "badge": "8 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/9508a9cd68ce444753a0a7f3843f6aac.png?v=1717040536",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/8726df84df505089d9b86d5dba33c721.png?v=1717040536",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/0ca7fdeac21b1d66b2bee418e1131efd.png?v=1717040536"
+      "/products/sgl-product-004.png",
+      "/products/sgl-product-005.png",
+      "/products/sgl-product-006.png"
     ],
     "description": "Chrissy from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -166,7 +166,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/8726df84df505089d9b86d5dba33c721.png?v=1717040536"
+        "image": "/products/sgl-product-005.png"
       },
       {
         "sku": "",
@@ -182,7 +182,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/0ca7fdeac21b1d66b2bee418e1131efd.png?v=1717040536"
+        "image": "/products/sgl-product-006.png"
       },
       {
         "sku": "",
@@ -198,7 +198,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/9508a9cd68ce444753a0a7f3843f6aac.png?v=1717040536"
+        "image": "/products/sgl-product-004.png"
       },
       {
         "sku": "",
@@ -297,10 +297,10 @@ export const products: Product[] = [
     "priceLabel": "2299–2499",
     "badge": "8 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/3440fa71b65f61d3f1bea09b3735c491.png?v=1717040319",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/abc4343430c334f422fb1b2a17b7d946.png?v=1717040319",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/29abe6c5159c71afe639e2df8671dece.png?v=1717040319",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/7716e8bad878204858d4880bd3a0e089.png?v=1717040319"
+      "/products/sgl-product-007.png",
+      "/products/sgl-product-008.png",
+      "/products/sgl-product-009.png",
+      "/products/sgl-product-010.png"
     ],
     "description": "Chrissy Team from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -323,7 +323,7 @@ export const products: Product[] = [
         ],
         "price": 2299.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/29abe6c5159c71afe639e2df8671dece.png?v=1717040319"
+        "image": "/products/sgl-product-009.png"
       },
       {
         "sku": "",
@@ -339,7 +339,7 @@ export const products: Product[] = [
         ],
         "price": 2499.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/3440fa71b65f61d3f1bea09b3735c491.png?v=1717040319"
+        "image": "/products/sgl-product-007.png"
       },
       {
         "sku": "",
@@ -355,7 +355,7 @@ export const products: Product[] = [
         ],
         "price": 2299.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/abc4343430c334f422fb1b2a17b7d946.png?v=1717040319"
+        "image": "/products/sgl-product-008.png"
       },
       {
         "sku": "",
@@ -371,7 +371,7 @@ export const products: Product[] = [
         ],
         "price": 2299.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/7716e8bad878204858d4880bd3a0e089.png?v=1717040319"
+        "image": "/products/sgl-product-010.png"
       },
       {
         "sku": "",
@@ -454,7 +454,7 @@ export const products: Product[] = [
     "priceLabel": "1299",
     "badge": "2 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2459ccee65de1f2b77f7307ddf78489a.png?v=1717040059"
+      "/products/sgl-product-011.png"
     ],
     "description": "Chrissy Special from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -477,7 +477,7 @@ export const products: Product[] = [
         ],
         "price": 1299.0,
         "inventory": 2,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2459ccee65de1f2b77f7307ddf78489a.png?v=1717040059"
+        "image": "/products/sgl-product-011.png"
       },
       {
         "sku": "",
@@ -512,9 +512,9 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-2511.48.40.png?v=1719287511",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-2511.48.54.png?v=1719287511",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-2511.50.19.png?v=1719287440"
+      "/products/sgl-product-012.png",
+      "/products/sgl-product-013.png",
+      "/products/sgl-product-014.png"
     ],
     "description": "Seat Bag for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -531,7 +531,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-2511.48.40.png?v=1719287511"
+        "image": "/products/sgl-product-012.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/seat-bag",
@@ -622,13 +622,13 @@ export const products: Product[] = [
     "priceLabel": "20",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.54.46.png?v=1719287736",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.55.11.png?v=1719287743",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.54.12.png?v=1719287746",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/1021.png?v=1719287756",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/102.png?v=1719287756",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/1023.png?v=1719287756",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/10.png?v=1719287756"
+      "/products/sgl-product-015.png",
+      "/products/sgl-product-016.png",
+      "/products/sgl-product-017.png",
+      "/products/sgl-product-018.png",
+      "/products/sgl-product-019.png",
+      "/products/sgl-product-020.png",
+      "/products/sgl-product-021.png"
     ],
     "description": "Sports Bandana | Outdoor Magic Scarf for park loops, commuting, and daily movement.",
     "details": [
@@ -645,7 +645,7 @@ export const products: Product[] = [
         ],
         "price": 20.0,
         "inventory": 50,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.55.11.png?v=1719287743"
+        "image": "/products/sgl-product-016.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/sports-bandana-outdoor-magic-scarf",
@@ -811,11 +811,11 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "5 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-39.jpg?v=1717831285",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-42.jpg?v=1717831285",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-12.jpg?v=1717831286",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-10.jpg?v=1717831285",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-17.jpg?v=1717831285"
+      "/products/sgl-product-022.jpg",
+      "/products/sgl-product-023.jpg",
+      "/products/sgl-product-024.jpg",
+      "/products/sgl-product-025.jpg",
+      "/products/sgl-product-026.jpg"
     ],
     "description": "Bike Cover M for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -833,7 +833,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 50,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-10.jpg?v=1717831285"
+        "image": "/products/sgl-product-025.jpg"
       },
       {
         "sku": "",
@@ -845,7 +845,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 50,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-12.jpg?v=1717831286"
+        "image": "/products/sgl-product-024.jpg"
       },
       {
         "sku": "",
@@ -857,7 +857,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-39.jpg?v=1717831285"
+        "image": "/products/sgl-product-022.jpg"
       },
       {
         "sku": "",
@@ -869,7 +869,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 50,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-42.jpg?v=1717831285"
+        "image": "/products/sgl-product-023.jpg"
       },
       {
         "sku": "",
@@ -881,7 +881,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-17.jpg?v=1717831285"
+        "image": "/products/sgl-product-026.jpg"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/bike-cover",
@@ -900,7 +900,7 @@ export const products: Product[] = [
     "priceLabel": "15",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/27_1.jpg?v=1719291108"
+      "/products/sgl-product-027.jpg"
     ],
     "description": "Shoe Sack for Sport Shoes / Shoe Box for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -917,7 +917,7 @@ export const products: Product[] = [
         ],
         "price": 15.0,
         "inventory": 0,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/27_1.jpg?v=1719291108"
+        "image": "/products/sgl-product-027.jpg"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/reveal-shoe-sack",
@@ -936,10 +936,10 @@ export const products: Product[] = [
     "priceLabel": "29",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.44.48.png?v=1719287108",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-2511.41.11.png?v=1719287124",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.41.50.png?v=1719286971",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.42.17.png?v=1719286972"
+      "/products/sgl-product-028.png",
+      "/products/sgl-product-029.png",
+      "/products/sgl-product-030.png",
+      "/products/sgl-product-031.png"
     ],
     "description": "Sportglasses Case ｜ Eyewear Cases for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -957,7 +957,7 @@ export const products: Product[] = [
         ],
         "price": 29.0,
         "inventory": 0,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.44.48.png?v=1719287108"
+        "image": "/products/sgl-product-028.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/sportglassea-case",
@@ -976,12 +976,12 @@ export const products: Product[] = [
     "priceLabel": "102",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/20.jpg?v=1719285937",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.28.00.png?v=1719286103",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/24.jpg?v=1719286122",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/23.jpg?v=1719286122",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/53.jpg?v=1719286122",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/22.jpg?v=1719286122"
+      "/products/sgl-product-032.jpg",
+      "/products/sgl-product-033.png",
+      "/products/sgl-product-034.jpg",
+      "/products/sgl-product-035.jpg",
+      "/products/sgl-product-036.jpg",
+      "/products/sgl-product-037.jpg"
     ],
     "description": "Tote Bag /Messenger Bag for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -999,7 +999,7 @@ export const products: Product[] = [
         ],
         "price": 102.0,
         "inventory": 0,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/20.jpg?v=1719285937"
+        "image": "/products/sgl-product-032.jpg"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/tote-bag",
@@ -1018,16 +1018,16 @@ export const products: Product[] = [
     "priceLabel": "22",
     "badge": "5 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/1d263af03646d50fbf3924b6b14e2ec0.jpg?v=1710841633",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/64789c53b63938adac67e68485e022e0.jpg?v=1710841677",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/240b1ce4f30093d99d675cefb14ce06a.jpg?v=1710842488",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/7ee22d92ff8fad0f57ab8858e7ac65bb.jpg?v=1710842488",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/1052bc4ee71c8821ea2c2d09cdfeab98.jpg?v=1710842492",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/f8d9617846214319a0b9ba480c7456d9.jpg?v=1710844991",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/a165b05e676c418b3f68b44bfe2d0f66.jpg?v=1710844991",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/ca9d9c942288e6de0a145b68a65d8545.jpg?v=1710844991",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/f55eca1a974d92d4354a62d23334bc11.jpg?v=1710844991",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/a77ab431e00cdb0a5f85b89cf903c24c.jpg?v=1710844991"
+      "/products/sgl-product-038.jpg",
+      "/products/sgl-product-039.jpg",
+      "/products/sgl-product-040.jpg",
+      "/products/sgl-product-041.jpg",
+      "/products/sgl-product-042.jpg",
+      "/products/sgl-product-043.jpg",
+      "/products/sgl-product-044.jpg",
+      "/products/sgl-product-045.jpg",
+      "/products/sgl-product-046.jpg",
+      "/products/sgl-product-047.jpg"
     ],
     "description": "Velvet fleece bicycle handlebar Grips for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -1044,7 +1044,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/f8d9617846214319a0b9ba480c7456d9.jpg?v=1710844991"
+        "image": "/products/sgl-product-043.jpg"
       },
       {
         "sku": "",
@@ -1056,7 +1056,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/ca9d9c942288e6de0a145b68a65d8545.jpg?v=1710844991"
+        "image": "/products/sgl-product-045.jpg"
       },
       {
         "sku": "",
@@ -1068,7 +1068,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/7ee22d92ff8fad0f57ab8858e7ac65bb.jpg?v=1710842488"
+        "image": "/products/sgl-product-041.jpg"
       },
       {
         "sku": "",
@@ -1080,7 +1080,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/a77ab431e00cdb0a5f85b89cf903c24c.jpg?v=1710844991"
+        "image": "/products/sgl-product-047.jpg"
       },
       {
         "sku": "",
@@ -1092,7 +1092,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/64789c53b63938adac67e68485e022e0.jpg?v=1710841677"
+        "image": "/products/sgl-product-039.jpg"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/velvet-fleece-bicycle-handlebar-covers",
@@ -1185,13 +1185,13 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "5 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-7.jpg?v=1717831955",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/59_639bc3be-48e4-4433-9bbf-822034f3f2fe.jpg?v=1719286648",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bdf.png?v=1719286681",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bdb.png?v=1719286681",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/pur.png?v=1719286681",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/blu.png?v=1719286681",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bla.png?v=1719286681"
+      "/products/sgl-product-048.jpg",
+      "/products/sgl-product-049.jpg",
+      "/products/sgl-product-050.png",
+      "/products/sgl-product-051.png",
+      "/products/sgl-product-052.png",
+      "/products/sgl-product-053.png",
+      "/products/sgl-product-054.png"
     ],
     "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
     "details": [
@@ -1208,7 +1208,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 200,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bdf.png?v=1719286681"
+        "image": "/products/sgl-product-050.png"
       },
       {
         "sku": "",
@@ -1220,7 +1220,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/pur.png?v=1719286681"
+        "image": "/products/sgl-product-052.png"
       },
       {
         "sku": "",
@@ -1232,7 +1232,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/blu.png?v=1719286681"
+        "image": "/products/sgl-product-053.png"
       },
       {
         "sku": "",
@@ -1244,7 +1244,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/59_639bc3be-48e4-4433-9bbf-822034f3f2fe.jpg?v=1719286648"
+        "image": "/products/sgl-product-049.jpg"
       },
       {
         "sku": "",
@@ -1256,7 +1256,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bla.png?v=1719286681"
+        "image": "/products/sgl-product-054.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/cycling-leg-strap-pant-strap",
@@ -1275,10 +1275,10 @@ export const products: Product[] = [
     "priceLabel": "8",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/e59c495fabb75640a9641fe77beb3eff.png?v=1719290401",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_12.38.41.png?v=1719290343",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/DSC00568fr.png?v=1719290351",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/babyback.png?v=1719290351"
+      "/products/sgl-product-055.png",
+      "/products/sgl-product-056.png",
+      "/products/sgl-product-057.png",
+      "/products/sgl-product-058.png"
     ],
     "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
     "details": [
@@ -1296,7 +1296,7 @@ export const products: Product[] = [
         ],
         "price": 8.0,
         "inventory": 500,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/e59c495fabb75640a9641fe77beb3eff.png?v=1719290401"
+        "image": "/products/sgl-product-055.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/reflective-gear-safety-reflector-baby-seagull",
@@ -1315,12 +1315,12 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.58.01.png?v=1719287922",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_11.58.19.png?v=1719287923",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/pin.png?v=1719287934",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/91709735544_.pic_hd.jpg?v=1719287934",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/201709735622_.pic_hd.jpg?v=1719287934",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/71709735533_.pic_hd.jpg?v=1719287934"
+      "/products/sgl-product-059.png",
+      "/products/sgl-product-060.png",
+      "/products/sgl-product-061.png",
+      "/products/sgl-product-062.jpg",
+      "/products/sgl-product-063.jpg",
+      "/products/sgl-product-064.jpg"
     ],
     "description": "Three Seagulls Pin for safer, lighter, and more playful city movement.",
     "details": [
@@ -1338,7 +1338,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 500,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/pin.png?v=1719287934"
+        "image": "/products/sgl-product-061.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/pin",
@@ -1357,10 +1357,10 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-27.jpg?v=1717834968",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/861709736129_.pic_hd_742cb065-0d96-47cb-afa3-a467c81f2e59.jpg?v=1717834975",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/851709736120_.pic_hd_d19c256b-cfcb-4851-887a-bb01414192da.jpg?v=1717834975",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/821709736097_.pic_hd.png?v=1709987547"
+      "/products/sgl-product-065.jpg",
+      "/products/sgl-product-066.jpg",
+      "/products/sgl-product-067.jpg",
+      "/products/sgl-product-068.png"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1378,7 +1378,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 55,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/821709736097_.pic_hd.png?v=1709987547"
+        "image": "/products/sgl-product-068.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags-purple",
@@ -1397,7 +1397,7 @@ export const products: Product[] = [
     "priceLabel": "55",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-54.jpg?v=1717834803"
+      "/products/sgl-product-069.jpg"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1414,7 +1414,7 @@ export const products: Product[] = [
         ],
         "price": 55.0,
         "inventory": 55,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-54.jpg?v=1717834803"
+        "image": "/products/sgl-product-069.jpg"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags-reflect-grey",
@@ -1433,10 +1433,10 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_12.02.49.png?v=1719288327",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/14.jpg?v=1719288196",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/901709736158_.pic_hd.jpg?v=1719288212",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/891709736152_.pic_hd.jpg?v=1709985159"
+      "/products/sgl-product-070.png",
+      "/products/sgl-product-071.jpg",
+      "/products/sgl-product-072.jpg",
+      "/products/sgl-product-073.jpg"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1453,7 +1453,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 55,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/2024-06-25_12.02.49.png?v=1719288327"
+        "image": "/products/sgl-product-070.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handleber-bags-red",
@@ -1472,7 +1472,7 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-31.png?v=1717835320"
+      "/products/sgl-product-074.png"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1489,7 +1489,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 50,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-31.png?v=1717835320"
+        "image": "/products/sgl-product-074.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handleber-bags-grey",
@@ -1508,12 +1508,12 @@ export const products: Product[] = [
     "priceLabel": "55",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-26.jpg?v=1717834902",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/9_1.jpg?v=1719290014",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/691709735995_.pic_hd.jpg?v=1719290020",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/631709735950_.pic_hd.jpg?v=1719290020",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/641709735958_.pic_hd.jpg?v=1719290020",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/781709736064_.pic_hd.png?v=1719290020"
+      "/products/sgl-product-075.jpg",
+      "/products/sgl-product-076.jpg",
+      "/products/sgl-product-077.jpg",
+      "/products/sgl-product-078.jpg",
+      "/products/sgl-product-079.jpg",
+      "/products/sgl-product-080.png"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1530,7 +1530,7 @@ export const products: Product[] = [
         ],
         "price": 55.0,
         "inventory": 50,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/bike-26.jpg?v=1717834902"
+        "image": "/products/sgl-product-075.jpg"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags",
@@ -1549,7 +1549,7 @@ export const products: Product[] = [
     "priceLabel": "1999",
     "badge": "7 Variants",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/b7a0f4e4e5c4c56f7cdaeb9f90b46e87.jpg?v=1716970070"
+      "/products/sgl-product-081.jpg"
     ],
     "description": "Chrissy Ti from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -1574,7 +1574,7 @@ export const products: Product[] = [
         ],
         "price": 1999.0,
         "inventory": 3,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/b7a0f4e4e5c4c56f7cdaeb9f90b46e87.jpg?v=1716970070"
+        "image": "/products/sgl-product-081.jpg"
       },
       {
         "sku": "",
@@ -1713,10 +1713,10 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "Shopify Import",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/yinsesanjiao.png?v=1719290418",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/1.jpg?v=1719290418",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/DSC00568bl.png?v=1719290265",
-      "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/DSC00568back.png?v=1719290265"
+      "/products/sgl-product-082.png",
+      "/products/sgl-product-083.jpg",
+      "/products/sgl-product-084.png",
+      "/products/sgl-product-085.png"
     ],
     "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
     "details": [
@@ -1734,7 +1734,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 1000,
-        "image": "https://cdn.shopify.com/s/files/1/0577/6536/3800/files/yinsesanjiao.png?v=1719290418"
+        "image": "/products/sgl-product-082.png"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/cover",
