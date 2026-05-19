@@ -36,8 +36,8 @@ export const products: Product[] = [
     "priceLabel": "899",
     "badge": "2 Variants",
     "images": [
-      "/products/sgl-product-001.png",
-      "/products/sgl-product-002.png"
+      "/products/optimized/sgl-product-001.webp",
+      "/products/optimized/sgl-product-002.webp"
     ],
     "description": "Chrissy P from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -58,7 +58,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "/products/sgl-product-001.png"
+        "image": "/products/optimized/sgl-product-001.webp"
       },
       {
         "sku": "",
@@ -74,7 +74,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "/products/sgl-product-002.png"
+        "image": "/products/optimized/sgl-product-002.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/chrissy-p",
@@ -93,7 +93,7 @@ export const products: Product[] = [
     "priceLabel": "1299",
     "badge": "2 Variants",
     "images": [
-      "/products/sgl-product-003.png"
+      "/products/optimized/sgl-product-003.webp"
     ],
     "description": "Chrissy M from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -111,7 +111,7 @@ export const products: Product[] = [
         ],
         "price": 1299.0,
         "inventory": 2,
-        "image": "/products/sgl-product-003.png"
+        "image": "/products/optimized/sgl-product-003.webp"
       },
       {
         "sku": "",
@@ -142,9 +142,9 @@ export const products: Product[] = [
     "priceLabel": "899",
     "badge": "8 Variants",
     "images": [
-      "/products/sgl-product-004.png",
-      "/products/sgl-product-005.png",
-      "/products/sgl-product-006.png"
+      "/products/optimized/sgl-product-004.webp",
+      "/products/optimized/sgl-product-005.webp",
+      "/products/optimized/sgl-product-006.webp"
     ],
     "description": "Chrissy from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -166,7 +166,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "/products/sgl-product-005.png"
+        "image": "/products/optimized/sgl-product-005.webp"
       },
       {
         "sku": "",
@@ -182,7 +182,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "/products/sgl-product-006.png"
+        "image": "/products/optimized/sgl-product-006.webp"
       },
       {
         "sku": "",
@@ -198,7 +198,7 @@ export const products: Product[] = [
         ],
         "price": 899.0,
         "inventory": 2,
-        "image": "/products/sgl-product-004.png"
+        "image": "/products/optimized/sgl-product-004.webp"
       },
       {
         "sku": "",
@@ -297,10 +297,10 @@ export const products: Product[] = [
     "priceLabel": "2299–2499",
     "badge": "8 Variants",
     "images": [
-      "/products/sgl-product-007.png",
-      "/products/sgl-product-008.png",
-      "/products/sgl-product-009.png",
-      "/products/sgl-product-010.png"
+      "/products/optimized/sgl-product-007.webp",
+      "/products/optimized/sgl-product-008.webp",
+      "/products/optimized/sgl-product-009.webp",
+      "/products/optimized/sgl-product-010.webp"
     ],
     "description": "Chrissy Team from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -323,7 +323,7 @@ export const products: Product[] = [
         ],
         "price": 2299.0,
         "inventory": 2,
-        "image": "/products/sgl-product-009.png"
+        "image": "/products/optimized/sgl-product-009.webp"
       },
       {
         "sku": "",
@@ -339,7 +339,7 @@ export const products: Product[] = [
         ],
         "price": 2499.0,
         "inventory": 2,
-        "image": "/products/sgl-product-007.png"
+        "image": "/products/optimized/sgl-product-007.webp"
       },
       {
         "sku": "",
@@ -355,7 +355,7 @@ export const products: Product[] = [
         ],
         "price": 2299.0,
         "inventory": 2,
-        "image": "/products/sgl-product-008.png"
+        "image": "/products/optimized/sgl-product-008.webp"
       },
       {
         "sku": "",
@@ -371,7 +371,7 @@ export const products: Product[] = [
         ],
         "price": 2299.0,
         "inventory": 2,
-        "image": "/products/sgl-product-010.png"
+        "image": "/products/optimized/sgl-product-010.webp"
       },
       {
         "sku": "",
@@ -454,7 +454,7 @@ export const products: Product[] = [
     "priceLabel": "1299",
     "badge": "2 Variants",
     "images": [
-      "/products/sgl-product-011.png"
+      "/products/optimized/sgl-product-011.webp"
     ],
     "description": "Chrissy Special from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -477,7 +477,7 @@ export const products: Product[] = [
         ],
         "price": 1299.0,
         "inventory": 2,
-        "image": "/products/sgl-product-011.png"
+        "image": "/products/optimized/sgl-product-011.webp"
       },
       {
         "sku": "",
@@ -512,9 +512,9 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-012.png",
-      "/products/sgl-product-013.png",
-      "/products/sgl-product-014.png"
+      "/products/optimized/sgl-product-012.webp",
+      "/products/optimized/sgl-product-013.webp",
+      "/products/optimized/sgl-product-014.webp"
     ],
     "description": "Seat Bag for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -531,7 +531,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "/products/sgl-product-012.png"
+        "image": "/products/optimized/sgl-product-012.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/seat-bag",
@@ -622,13 +622,13 @@ export const products: Product[] = [
     "priceLabel": "20",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-015.png",
-      "/products/sgl-product-016.png",
-      "/products/sgl-product-017.png",
-      "/products/sgl-product-018.png",
-      "/products/sgl-product-019.png",
-      "/products/sgl-product-020.png",
-      "/products/sgl-product-021.png"
+      "/products/optimized/sgl-product-015.webp",
+      "/products/optimized/sgl-product-016.webp",
+      "/products/optimized/sgl-product-017.webp",
+      "/products/optimized/sgl-product-018.webp",
+      "/products/optimized/sgl-product-019.webp",
+      "/products/optimized/sgl-product-020.webp",
+      "/products/optimized/sgl-product-021.webp"
     ],
     "description": "Sports Bandana | Outdoor Magic Scarf for park loops, commuting, and daily movement.",
     "details": [
@@ -645,7 +645,7 @@ export const products: Product[] = [
         ],
         "price": 20.0,
         "inventory": 50,
-        "image": "/products/sgl-product-016.png"
+        "image": "/products/optimized/sgl-product-016.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/sports-bandana-outdoor-magic-scarf",
@@ -811,11 +811,11 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "5 Variants",
     "images": [
-      "/products/sgl-product-022.jpg",
-      "/products/sgl-product-023.jpg",
-      "/products/sgl-product-024.jpg",
-      "/products/sgl-product-025.jpg",
-      "/products/sgl-product-026.jpg"
+      "/products/optimized/sgl-product-022.webp",
+      "/products/optimized/sgl-product-023.webp",
+      "/products/optimized/sgl-product-024.webp",
+      "/products/optimized/sgl-product-025.webp",
+      "/products/optimized/sgl-product-026.webp"
     ],
     "description": "Bike Cover M for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -833,7 +833,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 50,
-        "image": "/products/sgl-product-025.jpg"
+        "image": "/products/optimized/sgl-product-025.webp"
       },
       {
         "sku": "",
@@ -845,7 +845,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 50,
-        "image": "/products/sgl-product-024.jpg"
+        "image": "/products/optimized/sgl-product-024.webp"
       },
       {
         "sku": "",
@@ -857,7 +857,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "/products/sgl-product-022.jpg"
+        "image": "/products/optimized/sgl-product-022.webp"
       },
       {
         "sku": "",
@@ -869,7 +869,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 50,
-        "image": "/products/sgl-product-023.jpg"
+        "image": "/products/optimized/sgl-product-023.webp"
       },
       {
         "sku": "",
@@ -881,7 +881,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "/products/sgl-product-026.jpg"
+        "image": "/products/optimized/sgl-product-026.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/bike-cover",
@@ -900,7 +900,7 @@ export const products: Product[] = [
     "priceLabel": "15",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-027.jpg"
+      "/products/optimized/sgl-product-027.webp"
     ],
     "description": "Shoe Sack for Sport Shoes / Shoe Box for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -917,7 +917,7 @@ export const products: Product[] = [
         ],
         "price": 15.0,
         "inventory": 0,
-        "image": "/products/sgl-product-027.jpg"
+        "image": "/products/optimized/sgl-product-027.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/reveal-shoe-sack",
@@ -936,10 +936,10 @@ export const products: Product[] = [
     "priceLabel": "29",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-028.png",
-      "/products/sgl-product-029.png",
-      "/products/sgl-product-030.png",
-      "/products/sgl-product-031.png"
+      "/products/optimized/sgl-product-028.webp",
+      "/products/optimized/sgl-product-029.webp",
+      "/products/optimized/sgl-product-030.webp",
+      "/products/optimized/sgl-product-031.webp"
     ],
     "description": "Sportglasses Case ｜ Eyewear Cases for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -957,7 +957,7 @@ export const products: Product[] = [
         ],
         "price": 29.0,
         "inventory": 0,
-        "image": "/products/sgl-product-028.png"
+        "image": "/products/optimized/sgl-product-028.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/sportglassea-case",
@@ -976,12 +976,12 @@ export const products: Product[] = [
     "priceLabel": "102",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-032.jpg",
-      "/products/sgl-product-033.png",
-      "/products/sgl-product-034.jpg",
-      "/products/sgl-product-035.jpg",
-      "/products/sgl-product-036.jpg",
-      "/products/sgl-product-037.jpg"
+      "/products/optimized/sgl-product-032.webp",
+      "/products/optimized/sgl-product-033.webp",
+      "/products/optimized/sgl-product-034.webp",
+      "/products/optimized/sgl-product-035.webp",
+      "/products/optimized/sgl-product-036.webp",
+      "/products/optimized/sgl-product-037.webp"
     ],
     "description": "Tote Bag /Messenger Bag for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -999,7 +999,7 @@ export const products: Product[] = [
         ],
         "price": 102.0,
         "inventory": 0,
-        "image": "/products/sgl-product-032.jpg"
+        "image": "/products/optimized/sgl-product-032.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/tote-bag",
@@ -1018,16 +1018,16 @@ export const products: Product[] = [
     "priceLabel": "22",
     "badge": "5 Variants",
     "images": [
-      "/products/sgl-product-038.jpg",
-      "/products/sgl-product-039.jpg",
-      "/products/sgl-product-040.jpg",
-      "/products/sgl-product-041.jpg",
-      "/products/sgl-product-042.jpg",
-      "/products/sgl-product-043.jpg",
-      "/products/sgl-product-044.jpg",
-      "/products/sgl-product-045.jpg",
-      "/products/sgl-product-046.jpg",
-      "/products/sgl-product-047.jpg"
+      "/products/optimized/sgl-product-038.webp",
+      "/products/optimized/sgl-product-039.webp",
+      "/products/optimized/sgl-product-040.webp",
+      "/products/optimized/sgl-product-041.webp",
+      "/products/optimized/sgl-product-042.webp",
+      "/products/optimized/sgl-product-043.webp",
+      "/products/optimized/sgl-product-044.webp",
+      "/products/optimized/sgl-product-045.webp",
+      "/products/optimized/sgl-product-046.webp",
+      "/products/optimized/sgl-product-047.webp"
     ],
     "description": "Velvet fleece bicycle handlebar Grips for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -1044,7 +1044,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "/products/sgl-product-043.jpg"
+        "image": "/products/optimized/sgl-product-043.webp"
       },
       {
         "sku": "",
@@ -1056,7 +1056,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "/products/sgl-product-045.jpg"
+        "image": "/products/optimized/sgl-product-045.webp"
       },
       {
         "sku": "",
@@ -1068,7 +1068,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "/products/sgl-product-041.jpg"
+        "image": "/products/optimized/sgl-product-041.webp"
       },
       {
         "sku": "",
@@ -1080,7 +1080,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "/products/sgl-product-047.jpg"
+        "image": "/products/optimized/sgl-product-047.webp"
       },
       {
         "sku": "",
@@ -1092,7 +1092,7 @@ export const products: Product[] = [
         ],
         "price": 22.0,
         "inventory": 100,
-        "image": "/products/sgl-product-039.jpg"
+        "image": "/products/optimized/sgl-product-039.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/velvet-fleece-bicycle-handlebar-covers",
@@ -1185,13 +1185,13 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "5 Variants",
     "images": [
-      "/products/sgl-product-048.jpg",
-      "/products/sgl-product-049.jpg",
-      "/products/sgl-product-050.png",
-      "/products/sgl-product-051.png",
-      "/products/sgl-product-052.png",
-      "/products/sgl-product-053.png",
-      "/products/sgl-product-054.png"
+      "/products/optimized/sgl-product-048.webp",
+      "/products/optimized/sgl-product-049.webp",
+      "/products/optimized/sgl-product-050.webp",
+      "/products/optimized/sgl-product-051.webp",
+      "/products/optimized/sgl-product-052.webp",
+      "/products/optimized/sgl-product-053.webp",
+      "/products/optimized/sgl-product-054.webp"
     ],
     "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
     "details": [
@@ -1208,7 +1208,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 200,
-        "image": "/products/sgl-product-050.png"
+        "image": "/products/optimized/sgl-product-050.webp"
       },
       {
         "sku": "",
@@ -1220,7 +1220,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "/products/sgl-product-052.png"
+        "image": "/products/optimized/sgl-product-052.webp"
       },
       {
         "sku": "",
@@ -1232,7 +1232,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "/products/sgl-product-053.png"
+        "image": "/products/optimized/sgl-product-053.webp"
       },
       {
         "sku": "",
@@ -1244,7 +1244,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "/products/sgl-product-049.jpg"
+        "image": "/products/optimized/sgl-product-049.webp"
       },
       {
         "sku": "",
@@ -1256,7 +1256,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 100,
-        "image": "/products/sgl-product-054.png"
+        "image": "/products/optimized/sgl-product-054.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/cycling-leg-strap-pant-strap",
@@ -1275,10 +1275,10 @@ export const products: Product[] = [
     "priceLabel": "8",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-055.png",
-      "/products/sgl-product-056.png",
-      "/products/sgl-product-057.png",
-      "/products/sgl-product-058.png"
+      "/products/optimized/sgl-product-055.webp",
+      "/products/optimized/sgl-product-056.webp",
+      "/products/optimized/sgl-product-057.webp",
+      "/products/optimized/sgl-product-058.webp"
     ],
     "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
     "details": [
@@ -1296,7 +1296,7 @@ export const products: Product[] = [
         ],
         "price": 8.0,
         "inventory": 500,
-        "image": "/products/sgl-product-055.png"
+        "image": "/products/optimized/sgl-product-055.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/reflective-gear-safety-reflector-baby-seagull",
@@ -1315,12 +1315,12 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-059.png",
-      "/products/sgl-product-060.png",
-      "/products/sgl-product-061.png",
-      "/products/sgl-product-062.jpg",
-      "/products/sgl-product-063.jpg",
-      "/products/sgl-product-064.jpg"
+      "/products/optimized/sgl-product-059.webp",
+      "/products/optimized/sgl-product-060.webp",
+      "/products/optimized/sgl-product-061.webp",
+      "/products/optimized/sgl-product-062.webp",
+      "/products/optimized/sgl-product-063.webp",
+      "/products/optimized/sgl-product-064.webp"
     ],
     "description": "Three Seagulls Pin for safer, lighter, and more playful city movement.",
     "details": [
@@ -1338,7 +1338,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 500,
-        "image": "/products/sgl-product-061.png"
+        "image": "/products/optimized/sgl-product-061.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/pin",
@@ -1357,10 +1357,10 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-065.jpg",
-      "/products/sgl-product-066.jpg",
-      "/products/sgl-product-067.jpg",
-      "/products/sgl-product-068.png"
+      "/products/optimized/sgl-product-065.webp",
+      "/products/optimized/sgl-product-066.webp",
+      "/products/optimized/sgl-product-067.webp",
+      "/products/optimized/sgl-product-068.webp"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1378,7 +1378,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 55,
-        "image": "/products/sgl-product-068.png"
+        "image": "/products/optimized/sgl-product-068.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags-purple",
@@ -1397,7 +1397,7 @@ export const products: Product[] = [
     "priceLabel": "55",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-069.jpg"
+      "/products/optimized/sgl-product-069.webp"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1414,7 +1414,7 @@ export const products: Product[] = [
         ],
         "price": 55.0,
         "inventory": 55,
-        "image": "/products/sgl-product-069.jpg"
+        "image": "/products/optimized/sgl-product-069.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags-reflect-grey",
@@ -1433,10 +1433,10 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-070.png",
-      "/products/sgl-product-071.jpg",
-      "/products/sgl-product-072.jpg",
-      "/products/sgl-product-073.jpg"
+      "/products/optimized/sgl-product-070.webp",
+      "/products/optimized/sgl-product-071.webp",
+      "/products/optimized/sgl-product-072.webp",
+      "/products/optimized/sgl-product-073.webp"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1453,7 +1453,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 55,
-        "image": "/products/sgl-product-070.png"
+        "image": "/products/optimized/sgl-product-070.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handleber-bags-red",
@@ -1472,7 +1472,7 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-074.png"
+      "/products/optimized/sgl-product-074.webp"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1489,7 +1489,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 50,
-        "image": "/products/sgl-product-074.png"
+        "image": "/products/optimized/sgl-product-074.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handleber-bags-grey",
@@ -1508,12 +1508,12 @@ export const products: Product[] = [
     "priceLabel": "55",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-075.jpg",
-      "/products/sgl-product-076.jpg",
-      "/products/sgl-product-077.jpg",
-      "/products/sgl-product-078.jpg",
-      "/products/sgl-product-079.jpg",
-      "/products/sgl-product-080.png"
+      "/products/optimized/sgl-product-075.webp",
+      "/products/optimized/sgl-product-076.webp",
+      "/products/optimized/sgl-product-077.webp",
+      "/products/optimized/sgl-product-078.webp",
+      "/products/optimized/sgl-product-079.webp",
+      "/products/optimized/sgl-product-080.webp"
     ],
     "description": "Water-resistant Practical Functionality External stretch mesh pocket",
     "details": [
@@ -1530,7 +1530,7 @@ export const products: Product[] = [
         ],
         "price": 55.0,
         "inventory": 50,
-        "image": "/products/sgl-product-075.jpg"
+        "image": "/products/optimized/sgl-product-075.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags",
@@ -1549,7 +1549,7 @@ export const products: Product[] = [
     "priceLabel": "1999",
     "badge": "7 Variants",
     "images": [
-      "/products/sgl-product-081.jpg"
+      "/products/optimized/sgl-product-081.webp"
     ],
     "description": "Chrissy Ti from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
     "details": [
@@ -1574,7 +1574,7 @@ export const products: Product[] = [
         ],
         "price": 1999.0,
         "inventory": 3,
-        "image": "/products/sgl-product-081.jpg"
+        "image": "/products/optimized/sgl-product-081.webp"
       },
       {
         "sku": "",
@@ -1713,10 +1713,10 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "Shopify Import",
     "images": [
-      "/products/sgl-product-082.png",
-      "/products/sgl-product-083.jpg",
-      "/products/sgl-product-084.png",
-      "/products/sgl-product-085.png"
+      "/products/optimized/sgl-product-082.webp",
+      "/products/optimized/sgl-product-083.webp",
+      "/products/optimized/sgl-product-084.webp",
+      "/products/optimized/sgl-product-085.webp"
     ],
     "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
     "details": [
@@ -1734,7 +1734,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 1000,
-        "image": "/products/sgl-product-082.png"
+        "image": "/products/optimized/sgl-product-082.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/cover",
