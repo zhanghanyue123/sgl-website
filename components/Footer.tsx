@@ -1,20 +1,57 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="border-t border-sglInk bg-sglInk text-sglCream">
-      <div className="mx-auto grid max-w-sgl gap-8 px-4 py-12 md:grid-cols-3 md:px-8">
+      <div className="mx-auto grid max-w-sgl gap-8 px-4 py-10 md:grid-cols-[1.2fr_0.8fr_0.8fr] md:px-8">
         <div>
-          <p className="text-3xl font-black uppercase">SGL</p>
-          <p className="mt-3 max-w-sm text-sm leading-6 opacity-80">
-            Urban riding goods, station life, and small rituals for everyday movement.
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
+            Seagull Station
+          </p>
+
+          <h2 className="mt-3 max-w-xl text-3xl font-black uppercase leading-tight">
+            Urban riding, station goods and small adventures.
+          </h2>
+
+          <p className="mt-4 max-w-xl text-sm leading-6 opacity-70">
+            SGL is a city station for riding, coffee, light food, goods,
+            events, characters and future check-in missions.
           </p>
         </div>
-        <div className="text-sm leading-6">
-          <p className="font-bold uppercase tracking-wide text-sglAcid">Commerce</p>
-          <p className="mt-3 opacity-80">Replace the temporary Shopify links with Taobao, WeChat Mini Program, or staff contact links.</p>
+
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-sglAcid">
+            Explore
+          </p>
+
+          <div className="mt-4 grid gap-2 text-sm font-bold uppercase">
+            <Link href="/shop">Shop</Link>
+            <Link href="/station">Station</Link>
+            <Link href="/events">Events</Link>
+            <Link href="/universe">Universe</Link>
+            <Link href="/about">About</Link>
+          </div>
         </div>
-        <div className="text-sm leading-6">
-          <p className="font-bold uppercase tracking-wide text-sglCyan">Station</p>
-          <p className="mt-3 opacity-80">Add address, opening hours, menu QR, and ride group entrance here.</p>
+
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-sglAcid">
+            Contact
+          </p>
+
+          <div className="mt-4 grid gap-2 text-sm font-bold uppercase">
+            <Link href="/contact">Contact SGL</Link>
+            <a href="mailto:hello@theseagulllabs.com">
+              hello@theseagulllabs.com
+            </a>
+            <p>WeChat: seagulllabs</p>
+            <a
+              href="https://www.instagram.com/seagulllabs"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram: @seagulllabs
+            </a>
+          </div>
         </div>
       </div>
     </footer>

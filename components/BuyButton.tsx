@@ -1,11 +1,18 @@
 import type { Product } from "@/data/products";
 
 export default function BuyButton({ product }: { product: Product }) {
+  const buyLinks = product.buyLinks as {
+    stripe?: string;
+    taobao?: string;
+    miniProgram?: string;
+    contact?: string;
+  };
+
   const links = [
-    { label: "Buy Now", href: product.temporaryShopifyUrl },
-    { label: "Taobao", href: product.buyLinks.taobao },
-    { label: "Mini Program", href: product.buyLinks.miniProgram },
-    { label: "Contact Staff", href: product.buyLinks.contact }
+    { label: "Buy Now", href: buyLinks.stripe },
+    { label: "Taobao", href: buyLinks.taobao },
+    { label: "Mini Program", href: buyLinks.miniProgram },
+    { label: "Contact Staff", href: buyLinks.contact || "/contact" }
   ].filter((item) => item.href);
 
   return (

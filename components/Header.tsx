@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const nav = [
@@ -12,11 +13,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-sglInk bg-sglCream/95 backdrop-blur">
       <div className="mx-auto flex max-w-sgl items-center justify-between px-4 py-3 md:px-8">
-        <Link href="/" className="flex items-center">
-          <img
+        <Link href="/" className="relative block h-9 w-[150px] md:h-11 md:w-[185px]">
+          <Image
             src="/sgl-logo.png"
             alt="Seagull Station"
-            className="h-9 w-auto md:h-11"
+            fill
+            priority
+            sizes="185px"
+            className="object-contain object-left"
           />
         </Link>
 
