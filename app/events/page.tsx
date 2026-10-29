@@ -1,3 +1,4 @@
+import Films from "@/components/Films";
 import Link from "next/link";
 
 const events = [
@@ -70,6 +71,8 @@ export default function EventsPage() {
           </div>
         </div>
       </div>
+
+      <div className="mx-auto max-w-sgl px-4 pt-10 md:px-8"><Films /></div>
 
       <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="mb-8">

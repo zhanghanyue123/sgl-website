@@ -43,7 +43,7 @@ export default function Footer() {
             <a href="mailto:hello@theseagulllabs.com">
               hello@theseagulllabs.com
             </a>
-            <p>WeChat: seagulllabs</p>
+            <a href="https://www.youtube.com/@seagulllabs" target="_blank" rel="noopener noreferrer">YouTube: @seagulllabs</a>
             <a
               href="https://www.instagram.com/seagulllabs"
               target="_blank"

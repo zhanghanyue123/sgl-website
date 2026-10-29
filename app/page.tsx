@@ -166,6 +166,8 @@ export default function Home() {
           </h2>
         </div>
 
+        <div className="mb-8"><Films /></div>
+
         <div className="grid gap-4 md:grid-cols-3">
           {events.map((event) => (
             <div key={event.title} className="border border-sglInk bg-sglCream p-6">
@@ -180,7 +182,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <Films />
     </div>
   );
 }
