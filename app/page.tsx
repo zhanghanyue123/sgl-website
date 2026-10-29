@@ -1,3 +1,4 @@
+import Films from "@/components/Films";
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import { events } from "@/data/events";
@@ -179,6 +180,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <Films />
     </div>
   );
 }
