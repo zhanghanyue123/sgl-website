@@ -34,6 +34,10 @@ const formats = [
 export default function EventsPage() {
   return (
     <section>
+      <div className="bg-black">
+        <div className="mx-auto max-w-sgl"><Films /></div>
+      </div>
+
       <div className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
@@ -71,8 +75,6 @@ export default function EventsPage() {
           </div>
         </div>
       </div>
-
-      <div className="mx-auto max-w-sgl px-4 pt-10 md:px-8"><Films /></div>
 
       <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="mb-8">
