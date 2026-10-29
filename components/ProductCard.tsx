@@ -33,7 +33,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
 
           <p className="border border-sglInk bg-sglAcid px-3 py-1 text-sm font-black">
-            ¥ {product.priceLabel}
+            $ {product.priceLabel}
           </p>
         </div>
       </div>

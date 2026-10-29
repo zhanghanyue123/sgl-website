@@ -70,7 +70,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         </h1>
 
         <p className="mt-5 inline-block border border-sglInk bg-sglAcid px-5 py-2 text-xl font-black">
-          ¥ {product.priceLabel}
+          $ {product.priceLabel}
         </p>
 
         <p className="mt-8 max-w-3xl text-lg leading-8 opacity-80">

@@ -25,6 +25,7 @@ export async function POST(request: Request) {
     });
     const cartHash = createHash("sha256").update(JSON.stringify(items)).digest("hex");
     const quote = parseQuote(await opsRequest("/checkout/quotes", { items, cartHash }, requestKey));
+    if (quote.currency !== "usd") throw new StoreError(409, "结账币种必须与网站美元标价一致。");
     // Stripe prices and shipping must match the persisted OPS quote exactly.
     for (const line of quote.lines) {
       const price = await stripe.prices.retrieve(line.priceId);

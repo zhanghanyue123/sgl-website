@@ -15,7 +15,7 @@ export default function ProductPurchase({ product }: { product: Product }) {
         {product.variants.map((option, index) => <option key={index} value={index}>{option.options.map(item => item.value).join(" / ") || option.sku || `Option ${index + 1}`}</option>)}
       </select>
     </label>}
-    <p className="my-4 text-2xl font-black">¥ {price.toFixed(2)}</p>
+    <p className="my-4 text-2xl font-black">$ {price.toFixed(2)}</p>
     <label className="block font-bold">Quantity / 数量
       <select className="ml-4 border border-sglInk bg-sglPaper p-2" value={quantity} onChange={event => { setQuantity(Number(event.target.value)); setAdded(false); }}>{Array.from({ length: 10 }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select>
     </label>
