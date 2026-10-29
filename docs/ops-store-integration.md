@@ -1,8 +1,8 @@
 # SGL store integration status
 
-## Implemented locally
+## Implemented
 
-Branch: feature/ops-store. Product variant selection, quantity selection, browser-persisted cart, removal and subtotal display. Build passed. Not published.
+Branch: feature/ops-store. Product variant selection, quantity selection, browser-persisted cart, removal and subtotal display. Build passed. Payment routes are implemented but default to disabled. See stripe-setup.md for the required OPS contract; the actual OPS backend and administration screens remain unconnected.
 
 ## Confirmed requirements
 

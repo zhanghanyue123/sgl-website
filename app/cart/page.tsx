@@ -1,9 +1,28 @@
 "use client";
 import Link from "next/link";
+import { useRef, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { getProduct } from "@/data/products";
 export default function CartPage() {
   const { lines, ready, storageError, setQuantity } = useCart();
+  const paymentsEnabled = process.env.NEXT_PUBLIC_STORE_CHECKOUT_ENABLED === "true";
+  const [busy, setBusy] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
+  const attempt = useRef({ cart: "", key: "" });
+  async function checkout() {
+    if (busy || !ready) return;
+    setBusy(true); setCheckoutError("");
+    const cart = JSON.stringify(lines);
+    if (attempt.current.cart !== cart) attempt.current = { cart, key: crypto.randomUUID() };
+    try {
+      const response = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json", "Idempotency-Key": attempt.current.key }, body: JSON.stringify({ items: lines }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "暂时无法结账，请稍后重试。");
+      const url = new URL(result.url);
+      if (url.protocol !== "https:" || url.hostname !== "checkout.stripe.com") throw new Error("支付页面地址无效，请联系 SGL。");
+      window.location.assign(url.href);
+    } catch (error) { setCheckoutError(error instanceof Error ? error.message : "暂时无法结账，请稍后重试。"); setBusy(false); }
+  }
   const items = lines.flatMap(line => { const product = getProduct(line.slug); return product ? [{ ...line, product, price: Math.round((product.variants[line.variant]?.price ?? product.price) * 100) }] : []; });
   const total = items.reduce((sum, line) => sum + line.price * line.quantity, 0);
   return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8">
@@ -15,6 +34,8 @@ export default function CartPage() {
       </article>)}</div>
       <p className="mt-8 text-2xl font-black">商品小计 ¥ {(total / 100).toFixed(2)}</p>
       <p className="mt-3">运费和库存需确认；购物车不会预留库存。</p>
+      <button disabled={busy || !ready || !paymentsEnabled} onClick={checkout} className="mt-6 block border border-sglInk bg-sglInk p-4 font-bold text-sglCream disabled:opacity-50">{!paymentsEnabled ? "在线支付暂未开放" : busy ? "正在准备支付…" : "CHECKOUT / 前往支付"}</button>
+      {checkoutError && <p role="alert" className="mt-4">{checkoutError}</p>}
       <Link className="mt-6 inline-block border border-sglInk bg-sglAcid p-4 font-bold" href="/contact">联系 SGL 确认订单</Link>
     </>}
     {storageError && <p role="status" className="mt-5">浏览器无法保存购物车，关闭页面后可能丢失。</p>}
