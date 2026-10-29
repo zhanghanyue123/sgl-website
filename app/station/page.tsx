@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const stationBlocks = [
@@ -26,6 +27,19 @@ const stationBlocks = [
 export default function StationPage() {
   return (
     <section>
+      <div className="border-b border-sglInk bg-sglInk">
+        <div className="mx-auto max-w-sgl">
+          <Image
+            src="/station/seagull-sunset.webp"
+            alt="Seagull characters gathering at the SeaGull Labs coffee station in warm sunset light"
+            width={1672}
+            height={941}
+            priority
+            sizes="(max-width: 1440px) 100vw, 1440px"
+            className="h-auto w-full"
+          />
+        </div>
+      </div>
       <div className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
