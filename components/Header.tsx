@@ -35,6 +35,7 @@ export default function Header() {
             </Link>
           ))}
         </nav>
+        <Link href="/cart" className="ml-4 text-sm font-black uppercase">Cart</Link>
       </div>
     </header>
   );

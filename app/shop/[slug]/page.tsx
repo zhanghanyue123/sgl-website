@@ -1,3 +1,4 @@
+import ProductPurchase from "@/components/ProductPurchase";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
@@ -89,24 +90,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </div>
         )}
 
-        {product.variants.length > 0 && (
-          <div className="mt-8 border border-sglInk bg-sglPaper p-5">
-            <h2 className="text-lg font-black uppercase">Options</h2>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {product.variants.slice(0, 16).map((variant, index) => (
-                <span
-                  key={`${variant.sku}-${index}`}
-                  className="border border-sglInk bg-sglCream px-3 py-2 text-xs font-bold"
-                >
-                  {variant.options.length > 0
-                    ? variant.options.map((option) => option.value).join(" / ")
-                    : variant.sku || `Option ${index + 1}`}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
+        <ProductPurchase product={product} />
 
         <div className="mt-8">
           <BuyButton product={product} />
