@@ -29,6 +29,7 @@ export default function Footer() {
             <Link href="/station">Station</Link>
             <Link href="/events">Events</Link>
             <Link href="/universe">Universe</Link>
+            <Link href="/app">App &amp; Mini Program</Link>
             <Link href="/about">About</Link>
           </div>
         </div>

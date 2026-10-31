@@ -6,6 +6,7 @@ const nav = [
   { href: "/station", label: "Station" },
   { href: "/events", label: "Events" },
   { href: "/universe", label: "Universe" },
+  { href: "/app", label: "App" },
   { href: "/about", label: "About" }
 ];
 
@@ -24,7 +25,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-bold uppercase tracking-wide md:flex">
+        <nav className="hidden items-center gap-4 text-sm font-bold uppercase tracking-wide md:flex">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -37,6 +38,9 @@ export default function Header() {
         </nav>
         <Link href="/cart" className="ml-4 text-sm font-black uppercase">Cart</Link>
       </div>
+      <nav aria-label="Mobile navigation" className="flex gap-5 overflow-x-auto border-t border-sglInk/10 px-4 py-2 text-xs font-bold uppercase tracking-wide md:hidden">
+        {nav.map((item) => <Link key={item.href} href={item.href} className="shrink-0 py-1">{item.label}</Link>)}
+      </nav>
     </header>
   );
 }

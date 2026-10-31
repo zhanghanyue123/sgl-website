@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "SGL | Seagull Station",
-  description: "Urban riding goods, station life, and everyday movement."
+  description: "Urban riding goods, station life, and everyday movement.",
+  verification: { google: "g3m_seOMh_Q8f8M_fOEnKPfjTPbyJpDPiPnvaIRXKDU" }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
