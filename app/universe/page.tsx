@@ -91,6 +91,17 @@ export default function UniversePage() {
         </div>
       </div>
 
+      <div className="border-b border-sglInk bg-sglInk">
+        <Image
+          src="/characters/sgl-birds-night.webp"
+          alt="SGL 鸟儿们在城市酒吧相聚的夜晚，暖色灯光下的角色群像"
+          width={2400}
+          height={800}
+          sizes="100vw"
+          className="h-auto w-full"
+        />
+      </div>
+
       <div id="meet-the-birds" className="mx-auto max-w-sgl scroll-mt-20 px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
