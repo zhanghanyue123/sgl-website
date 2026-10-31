@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Films from "@/components/Films";
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import { events } from "@/data/events";
 import { storefrontProducts } from "@/data/products";
+
+export const metadata: Metadata = {
+  title: "The Seagull Labs (SGL) — Urban Lifestyle & Cycling"
+};
 
 export default function Home() {
   return (

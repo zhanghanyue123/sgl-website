@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import ProductCard from "@/components/ProductCard";
 import { categories, getProductsByCategory } from "@/data/products";
+
+export const metadata: Metadata = {
+  title: "Shop Cycling Accessories & Lifestyle Goods — SGL"
+};
 
 const categoryLabels = {
   "BIKES / FRAMES": "Frames",
