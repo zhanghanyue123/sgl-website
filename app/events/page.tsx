@@ -3,7 +3,52 @@ import Films from "@/components/Films";
 import Link from "next/link";
 import Image from "next/image";
 
-export const metadata = pageMetadata("SGL Events — Community Rides, Pop-ups & ISPO", "Explore SGL community ride formats, station gatherings and exhibition moments, including ISPO Shanghai. Watch our films and discover ways to meet the crew.", "/events");
+export const metadata = pageMetadata("SGL Events — Community Rides, Pop-ups & ISPO", "Explore SGL at the 2026 Shanghai International Bicycle Exhibition and ISPO, plus community rides, outdoor pop-ups and gatherings at Seagull Station.", "/events");
+
+const eventPhotos = [
+  {
+    "name": "cycle-show-2026-visitors",
+    "width": 1600,
+    "height": 1066,
+    "title": "At the SGL booth",
+    "alt": "Visitors exploring cycling accessories and apparel at the SGL booth at the 2026 Shanghai International Bicycle Exhibition"
+  },
+  {
+    "name": "cycle-show-2026-booth",
+    "width": 1600,
+    "height": 1066,
+    "title": "Goods, characters & cycling culture",
+    "alt": "SGL cycling goods and character artwork displayed at the 2026 Shanghai International Bicycle Exhibition"
+  },
+  {
+    "name": "station-community-ride",
+    "width": 1600,
+    "height": 1200,
+    "title": "Meet at the station",
+    "alt": "Cyclists gathering with their bicycles for a group photo outside Seagull Station"
+  },
+  {
+    "name": "station-evening-gathering",
+    "width": 1600,
+    "height": 1067,
+    "title": "Good company, after sunset",
+    "alt": "Community gathering outside the illuminated Seagull Station in the evening"
+  },
+  {
+    "name": "outdoor-pop-up",
+    "width": 1600,
+    "height": 2133,
+    "title": "Out in the city",
+    "alt": "Visitors browsing goods at an outdoor SGL pop-up stall"
+  },
+  {
+    "name": "station-watch-night",
+    "width": 1600,
+    "height": 2030,
+    "title": "A night at the station",
+    "alt": "An evening football screening with a seated viewer at the station"
+  }
+];
 
 const events = [
   {
@@ -79,6 +124,38 @@ export default function EventsPage() {
           </div>
         </div>
       </div>
+
+      <section id="cycle-show-2026" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Exhibition · Shanghai · 2026</p>
+          <h2 className="mt-3 max-w-5xl text-4xl font-black uppercase leading-tight md:text-6xl">Shanghai International Bicycle Exhibition</h2>
+          <p className="mt-4 max-w-3xl leading-7 opacity-75">Cycling goods, familiar characters and new faces at the SGL booth.</p>
+          <div className="mt-8 grid items-start gap-6 md:grid-cols-2">
+            {eventPhotos.slice(0, 2).map(photo => (
+              <figure key={photo.name} className="overflow-hidden border border-sglInk bg-sglPaper">
+                <Image src={`/events/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 100vw, 50vw" className="h-auto w-full" />
+                <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="community-moments" className="scroll-mt-24 border-b border-sglInk bg-sglInk text-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">Rides · Pop-ups · Gatherings</p>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">Community moments</h2>
+          <p className="mt-4 max-w-3xl leading-7 opacity-75">From a ride with friends to an evening together. A few moments from life around SGL.</p>
+          <div className="mt-8 columns-1 gap-6 md:columns-2">
+            {eventPhotos.slice(2).map(photo => (
+              <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglCream/30">
+                <Image src={`/events/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 100vw, 50vw" className="h-auto w-full" />
+                <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div id="ispo" className="border-b border-sglInk bg-sglCream">
         <figure className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
