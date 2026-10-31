@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const characters = [
   {
     name: "Pickle",
+    image: "/characters/pickle-riding.webp",
     role: "The Rocker",
     text: "Tall, stubborn and free. Pickle represents the rider who keeps moving, refuses to be tamed, and always finds another route through the city.",
     cn: "瘦高、固执、自由。Pickle 代表那个一直在城市里移动、不愿被驯服、总能找到另一条路的骑行者。"
@@ -72,7 +74,7 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <div id="meet-the-birds" className="mx-auto max-w-sgl scroll-mt-20 px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
             Characters
@@ -89,10 +91,20 @@ export default function UniversePage() {
               key={character.name}
               className="border border-sglInk bg-sglPaper p-6 transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#111111]"
             >
-              <div className="flex aspect-square items-center justify-center border border-sglInk bg-sglAcid">
-                <p className="text-7xl font-black uppercase">
-                  {character.name.slice(0, 1)}
-                </p>
+              <div className="relative flex aspect-[2/3] items-center justify-center overflow-hidden border border-sglInk bg-sglAcid">
+                {character.image ? (
+                  <Image
+                    src={character.image}
+                    alt="Pickle wearing a yellow beanie and riding a black bicycle through the city"
+                    fill
+                    sizes="(max-width: 767px) 100vw, 33vw"
+                    className="object-contain bg-sglInk"
+                  />
+                ) : (
+                  <p className="text-7xl font-black uppercase">
+                    {character.name.slice(0, 1)}
+                  </p>
+                )}
               </div>
 
               <p className="mt-5 text-xs font-black uppercase tracking-[0.22em] opacity-60">
