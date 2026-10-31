@@ -21,6 +21,15 @@ const characters = [
     cn: ""
   },
   {
+    name: "Oreo",
+    image: "/characters/oreo-running.webp",
+    imageAlt: "奥利奥 Oreo，戴棕色帽子、穿米色外套和黄色运动鞋在街头跑步",
+    imageClass: "object-contain bg-sglInk",
+    role: "奥利奥",
+    text: "",
+    cn: ""
+  },
+  {
     name: "Tangyuan",
     role: "The Soft One",
     text: "Small, round and warm. Tangyuan carries the gentle side of SGL: family, kids, community, small gifts and soft station moments.",
