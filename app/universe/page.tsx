@@ -30,10 +30,13 @@ const characters = [
     cn: ""
   },
   {
-    name: "Pizza",
-    role: "The Heavy Player",
-    text: "Strong, funny and loyal. Pizza is the station guardian, the one who brings people together after a ride, a meal or a small adventure.",
-    cn: "壮壮的、好笑的、忠诚的。Pizza 是 Station 的守护者，把骑行、食物、朋友和小冒险连接在一起。"
+    name: "Bagel",
+    image: "/characters/bagel-city.webp",
+    imageAlt: "贝果 Bagel，穿着米色外套的喜鹊倚在城市街头的 SGL 配送车旁",
+    imageClass: "object-contain bg-sglInk",
+    role: "贝果 · The City Courier",
+    text: "A magpie with a city map in mind and a delivery always on the way. Bagel connects the stations, streets and everyday stories of SGL.",
+    cn: "脑海里装着城市地图，脚步里带着下一站的消息。喜鹊贝果穿梭街巷，把 SGL 的 Station 和日常故事连接起来。"
   }
 ];
 
