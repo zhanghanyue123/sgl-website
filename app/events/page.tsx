@@ -1,5 +1,6 @@
 import Films from "@/components/Films";
 import Link from "next/link";
+import Image from "next/image";
 
 const events = [
   {
@@ -74,6 +75,28 @@ export default function EventsPage() {
             </Link>
           </div>
         </div>
+      </div>
+
+      <div id="ispo" className="border-b border-sglInk bg-sglCream">
+        <figure className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <figcaption className="mb-6">
+            <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
+              Exhibition · Shanghai
+            </p>
+            <h2 className="mt-2 text-4xl font-black uppercase md:text-6xl">
+              SGL at ISPO
+            </h2>
+            <p className="mt-4 leading-7 opacity-75">ISPO 展会现场，与 SGL 相遇。</p>
+          </figcaption>
+          <Image
+            src="/events/ispo-shanghai.webp"
+            alt="ISPO 上海展会现场，观众聚集在 Sea Gull 展位前参观商品与角色展示"
+            width={1920}
+            height={1280}
+            sizes="(max-width: 767px) 100vw, 1280px"
+            className="h-auto w-full border border-sglInk"
+          />
+        </figure>
       </div>
 
       <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
