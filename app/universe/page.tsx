@@ -30,12 +30,6 @@ const characters = [
     cn: ""
   },
   {
-    name: "Tangyuan",
-    role: "The Soft One",
-    text: "Small, round and warm. Tangyuan carries the gentle side of SGL: family, kids, community, small gifts and soft station moments.",
-    cn: "小小的、圆圆的、温暖的。汤圆承载 SGL 柔软的一面：家庭、小朋友、社群、小礼物和停靠时刻。"
-  },
-  {
     name: "Pizza",
     role: "The Heavy Player",
     text: "Strong, funny and loyal. Pizza is the station guardian, the one who brings people together after a ride, a meal or a small adventure.",
