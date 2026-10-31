@@ -5,9 +5,20 @@ const characters = [
   {
     name: "Pickle",
     image: "/characters/pickle-riding.webp",
+    imageAlt: "Pickle wearing a yellow beanie and riding a black bicycle through the city",
+    imageClass: "object-contain bg-sglInk",
     role: "The Rocker",
     text: "Tall, stubborn and free. Pickle represents the rider who keeps moving, refuses to be tamed, and always finds another route through the city.",
     cn: "瘦高、固执、自由。Pickle 代表那个一直在城市里移动、不愿被驯服、总能找到另一条路的骑行者。"
+  },
+  {
+    name: "Fries",
+    image: "/characters/fries.webp",
+    imageAlt: "薯条 Fries，穿着黑色 Sea Gull 上衣的白色小鸟",
+    imageClass: "object-contain bg-white p-4",
+    role: "薯条",
+    text: "",
+    cn: ""
   },
   {
     name: "Tangyuan",
@@ -85,7 +96,7 @@ export default function UniversePage() {
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {characters.map((character) => (
             <div
               key={character.name}
@@ -95,10 +106,10 @@ export default function UniversePage() {
                 {character.image ? (
                   <Image
                     src={character.image}
-                    alt="Pickle wearing a yellow beanie and riding a black bicycle through the city"
+                    alt={character.imageAlt || character.name}
                     fill
-                    sizes="(max-width: 767px) 100vw, 33vw"
-                    className="object-contain bg-sglInk"
+                    sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 25vw"
+                    className={character.imageClass}
                   />
                 ) : (
                   <p className="text-7xl font-black uppercase">
@@ -115,9 +126,9 @@ export default function UniversePage() {
                 {character.name}
               </h2>
 
-              <p className="mt-4 leading-7 opacity-75">{character.text}</p>
+              {character.text && <p className="mt-4 leading-7 opacity-75">{character.text}</p>}
 
-              <p className="mt-4 leading-7 opacity-60">{character.cn}</p>
+              {character.cn && <p className="mt-4 leading-7 opacity-60">{character.cn}</p>}
             </div>
           ))}
         </div>
