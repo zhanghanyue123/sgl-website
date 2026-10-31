@@ -24,7 +24,7 @@ const characters = [
     name: "Oreo",
     image: "/characters/oreo-running.webp",
     imageAlt: "奥利奥 Oreo，戴棕色帽子、穿米色外套和黄色运动鞋在街头跑步",
-    imageClass: "object-contain bg-sglInk",
+    imageClass: "object-cover object-center",
     role: "奥利奥",
     text: "",
     cn: ""
