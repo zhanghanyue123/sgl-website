@@ -175,13 +175,46 @@ export default function UniversePage() {
             </p>
 
             <p>
-              Pickle、汤圆和 Pizza 不只是 IP 形象。它们可以对应不同的会员卡、
+              Pickle、Fries、Oreo 和 Bagel 不只是 IP 形象。它们可以对应不同的会员卡、
               任务路线、商品系列、打卡奖励和 Station 故事，让用户在真实城市里
               参与一个轻量的开放世界。
             </p>
           </div>
         </div>
       </div>
+
+      <section id="app-preview" className="scroll-mt-24 border-b border-sglInk bg-sglInk text-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+          <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">App &amp; Mini Program</p>
+              <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-6xl">Step into the SGL world.</h2>
+              <p className="mt-5 text-lg leading-8 opacity-75">Follow a city story, find your next station and turn everyday stops into small adventures. Explore our English interface previews.</p>
+            </div>
+            <Link href="/app" className="shrink-0 self-start border border-sglAcid bg-sglAcid px-6 py-3 font-black uppercase text-sglInk">Explore the App →</Link>
+          </div>
+          <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {[
+              { file: "story-en", title: "City Stories", label: "App concept", height: 1837 },
+              { file: "map-en", title: "Station Map", label: "Mini program", height: 1846 },
+              { file: "refuel-en", title: "Refuel Menu", label: "Mini program", height: 1846 },
+              { file: "goods-en", title: "Station Goods", label: "Mini program", height: 1846 },
+              { file: "missions-en", title: "Daily Missions", label: "Mini program", height: 1846 }
+            ].map((screen) => (
+              <figure key={screen.file} className="min-w-0">
+                <div className="mx-auto max-w-[300px] overflow-hidden rounded-[2rem] border border-sglCream/30 bg-sglCream p-1.5">
+                  <Image src={`/app/${screen.file}.webp`} alt={`SGL ${screen.title} English interface preview`} width={850} height={screen.height} sizes="(max-width: 639px) 300px, (max-width: 1023px) 45vw, (max-width: 1279px) 30vw, 20vw" className="h-auto w-full rounded-[1.6rem]" />
+                </div>
+                <figcaption className="mt-5 text-center">
+                  <p className="text-xs font-bold uppercase tracking-widest text-sglAcid">{screen.label}</p>
+                  <h3 className="mt-2 text-xl font-black uppercase">{screen.title}</h3>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-8 text-sm opacity-60">Experience in development. Preview screens use sample content; station menu prices are shown in CNY.</p>
+        </div>
+      </section>
 
       <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
