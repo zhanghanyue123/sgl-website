@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Films from "@/components/Films";
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import { events } from "@/data/events";
 import { storefrontProducts } from "@/data/products";
 
-export const metadata: Metadata = {
-  title: "The Seagull Labs (SGL) — Urban Lifestyle & Cycling"
-};
+export const metadata = pageMetadata("The Seagull Labs (SGL) — Urban Lifestyle & Cycling", "Discover The Seagull Labs: cycling accessories, lifestyle goods, Shanghai station life and community adventures. Ride, refuel and explore with SGL.", "/");
+
 
 export default function Home() {
   return (

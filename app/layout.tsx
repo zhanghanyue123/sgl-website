@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.theseagulllabs.com"),
   title: "SGL | Seagull Station",
   description: "Urban riding goods, station life, and everyday movement.",
   verification: { google: "g3m_seOMh_Q8f8M_fOEnKPfjTPbyJpDPiPnvaIRXKDU" }

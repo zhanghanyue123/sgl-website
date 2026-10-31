@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "SGL Universe — Characters, Stories & City Adventures"
-};
+export const metadata = pageMetadata("SGL Universe — Characters, Stories & City Adventures", "Meet Pickle, Fries, Oreo and Bagel in the SGL Universe. Explore characters, illustrated stories and small adventures inspired by everyday city life.", "/universe");
+
 
 const characters = [
   {

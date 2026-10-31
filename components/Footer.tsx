@@ -31,6 +31,8 @@ export default function Footer() {
             <Link href="/universe">Universe</Link>
             <Link href="/app">App &amp; Mini Program</Link>
             <Link href="/about">About</Link>
+            <Link href="/stockists">Stockists</Link>
+            <Link href="/shipping">Sales &amp; Shipping</Link>
           </div>
         </div>
 

@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Seagull Station Shanghai — Coffee, Rides & Community"
-};
+export const metadata = pageMetadata("Seagull Station Shanghai — Coffee, Rides & Community", "Meet Seagull Station in Shanghai: a gathering place for coffee, rides, refreshments and community. Discover station life and plan your next stop.", "/station");
+
 
 const stationBlocks = [
   {

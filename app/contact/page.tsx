@@ -1,4 +1,7 @@
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
+
+export const metadata = pageMetadata("Contact The Seagull Labs — Orders & Collaborations", "Contact SGL for product availability, delivery enquiries, station visits, wholesale and collaborations. Get in touch with The Seagull Labs team.", "/contact");
 
 const contactItems = [
   {
@@ -113,6 +116,8 @@ export default function ContactPage() {
             </p>
 
             <div className="mt-5 grid gap-3">
+              <Link href="/shipping" className="border border-sglCream px-5 py-3 text-center font-black uppercase">Sales &amp; Shipping</Link>
+              <Link href="/stockists" className="border border-sglCream px-5 py-3 text-center font-black uppercase">Stockists</Link>
               <Link
                 href="/shop"
                 className="border border-sglCream px-5 py-3 text-center font-black uppercase"

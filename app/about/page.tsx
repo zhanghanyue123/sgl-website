@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "About The Seagull Labs — Brand & Community"
-};
+export const metadata = pageMetadata("About The Seagull Labs — Brand & Community", "Learn about The Seagull Labs, where cycling culture, station life and community meet. Discover the ideas behind our goods, characters and city adventures.", "/about");
+
 
 const principles = [
   {

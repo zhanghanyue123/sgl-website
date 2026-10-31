@@ -1,8 +1,16 @@
+import Link from "next/link";
+import { pageMetadata, productDescription, productJsonLd, serializeJsonLd } from "@/lib/seo";
 import ProductPurchase from "@/components/ProductPurchase";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
 import { getProduct, storefrontProducts } from "@/data/products";
+
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const product = getProduct(params.slug);
+  if (!product) return { title: "Product not found — SGL", robots: { index: false, follow: false } };
+  return pageMetadata(`${product.title} — SGL Cycling & Lifestyle Goods`, productDescription(product), `/shop/${product.slug}`, product.images[0]);
+}
 
 export function generateStaticParams() {
   return storefrontProducts.map((product) => ({
@@ -28,6 +36,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
   return (
     <section className="mx-auto grid max-w-sgl gap-10 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product)) }} />
       <div>
         <div className="relative aspect-square border border-sglInk bg-sglGraphite p-8">
           <Image
@@ -74,7 +83,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         </p>
 
         <p className="mt-8 max-w-3xl text-lg leading-8 opacity-80">
-          {product.description}
+          {productDescription(product)}
         </p>
 
         {safeDetails.length > 0 && (
@@ -98,8 +107,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
         <p className="mt-5 max-w-2xl text-sm leading-6 opacity-55">
           For current stock, pickup, custom requests or product details, please
-          contact SGL staff.
+          contact SGL staff. Prices are shown in USD. Delivery costs are confirmed separately.
         </p>
+        <Link href="/shipping" className="mt-3 inline-block text-sm font-bold underline">Sales, shipping &amp; returns</Link>
       </div>
     </section>
   );

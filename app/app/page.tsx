@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "SGL App & Mini Program | Ride. Run. Refuel.",
-  description: "Explore the SGL digital experience: station maps, refuel menus, city missions and everyday adventures."
-};
+export const metadata = pageMetadata("SGL App & Mini Program | Ride. Run. Refuel.", "Explore the SGL digital experience: station maps, refuel menus, city missions and everyday adventures. View English app and mini program previews.", "/app");
+
 
 const screens = [
   { file: "map-en.webp", title: "Find your next stop.", label: "01 / Explore", text: "Discover the station, follow a city route and catch up with your crew.", alt: "English SGL Station map interface with a first-stop mission and friends feed" },

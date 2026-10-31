@@ -1,6 +1,9 @@
+import { pageMetadata } from "@/lib/seo";
 import Films from "@/components/Films";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata = pageMetadata("SGL Events — Community Rides, Pop-ups & ISPO", "Explore SGL community ride formats, station gatherings and exhibition moments, including ISPO Shanghai. Watch our films and discover ways to meet the crew.", "/events");
 
 const events = [
   {

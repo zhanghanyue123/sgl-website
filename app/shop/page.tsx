@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import ProductCard from "@/components/ProductCard";
 import { categories, getProductsByCategory } from "@/data/products";
 
-export const metadata: Metadata = {
-  title: "Shop Cycling Accessories & Lifestyle Goods — SGL"
-};
+export const metadata = pageMetadata("Shop Cycling Accessories & Lifestyle Goods — SGL", "Explore SGL cycling accessories, bags, apparel and lifestyle goods. Browse product details and USD prices, and contact our team for availability.", "/shop");
+
 
 const categoryLabels = {
   "BIKES / FRAMES": "Frames",
