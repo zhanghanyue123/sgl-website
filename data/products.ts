@@ -1746,12 +1746,31 @@ export const products: Product[] = [
   }
 ];
 
-export const categories = Array.from(new Set(products.map((product) => product.category)));
+export function isProductReadyForStorefront(product: Product) {
+  const hasImage = product.images.some(
+    (image) => typeof image === "string" && image.trim().length > 0 && !/placeholder/i.test(image)
+  );
+  const normalizedPriceLabel = product.priceLabel.trim().toLowerCase();
+  const hasPrice =
+    Number.isFinite(product.price) &&
+    product.price > 0 &&
+    normalizedPriceLabel.length > 0 &&
+    normalizedPriceLabel !== "tbd" &&
+    normalizedPriceLabel !== "0";
+
+  return hasImage && hasPrice;
+}
+
+export const storefrontProducts = products.filter(isProductReadyForStorefront);
+
+export const categories = Array.from(
+  new Set(storefrontProducts.map((product) => product.category))
+);
 
 export function getProduct(slug: string) {
-  return products.find((product) => product.slug === slug);
+  return storefrontProducts.find((product) => product.slug === slug);
 }
 
 export function getProductsByCategory(category: string) {
-  return products.filter((product) => product.category === category);
+  return storefrontProducts.filter((product) => product.category === category);
 }

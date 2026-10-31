@@ -2,7 +2,7 @@ import Films from "@/components/Films";
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import { events } from "@/data/events";
-import { products } from "@/data/products";
+import { storefrontProducts } from "@/data/products";
 
 export default function Home() {
   return (
@@ -73,7 +73,7 @@ export default function Home() {
               <div>
                 <p className="text-5xl">✦</p>
                 <p className="mt-4 text-2xl font-black uppercase">
-                  {products.length} goods online
+                  {storefrontProducts.length} goods online
                 </p>
                 <p className="mt-2 max-w-sm text-sm uppercase tracking-[0.2em] opacity-70">
                   Bags / socks / caps / station goods / riding accessories

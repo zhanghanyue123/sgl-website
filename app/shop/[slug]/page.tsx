@@ -2,10 +2,10 @@ import ProductPurchase from "@/components/ProductPurchase";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
-import { getProduct, products } from "@/data/products";
+import { getProduct, storefrontProducts } from "@/data/products";
 
 export function generateStaticParams() {
-  return products.map((product) => ({
+  return storefrontProducts.map((product) => ({
     slug: product.slug
   }));
 }
