@@ -153,9 +153,11 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-001.webp",
       "/products/optimized/sgl-product-002.webp"
     ],
-    "description": "Chrissy P from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
+    "description": "Chrissy P is a preserved SeaGull Labs bicycle model with an aluminum alloy frame. This record remains part of the product archive.",
     "details": [
-      "2 variants imported from Shopify"
+      "Aluminum alloy frame",
+      "Archived SGL bicycle model",
+      "Size and colour options recorded"
     ],
     "variants": [
       {
@@ -210,10 +212,11 @@ export const products: Product[] = [
     "images": [
       "/products/optimized/sgl-product-003.webp"
     ],
-    "description": "Chrissy M from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
+    "description": "Chrissy M is a preserved SeaGull Labs bicycle model with an aluminum alloy frame. This record remains part of the product archive.",
     "details": [
-      "Tags: Bike",
-      "2 variants imported from Shopify"
+      "Aluminum alloy frame",
+      "Archived SGL bicycle model",
+      "Size options recorded"
     ],
     "variants": [
       {
@@ -261,10 +264,11 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-005.webp",
       "/products/optimized/sgl-product-006.webp"
     ],
-    "description": "Chrissy from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
+    "description": "An original SeaGull Labs Chrissy bicycle model with an aluminum alloy frame. Contact SGL for current configuration, sizing and availability.",
     "details": [
-      "Type: Bike",
-      "8 variants imported from Shopify"
+      "Aluminum alloy frame",
+      "Original SGL bicycle model",
+      "Options vary by size and colour"
     ],
     "variants": [
       {
@@ -417,11 +421,11 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-009.webp",
       "/products/optimized/sgl-product-010.webp"
     ],
-    "description": "Chrissy Team from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
+    "description": "The Chrissy Team is an original SeaGull Labs bicycle model with an aluminum alloy frame. Contact SGL for current configuration, sizing and availability.",
     "details": [
-      "Type: Bike",
-      "Tags: Bike",
-      "8 variants imported from Shopify"
+      "Aluminum alloy frame",
+      "Original SGL bicycle model",
+      "Options vary by size and colour"
     ],
     "variants": [
       {
@@ -571,11 +575,11 @@ export const products: Product[] = [
     "images": [
       "/products/optimized/sgl-product-011.webp"
     ],
-    "description": "Chrissy Special from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
+    "description": "The Chrissy Special is an original SeaGull Labs bicycle model with an aluminum alloy frame. Contact SGL for current configuration, sizing and availability.",
     "details": [
-      "Type: Bike",
-      "Tags: Bike",
-      "2 variants imported from Shopify"
+      "Aluminum alloy frame",
+      "Original SGL bicycle model",
+      "Size and style options available"
     ],
     "variants": [
       {
@@ -625,13 +629,13 @@ export const products: Product[] = [
     "category": "Bags & Carry",
     "price": 30.0,
     "priceLabel": "30",
-    "badge": "Shopify Import",
+    "badge": "Everyday Carry",
     "images": [
       "/products/seat-bag-detail.webp"
     ],
-    "description": "Seat Bag for city riding, station stops, travel, and everyday carry.",
+    "description": "A compact SGL seat bag designed to carry small essentials beneath a bicycle saddle.",
     "details": [
-      "Type: bags"
+      "Bicycle saddle bag"
     ],
     "variants": [
       {
@@ -661,13 +665,13 @@ export const products: Product[] = [
     "category": "Wear & Ride",
     "price": 18.0,
     "priceLabel": "18",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-socks.svg"
     ],
-    "description": "Socks for park loops, commuting, and daily movement.",
+    "description": "A preserved SGL socks record awaiting confirmed imagery, specifications and sale status.",
     "details": [
-      "Type: Socks"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -693,17 +697,17 @@ export const products: Product[] = [
   {
     "slug": "transporter-wheeled-duffel",
     "originalHandle": "transporter-wheeled-duffel",
-    "title": "Bike Transport Case ｜ Carrier Bag",
+    "title": "Bike Transport Case / Carrier Bag",
     "category": "Bags & Carry",
     "price": 260.0,
     "priceLabel": "260",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-bag.svg"
     ],
-    "description": "Bike Transport Case ｜ Carrier Bag for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL bicycle transport case record awaiting confirmed imagery, specifications and sale status.",
     "details": [
-      "Type: luggage"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -729,11 +733,11 @@ export const products: Product[] = [
   {
     "slug": "sports-bandana-outdoor-magic-scarf",
     "originalHandle": "sports-bandana-outdoor-magic-scarf",
-    "title": "Sports Bandana | Outdoor Magic Scarf",
+    "title": "SGL Sports Bandana",
     "category": "Wear & Ride",
     "price": 20.0,
     "priceLabel": "20",
-    "badge": "Shopify Import",
+    "badge": "SGL Print",
     "images": [
       "/products/optimized/sgl-product-015.webp",
       "/products/optimized/sgl-product-016.webp",
@@ -743,9 +747,9 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-020.webp",
       "/products/optimized/sgl-product-021.webp"
     ],
-    "description": "Sports Bandana | Outdoor Magic Scarf for park loops, commuting, and daily movement.",
+    "description": "A printed SGL sports bandana for riding, outdoor activity and everyday wear.",
     "details": [
-      "Tags: Bandana"
+      "Printed SGL design"
     ],
     "variants": [
       {
@@ -776,13 +780,13 @@ export const products: Product[] = [
     "category": "Bags & Carry",
     "price": 0,
     "priceLabel": "TBD",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-bag.svg"
     ],
-    "description": "Tote Bag for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL tote bag record retained as part of the product archive.",
     "details": [
-      "Type: bags"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -812,14 +816,13 @@ export const products: Product[] = [
     "category": "Bags & Carry",
     "price": 0,
     "priceLabel": "TBD",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-bag.svg"
     ],
-    "description": "Toiletry Bag for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL toiletry bag record awaiting confirmed imagery, specifications and sale status.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -849,14 +852,14 @@ export const products: Product[] = [
     "category": "Bags & Carry",
     "price": 0,
     "priceLabel": "TBD",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-bag.svg"
     ],
-    "description": "18-22inch Bike",
+    "description": "An archived SGL bicycle cover record labelled for 18–22 inch bicycles.",
     "details": [
-      "Type: bags",
-      "18-22inch Bike"
+      "Recorded fit: 18–22 inch bicycles",
+      "Archived product record"
     ],
     "variants": [
       {
@@ -882,18 +885,17 @@ export const products: Product[] = [
   {
     "slug": "shoe-sack-fot-travel",
     "originalHandle": "shoe-sack-fot-travel",
-    "title": "Shoe Sack for Travel",
+    "title": "Travel Shoe Bag",
     "category": "Bags & Carry",
     "price": 0,
     "priceLabel": "TBD",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-bag.svg"
     ],
-    "description": "Shoe Sack for Travel for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL travel shoe bag record awaiting confirmed imagery, specifications and sale status.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -931,10 +933,10 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-025.webp",
       "/products/optimized/sgl-product-026.webp"
     ],
-    "description": "Bike Cover M for city riding, station stops, travel, and everyday carry.",
+    "description": "An SGL bicycle cover in size M for covering a bicycle between rides.",
     "details": [
-      "Type: bags",
-      "5 variants imported from Shopify"
+      "Size: M",
+      "Colour options available"
     ],
     "variants": [
       {
@@ -1008,17 +1010,17 @@ export const products: Product[] = [
   {
     "slug": "reveal-shoe-sack",
     "originalHandle": "reveal-shoe-sack",
-    "title": "Shoe Sack for Sport Shoes / Shoe Box",
+    "title": "SGL Shoe Bag",
     "category": "Bags & Carry",
     "price": 15.0,
     "priceLabel": "15",
-    "badge": "Shopify Import",
+    "badge": "Travel",
     "images": [
       "/products/optimized/sgl-product-027.webp"
     ],
-    "description": "Shoe Sack for Sport Shoes / Shoe Box for city riding, station stops, travel, and everyday carry.",
+    "description": "A zippered SGL bag for carrying and separating a pair of shoes while travelling or training.",
     "details": [
-      "Type: bags"
+      "Zippered shoe bag"
     ],
     "variants": [
       {
@@ -1045,21 +1047,20 @@ export const products: Product[] = [
     "slug": "sportglassea-case",
     "hidden": true,
     "originalHandle": "sportglassea-case",
-    "title": "Sportglasses Case ｜ Eyewear Cases",
+    "title": "Sports Glasses Case",
     "category": "Bags & Carry",
     "price": 29.0,
     "priceLabel": "29",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/optimized/sgl-product-028.webp",
       "/products/optimized/sgl-product-029.webp",
       "/products/optimized/sgl-product-030.webp",
       "/products/optimized/sgl-product-031.webp"
     ],
-    "description": "Sportglasses Case ｜ Eyewear Cases for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL sports glasses case record retained as part of the product archive.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -1086,11 +1087,11 @@ export const products: Product[] = [
     "slug": "tote-bag",
     hidden: true,
     "originalHandle": "tote-bag",
-    "title": "Tote Bag /Messenger Bag",
+    "title": "Tote / Messenger Bag",
     "category": "Bags & Carry",
     "price": 102.0,
     "priceLabel": "102",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/optimized/sgl-product-032.webp",
       "/products/optimized/sgl-product-033.webp",
@@ -1099,10 +1100,9 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-036.webp",
       "/products/optimized/sgl-product-037.webp"
     ],
-    "description": "Tote Bag /Messenger Bag for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL tote and messenger bag record retained as part of the product archive.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -1129,7 +1129,7 @@ export const products: Product[] = [
     "slug": "velvet-fleece-bicycle-handlebar-covers",
     hidden: true,
     "originalHandle": "velvet-fleece-bicycle-handlebar-covers",
-    "title": "Velvet fleece bicycle handlebar Grips",
+    "title": "Velvet Fleece Bicycle Handlebar Grips",
     "category": "Bags & Carry",
     "price": 22.0,
     "priceLabel": "22",
@@ -1146,9 +1146,10 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-046.webp",
       "/products/optimized/sgl-product-047.webp"
     ],
-    "description": "Velvet fleece bicycle handlebar Grips for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL velvet fleece bicycle handlebar grip record retained as part of the product archive.",
     "details": [
-      "5 variants imported from Shopify"
+      "Five colour options recorded",
+      "Archived product record"
     ],
     "variants": [
       {
@@ -1222,18 +1223,17 @@ export const products: Product[] = [
   {
     "slug": "copy-of-overshoes-oversocks",
     "originalHandle": "copy-of-overshoes-oversocks",
-    "title": "OverShoes ｜ OverSocks",
+    "title": "Cycling Overshoes / Oversocks",
     "category": "Wear & Ride",
     "price": 0,
     "priceLabel": "TBD",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-socks.svg"
     ],
-    "description": "OverShoes ｜ OverSocks for park loops, commuting, and daily movement.",
+    "description": "A preserved SGL cycling overshoes and oversocks record awaiting confirmed imagery, specifications and sale status.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -1263,14 +1263,13 @@ export const products: Product[] = [
     "category": "Bags & Carry",
     "price": 13.0,
     "priceLabel": "13",
-    "badge": "Shopify Import",
+    "badge": "Archive",
     "images": [
       "/products/placeholder-bag.svg"
     ],
-    "description": "AirTag Case for city riding, station stops, travel, and everyday carry.",
+    "description": "A preserved SGL AirTag case record awaiting confirmed imagery, specifications and sale status.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Archived product record"
     ],
     "variants": [
       {
@@ -1296,7 +1295,7 @@ export const products: Product[] = [
   {
     "slug": "cycling-leg-strap-pant-strap",
     "originalHandle": "cycling-leg-strap-pant-strap",
-    "title": "Cycling leg Strap ｜ Pant Strap",
+    "title": "SGL Cycling Trouser Strap",
     "category": "Wear & Ride",
     "price": 13.0,
     "priceLabel": "13",
@@ -1310,9 +1309,9 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-053.webp",
       "/products/optimized/sgl-product-054.webp"
     ],
-    "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
+    "description": "A wraparound cycling strap designed to keep a trouser cuff close to the leg while riding.",
     "details": [
-      "5 variants imported from Shopify"
+      "Five colour options"
     ],
     "variants": [
       {
@@ -1386,21 +1385,20 @@ export const products: Product[] = [
   {
     "slug": "reflective-gear-safety-reflector-baby-seagull",
     "originalHandle": "reflective-gear-safety-reflector-baby-seagull",
-    "title": "Reflective Gear | Safety Reflector Baby Seagull",
+    "title": "Baby Seagull Reflector",
     "category": "Accessories",
     "price": 8.0,
     "priceLabel": "8",
-    "badge": "Shopify Import",
+    "badge": "Character Gear",
     "images": [
       "/products/optimized/sgl-product-055.webp",
       "/products/optimized/sgl-product-056.webp",
       "/products/optimized/sgl-product-057.webp",
       "/products/optimized/sgl-product-058.webp"
     ],
-    "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
+    "description": "A hanging Baby Seagull reflector designed for bags, keys and everyday carry.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Baby Seagull character design"
     ],
     "variants": [
       {
@@ -1430,7 +1428,7 @@ export const products: Product[] = [
     "category": "Accessories",
     "price": 13.0,
     "priceLabel": "13",
-    "badge": "Shopify Import",
+    "badge": "Set of Three",
     "images": [
       "/products/optimized/sgl-product-059.webp",
       "/products/optimized/sgl-product-060.webp",
@@ -1439,10 +1437,10 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-063.webp",
       "/products/optimized/sgl-product-064.webp"
     ],
-    "description": "Three Seagulls Pin for safer, lighter, and more playful city movement.",
+    "description": "A set of three Seagull character pins presented together on an SGL card.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Set of three pins",
+      "Zinc alloy"
     ],
     "variants": [
       {
@@ -1468,21 +1466,22 @@ export const products: Product[] = [
   {
     "slug": "handlebar-bags-purple",
     "originalHandle": "handlebar-bags-purple",
-    "title": "Handlebar Bags Purple",
+    "title": "SGL Handlebar Bag — Purple",
     "category": "Bags & Carry",
     "price": 50.0,
     "priceLabel": "50",
-    "badge": "Shopify Import",
+    "badge": "Purple",
     "images": [
       "/products/optimized/sgl-product-065.webp",
       "/products/optimized/sgl-product-066.webp",
       "/products/optimized/sgl-product-067.webp",
       "/products/optimized/sgl-product-068.webp"
     ],
-    "description": "Water-resistant Practical Functionality External stretch mesh pocket",
+    "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
     ],
     "variants": [
       {
@@ -1508,17 +1507,19 @@ export const products: Product[] = [
   {
     "slug": "handlebar-bags-reflect-grey",
     "originalHandle": "handlebar-bags-reflect-grey",
-    "title": "Handlebar Bags  Grey/Orange",
+    "title": "SGL Handlebar Bag — Grey / Orange",
     "category": "Bags & Carry",
     "price": 55.0,
     "priceLabel": "55",
-    "badge": "Shopify Import",
+    "badge": "Grey / Orange",
     "images": [
       "/products/optimized/sgl-product-069.webp"
     ],
-    "description": "Water-resistant Practical Functionality External stretch mesh pocket",
+    "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
-      "Type: bags"
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
     ],
     "variants": [
       {
@@ -1544,20 +1545,22 @@ export const products: Product[] = [
   {
     "slug": "handleber-bags-red",
     "originalHandle": "handleber-bags-red",
-    "title": "Handlebar Bags Red",
+    "title": "SGL Handlebar Bag — Red",
     "category": "Bags & Carry",
     "price": 50.0,
     "priceLabel": "50",
-    "badge": "Shopify Import",
+    "badge": "Red",
     "images": [
       "/products/optimized/sgl-product-070.webp",
       "/products/optimized/sgl-product-071.webp",
       "/products/optimized/sgl-product-072.webp",
       "/products/optimized/sgl-product-073.webp"
     ],
-    "description": "Water-resistant Practical Functionality External stretch mesh pocket",
+    "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
-      "Type: bags"
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
     ],
     "variants": [
       {
@@ -1583,17 +1586,19 @@ export const products: Product[] = [
   {
     "slug": "handleber-bags-grey",
     "originalHandle": "handleber-bags-grey",
-    "title": "Handlebar Bags Grey",
+    "title": "SGL Handlebar Bag — Grey",
     "category": "Bags & Carry",
     "price": 50.0,
     "priceLabel": "50",
-    "badge": "Shopify Import",
+    "badge": "Grey",
     "images": [
       "/products/optimized/sgl-product-074.webp"
     ],
-    "description": "Water-resistant Practical Functionality External stretch mesh pocket",
+    "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
-      "Type: bags"
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
     ],
     "variants": [
       {
@@ -1619,11 +1624,11 @@ export const products: Product[] = [
   {
     "slug": "handlebar-bags",
     "originalHandle": "handlebar-bags",
-    "title": "Handlebar Bags Black",
+    "title": "SGL Handlebar Bag — Black",
     "category": "Bags & Carry",
     "price": 55.0,
     "priceLabel": "55",
-    "badge": "Shopify Import",
+    "badge": "Black",
     "images": [
       "/products/optimized/sgl-product-075.webp",
       "/products/optimized/sgl-product-076.webp",
@@ -1632,9 +1637,11 @@ export const products: Product[] = [
       "/products/optimized/sgl-product-079.webp",
       "/products/optimized/sgl-product-080.webp"
     ],
-    "description": "Water-resistant Practical Functionality External stretch mesh pocket",
+    "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
-      "Type: bags"
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
     ],
     "variants": [
       {
@@ -1669,9 +1676,11 @@ export const products: Product[] = [
       "/products/chrissy-ti-street.webp",
       "/products/optimized/sgl-product-081.webp"
     ],
-    "description": "Chrissy Ti from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
+    "description": "Chrissy Ti is an original SeaGull Labs bicycle model built around a titanium alloy frame. Contact SGL for current configuration, sizing and availability.",
     "details": [
-      "7 variants imported from Shopify"
+      "Titanium alloy frame",
+      "Original SGL bicycle model",
+      "Options vary by size and finish"
     ],
     "variants": [
       {
@@ -1825,21 +1834,20 @@ export const products: Product[] = [
   {
     "slug": "cover",
     "originalHandle": "cover",
-    "title": "Reflective Gear | Safety Reflector Biking",
+    "title": "SGL Bicycle Reflector",
     "category": "Accessories",
     "price": 13.0,
     "priceLabel": "13",
-    "badge": "Shopify Import",
+    "badge": "Character Gear",
     "images": [
       "/products/optimized/sgl-product-082.webp",
       "/products/optimized/sgl-product-083.webp",
       "/products/optimized/sgl-product-084.webp",
       "/products/optimized/sgl-product-085.webp"
     ],
-    "description": "Safety at Night High Quality Material Highly Reflective Wide Application",
+    "description": "An illustrated SGL bicycle reflector designed as a hanging accessory for bags and everyday carry.",
     "details": [
-      "Imported from Shopify export",
-      "Replace with final product copy when ready"
+      "SGL cycling character artwork"
     ],
     "variants": [
       {

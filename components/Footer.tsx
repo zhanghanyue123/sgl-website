@@ -14,8 +14,9 @@ export default function Footer() {
           </h2>
 
           <p className="mt-4 max-w-xl text-sm leading-6 opacity-70">
-            SGL is a city station for riding, coffee, light food, goods,
-            events, characters and future check-in missions.
+            SGL connects products, cycling culture, photography, original
+            characters and real community life at Seagull Station. City missions
+            and AR experiences are the next layer in development.
           </p>
         </div>
 

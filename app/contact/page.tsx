@@ -1,7 +1,7 @@
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 
-export const metadata = pageMetadata("Contact The Seagull Labs — Orders & Collaborations", "Contact SGL for product availability, delivery enquiries, station visits, wholesale and collaborations. Get in touch with The Seagull Labs team.", "/contact");
+export const metadata = pageMetadata("Contact The Seagull Labs — Orders & Collaborations", "Contact SGL for product availability, delivery enquiries, Station visits, wholesale, events and collaborations.", "/contact");
 
 const contactItems = [
   {
@@ -21,8 +21,8 @@ const contactItems = [
   },
   {
     title: "Station",
-    value: "Seagull Station",
-    text: "Coffee, drinks, light food, goods, rides and community events."
+    value: "Shanghai · Pudong",
+    text: "China, Shanghai, Pudong New Area, Jinyan Road & Dongxiu Road Plaza, L1. Confirm current opening hours and product availability before visiting."
   }
 ];
 
@@ -82,7 +82,8 @@ export default function ContactPage() {
           <div className="space-y-5 text-lg leading-8">
             <p>
               For quick orders, please send the product name, color, size,
-              quantity, delivery location and preferred payment method.
+              quantity and delivery location. SGL will confirm stock, the final
+              total, payment arrangements and delivery before the order proceeds.
             </p>
 
             <p>

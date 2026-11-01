@@ -2,7 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = pageMetadata("About The Seagull Labs — Brand & Community", "Learn about The Seagull Labs, where cycling culture, station life and community meet. Discover the ideas behind our goods, characters and city adventures.", "/about");
+export const metadata = pageMetadata("About The Seagull Labs — Products, Images & Cycling Culture", "Explore the SGL story through product development, photography, exhibitions, cycling culture, overseas activity, original characters and Seagull Station.", "/about");
 
 
 const principles = [
@@ -12,12 +12,21 @@ const principles = [
   },
   {
     title: "Build from real places",
-    text: "The Station is the anchor. Products, events, characters and future missions all grow from real city nodes."
+    text: "Seagull Station is the physical anchor. Products, events, characters and future missions grow from real encounters in the city."
   },
   {
     title: "Make daily life playable",
-    text: "SGL turns simple actions — riding, checking in, buying a drink, meeting friends — into a light real-world game."
+    text: "SGL develops narrative experiences that connect riding, meeting, collecting and checking in with a wider character world."
   }
+];
+
+const milestones = [
+  { date: "June 9, 2023", text: "The Seagull Labs was founded." },
+  { date: "2025", text: "SGL joined ISPO Shanghai and the Shanghai International Bicycle Exhibition." },
+  { date: "October 2025", text: "Seagull Station began operating in Shanghai." },
+  { date: "2026", text: "SGL returned to the Shanghai International Bicycle Exhibition for a second time." },
+  { date: "June 2026", text: "The SGL WeChat Mini Program launched." },
+  { date: "Early 2027", text: "AR interactions are planned for release, subject to development and testing." }
 ];
 
 export default function AboutPage() {
@@ -30,13 +39,14 @@ export default function AboutPage() {
           </p>
 
           <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-6xl">
-            Seagull Station is a city system for small adventures.
+            Built through products, images, rides and real places.
           </h1>
 
           <p className="mt-7 max-w-3xl text-lg leading-8 opacity-80 md:text-xl">
-            SGL began as a product and riding culture project, then gradually
-            grew into a station-based lifestyle system: goods, coffee, light
-            food, events, characters, routes and future mini program missions.
+            Founded on June 9, 2023, SGL grew from original products, images and
+            cycling culture into exhibitions, a physical Shanghai Station and a
+            launched WeChat Mini Program. Original characters and narrative
+            experiences continue that journey into city missions and AR.
           </p>
 
           <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
@@ -46,6 +56,21 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
+
+      <section className="border-b border-sglInk bg-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+          <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">SGL History</p>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">From products to a connected city world.</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {milestones.map((milestone) => (
+              <article key={milestone.date} className="border border-sglInk bg-sglPaper p-5">
+                <p className="text-sm font-black uppercase tracking-[0.18em]">{milestone.date}</p>
+                <p className="mt-3 leading-7">{milestone.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
         {principles.map((item, index) => (
@@ -71,16 +96,17 @@ export default function AboutPage() {
             </p>
 
             <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
-              Goods, station, community and future app.
+              A physical home and an expanding story world.
             </h2>
           </div>
 
           <div className="space-y-5 text-lg leading-8">
             <p>
-              SGL goods are the objects people can carry. The Station is the
-              physical place where people gather. Events create repeated reasons
-              to return. The mini program connects routes, members, check-ins
-              and rewards.
+              Products carry the visual language of SGL into everyday life.
+              Seagull Station is where people meet, drink, shop and begin a ride.
+              Exhibitions, photographs and events document the culture around it.
+              The mini program, city missions and AR interactions are the digital
+              layer now being developed around that real-world foundation.
             </p>
 
             <p>
@@ -119,9 +145,8 @@ export default function AboutPage() {
             </h2>
 
             <p className="mt-5 text-lg leading-8 opacity-75">
-              Bags, socks, caps, riding accessories, station goods and future
-              seasonal drops made for city routes, park loops and everyday
-              stops.
+              Bicycles, bags, socks, caps, riding accessories and Station goods
+              developed for movement, use and life between destinations.
             </p>
           </div>
 
@@ -131,12 +156,14 @@ export default function AboutPage() {
             </p>
 
             <h2 className="mt-3 text-4xl font-black uppercase">
-              A playable city layer
+              A story world in development
             </h2>
 
             <p className="mt-5 text-lg leading-8 opacity-75">
-              Station nodes, member cards, character missions, route check-ins,
-              events and future app systems that make the city feel more alive.
+              The WeChat Mini Program has been live since June 2026. Original
+              characters, member journeys and route check-ins continue to grow
+              around it. AR interactions are currently in development, with a
+              planned release in early 2027.
             </p>
           </div>
         </div>

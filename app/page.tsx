@@ -6,7 +6,7 @@ import ProductGrid from "@/components/ProductGrid";
 import { events } from "@/data/events";
 import { storefrontProducts } from "@/data/products";
 
-export const metadata = pageMetadata("The Seagull Labs (SGL) — Urban Lifestyle & Cycling", "Discover The Seagull Labs: cycling accessories, lifestyle goods, Shanghai station life and community adventures. Ride, refuel and explore with SGL.", "/");
+export const metadata = pageMetadata("The Seagull Labs — Cycling Goods, Station Life & City Stories", "Discover SGL products, cycling culture, photography, characters, Seagull Station and community life in Shanghai.", "/");
 
 
 export default function Home() {
@@ -24,9 +24,10 @@ export default function Home() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 opacity-85 md:text-xl">
-              SGL is a city station for riding, coffee, light food, daily goods,
-              community events and playful check-in missions. A small stop for
-              people moving through parks, streets and everyday routes.
+              The Seagull Labs brings together product design, cycling culture,
+              photography, original characters and a real Shanghai Station for
+              coffee, drinks, goods and community life. City missions and AR
+              interactions carry that world into its next chapter.
             </p>
 
             <p className="mt-5 max-w-2xl text-base leading-7 opacity-70 md:text-lg">
@@ -143,7 +144,7 @@ export default function Home() {
               </p>
               <h3 className="mt-2 text-2xl font-black uppercase">Ride</h3>
               <p className="mt-2 leading-7 opacity-80">
-                Park loops, city routes, night rides and check-in missions.
+                Park loops, city routes, night rides and shared time on two wheels.
               </p>
             </div>
 
@@ -163,7 +164,7 @@ export default function Home() {
               </p>
               <h3 className="mt-2 text-2xl font-black uppercase">Play</h3>
               <p className="mt-2 leading-7 opacity-80">
-                Characters, tasks, maps and a future real-world mini game.
+                Original characters, city missions and AR interactions now in development.
               </p>
             </div>
           </div>

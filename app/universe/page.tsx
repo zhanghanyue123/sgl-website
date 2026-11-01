@@ -2,7 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = pageMetadata("SGL Universe — Characters, Stories & City Adventures", "Meet Pickle, Fries, Oreo and Bagel in the SGL Universe. Explore characters, illustrated stories and small adventures inspired by everyday city life.", "/universe");
+export const metadata = pageMetadata("SGL Universe — Original Characters, Stories & City Missions", "Meet Pickle, Fries, Oreo and Bagel in the SGL Universe, where original characters connect products, real places, city stories and experiences in development.", "/universe");
 
 
 const characters = [
@@ -11,26 +11,26 @@ const characters = [
     image: "/characters/pickle-riding.webp",
     imageAlt: "Pickle wearing a yellow beanie and riding a black bicycle through the city",
     imageClass: "object-contain bg-sglInk",
-    role: "The Rocker",
-    text: "Tall, stubborn and free. Pickle represents the rider who keeps moving, refuses to be tamed, and always finds another route through the city.",
+    role: "SGL Character",
+    text: "A curious little explorer who sees every corner of the city as the beginning of a new adventure.",
     cn: "瘦高、固执、自由。Pickle 代表那个一直在城市里移动、不愿被驯服、总能找到另一条路的骑行者。"
   },
   {
     name: "Fries",
     image: "/characters/fries.webp",
-    imageAlt: "薯条 Fries，穿着黑色 Sea Gull 上衣的白色小鸟",
-    imageClass: "object-contain bg-white p-4",
-    role: "薯条",
-    text: "",
+    imageAlt: "Fries walking outside Seagull Station in a black Sea Gull outfit",
+    imageClass: "object-cover object-center",
+    role: "SGL Character",
+    text: "An energetic and cheerful spirit who brings fun, spontaneity, and a little chaos wherever they go.",
     cn: ""
   },
   {
     name: "Oreo",
     image: "/characters/oreo-running.webp",
-    imageAlt: "奥利奥 Oreo，戴棕色帽子、穿米色外套和黄色运动鞋在街头跑步",
+    imageAlt: "Oreo, an SGL bird character in a brown cap, beige jacket and yellow shoes",
     imageClass: "object-cover object-center",
-    role: "奥利奥",
-    text: "",
+    role: "SGL Character",
+    text: "A quiet, observant thinker who notices the little things everyone else overlooks.",
     cn: ""
   },
   {
@@ -38,19 +38,19 @@ const characters = [
     image: "/characters/bagel-city.webp",
     imageAlt: "贝果 Bagel，穿着米色外套的喜鹊倚在城市街头的 SGL 配送车旁",
     imageClass: "object-contain bg-sglInk",
-    role: "贝果 · The City Courier",
-    text: "A magpie with a city map in mind and a delivery always on the way. Bagel connects the stations, streets and everyday stories of SGL.",
+    role: "SGL Character",
+    text: "A warm and dependable companion who brings everyone together and makes every place feel like home.",
     cn: "脑海里装着城市地图，脚步里带着下一站的消息。喜鹊贝果穿梭街巷，把 SGL 的 Station 和日常故事连接起来。"
   }
 ];
 
 const worldPoints = [
-  "Station nodes",
-  "Park routes",
-  "Member cards",
-  "Check-in missions",
-  "Character rewards",
-  "Mini program stories"
+  "Station nodes · Live",
+  "Park routes · Active",
+  "Member cards · In development",
+  "Check-in missions · In development",
+  "Character rewards · In development",
+  "AR story layers · In development for early 2027"
 ];
 
 export default function UniversePage() {
@@ -79,9 +79,10 @@ export default function UniversePage() {
           </h1>
 
           <p className="mt-7 max-w-3xl text-lg leading-8 opacity-80 md:text-xl">
-            SGL is not only a station or a product brand. It is a small universe
-            built from characters, routes, check-ins, member cards, goods,
-            events and real places in the city.
+            The SGL Universe grows from original characters, products, images,
+            routes, events and real places in the city. Member journeys, city
+            missions and AR interactions are the long-term product layer now
+            being developed around that world.
           </p>
 
           <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
@@ -170,9 +171,15 @@ export default function UniversePage() {
 
           <div className="space-y-5 text-lg leading-8">
             <p>
-              The characters are not only visual mascots. They can become member
-              card types, task guides, reward systems, product lines and story
-              anchors inside the SGL mini program.
+              The characters are original SGL IP, not decoration added to the
+              Station. They carry stories across products, photography,
+              exhibitions and real encounters in the city.
+            </p>
+
+            <p>
+              The SGL WeChat Mini Program launched in June 2026. Character-led
+              journeys continue to develop around it. AR interactions are
+              currently in development, with a planned release in early 2027.
             </p>
 
             <p>
@@ -201,7 +208,7 @@ export default function UniversePage() {
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
-              Coming Next
+              In Development
             </p>
 
             <h2 className="mt-2 text-3xl font-black uppercase">

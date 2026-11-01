@@ -1,17 +1,17 @@
 export const events = [
   {
     title: "Century Park Ride",
-    date: "Spring / Summer",
-    description: "Community ride, station drink, and park loop check-in."
+    date: "Community Format",
+    description: "A shared park loop, followed by a return to the Station for drinks and conversation."
   },
   {
     title: "Night Ride & Beer",
-    date: "Evening Session",
-    description: "A casual collaboration ride with drinks at the station."
+    date: "Evening Format",
+    description: "An after-dark ride format that ends with drinks and time together at the Station."
   },
   {
     title: "West Bund Pop-up",
-    date: "Exhibition Season",
-    description: "SGL goods, characters, and station-style activation."
+    date: "Pop-up Format",
+    description: "A travelling SGL setup bringing goods, characters and Station culture into the city."
   }
 ];

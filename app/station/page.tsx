@@ -2,7 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = pageMetadata("Seagull Station Shanghai — Coffee, Rides & Community", "Meet Seagull Station in Shanghai: a gathering place for coffee, rides, refreshments and community. Discover station life and plan your next stop.", "/station");
+export const metadata = pageMetadata("Seagull Station Shanghai — Coffee, Rides & Community", "Visit Seagull Station in Pudong, Shanghai: an operating gathering place for coffee, drinks, SGL goods, cycling culture and community events.", "/station");
 
 
 const stationPhotos = [
@@ -58,18 +58,18 @@ const stationBlocks = [
   },
   {
     number: "02",
-    title: "Light Food",
-    text: "Sandwiches, fries, small plates and station-style food made for quick stops, casual gatherings and event days."
+    title: "Retail Goods",
+    text: "A physical place to discover SGL bicycles, bags, apparel, accessories and Station goods. Confirm current availability before visiting."
   },
   {
     number: "03",
-    title: "Ride Support",
-    text: "A city-friendly stop for cyclists: water, rest, repair basics, route information and community ride support."
+    title: "Cycling Community",
+    text: "A meeting point for riders, friends and nearby communities, shaped by everyday movement through the city."
   },
   {
     number: "04",
-    title: "Check-in System",
-    text: "Future mini program missions, park loops, member points, route check-ins and playful station-based tasks."
+    title: "Events & Gatherings",
+    text: "Community rides, exhibitions, pop-ups and Station gatherings bring SGL culture into shared physical experiences."
   }
 ];
 
@@ -100,8 +100,14 @@ export default function StationPage() {
           </h1>
 
           <p className="mt-7 max-w-3xl text-lg leading-8 opacity-80 md:text-xl">
-            SGL Station is a city refuel point combining riding culture, coffee,
-            light food, station goods, events and future mini program missions.
+            Seagull Station is a real Shanghai meeting point shaped by riding
+            culture, coffee, beverages, SGL goods and community events. It is
+            also the physical anchor for the SGL WeChat Mini Program and digital
+            experiences that continue to develop.
+          </p>
+
+          <p className="mt-4 max-w-3xl font-bold leading-7 text-sglAcid">
+            China, Shanghai, Pudong New Area, Jinyan Road &amp; Dongxiu Road Plaza, L1
           </p>
 
           <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
@@ -165,15 +171,22 @@ export default function StationPage() {
             </p>
 
             <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
-              From one store to a playable city network.
+              A real station, an expanding city network.
             </h2>
           </div>
 
           <div className="space-y-5 text-lg leading-8">
             <p>
-              The first station is the physical anchor. Around it, SGL can build
-              park rides, member cards, product drops, food and drink menus,
-              route check-ins and seasonal events.
+              Seagull Station is the physical anchor: a place to stop, drink,
+              shop, meet and begin a ride. Products, photographs, events and
+              community life all pass through this real location.
+            </p>
+
+            <p>
+              The SGL WeChat Mini Program launched in June 2026 and extends that
+              physical foundation through digital member journeys. AR
+              interactions are currently in development, with a planned release
+              in early 2027.
             </p>
 
             <p>
@@ -188,7 +201,7 @@ export default function StationPage() {
         <div className="grid gap-6 md:grid-cols-3">
           <div className="border border-sglInk bg-sglCream p-6 md:col-span-2">
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
-              Future System
+              Live since June 2026
             </p>
 
             <h2 className="mt-3 text-4xl font-black uppercase">
@@ -196,15 +209,15 @@ export default function StationPage() {
             </h2>
 
             <p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">
-              The Station page will later connect to the SGL mini program:
-              ordering, membership points, ride check-ins, route missions,
-              product rewards and event registration.
+              The SGL WeChat Mini Program is live. Individual functions shown in
+              previews may still be in development; AR interactions are planned
+              for early 2027, subject to development and testing.
             </p>
           </div>
 
           <div className="border border-sglInk bg-sglGraphite p-6 text-sglCream">
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
-              Coming Next
+              Product Direction
             </p>
 
             <ul className="mt-5 space-y-3 font-bold uppercase">

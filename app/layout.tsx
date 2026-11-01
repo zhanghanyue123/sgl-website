@@ -6,8 +6,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.theseagulllabs.com"),
-  title: "SGL | Seagull Station",
-  description: "Urban riding goods, station life, and everyday movement.",
+  title: "The Seagull Labs | Products, Station & City Stories",
+  description: "The Seagull Labs connects product design, cycling culture, photography, original characters and community life at Seagull Station.",
   verification: {
     google: "g3m_seOMh_Q8f8M_fOEnKPfjTPbyJpDPiPnvaIRXKDU",
     other: {

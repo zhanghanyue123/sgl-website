@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import ProductCard from "@/components/ProductCard";
 import { categories, getProductsByCategory } from "@/data/products";
 
-export const metadata = pageMetadata("Shop Cycling Accessories & Lifestyle Goods — SGL", "Explore SGL cycling accessories, bags, apparel and lifestyle goods. Browse product details and USD prices, and contact our team for availability.", "/shop");
+export const metadata = pageMetadata("Shop Cycling Accessories & Lifestyle Goods — SGL", "Explore SGL bicycles, cycling accessories, bags, apparel, coffee and lifestyle goods. Browse USD prices and contact SGL for availability.", "/shop");
 
 
 const categoryLabels = {
@@ -29,13 +29,13 @@ export default function ShopPage() {
 
       <p className="mt-6 max-w-3xl text-lg leading-8 opacity-75">
         SGL goods for city riding, park loops, station stops and everyday
-        movement. Explore frames, bags, wearables and small accessories made for
+        movement. Explore bicycles, bags, wearables, coffee and small accessories made for
         the routes between work, parks, cafés and home.
       </p>
 
       <p className="mt-3 max-w-3xl text-base leading-7 opacity-60">
-        城市骑行、日常补给、Station 停靠与轻量出行用品。商品购买入口将陆续接入
-        淘宝、小程序与门店客服。
+        Prices are shown in USD. Contact SGL to confirm current stock, product
+        options, payment arrangements, delivery or Station pickup.
       </p>
 
       <div className="mt-10 grid gap-12">

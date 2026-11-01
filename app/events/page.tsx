@@ -1,10 +1,9 @@
 import { pageMetadata } from "@/lib/seo";
 import EventGallery from "@/components/EventGallery";
-import Films from "@/components/Films";
 import Link from "next/link";
 import Image from "next/image";
 
-export const metadata = pageMetadata("SGL Events — Community Rides, Pop-ups & ISPO", "Explore SGL at ISPO Shanghai 2025 and the 2026 Shanghai International Bicycle Exhibition, plus community rides, outdoor pop-ups and gatherings at Seagull Station.", "/events");
+export const metadata = pageMetadata("SGL Events — Rides, Exhibitions & Station Gatherings", "Explore documented SGL exhibitions, community rides, outdoor pop-ups, Station gatherings and event formats in Shanghai.", "/events");
 
 const eventPhotos = [
   {
@@ -83,20 +82,20 @@ const events = [
   {
     type: "Park Loop",
     title: "Century Park Ride",
-    date: "Community Ride",
-    text: "A casual park loop for riders, families and friends. Start from the station, ride together, return for drinks and small rewards."
+    date: "Community Format",
+    text: "A shared park loop for riders, families and friends, followed by drinks and conversation at the Station."
   },
   {
     type: "Night Ride",
     title: "Beer After Ride",
-    date: "Evening Event",
-    text: "A relaxed night ride format with drinks, station food, route sharing and community gathering after the ride."
+    date: "Evening Format",
+    text: "An after-dark ride format followed by drinks, Station food, route stories and time together."
   },
   {
     type: "Exhibition",
     title: "SGL Pop-up Station",
-    date: "Seasonal",
-    text: "Temporary station setups for exhibitions, markets and outdoor events, combining goods, drinks, IP characters and ride check-ins."
+    date: "Pop-up Format",
+    text: "A travelling SGL setup for exhibitions, markets and outdoor events, bringing together goods, original characters and Station culture."
   }
 ];
 
@@ -106,7 +105,7 @@ const formats = [
   "Station parties",
   "Exhibition pop-ups",
   "Coffee rides",
-  "Mini program missions"
+  "City missions · In development"
 ];
 
 const calendarPosters = [
@@ -150,9 +149,17 @@ const calendarPosters = [
 export default function EventsPage() {
   return (
     <section>
-      <section className="bg-black">
-        <div className="mx-auto max-w-sgl">
-          <Films src="/videos/seagull.mp4" title="Seagull — New York" frameless />
+      <section className="border-b border-sglInk bg-sglInk">
+        <div className="mx-auto max-w-5xl px-4 py-6 md:px-8 md:py-10">
+          <Image
+            src="/events/ispo-shanghai.webp"
+            alt="Visitors at the Sea Gull booth at ISPO Shanghai 2025"
+            width={1920}
+            height={1280}
+            priority
+            sizes="(max-width: 1024px) 100vw, 960px"
+            className="mx-auto max-h-[72vh] w-full border border-sglCream/25 object-cover"
+          />
         </div>
       </section>
 
@@ -167,8 +174,9 @@ export default function EventsPage() {
           </h1>
 
           <p className="mt-7 max-w-3xl text-lg leading-8 opacity-80 md:text-xl">
-            SGL events connect city riding, park routes, coffee, drinks, station
-            goods, exhibitions and future mini program missions.
+            SGL events bring together city riding, coffee, drinks, Station goods,
+            exhibitions and shared time in real places. City missions and digital
+            check-ins are a long-term layer now in development.
           </p>
 
           <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
@@ -201,7 +209,7 @@ export default function EventsPage() {
               <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Calendar · Anniversary · Night Ride</p>
               <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">SGL Calendar</h2>
             </div>
-            <p className="max-w-2xl leading-7 opacity-75">Anniversary moments, night rides and the next reasons to meet at the station. New dates and routes are announced through SGL channels.</p>
+            <p className="max-w-2xl leading-7 opacity-75">Posters and announcements from SGL rides, anniversaries, gatherings and pop-ups. Confirmed dates and routes are announced through SGL channels.</p>
           </div>
 
           <div className="mt-8">
@@ -214,7 +222,7 @@ export default function EventsPage() {
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Exhibitions · Shanghai</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">SGL on the road</h2>
-          <p className="mt-4 max-w-3xl leading-7 opacity-75">From ISPO Shanghai 2025 to the 2026 Shanghai International Bicycle Exhibition. Cycling goods, familiar characters and new faces.</p>
+          <p className="mt-4 max-w-3xl leading-7 opacity-75">SGL joined ISPO Shanghai and the Shanghai International Bicycle Exhibition in 2025, then returned to the Shanghai bicycle exhibition for a second time in 2026. Cycling goods, familiar characters and new faces.</p>
           <div className="mt-8">
             <EventGallery display="compact" photos={[
               { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai 2025", title: "ISPO Shanghai 2025", width: 1920, height: 1280 },
@@ -288,7 +296,7 @@ export default function EventsPage() {
       <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
-            Event System
+            In Development
           </p>
 
           <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
@@ -298,9 +306,10 @@ export default function EventsPage() {
 
         <div className="space-y-5 text-lg leading-8 opacity-80">
           <p>
-            The first version can stay simple: posters, event pages, route
-            announcements and station check-ins. Later, each event can connect to
-            the mini program with registration, member points and route missions.
+            Current SGL events live through posters, route announcements,
+            photographs and gatherings at the Station and around the city. The
+            next product layer connects those experiences to the mini program
+            through registration, member points and route missions.
           </p>
 
           <p>
@@ -314,7 +323,7 @@ export default function EventsPage() {
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
-              Coming Soon
+              Next Chapter
             </p>
 
             <h2 className="mt-2 text-3xl font-black uppercase">
