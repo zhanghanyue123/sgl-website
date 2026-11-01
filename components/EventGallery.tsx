@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 
 type Photo = { src: string; alt: string; title: string; width: number; height: number };
-export default function EventGallery({ photos, display = "cover" }: { photos: Photo[]; display?: "cover" | "grid" }) {
+export default function EventGallery({ photos, display = "cover" }: { photos: Photo[]; display?: "cover" | "grid" | "compact" }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(0);
   const move = (step: number) => setIndex(current => (current + step + photos.length) % photos.length);
@@ -19,6 +19,15 @@ export default function EventGallery({ photos, display = "cover" }: { photos: Ph
           {photos.map((photo, photoIndex) => (
             <button key={photo.src} type="button" onClick={() => open(photoIndex)} className="group overflow-hidden border border-sglInk bg-sglCream text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" aria-label={`View ${photo.title}`}>
               <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 20vw" className="aspect-[2/3] w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
+              <span className="block border-t border-sglInk px-4 py-3 text-xs font-black uppercase leading-4 tracking-wide">{photo.title} ↗</span>
+            </button>
+          ))}
+        </div>
+      ) : display === "compact" ? (
+        <div className="grid gap-4 sm:grid-cols-3">
+          {photos.map((photo, photoIndex) => (
+            <button key={photo.src} type="button" onClick={() => open(photoIndex)} className="group overflow-hidden border border-sglInk bg-sglCream text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" aria-label={`View ${photo.title}`}>
+              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, 33vw" className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
               <span className="block border-t border-sglInk px-4 py-3 text-xs font-black uppercase leading-4 tracking-wide">{photo.title} ↗</span>
             </button>
           ))}

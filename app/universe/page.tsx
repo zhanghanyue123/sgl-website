@@ -118,19 +118,19 @@ export default function UniversePage() {
           </h2>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {characters.map((character) => (
             <div
               key={character.name}
-              className="border border-sglInk bg-sglPaper p-6 transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#111111]"
+              className="border border-sglInk bg-sglPaper p-4 transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#111111]"
             >
-              <div className="relative flex aspect-[2/3] items-center justify-center overflow-hidden border border-sglInk bg-sglAcid">
+              <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden border border-sglInk bg-sglAcid">
                 {character.image ? (
                   <Image
                     src={character.image}
                     alt={character.imageAlt || character.name}
                     fill
-                    sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 25vw"
+                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 25vw"
                     className={character.imageClass}
                   />
                 ) : (
@@ -144,7 +144,7 @@ export default function UniversePage() {
                 {character.role}
               </p>
 
-              <h2 className="mt-2 text-4xl font-black uppercase">
+              <h2 className="mt-2 text-3xl font-black uppercase">
                 {character.name}
               </h2>
 

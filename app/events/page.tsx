@@ -216,7 +216,7 @@ export default function EventsPage() {
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">SGL on the road</h2>
           <p className="mt-4 max-w-3xl leading-7 opacity-75">From ISPO Shanghai 2025 to the 2026 Shanghai International Bicycle Exhibition. Cycling goods, familiar characters and new faces.</p>
           <div className="mt-8">
-            <EventGallery photos={[
+            <EventGallery display="compact" photos={[
               { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai 2025", title: "ISPO Shanghai 2025", width: 1920, height: 1280 },
               ...eventPhotos.slice(0, 2).map(photo => ({ src: `/events/${photo.name}.webp`, alt: photo.alt, title: `Shanghai International Bicycle Exhibition 2026 — ${photo.title}`, width: photo.width, height: photo.height }))
             ]} />
