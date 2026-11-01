@@ -1043,6 +1043,7 @@ export const products: Product[] = [
   },
   {
     "slug": "sportglassea-case",
+    "hidden": true,
     "originalHandle": "sportglassea-case",
     "title": "Sportglasses Case ｜ Eyewear Cases",
     "category": "Bags & Carry",
