@@ -175,6 +175,7 @@ export const products: Product[] = [
   },
   {
     "slug": "chrissy-m",
+    hidden: true,
     "originalHandle": "chrissy-m",
     "title": "Chrissy M",
     "category": "Bikes / Frames",
