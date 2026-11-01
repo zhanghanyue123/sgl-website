@@ -1799,7 +1799,7 @@ export const products: Product[] = [
     "slug": "cover",
     "originalHandle": "cover",
     "title": "Reflective Gear | Safety Reflector Biking",
-    "category": "Bags & Carry",
+    "category": "Accessories",
     "price": 13.0,
     "priceLabel": "13",
     "badge": "Shopify Import",

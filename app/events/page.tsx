@@ -1,4 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
+import EventGallery from "@/components/EventGallery";
 import Films from "@/components/Films";
 import Link from "next/link";
 import Image from "next/image";
@@ -125,18 +126,16 @@ export default function EventsPage() {
         </div>
       </div>
 
-      <section id="cycle-show-2026" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
+      <section id="exhibitions" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
-          <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Exhibition · Shanghai · 2026</p>
-          <h2 className="mt-3 max-w-5xl text-4xl font-black uppercase leading-tight md:text-6xl">Shanghai International Bicycle Exhibition</h2>
-          <p className="mt-4 max-w-3xl leading-7 opacity-75">Cycling goods, familiar characters and new faces at the SGL booth.</p>
-          <div className="mt-8 grid items-start gap-6 md:grid-cols-2">
-            {eventPhotos.slice(0, 2).map(photo => (
-              <figure key={photo.name} className="overflow-hidden border border-sglInk bg-sglPaper">
-                <Image src={`/events/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 100vw, 50vw" className="h-auto w-full" />
-                <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
-              </figure>
-            ))}
+          <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Exhibitions · Shanghai</p>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">SGL on the road</h2>
+          <p className="mt-4 max-w-3xl leading-7 opacity-75">From the 2026 Shanghai International Bicycle Exhibition to ISPO. Cycling goods, familiar characters and new faces.</p>
+          <div className="mt-8">
+            <EventGallery photos={[
+              ...eventPhotos.slice(0, 2).map(photo => ({ src: `/events/${photo.name}.webp`, alt: photo.alt, title: `Shanghai International Bicycle Exhibition 2026 — ${photo.title}` })),
+              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai", title: "SGL at ISPO Shanghai" }
+            ]} />
           </div>
         </div>
       </section>
@@ -146,38 +145,16 @@ export default function EventsPage() {
           <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">Rides · Pop-ups · Gatherings</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">Community moments</h2>
           <p className="mt-4 max-w-3xl leading-7 opacity-75">From a ride with friends to an evening together. A few moments from life around SGL.</p>
-          <div className="mt-8 columns-1 gap-6 md:columns-2">
+          <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {eventPhotos.slice(2).map(photo => (
-              <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglCream/30">
-                <Image src={`/events/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 100vw, 50vw" className="h-auto w-full" />
+              <figure key={photo.name} className="overflow-hidden border border-sglCream/30">
+                <Image src={`/events/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 1023px) 50vw, 25vw" className="aspect-[4/3] w-full object-cover" />
                 <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
               </figure>
             ))}
           </div>
         </div>
       </section>
-
-      <div id="ispo" className="border-b border-sglInk bg-sglCream">
-        <figure className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
-          <figcaption className="mb-6">
-            <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
-              Exhibition · Shanghai
-            </p>
-            <h2 className="mt-2 text-4xl font-black uppercase md:text-6xl">
-              SGL at ISPO
-            </h2>
-            <p className="mt-4 leading-7 opacity-75">ISPO 展会现场，与 SGL 相遇。</p>
-          </figcaption>
-          <Image
-            src="/events/ispo-shanghai.webp"
-            alt="ISPO 上海展会现场，观众聚集在 Sea Gull 展位前参观商品与角色展示"
-            width={1920}
-            height={1280}
-            sizes="(max-width: 767px) 100vw, 1280px"
-            className="h-auto w-full border border-sglInk"
-          />
-        </figure>
-      </div>
 
       <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="mb-8">
