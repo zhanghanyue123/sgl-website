@@ -1,6 +1,5 @@
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
-import Image from "next/image";
 
 export const metadata = pageMetadata("About The Seagull Labs — Brand & Community", "Learn about The Seagull Labs, where cycling culture, station life and community meet. Discover the ideas behind our goods, characters and city adventures.", "/about");
 
@@ -125,17 +124,6 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
-
-      <section className="border-t border-sglInk bg-sglPaper">
-        <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
-          <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">From the road</p>
-          <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Built around the ride.</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
-            <Image src="/about/archive-rider-01.webp" alt="Black and white SGL rider archive photograph" width={1800} height={1194} sizes="(max-width: 767px) 100vw, 50vw" className="aspect-[3/2] w-full border border-sglInk object-cover" />
-            <Image src="/about/archive-rider-02.webp" alt="Black and white bicycle archive photograph" width={1800} height={1193} sizes="(max-width: 767px) 100vw, 50vw" className="aspect-[3/2] w-full border border-sglInk object-cover" />
-          </div>
-        </div>
-      </section>
 
       <div className="border-t border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
