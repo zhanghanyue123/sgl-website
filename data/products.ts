@@ -57,8 +57,8 @@ export const products: Product[] = [
   "originalHandle": "seagull-cap-khaki-brown",
   "title": "Sea Gull Cap — Khaki / Brown",
   "category": "Wear & Ride",
-  "price": 0,
-  "priceLabel": "TBD",
+  "price": 50,
+  "priceLabel": "50",
   "images": [
     "/products/caps/khaki-brown-13.webp",
     "/products/caps/khaki-brown-14.webp"
@@ -77,8 +77,8 @@ export const products: Product[] = [
   "originalHandle": "seagull-cap-lavender",
   "title": "Sea Gull Cap — Lavender",
   "category": "Wear & Ride",
-  "price": 0,
-  "priceLabel": "TBD",
+  "price": 50,
+  "priceLabel": "50",
   "images": [
     "/products/caps/lavender-10.webp",
     "/products/caps/lavender-11.webp",
@@ -99,8 +99,8 @@ export const products: Product[] = [
   "originalHandle": "seagull-cap-black-grey",
   "title": "Sea Gull Cap — Black / Grey",
   "category": "Wear & Ride",
-  "price": 0,
-  "priceLabel": "TBD",
+  "price": 50,
+  "priceLabel": "50",
   "images": [
     "/products/caps/black-grey-7.webp",
     "/products/caps/black-grey-6.webp",
