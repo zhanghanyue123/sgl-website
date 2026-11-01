@@ -1639,6 +1639,7 @@ export const products: Product[] = [
     "priceLabel": "1999",
     "badge": "7 Variants",
     "images": [
+      "/products/chrissy-ti-street.webp",
       "/products/optimized/sgl-product-081.webp"
     ],
     "description": "Chrissy Ti from the original SeaGull Labs Shopify catalog. Keep this item as a product archive or replace this copy with the final frame description.",
