@@ -44,10 +44,6 @@ export default function ContactPage() {
             collaborations, wholesale inquiries and community rides.
           </p>
 
-          <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
-            如需购买商品、确认库存、门店自提、活动合作、品牌联名或社群骑行合作，
-            可以通过以下方式联系 SGL。
-          </p>
         </div>
       </div>
 
@@ -86,10 +82,6 @@ export default function ContactPage() {
               total, payment arrangements and delivery before the order proceeds.
             </p>
 
-            <p>
-              快速下单请发送：商品名称、颜色/尺码、数量、收货地区、是否需要门店自提。
-              我们会确认库存后回复付款与发货方式。
-            </p>
           </div>
         </div>
       </div>

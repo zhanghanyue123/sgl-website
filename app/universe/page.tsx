@@ -12,8 +12,7 @@ const characters = [
     imageAlt: "Pickle wearing a yellow beanie and riding a black bicycle through the city",
     imageClass: "object-contain bg-sglInk",
     role: "SGL Character",
-    text: "A curious little explorer who sees every corner of the city as the beginning of a new adventure.",
-    cn: "瘦高、固执、自由。Pickle 代表那个一直在城市里移动、不愿被驯服、总能找到另一条路的骑行者。"
+    text: "A curious little explorer who sees every corner of the city as the beginning of a new adventure."
   },
   {
     name: "Fries",
@@ -21,8 +20,7 @@ const characters = [
     imageAlt: "Fries walking outside Seagull Station in a black Sea Gull outfit",
     imageClass: "object-cover object-center",
     role: "SGL Character",
-    text: "An energetic and cheerful spirit who brings fun, spontaneity, and a little chaos wherever they go.",
-    cn: ""
+    text: "An energetic and cheerful spirit who brings fun, spontaneity, and a little chaos wherever they go."
   },
   {
     name: "Oreo",
@@ -30,17 +28,15 @@ const characters = [
     imageAlt: "Oreo, an SGL bird character in a brown cap, beige jacket and yellow shoes",
     imageClass: "object-cover object-center",
     role: "SGL Character",
-    text: "A quiet, observant thinker who notices the little things everyone else overlooks.",
-    cn: ""
+    text: "A quiet, observant thinker who notices the little things everyone else overlooks."
   },
   {
     name: "Bagel",
     image: "/characters/bagel-city.webp",
-    imageAlt: "贝果 Bagel，穿着米色外套的喜鹊倚在城市街头的 SGL 配送车旁",
+    imageAlt: "Bagel wearing a beige jacket beside an SGL delivery vehicle in the city",
     imageClass: "object-contain bg-sglInk",
     role: "SGL Character",
-    text: "A warm and dependable companion who brings everyone together and makes every place feel like home.",
-    cn: "脑海里装着城市地图，脚步里带着下一站的消息。喜鹊贝果穿梭街巷，把 SGL 的 Station 和日常故事连接起来。"
+    text: "A warm and dependable companion who brings everyone together and makes every place feel like home."
   }
 ];
 
@@ -59,7 +55,7 @@ export default function UniversePage() {
       <div className="border-b border-sglInk bg-sglInk">
         <Image
           src="/characters/sgl-birds-night.webp"
-          alt="SGL 鸟儿们在城市酒吧相聚的夜晚，暖色灯光下的角色群像"
+          alt="SGL bird characters gathering in a warmly lit city bar at night"
           width={2400}
           height={800}
           priority
@@ -83,11 +79,6 @@ export default function UniversePage() {
             routes, events and real places in the city. Member journeys, city
             missions and AR interactions are the long-term product layer now
             being developed around that world.
-          </p>
-
-          <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
-            SGL 的世界观不是虚构在屏幕里的，而是藏在真实城市里：
-            你会在路线、Station、商品、角色、会员卡和任务系统中一点点进入它。
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -151,7 +142,6 @@ export default function UniversePage() {
 
               {character.text && <p className="mt-4 leading-7 opacity-75">{character.text}</p>}
 
-              {character.cn && <p className="mt-4 leading-7 opacity-60">{character.cn}</p>}
             </div>
           ))}
         </div>
@@ -182,11 +172,6 @@ export default function UniversePage() {
               currently in development, with a planned release in early 2027.
             </p>
 
-            <p>
-              Pickle、Fries、Oreo 和 Bagel 不只是 IP 形象。它们可以对应不同的会员卡、
-              任务路线、商品系列、打卡奖励和 Station 故事，让用户在真实城市里
-              参与一个轻量的开放世界。
-            </p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, serializeJsonLd, stationJsonLd } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -76,6 +76,7 @@ const stationBlocks = [
 export default function StationPage() {
   return (
     <section>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(stationJsonLd()) }} />
       <div className="border-b border-sglInk bg-sglInk">
         <div className="mx-auto max-w-sgl">
           <Image
@@ -108,11 +109,6 @@ export default function StationPage() {
 
           <p className="mt-4 max-w-3xl font-bold leading-7 text-sglAcid">
             China, Shanghai, Pudong New Area, Jinyan Road &amp; Dongxiu Road Plaza, L1
-          </p>
-
-          <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
-            SGL 是城市里的骑行补给站。它不是单纯的咖啡店，也不是普通零售空间，
-            而是一个可以停靠、补给、见面、打卡和参与任务的城市节点。
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -189,10 +185,6 @@ export default function StationPage() {
               in early 2027.
             </p>
 
-            <p>
-              这也是小程序和未来 App 的现实入口：用户不是只在线上点开一个页面，
-              而是真的在城市里移动、到站、消费、打卡、领取奖励。
-            </p>
           </div>
         </div>
       </div>

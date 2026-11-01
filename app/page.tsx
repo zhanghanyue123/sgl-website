@@ -30,11 +30,6 @@ export default function Home() {
               interactions carry that world into its next chapter.
             </p>
 
-            <p className="mt-5 max-w-2xl text-base leading-7 opacity-70 md:text-lg">
-              城市里的骑行补给站。从公园路线、咖啡、轻食、商品到打卡任务，
-              SGL 把日常运动变成一套可以被参与的生活系统。
-            </p>
-
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/shop"
@@ -132,8 +127,8 @@ export default function Home() {
               A small stop for the city.
             </h2>
             <p className="mt-5 leading-7">
-              咖啡、轻食、骑行补给、社群活动和未来的小程序任务系统，
-              都从这个 Station 开始。
+              Coffee, drinks, riding essentials, community events and city missions
+              all begin at Seagull Station.
             </p>
           </div>
 

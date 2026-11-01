@@ -49,11 +49,6 @@ export default function AboutPage() {
             experiences continue that journey into city missions and AR.
           </p>
 
-          <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
-            SGL 不是一个单纯卖商品的品牌。它更像一个城市里的小型系统：
-            你可以在这里买东西、喝咖啡、补给、集合、参加活动、完成打卡，
-            然后逐渐进入一个由角色、路线和任务组成的现实世界。
-          </p>
         </div>
       </div>
 
@@ -109,10 +104,6 @@ export default function AboutPage() {
               layer now being developed around that real-world foundation.
             </p>
 
-            <p>
-              商品是入口，Station 是节点，活动是流量，角色是记忆点，
-              小程序是未来的系统层。它们共同组成 SGL 的城市生活方式网络。
-            </p>
           </div>
         </div>
       </div>

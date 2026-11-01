@@ -24,7 +24,7 @@ export default function Films({ src, title, poster = "/videos/poster.jpg", frame
       >
         Your browser does not support embedded video.
       </video>
-      {failed && <p className="p-4 text-sm text-white">视频暂时无法加载。<a className="underline" href="https://www.youtube.com/@seagulllabs" target="_blank" rel="noopener noreferrer">在 YouTube 观看 ↗</a></p>}
+      {failed && <p className="p-4 text-sm text-white">This video could not be loaded. <a className="underline" href="https://www.youtube.com/@seagulllabs" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></p>}
     </div>
   );
 }

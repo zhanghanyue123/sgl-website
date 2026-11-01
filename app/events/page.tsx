@@ -2,6 +2,7 @@ import { pageMetadata } from "@/lib/seo";
 import EventGallery from "@/components/EventGallery";
 import Link from "next/link";
 import Image from "next/image";
+import Films from "@/components/Films";
 
 export const metadata = pageMetadata("SGL Events — Rides, Exhibitions & Station Gatherings", "Explore documented SGL exhibitions, community rides, outdoor pop-ups, Station gatherings and event formats in Shanghai.", "/events");
 
@@ -149,17 +150,9 @@ const calendarPosters = [
 export default function EventsPage() {
   return (
     <section>
-      <section className="border-b border-sglInk bg-sglInk">
-        <div className="mx-auto max-w-5xl px-4 py-6 md:px-8 md:py-10">
-          <Image
-            src="/events/ispo-shanghai.webp"
-            alt="Visitors at the Sea Gull booth at ISPO Shanghai 2025"
-            width={1920}
-            height={1280}
-            priority
-            sizes="(max-width: 1024px) 100vw, 960px"
-            className="mx-auto max-h-[72vh] w-full border border-sglCream/25 object-cover"
-          />
+      <section className="bg-black">
+        <div className="mx-auto max-w-sgl">
+          <Films src="/videos/seagull.mp4" title="Seagull — New York" frameless />
         </div>
       </section>
 
@@ -177,11 +170,6 @@ export default function EventsPage() {
             SGL events bring together city riding, coffee, drinks, Station goods,
             exhibitions and shared time in real places. City missions and digital
             check-ins are a long-term layer now in development.
-          </p>
-
-          <p className="mt-4 max-w-3xl text-base leading-7 opacity-65 md:text-lg">
-            活动不是单次热闹，而是 SGL Station 系统的现实入口：骑行、到站、
-            补给、拍照、打卡、购买商品、认识朋友，最后都沉淀成社群和数据。
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -225,8 +213,7 @@ export default function EventsPage() {
           <p className="mt-4 max-w-3xl leading-7 opacity-75">SGL joined ISPO Shanghai and the Shanghai International Bicycle Exhibition in 2025, then returned to the Shanghai bicycle exhibition for a second time in 2026. Cycling goods, familiar characters and new faces.</p>
           <div className="mt-8">
             <EventGallery display="compact" photos={[
-              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai 2025", title: "ISPO Shanghai 2025", width: 1920, height: 1280 },
-              ...eventPhotos.slice(0, 2).map(photo => ({ src: `/events/${photo.name}.webp`, alt: photo.alt, title: `Shanghai International Bicycle Exhibition 2026 — ${photo.title}`, width: photo.width, height: photo.height }))
+              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai 2025", title: "ISPO Shanghai 2025", width: 1920, height: 1280 }
             ]} />
           </div>
         </div>
@@ -312,10 +299,6 @@ export default function EventsPage() {
             through registration, member points and route missions.
           </p>
 
-          <p>
-            第一阶段只需要把活动发布、路线说明、到站消费和社群沉淀跑起来。
-            第二阶段再接入小程序，实现报名、积分、打卡、奖励和活动数据记录。
-          </p>
         </div>
       </div>
 
