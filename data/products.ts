@@ -142,6 +142,7 @@ export const products: Product[] = [
 
   {
     "slug": "chrissy-p",
+    "hidden": true,
     "originalHandle": "chrissy-p",
     "title": "Chrissy P",
     "category": "Bikes / Frames",
@@ -1889,6 +1890,12 @@ export function getProduct(slug: string) {
 
 export function getProductsByCategory(category: string) {
   const items = storefrontProducts.filter((product) => product.category === category);
+  if (category === "Bikes / Frames") {
+    return [
+      ...items.filter(product => product.slug === "chrissy1"),
+      ...items.filter(product => product.slug !== "chrissy1")
+    ];
+  }
   if (category !== "Bags & Carry") return items;
   const last = ["seat-bag", "bike-cover", "reveal-shoe-sack", "sportglassea-case"];
   return [
