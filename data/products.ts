@@ -601,7 +601,7 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "Shopify Import",
     "images": [
-      "/products/seat-bag-collection.webp"
+      "/products/seat-bag-detail.webp"
     ],
     "description": "Seat Bag for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -618,7 +618,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "/products/seat-bag-collection.webp"
+        "image": "/products/seat-bag-detail.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/seat-bag",
