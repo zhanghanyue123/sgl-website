@@ -5,6 +5,51 @@ import Link from "next/link";
 export const metadata = pageMetadata("Seagull Station Shanghai — Coffee, Rides & Community", "Meet Seagull Station in Shanghai: a gathering place for coffee, rides, refreshments and community. Discover station life and plan your next stop.", "/station");
 
 
+const stationPhotos = [
+  {
+    "name": "evening-refuel",
+    "title": "Evening refuel",
+    "alt": "A chilled SGL drink on an outdoor table at night",
+    "width": 1200,
+    "height": 1601
+  },
+  {
+    "name": "on-tap",
+    "title": "On tap",
+    "alt": "A golden drink held beneath the station taps",
+    "width": 1200,
+    "height": 1800
+  },
+  {
+    "name": "at-the-counter",
+    "title": "At the counter",
+    "alt": "A guest holding an SGL cup at the station counter",
+    "width": 1200,
+    "height": 1800
+  },
+  {
+    "name": "fresh-pour",
+    "title": "A fresh pour",
+    "alt": "A drink being poured from a station tap",
+    "width": 1200,
+    "height": 1800
+  },
+  {
+    "name": "little-pause",
+    "title": "A little pause",
+    "alt": "An SGL drink held in the warm station light",
+    "width": 1200,
+    "height": 1750
+  },
+  {
+    "name": "cheers-together",
+    "title": "Better together",
+    "alt": "Friends raising their SGL drinks together",
+    "width": 1200,
+    "height": 1800
+  }
+];
+
 const stationBlocks = [
   {
     number: "01",
@@ -81,6 +126,20 @@ export default function StationPage() {
           </div>
         </div>
       </div>
+
+      <section id="station-life" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+          <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Station life</p>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">Pause. Refuel. Stay a while.</h2>
+          <p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">Warm lights, a fresh pour and good company. A closer look at everyday moments at Seagull Station.</p>
+          <div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">
+            {stationPhotos.map(photo => <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglInk bg-sglPaper">
+              <Image src={`/station/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="h-auto w-full" />
+              <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
+            </figure>)}
+          </div>
+        </div>
+      </section>
 
       <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-4 md:px-8">
         {stationBlocks.map((item) => (

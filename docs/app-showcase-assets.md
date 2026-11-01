@@ -15,3 +15,6 @@ Prompt specifications used for the five edits:
 3. Preserve bird-bar artwork and coffee product. Refuel Menu; Craft Beer / Desserts / Combos / Snacks / Goods. SGL House Blend 01 · 450g; Members CNY 88 · Regular CNY 98; Dark roast blend · Nut, cream, honey and dark chocolate notes; 30 in stock; Add. Translate visible package copy. Same English navigation.
 4. Preserve missions layout. One small mission today; 0 / 4 completed; 0 EXP earned today; Activity mode; Choose your ride or run missions; Ride / Run; Share today's missions; Your First Stop; Not started; Check in at SGL Huamu Station; Progress 0 / 1 · +20 Points; Find the Station; Stop for a Drink; Order a drink at the station; Get a drink; Treat a Friend; Choose a friend and send them a drink. Same English navigation.
 5. Preserve illustrated paths, forest, character avatars and checkpoints. City Missions; Chapter 01 · Your First Station; Your city story starts here; Current location; Head to Refuel; About 800 m; Unlock the story; Complete earlier missions; You; Start; 0/3 complete. Navigation: Missions / Feed / Refuel / Profile. Keep original artwork, no device frame.
+
+## Updated Station Map preview
+Source: user-supplied IMG_9887.PNG. Imagegen translated the interface and map labels into English, retaining the new route and character pins. Optimized output: public/app/map-v2-en.webp.

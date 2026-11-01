@@ -6,7 +6,7 @@ export const metadata = pageMetadata("SGL App & Mini Program | Ride. Run. Refuel
 
 
 const screens = [
-  { file: "map-en.webp", title: "Find your next stop.", label: "01 / Explore", text: "Discover the station, follow a city route and catch up with your crew.", alt: "English SGL Station map interface with a first-stop mission and friends feed" },
+  { file: "map-v2-en.webp", title: "Find your next stop.", label: "01 / Explore", text: "Discover the station, follow a city route and catch up with your crew.", alt: "English SGL Station map interface with a first-stop mission and friends feed" },
   { file: "refuel-en.webp", title: "A little refuel.", label: "02 / Refuel", text: "Coffee, drinks and a moment to pause. Browse the station menu between adventures.", alt: "English SGL refuel menu with drinks and illustrated station artwork" },
   { file: "goods-en.webp", title: "Take SGL with you.", label: "03 / Goods", text: "Explore station goods and house blends, with member pricing in view.", alt: "English SGL goods menu showing House Blend coffee and membership pricing" },
   { file: "missions-en.webp", title: "Make today a mission.", label: "04 / Missions", text: "A first check-in, a ride or a drink with friends. Small actions become part of your city story.", alt: "English SGL missions interface with activity mode and daily progress" }

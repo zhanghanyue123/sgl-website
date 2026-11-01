@@ -27,6 +27,94 @@ export type Product = {
 };
 
 export const products: Product[] = [
+{
+  "slug": "sgl-house-blend-01",
+  "originalHandle": "sgl-house-blend-01",
+  "title": "SGL House Blend 01 — 450g",
+  "category": "Coffee & Refuel",
+  "price": 18,
+  "priceLabel": "18",
+  "images": [
+    "/products/sgl-house-blend-01.webp"
+  ],
+  "description": "A dark roast coffee blend with tasting notes of nuts, butter, honey and dark chocolate. Your everyday refuel, from SGL Station to home.",
+  "details": [
+    "Net weight: 450g",
+    "Dark roast blend",
+    "Origins: Costa Rica, Brazil and Uganda",
+    "Tasting notes: nuts, butter, honey and dark chocolate",
+    "Altitude: 1,200–1,800m"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+
+{
+  "slug": "seagull-cap-khaki-brown",
+  "originalHandle": "seagull-cap-khaki-brown",
+  "title": "Sea Gull Cap — Khaki / Brown",
+  "category": "Wear & Ride",
+  "price": 0,
+  "priceLabel": "TBD",
+  "images": [
+    "/products/caps/khaki-brown-13.webp",
+    "/products/caps/khaki-brown-14.webp"
+  ],
+  "description": "An everyday cap with embroidered Sea Gull branding.",
+  "details": [
+    "Embroidered Sea Gull logo"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
+  "slug": "seagull-cap-lavender",
+  "originalHandle": "seagull-cap-lavender",
+  "title": "Sea Gull Cap — Lavender",
+  "category": "Wear & Ride",
+  "price": 0,
+  "priceLabel": "TBD",
+  "images": [
+    "/products/caps/lavender-10.webp",
+    "/products/caps/lavender-11.webp",
+    "/products/caps/lavender-8.webp",
+    "/products/caps/lavender-9.webp"
+  ],
+  "description": "An everyday cap with embroidered Sea Gull branding.",
+  "details": [
+    "Embroidered Sea Gull logo"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
+  "slug": "seagull-cap-black-grey",
+  "originalHandle": "seagull-cap-black-grey",
+  "title": "Sea Gull Cap — Black / Grey",
+  "category": "Wear & Ride",
+  "price": 0,
+  "priceLabel": "TBD",
+  "images": [
+    "/products/caps/black-grey-7.webp",
+    "/products/caps/black-grey-6.webp",
+    "/products/caps/black-grey-5.webp"
+  ],
+  "description": "An everyday cap with embroidered Sea Gull branding.",
+  "details": [
+    "Embroidered Sea Gull logo"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+
   {
     "slug": "chrissy-p",
     "originalHandle": "chrissy-p",
