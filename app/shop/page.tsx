@@ -18,12 +18,12 @@ export default function ShopPage() {
   return (
     <section className="mx-auto max-w-sgl px-4 pb-16 pt-6 md:px-8 md:pt-8">
       <div className="relative isolate overflow-hidden border border-sglInk bg-sglInk text-sglCream">
-        <Image src="/products/shop-ride-banner.webp" alt="Black and white photograph of a rider with a bicycle beside a city railing" width={2000} height={1326} priority sizes="(max-width: 767px) 100vw, 1280px" className="h-auto w-full" />
+        <Image src="/products/shop-ride-banner.webp" alt="Black and white photograph of a rider with a bicycle beside a city railing" width={2000} height={1326} priority sizes="(max-width: 767px) 100vw, 1280px" className="aspect-[2/1] w-full object-cover object-bottom" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-        <div className="absolute bottom-0 left-0 p-6 md:p-10">
+        <div className="absolute bottom-0 left-0 p-3 sm:p-6 md:p-10">
           <p className="text-sm font-black uppercase tracking-[0.28em]">SGL Goods</p>
-          <h1 className="mt-2 text-6xl font-black uppercase md:text-8xl">Shop</h1>
-          <p className="mt-3 text-sm font-bold uppercase tracking-widest md:text-base">Made for everyday movement.</p>
+          <h1 className="mt-2 text-4xl font-black uppercase sm:text-6xl md:text-8xl">Shop</h1>
+          <p className="mt-2 text-[10px] font-bold uppercase tracking-widest sm:mt-3 sm:text-sm md:text-base">Made for everyday movement.</p>
         </div>
       </div>
 
