@@ -161,8 +161,8 @@ export default function EventsPage() {
           <p className="mt-4 max-w-3xl leading-7 opacity-75">From the 2026 Shanghai International Bicycle Exhibition to ISPO. Cycling goods, familiar characters and new faces.</p>
           <div className="mt-8">
             <EventGallery photos={[
-              ...eventPhotos.slice(0, 2).map(photo => ({ src: `/events/${photo.name}.webp`, alt: photo.alt, title: `Shanghai International Bicycle Exhibition 2026 — ${photo.title}` })),
-              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai", title: "SGL at ISPO Shanghai" }
+              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai", title: "SGL at ISPO Shanghai", width: 1920, height: 1280 },
+              ...eventPhotos.slice(0, 2).map(photo => ({ src: `/events/${photo.name}.webp`, alt: photo.alt, title: `Shanghai International Bicycle Exhibition 2026 — ${photo.title}`, width: photo.width, height: photo.height }))
             ]} />
           </div>
         </div>
