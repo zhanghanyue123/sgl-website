@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { pageMetadata, productDescription, productJsonLd, serializeJsonLd } from "@/lib/seo";
 import ProductPurchase from "@/components/ProductPurchase";
-import Image from "next/image";
+import ProductGallery from "@/components/ProductGallery";
 import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
 import { getProduct, storefrontProducts } from "@/data/products";
@@ -25,7 +25,6 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const image = product.images[0] || "/products/placeholder-bag.svg";
 
   const safeDetails = product.details.filter(
     (detail) =>
@@ -37,37 +36,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   return (
     <section className="mx-auto grid max-w-sgl gap-10 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product)) }} />
-      <div>
-        <div className="relative aspect-square border border-sglInk bg-sglGraphite p-8">
-          <Image
-            src={image}
-            alt={product.title}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-contain p-8"
-          />
-        </div>
-
-        {product.images.length > 1 && (
-          <div className="mt-4 grid grid-cols-4 gap-3">
-            {product.images.slice(0, 8).map((src) => (
-              <div
-                key={src}
-                className="relative aspect-square border border-sglInk bg-sglPaper p-2"
-              >
-                <Image
-                  src={src}
-                  alt={product.title}
-                  fill
-                  sizes="25vw"
-                  className="object-contain p-2"
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      <ProductGallery images={product.images} title={product.title} />
 
       <div>
         <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">

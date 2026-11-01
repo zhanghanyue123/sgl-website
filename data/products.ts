@@ -7,6 +7,7 @@ export type ProductVariant = {
 };
 
 export type Product = {
+  hidden?: boolean;
   slug: string;
   originalHandle: string;
   title: string;
@@ -600,9 +601,7 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "Shopify Import",
     "images": [
-      "/products/optimized/sgl-product-012.webp",
-      "/products/optimized/sgl-product-013.webp",
-      "/products/optimized/sgl-product-014.webp"
+      "/products/seat-bag-collection.webp"
     ],
     "description": "Seat Bag for city riding, station stops, travel, and everyday carry.",
     "details": [
@@ -619,7 +618,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "/products/optimized/sgl-product-012.webp"
+        "image": "/products/seat-bag-collection.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/seat-bag",
@@ -745,6 +744,7 @@ export const products: Product[] = [
   },
   {
     "slug": "tote-bag-1",
+    hidden: true,
     "originalHandle": "tote-bag-1",
     "title": "Tote Bag",
     "category": "Bags & Carry",
@@ -1057,6 +1057,7 @@ export const products: Product[] = [
   },
   {
     "slug": "tote-bag",
+    hidden: true,
     "originalHandle": "tote-bag",
     "title": "Tote Bag /Messenger Bag",
     "category": "Bags & Carry",
@@ -1099,6 +1100,7 @@ export const products: Product[] = [
   },
   {
     "slug": "velvet-fleece-bicycle-handlebar-covers",
+    hidden: true,
     "originalHandle": "velvet-fleece-bicycle-handlebar-covers",
     "title": "Velvet fleece bicycle handlebar Grips",
     "category": "Bags & Carry",
@@ -1846,7 +1848,7 @@ export function isProductReadyForStorefront(product: Product) {
     normalizedPriceLabel !== "tbd" &&
     normalizedPriceLabel !== "0";
 
-  return hasImage && hasPrice;
+  return !product.hidden && hasImage && hasPrice;
 }
 
 export const storefrontProducts = products.filter(isProductReadyForStorefront);
