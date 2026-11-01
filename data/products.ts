@@ -1863,5 +1863,11 @@ export function getProduct(slug: string) {
 }
 
 export function getProductsByCategory(category: string) {
-  return storefrontProducts.filter((product) => product.category === category);
+  const items = storefrontProducts.filter((product) => product.category === category);
+  if (category !== "Bags & Carry") return items;
+  const last = ["seat-bag", "bike-cover", "reveal-shoe-sack", "sportglassea-case"];
+  return [
+    ...items.filter(product => !last.includes(product.slug)),
+    ...last.flatMap(slug => items.filter(product => product.slug === slug))
+  ];
 }
