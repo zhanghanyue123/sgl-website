@@ -22,7 +22,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
       <div className="p-5">
         <div className="flex items-start justify-between gap-4">
-          <div>
+          <div className="min-w-0">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] opacity-60">
               {product.category}
             </p>
@@ -32,7 +32,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </h3>
           </div>
 
-          <p className="border border-sglInk bg-sglAcid px-3 py-1 text-sm font-black">
+          <p className="shrink-0 whitespace-nowrap border border-sglInk bg-sglAcid px-3 py-1 text-sm font-black">
             $ {product.priceLabel}
           </p>
         </div>

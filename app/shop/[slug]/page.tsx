@@ -47,7 +47,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           {product.title}
         </h1>
 
-        <p className="mt-5 inline-block border border-sglInk bg-sglAcid px-5 py-2 text-xl font-black">
+        <p className="mt-5 inline-block whitespace-nowrap border border-sglInk bg-sglAcid px-5 py-2 text-xl font-black">
           $ {product.priceLabel}
         </p>
 
