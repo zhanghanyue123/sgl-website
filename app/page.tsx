@@ -58,33 +58,40 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="border border-sglCream bg-sglGraphite p-6">
-            <div className="relative isolate flex aspect-square flex-col justify-between overflow-hidden border border-dashed border-sglCream/50 bg-sglInk p-6">
-              <Image src="/home/wheel-deal.webp" alt="Wheel Deal Seagull cycling illustration" fill sizes="(max-width: 767px) 100vw, 42vw" className="-z-20 object-cover" />
-              <div className="absolute inset-0 -z-10 bg-sglInk/75" />
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
+          <div className="border border-sglCream bg-sglGraphite p-3 md:p-4">
+            <div className="overflow-hidden border border-sglCream/60 bg-[#e4cca0]">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/home/wheel-deal.webp"
+                  alt="Wheel Deal Seagull cycling illustration"
+                  fill
+                  sizes="(max-width: 767px) 100vw, 42vw"
+                  className="object-contain"
+                  priority
+                />
+                <p className="absolute left-4 top-4 border border-sglInk bg-sglAcid px-3 py-2 text-xs font-black uppercase tracking-[0.24em] text-sglInk md:left-5 md:top-5">
                   Station System
                 </p>
-                <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-5xl">
-                  Goods,
-                  <br />
-                  rides,
-                  <br />
-                  coffee,
-                  <br />
-                  routes.
-                </h2>
               </div>
 
-              <div>
-                <p className="text-5xl">✦</p>
-                <p className="mt-4 text-2xl font-black uppercase">
-                  {storefrontProducts.length} goods online
-                </p>
-                <p className="mt-2 max-w-sm text-sm uppercase tracking-[0.2em] opacity-70">
-                  Bags / socks / caps / station goods / riding accessories
-                </p>
+              <div className="grid gap-5 border-t border-sglCream/60 bg-sglInk p-5 text-sglCream md:grid-cols-[1fr_auto] md:items-end md:p-6">
+                <div>
+                  <h2 className="text-3xl font-black uppercase leading-[0.95] md:text-4xl">
+                    Goods, rides,<br />coffee, routes.
+                  </h2>
+                  <p className="mt-4 max-w-md text-xs uppercase leading-5 tracking-[0.18em] opacity-65">
+                    Bags / socks / caps / station goods / riding accessories
+                  </p>
+                </div>
+
+                <div className="flex items-end gap-3 md:block md:text-right">
+                  <p className="text-5xl font-black leading-none text-sglAcid">
+                    {storefrontProducts.length}
+                  </p>
+                  <p className="pb-1 text-xs font-black uppercase tracking-[0.18em] md:mt-2 md:pb-0">
+                    Goods online
+                  </p>
+                </div>
               </div>
             </div>
           </div>
