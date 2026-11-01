@@ -18,7 +18,7 @@ export default function ShopPage() {
   return (
     <section className="mx-auto max-w-sgl px-4 pb-16 pt-6 md:px-8 md:pt-8">
       <div className="relative isolate overflow-hidden border border-sglInk bg-sglInk text-sglCream">
-        <Image src="/products/shop-ride-banner.webp" alt="Black and white photograph of a rider with a bicycle beside a city railing" width={2000} height={1326} priority sizes="(max-width: 767px) 100vw, 1280px" className="h-[340px] w-full object-cover object-center md:h-[480px]" />
+        <Image src="/products/shop-ride-banner.webp" alt="Black and white photograph of a rider with a bicycle beside a city railing" width={2000} height={1326} priority sizes="(max-width: 767px) 100vw, 1280px" className="h-auto w-full" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
         <div className="absolute bottom-0 left-0 p-6 md:p-10">
           <p className="text-sm font-black uppercase tracking-[0.28em]">SGL Goods</p>
