@@ -10,7 +10,7 @@ const characters = [
     name: "Pickle",
     image: "/characters/pickle-riding.webp",
     imageAlt: "Pickle wearing a yellow beanie and riding a black bicycle through the city",
-    imageClass: "object-contain bg-sglInk",
+    imageClass: "object-cover object-center",
     role: "SGL Character",
     text: "A curious little explorer who sees every corner of the city as the beginning of a new adventure."
   },
@@ -34,7 +34,7 @@ const characters = [
     name: "Bagel",
     image: "/characters/bagel-city.webp",
     imageAlt: "Bagel wearing a beige jacket beside an SGL delivery vehicle in the city",
-    imageClass: "object-contain bg-sglInk",
+    imageClass: "object-cover object-center",
     role: "SGL Character",
     text: "A warm and dependable companion who brings everyone together and makes every place feel like home."
   }

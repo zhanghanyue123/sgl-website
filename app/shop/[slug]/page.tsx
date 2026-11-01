@@ -70,9 +70,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
         <ProductPurchase product={product} />
 
-        <div className="mt-8">
+        {!product.soldOut && <div className="mt-8">
           <BuyButton product={product} />
-        </div>
+        </div>}
 
         <p className="mt-5 max-w-2xl text-sm leading-6 opacity-55">
           For current stock, pickup, custom requests or product details, please

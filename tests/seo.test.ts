@@ -22,7 +22,8 @@ test("product data matches visible USD prices without inventing reviews or inven
     assert.ok(schema.image.every(url => url.startsWith(SITE_URL)));
     assert.ok(!/shopify|replace this copy/i.test(schema.description));
     assert.ok(!("aggregateRating" in schema));
-    assert.ok(!("availability" in schema.offers));
+    if (product.soldOut) assert.equal(schema.offers.availability, "https://schema.org/OutOfStock");
+    else assert.ok(!("availability" in schema.offers));
   }
 });
 

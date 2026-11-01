@@ -20,6 +20,7 @@ export async function POST(request: Request) {
     const items = parseItems(body).map(item => {
       const product = getProduct(item.slug);
       if (!product || item.variant >= Math.max(1, product.variants.length)) throw new StoreError(400, "商品规格不存在。");
+      if (product.soldOut || product.variants[item.variant]?.soldOut) throw new StoreError(409, "This item is sold out.");
       const options = product.variants[item.variant]?.options ?? [];
       return { slug: item.slug, options, quantity: item.quantity };
     });

@@ -40,6 +40,7 @@ export function productJsonLd(product: Product, path = `/shop/${product.slug}`) 
       url: absoluteUrl(path),
       price: product.price,
       priceCurrency: "USD",
+      ...(product.soldOut ? { availability: "https://schema.org/OutOfStock" } : {}),
       seller: { "@type": "Organization", name: "The Seagull Labs", url: SITE_URL }
     }
   };

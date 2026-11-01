@@ -3,11 +3,13 @@ export type ProductVariant = {
   options: { name: string; value: string }[];
   price?: number | null;
   inventory?: number | null;
+  soldOut?: boolean;
   image?: string | null;
 };
 
 export type Product = {
   hidden?: boolean;
+  soldOut?: boolean;
   slug: string;
   originalHandle: string;
   title: string;
@@ -98,6 +100,7 @@ export const products: Product[] = [
 },
 {
   "slug": "seagull-cap-lavender",
+  "soldOut": true,
   "originalHandle": "seagull-cap-lavender",
   "title": "Sea Gull Cap — Lavender",
   "category": "Wear & Ride",
@@ -624,6 +627,7 @@ export const products: Product[] = [
   },
   {
     "slug": "seat-bag",
+    "soldOut": true,
     "originalHandle": "seat-bag",
     "title": "Seat Bag",
     "category": "Bags & Carry",
@@ -941,6 +945,7 @@ export const products: Product[] = [
     "variants": [
       {
         "sku": "",
+        "soldOut": true,
         "options": [
           {
             "name": "Color",
@@ -977,6 +982,7 @@ export const products: Product[] = [
       },
       {
         "sku": "",
+        "soldOut": true,
         "options": [
           {
             "name": "Option",

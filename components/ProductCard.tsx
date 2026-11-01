@@ -21,6 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="p-5">
+        {product.soldOut && <p className="mb-3 inline-block border border-sglInk bg-sglInk px-3 py-1 text-xs font-black uppercase tracking-wide text-sglCream">Sold out</p>}
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p className="text-[11px] font-black uppercase tracking-[0.22em] opacity-60">
