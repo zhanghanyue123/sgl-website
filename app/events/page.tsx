@@ -109,6 +109,44 @@ const formats = [
   "Mini program missions"
 ];
 
+const calendarPosters = [
+  {
+    src: "/events/calendar/west-bund-cycling-festival.webp",
+    alt: "SGL poster for the West Bund cycling festival from May 1 to May 5, 2026",
+    title: "West Bund · May 1–5, 2026",
+    width: 1024,
+    height: 1536
+  },
+  {
+    src: "/events/calendar/china-cycle-show.webp",
+    alt: "SGL poster for the China International Bicycle Exhibition from May 5 to May 8",
+    title: "China Cycle Show · May 5–8",
+    width: 1600,
+    height: 2133
+  },
+  {
+    src: "/events/calendar/night-ride-beer.webp",
+    alt: "SGL night ride and beer gathering poster for May 16 at 6:30 PM",
+    title: "Night Ride & Beer · May 16",
+    width: 1022,
+    height: 1539
+  },
+  {
+    src: "/events/calendar/station-coffee-open.webp",
+    alt: "SGL Station coffee open poster with three bird characters",
+    title: "Station Coffee · Now Open",
+    width: 1024,
+    height: 1535
+  },
+  {
+    src: "/events/calendar/station-craft-beer-open.webp",
+    alt: "SGL Station craft beer open poster with three bird characters",
+    title: "Station Craft Beer · Now Open",
+    width: 1024,
+    height: 1536
+  }
+];
+
 export default function EventsPage() {
   return (
     <section>
@@ -191,6 +229,11 @@ export default function EventsPage() {
               <Image src="/events/calendar/night-ride-shadow.webp" alt="A rider standing with a bicycle under a street light at night" width={1280} height={1930} sizes="(max-width: 767px) 100vw, 100vw" className="max-h-[720px] w-full object-cover object-center" />
               <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">After dark</figcaption>
             </figure>
+          </div>
+
+          <div className="mt-12 border-t border-sglInk pt-8">
+            <p className="mb-5 text-sm font-black uppercase tracking-[0.25em] opacity-60">Posters · Dates · Station News</p>
+            <EventGallery photos={calendarPosters} display="grid" />
           </div>
         </div>
       </section>
