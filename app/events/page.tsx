@@ -48,7 +48,35 @@ const eventPhotos = [
     "height": 2030,
     "title": "A night at the station",
     "alt": "An evening football screening with a seated viewer at the station"
-  }
+  },
+{
+  "name": "community-city-meetup",
+  "width": 1200,
+  "height": 704,
+  "title": "Ready to ride",
+  "alt": "Cyclists meeting with their bicycles in a city plaza"
+},
+{
+  "name": "community-seagull-flags",
+  "width": 1200,
+  "height": 778,
+  "title": "Flying the Sea Gull flag",
+  "alt": "Blue and yellow Sea Gull pennants attached to parked bicycles"
+},
+{
+  "name": "community-garden-popup",
+  "width": 1200,
+  "height": 1600,
+  "title": "A day in the garden",
+  "alt": "Visitors gathering around an SGL outdoor pop-up table in a leafy garden"
+},
+{
+  "name": "community-city-rider",
+  "width": 1200,
+  "height": 1902,
+  "title": "Small wheels, city adventures",
+  "alt": "A cyclist riding a small-wheeled bicycle through a city plaza"
+}
 ];
 
 const events = [
