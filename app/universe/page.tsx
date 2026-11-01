@@ -107,25 +107,6 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <section className="border-b border-sglInk bg-sglCream">
-        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-12 md:grid-cols-[0.65fr_1.35fr] md:items-end md:px-8 md:py-16">
-          <div className="md:pb-4">
-            <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">Station Stories</p>
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">Meet at the station.</h2>
-            <p className="mt-5 max-w-md leading-7 opacity-70">Characters, drinks and everyday city stories meet at Seagull Station.</p>
-          </div>
-          <Image
-            src="/characters/station-three-birds.webp"
-            alt="Three SGL bird characters sharing drinks outside Seagull Station"
-            width={1122}
-            height={1402}
-            sizes="(max-width: 767px) 100vw, 66vw"
-            className="max-h-[900px] w-full border border-sglInk object-cover"
-          />
-        </div>
-      </section>
-
-
       <div id="meet-the-birds" className="mx-auto max-w-sgl scroll-mt-20 px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">

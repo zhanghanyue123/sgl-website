@@ -6,12 +6,13 @@ type FilmsProps = {
   src: string;
   title: string;
   poster?: string;
+  frameless?: boolean;
 };
 
-export default function Films({ src, title, poster = "/videos/poster.jpg" }: FilmsProps) {
+export default function Films({ src, title, poster = "/videos/poster.jpg", frameless = false }: FilmsProps) {
   const [failed, setFailed] = useState(false);
   return (
-    <div id="films" className="overflow-hidden border border-sglInk bg-black">
+    <div id="films" className={`overflow-hidden bg-black${frameless ? "" : " border border-sglInk"}`}>
       <video
         key={src}
         className="aspect-video w-full"

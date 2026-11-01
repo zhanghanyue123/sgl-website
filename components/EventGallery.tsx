@@ -15,11 +15,11 @@ export default function EventGallery({ photos, display = "cover" }: { photos: Ph
   return (
     <>
       {display === "grid" ? (
-        <div className="grid auto-cols-[150px] grid-flow-col gap-3 overflow-x-auto pb-2 md:auto-cols-fr">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {photos.map((photo, photoIndex) => (
             <button key={photo.src} type="button" onClick={() => open(photoIndex)} className="group overflow-hidden border border-sglInk bg-sglCream text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" aria-label={`View ${photo.title}`}>
-              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 150px, 15vw" className="aspect-[2/3] w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
-              <span className="block border-t border-sglInk px-3 py-3 text-[11px] font-black uppercase leading-4 tracking-wide">{photo.title} ↗</span>
+              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 20vw" className="aspect-[2/3] w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]" />
+              <span className="block border-t border-sglInk px-4 py-3 text-xs font-black uppercase leading-4 tracking-wide">{photo.title} ↗</span>
             </button>
           ))}
         </div>
