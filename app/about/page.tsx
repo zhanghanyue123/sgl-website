@@ -126,22 +126,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <section className="border-t border-sglInk bg-sglPaper">
-        <div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">
-          <figure className="overflow-hidden border border-sglInk bg-sglCream md:col-span-4">
-            <Image src="/events/calendar/one-year-anniversary.webp" alt="SGL one year anniversary cycling illustration" width={778} height={822} sizes="(max-width: 767px) 100vw, 34vw" className="aspect-[4/5] w-full object-cover" />
-            <figcaption className="border-t border-sglInk px-5 py-4 text-sm font-black uppercase tracking-wide">One year anniversary</figcaption>
-          </figure>
-
-          <figure className="overflow-hidden border border-sglInk bg-black md:col-span-8">
-            <video className="aspect-video w-full object-cover" src="/videos/night-ride-loop.mp4" poster="/events/calendar/night-ride-shadow.webp" aria-label="SGL night ride film" autoPlay muted loop playsInline controls preload="metadata">
-              Your browser does not support embedded video.
-            </video>
-            <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">Night ride film</figcaption>
-          </figure>
-        </div>
-      </section>
-
       <div className="border-t border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
@@ -171,6 +155,22 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      <section className="border-t border-sglInk bg-sglPaper">
+        <div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">
+          <figure className="overflow-hidden border border-sglInk bg-sglCream md:col-span-4">
+            <Image src="/events/calendar/one-year-anniversary.webp" alt="SGL one year anniversary cycling illustration" width={778} height={822} sizes="(max-width: 767px) 100vw, 34vw" className="aspect-[4/5] w-full object-cover" />
+            <figcaption className="border-t border-sglInk px-5 py-4 text-sm font-black uppercase tracking-wide">One year anniversary</figcaption>
+          </figure>
+
+          <figure className="overflow-hidden border border-sglInk bg-black md:col-span-8">
+            <video className="aspect-video w-full object-cover" src="/videos/night-ride-loop.mp4" poster="/events/calendar/night-ride-shadow.webp" aria-label="SGL night ride film" autoPlay muted loop playsInline controls preload="metadata">
+              Your browser does not support embedded video.
+            </video>
+            <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">Night ride film</figcaption>
+          </figure>
+        </div>
+      </section>
     </section>
   );
 }

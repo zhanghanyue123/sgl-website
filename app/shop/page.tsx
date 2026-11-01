@@ -65,10 +65,10 @@ export default function ShopPage() {
               </div>
 
               {index === 1 && (
-                <figure className="mt-12 grid overflow-hidden border border-sglInk bg-black text-sglCream md:grid-cols-[0.7fr_1.3fr]">
+                <figure className="mt-12 grid overflow-hidden border border-sglInk bg-sglPaper text-sglInk md:grid-cols-[0.7fr_1.3fr]">
                   <figcaption className="flex flex-col justify-between gap-8 p-6 md:p-10">
                     <div>
-                      <p className="text-xs font-black uppercase tracking-[0.24em] text-sglAcid">After Dark</p>
+                      <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">After Dark</p>
                       <h3 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">Night routes.<br />Small wheels.</h3>
                     </div>
                     <p className="max-w-sm text-sm uppercase tracking-[0.18em] opacity-65">Ride after sunset. Refuel at the station.</p>
