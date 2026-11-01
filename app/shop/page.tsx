@@ -39,7 +39,7 @@ export default function ShopPage() {
       </p>
 
       <div className="mt-10 grid gap-12">
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           const categoryProducts = getProductsByCategory(category);
           const label =
             categoryLabels[category as keyof typeof categoryLabels] || category;
@@ -63,6 +63,19 @@ export default function ShopPage() {
                   <ProductCard key={product.slug} product={product} />
                 ))}
               </div>
+
+              {index === 1 && (
+                <figure className="mt-12 grid overflow-hidden border border-sglInk bg-black text-sglCream md:grid-cols-[0.7fr_1.3fr]">
+                  <figcaption className="flex flex-col justify-between gap-8 p-6 md:p-10">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.24em] text-sglAcid">After Dark</p>
+                      <h3 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">Night routes.<br />Small wheels.</h3>
+                    </div>
+                    <p className="max-w-sm text-sm uppercase tracking-[0.18em] opacity-65">Ride after sunset. Refuel at the station.</p>
+                  </figcaption>
+                  <Image src="/events/calendar/night-ride-shadow.webp" alt="A rider standing with a bicycle beneath a street light at night" width={1280} height={1930} sizes="(max-width: 767px) 100vw, 65vw" className="max-h-[760px] w-full object-cover object-center" />
+                </figure>
+              )}
             </div>
           );
         })}

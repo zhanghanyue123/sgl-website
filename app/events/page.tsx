@@ -112,12 +112,6 @@ const formats = [
 export default function EventsPage() {
   return (
     <section>
-      <div className="bg-black">
-        <div className="mx-auto max-w-sgl">
-          <Films src="/videos/shanghai.mp4" title="Story 001 — Shanghai" />
-        </div>
-      </div>
-
       <div className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
@@ -214,6 +208,16 @@ export default function EventsPage() {
               </figure>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-sglInk bg-black text-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-2 text-xs font-black uppercase tracking-[0.24em]">
+            <span className="border border-sglAcid bg-sglAcid px-3 py-1 text-sglInk">SGL Film</span>
+            <span>Story 001 — Shanghai</span>
+          </div>
+          <Films src="/videos/shanghai.mp4" title="Story 001 — Shanghai" />
         </div>
       </section>
 
