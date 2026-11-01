@@ -111,6 +111,13 @@ const formats = [
 
 const calendarPosters = [
   {
+    src: "/events/calendar/sea-gull-shanghai-2025.webp",
+    alt: "Sea Gull Shanghai 2025 illustrated city cycling poster",
+    title: "Sea Gull Shanghai · 2025",
+    width: 1276,
+    height: 1876
+  },
+  {
     src: "/events/calendar/west-bund-cycling-festival.webp",
     alt: "SGL poster for the West Bund cycling festival from May 1 to May 5, 2026",
     title: "West Bund · May 1–5, 2026",
@@ -130,6 +137,20 @@ const calendarPosters = [
     title: "Night Ride & Beer · May 16",
     width: 1022,
     height: 1539
+  },
+  {
+    src: "/events/calendar/autumn-day.webp",
+    alt: "SGL Autumn Day poster with friends, birds and a dog camping together",
+    title: "Autumn Day",
+    width: 918,
+    height: 1378
+  },
+  {
+    src: "/events/calendar/bar-empire.webp",
+    alt: "Bar Empire tabletop game playtest recruitment poster for November 29 at 7 PM",
+    title: "Bar Empire · Nov 29 · 19:00",
+    width: 1114,
+    height: 1674
   },
   {
     src: "/events/calendar/station-coffee-open.webp",
@@ -224,11 +245,6 @@ export default function EventsPage() {
               </video>
               <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">Night ride film</figcaption>
             </figure>
-
-            <figure className="overflow-hidden border border-sglInk bg-black md:col-span-12">
-              <Image src="/events/calendar/night-ride-shadow.webp" alt="A rider standing with a bicycle under a street light at night" width={1280} height={1930} sizes="(max-width: 767px) 100vw, 100vw" className="max-h-[720px] w-full object-cover object-center" />
-              <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">After dark</figcaption>
-            </figure>
           </div>
 
           <div className="mt-12 border-t border-sglInk pt-8">
@@ -244,7 +260,7 @@ export default function EventsPage() {
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Community moments</h2>
           <p className="mt-4 max-w-3xl leading-7 opacity-75">From a ride with friends to an evening together. A few moments from life around SGL.</p>
           <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {eventPhotos.slice(2).map(photo => (
+            {eventPhotos.slice(3).map(photo => (
               <figure key={photo.name} className="overflow-hidden border border-sglCream/30">
                 <Image src={`/events/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 1023px) 50vw, 25vw" className="aspect-[4/3] w-full object-cover" />
                 <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
@@ -354,6 +370,14 @@ export default function EventsPage() {
           </Link>
         </div>
       </div>
+
+      <section className="border-t border-sglInk bg-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Community Ride</p>
+          <h2 className="mb-6 mt-3 text-4xl font-black uppercase md:text-5xl">Meet at the station</h2>
+          <Image src="/events/station-community-ride.webp" alt="Cyclists gathering with their bicycles for a group photo outside Seagull Station" width={1600} height={1200} sizes="(max-width: 767px) 100vw, 1200px" className="h-auto w-full border border-sglInk" />
+        </div>
+      </section>
     </section>
   );
 }
