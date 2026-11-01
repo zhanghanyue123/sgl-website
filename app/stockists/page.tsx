@@ -7,7 +7,7 @@ export default function StockistsPage() {
   return <section>
     <div className="border-b border-sglInk bg-sglInk text-sglCream"><div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
       <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">Find SGL</p>
-      <h1 className="mt-4 text-5xl font-black uppercase md:text-8xl">Stockists</h1>
+      <h1 className="mt-4 text-5xl font-black uppercase md:text-6xl">Stockists</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 opacity-80">From the station to your local store. Get in touch to find SGL goods or discuss bringing The Seagull Labs to your neighbourhood.</p>
     </div></div>
     <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">

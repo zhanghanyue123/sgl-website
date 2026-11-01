@@ -43,7 +43,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           {product.category}
         </p>
 
-        <h1 className="mt-2 text-5xl font-black uppercase leading-none md:text-7xl">
+        <h1 className="mt-2 text-5xl font-black uppercase leading-none md:text-6xl">
           {product.title}
         </h1>
 

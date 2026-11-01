@@ -74,7 +74,7 @@ export default function UniversePage() {
             SGL Universe
           </p>
 
-          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-8xl">
+          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-6xl">
             A playable world hidden inside everyday movement.
           </h1>
 
@@ -114,7 +114,7 @@ export default function UniversePage() {
             Characters
           </p>
 
-          <h2 className="mt-2 text-4xl font-black uppercase md:text-6xl">
+          <h2 className="mt-2 text-4xl font-black uppercase md:text-5xl">
             Meet the birds
           </h2>
         </div>
@@ -164,7 +164,7 @@ export default function UniversePage() {
               World System
             </p>
 
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-6xl">
+            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
               From characters to a real-world mini game.
             </h2>
           </div>

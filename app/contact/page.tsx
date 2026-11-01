@@ -35,7 +35,7 @@ export default function ContactPage() {
             Contact SGL
           </p>
 
-          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-8xl">
+          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-6xl">
             Orders, pickup, events and collaborations.
           </h1>
 
@@ -74,7 +74,7 @@ export default function ContactPage() {
               Fast Order
             </p>
 
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-6xl">
+            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
               Send product name, color and quantity.
             </h2>
           </div>

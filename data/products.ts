@@ -29,6 +29,30 @@ export type Product = {
 
 export const products: Product[] = [
 {
+  "slug": "sgl-three-pair-sock-set",
+  "originalHandle": "sgl-three-pair-sock-set",
+  "title": "SGL Three-Pair Sock Set",
+  "category": "Wear & Ride",
+  "price": 35,
+  "priceLabel": "35",
+  "images": [
+    "/products/socks/sgl-three-pair-sock-set-01.webp",
+    "/products/socks/sgl-three-pair-sock-set-02.webp",
+    "/products/socks/sgl-three-pair-sock-set-03.webp",
+    "/products/socks/sgl-three-pair-sock-set-04.webp",
+    "/products/socks/sgl-three-pair-sock-set-05.webp"
+  ],
+  "description": "A coordinated set of three SGL sock designs for everyday movement and riding.",
+  "details": [
+    "Set of three pairs",
+    "Three coordinated SGL designs"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
   "slug": "sgl-house-blend-01",
   "originalHandle": "sgl-house-blend-01",
   "title": "SGL House Blend 01 — 450g",

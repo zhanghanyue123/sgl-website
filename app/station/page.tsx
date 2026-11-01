@@ -95,7 +95,7 @@ export default function StationPage() {
             Seagull Station
           </p>
 
-          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-8xl">
+          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-6xl">
             A small stop for people moving through the city.
           </h1>
 
@@ -130,7 +130,7 @@ export default function StationPage() {
       <section id="station-life" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Station life</p>
-          <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">Pause. Refuel. Stay a while.</h2>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Pause. Refuel. Stay a while.</h2>
           <p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">Warm lights, a fresh pour and good company. A closer look at everyday moments at Seagull Station.</p>
           <div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">
             {stationPhotos.map(photo => <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglInk bg-sglPaper">
@@ -164,7 +164,7 @@ export default function StationPage() {
               Station Logic
             </p>
 
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-6xl">
+            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
               From one store to a playable city network.
             </h2>
           </div>

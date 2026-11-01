@@ -4,7 +4,7 @@ import Films from "@/components/Films";
 import Link from "next/link";
 import Image from "next/image";
 
-export const metadata = pageMetadata("SGL Events — Community Rides, Pop-ups & ISPO", "Explore SGL at the 2026 Shanghai International Bicycle Exhibition and ISPO, plus community rides, outdoor pop-ups and gatherings at Seagull Station.", "/events");
+export const metadata = pageMetadata("SGL Events — Community Rides, Pop-ups & ISPO", "Explore SGL at ISPO Shanghai 2025 and the 2026 Shanghai International Bicycle Exhibition, plus community rides, outdoor pop-ups and gatherings at Seagull Station.", "/events");
 
 const eventPhotos = [
   {
@@ -113,7 +113,9 @@ export default function EventsPage() {
   return (
     <section>
       <div className="bg-black">
-        <div className="mx-auto max-w-sgl"><Films /></div>
+        <div className="mx-auto max-w-sgl">
+          <Films src="/videos/shanghai.mp4" title="Story 001 — Shanghai" />
+        </div>
       </div>
 
       <div className="border-b border-sglInk bg-sglInk text-sglCream">
@@ -122,7 +124,7 @@ export default function EventsPage() {
             SGL Events
           </p>
 
-          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-8xl">
+          <h1 className="mt-4 max-w-5xl text-5xl font-black uppercase leading-[0.92] md:text-6xl">
             Ride, drink, meet, check in.
           </h1>
 
@@ -157,13 +159,44 @@ export default function EventsPage() {
       <section id="exhibitions" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Exhibitions · Shanghai</p>
-          <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">SGL on the road</h2>
-          <p className="mt-4 max-w-3xl leading-7 opacity-75">From the 2026 Shanghai International Bicycle Exhibition to ISPO. Cycling goods, familiar characters and new faces.</p>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">SGL on the road</h2>
+          <p className="mt-4 max-w-3xl leading-7 opacity-75">From ISPO Shanghai 2025 to the 2026 Shanghai International Bicycle Exhibition. Cycling goods, familiar characters and new faces.</p>
           <div className="mt-8">
             <EventGallery photos={[
-              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai", title: "SGL at ISPO Shanghai", width: 1920, height: 1280 },
+              { src: "/events/ispo-shanghai.webp", alt: "Visitors at the Sea Gull booth at ISPO Shanghai 2025", title: "ISPO Shanghai 2025", width: 1920, height: 1280 },
               ...eventPhotos.slice(0, 2).map(photo => ({ src: `/events/${photo.name}.webp`, alt: photo.alt, title: `Shanghai International Bicycle Exhibition 2026 — ${photo.title}`, width: photo.width, height: photo.height }))
             ]} />
+          </div>
+        </div>
+      </section>
+
+      <section id="calendar" className="scroll-mt-24 border-b border-sglInk bg-sglPaper">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Calendar · Anniversary · Night Ride</p>
+              <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">SGL Calendar</h2>
+            </div>
+            <p className="max-w-2xl leading-7 opacity-75">Anniversary moments, night rides and the next reasons to meet at the station. New dates and routes are announced through SGL channels.</p>
+          </div>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-12">
+            <figure className="overflow-hidden border border-sglInk bg-sglCream md:col-span-4">
+              <Image src="/events/calendar/one-year-anniversary.webp" alt="SGL one year anniversary cycling illustration" width={778} height={822} sizes="(max-width: 767px) 100vw, 34vw" className="aspect-[4/5] w-full object-cover" />
+              <figcaption className="border-t border-sglInk px-5 py-4 text-sm font-black uppercase tracking-wide">One year anniversary</figcaption>
+            </figure>
+
+            <figure className="overflow-hidden border border-sglInk bg-black md:col-span-8">
+              <video className="aspect-video w-full object-cover" src="/videos/night-ride-loop.mp4" poster="/events/calendar/night-ride-shadow.webp" aria-label="SGL night ride film" autoPlay muted loop playsInline controls preload="metadata">
+                Your browser does not support embedded video.
+              </video>
+              <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">Night ride film</figcaption>
+            </figure>
+
+            <figure className="overflow-hidden border border-sglInk bg-black md:col-span-12">
+              <Image src="/events/calendar/night-ride-shadow.webp" alt="A rider standing with a bicycle under a street light at night" width={1280} height={1930} sizes="(max-width: 767px) 100vw, 100vw" className="max-h-[720px] w-full object-cover object-center" />
+              <figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">After dark</figcaption>
+            </figure>
           </div>
         </div>
       </section>
@@ -171,7 +204,7 @@ export default function EventsPage() {
       <section id="community-moments" className="scroll-mt-24 border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">Rides · Pop-ups · Gatherings</p>
-          <h2 className="mt-3 text-4xl font-black uppercase md:text-6xl">Community moments</h2>
+          <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Community moments</h2>
           <p className="mt-4 max-w-3xl leading-7 opacity-75">From a ride with friends to an evening together. A few moments from life around SGL.</p>
           <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {eventPhotos.slice(2).map(photo => (
@@ -190,7 +223,7 @@ export default function EventsPage() {
             Event Formats
           </p>
 
-          <h2 className="mt-2 text-4xl font-black uppercase md:text-6xl">
+          <h2 className="mt-2 text-4xl font-black uppercase md:text-5xl">
             What SGL can host
           </h2>
         </div>
@@ -235,7 +268,7 @@ export default function EventsPage() {
             Event System
           </p>
 
-          <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-6xl">
+          <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
             Every event becomes a route, a story and a member touchpoint.
           </h2>
         </div>
@@ -262,7 +295,7 @@ export default function EventsPage() {
             </p>
 
             <h2 className="mt-2 text-3xl font-black uppercase">
-              Event calendar and route check-in system
+              Route announcements and check-ins
             </h2>
           </div>
 

@@ -16,7 +16,7 @@ const sections = [
 export default function ShippingPage() {
   return <section className="mx-auto max-w-sgl px-4 py-16 md:px-8">
     <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Customer information</p>
-    <h1 className="mt-4 max-w-4xl text-5xl font-black uppercase leading-none md:text-7xl">Sales, shipping &amp; returns</h1>
+    <h1 className="mt-4 max-w-4xl text-5xl font-black uppercase leading-none md:text-6xl">Sales, shipping &amp; returns</h1>
     <p className="mt-6 max-w-3xl text-lg leading-8 opacity-75">Planning an order? Here is what to check with the SGL team, from product availability to delivery and after-sales support.</p>
     <div className="mt-10 grid gap-6 md:grid-cols-2">{sections.map(section => <article key={section.title} className="border border-sglInk bg-sglPaper p-6"><h2 className="text-2xl font-black uppercase">{section.title}</h2><p className="mt-4 leading-7 opacity-80">{section.text}</p></article>)}</div>
     <div className="mt-10 flex flex-wrap gap-4"><a href="mailto:hello@theseagulllabs.com" className="border border-sglInk bg-sglAcid px-6 py-3 font-bold">Ask about an order</a><Link href="/shop" className="border border-sglInk px-6 py-3 font-bold">Back to Shop</Link></div>

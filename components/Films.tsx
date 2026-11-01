@@ -2,24 +2,23 @@
 
 import { useState } from "react";
 
-const films = [
-  { src: "/videos/seagull.mp4", title: "Seagull — New York" },
-  { src: "/videos/shanghai.mp4", title: "Story 001 — Shanghai" },
-];
+type FilmsProps = {
+  src: string;
+  title: string;
+  poster?: string;
+};
 
-export default function Films() {
-  const [index, setIndex] = useState(0);
+export default function Films({ src, title, poster = "/videos/poster.jpg" }: FilmsProps) {
   const [failed, setFailed] = useState(false);
   return (
     <div id="films" className="overflow-hidden border border-sglInk bg-black">
       <video
-        key={films[index].src}
+        key={src}
         className="aspect-video w-full"
-        src={films[index].src}
-        poster="/videos/poster.jpg"
-        aria-label={films[index].title}
+        src={src}
+        poster={poster}
+        aria-label={title}
         autoPlay muted playsInline controls preload="metadata"
-        onEnded={() => { setFailed(false); setIndex((index + 1) % films.length); }}
         onError={() => setFailed(true)}
       >
         Your browser does not support embedded video.

@@ -19,7 +19,7 @@ export default function AppPage() {
         <div className="mx-auto grid max-w-sgl items-center gap-12 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-24">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">SGL App &amp; Mini Program</p>
-            <h1 className="mt-6 text-5xl font-black uppercase leading-[0.95] md:text-7xl">Your city.<br />Your next<br /><span className="text-sglAcid">small adventure.</span></h1>
+            <h1 className="mt-6 text-5xl font-black uppercase leading-[0.95] md:text-6xl">Your city.<br />Your next<br /><span className="text-sglAcid">small adventure.</span></h1>
             <p className="mt-7 max-w-lg text-lg leading-8 opacity-80">Ride. Run. Refuel. A digital companion for station stops, familiar faces and new routes through everyday life.</p>
             <div className="mt-7 flex flex-wrap gap-3 text-xs font-bold uppercase tracking-wider">
               <span className="border border-sglCream/40 px-3 py-2">App concept</span>
@@ -37,7 +37,7 @@ export default function AppPage() {
       <section id="screens" className="scroll-mt-20 mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
         <div className="mb-12 max-w-3xl">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Inside the mini program</p>
-          <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-6xl">From your screen<br />to the street.</h2>
+          <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-5xl">From your screen<br />to the street.</h2>
           <p className="mt-5 text-lg leading-8 opacity-75">Four connected moments, built around the station. Explore the English interface previews below.</p>
         </div>
         <div className="grid gap-x-8 gap-y-16 sm:grid-cols-2 xl:grid-cols-4">

@@ -1,6 +1,7 @@
 import { pageMetadata } from "@/lib/seo";
 import Films from "@/components/Films";
 import Link from "next/link";
+import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
 import { events } from "@/data/events";
 import { storefrontProducts } from "@/data/products";
@@ -18,7 +19,7 @@ export default function Home() {
               Urban riding / Station goods / Small adventures
             </p>
 
-            <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.92] tracking-tight md:text-8xl">
+            <h1 className="max-w-5xl text-5xl font-black uppercase leading-[0.92] tracking-tight md:text-6xl">
               Seagull Station keeps the city moving.
             </h1>
 
@@ -58,12 +59,14 @@ export default function Home() {
           </div>
 
           <div className="border border-sglCream bg-sglGraphite p-6">
-            <div className="flex aspect-square flex-col justify-between border border-dashed border-sglCream/50 bg-sglInk p-6">
+            <div className="relative isolate flex aspect-square flex-col justify-between overflow-hidden border border-dashed border-sglCream/50 bg-sglInk p-6">
+              <Image src="/home/wheel-deal.webp" alt="Wheel Deal Seagull cycling illustration" fill sizes="(max-width: 767px) 100vw, 42vw" className="-z-20 object-cover" />
+              <div className="absolute inset-0 -z-10 bg-sglInk/75" />
               <div>
                 <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
                   Station System
                 </p>
-                <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-6xl">
+                <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-5xl">
                   Goods,
                   <br />
                   rides,
@@ -94,7 +97,7 @@ export default function Home() {
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
               Shop
             </p>
-            <h2 className="mt-2 text-4xl font-black uppercase md:text-6xl">
+            <h2 className="mt-2 text-4xl font-black uppercase md:text-5xl">
               Station goods
             </h2>
             <p className="mt-4 max-w-2xl text-lg leading-8 opacity-70">
@@ -165,12 +168,14 @@ export default function Home() {
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
             Events
           </p>
-          <h2 className="mt-2 text-4xl font-black uppercase md:text-6xl">
+          <h2 className="mt-2 text-4xl font-black uppercase md:text-5xl">
             Ride, drink, meet.
           </h2>
         </div>
 
-        <div className="mb-8"><Films /></div>
+        <div className="mb-8">
+          <Films src="/videos/seagull.mp4" title="Seagull — New York" />
+        </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           {events.map((event) => (

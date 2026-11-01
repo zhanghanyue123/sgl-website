@@ -22,7 +22,7 @@ export default function ShopPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
         <div className="absolute bottom-0 left-0 p-3 sm:p-6 md:p-10">
           <p className="text-sm font-black uppercase tracking-[0.28em]">SGL Goods</p>
-          <h1 className="mt-2 text-4xl font-black uppercase sm:text-6xl md:text-8xl">Shop</h1>
+          <h1 className="mt-2 text-4xl font-black uppercase sm:text-5xl md:text-6xl">Shop</h1>
           <p className="mt-2 text-[10px] font-bold uppercase tracking-widest sm:mt-3 sm:text-sm md:text-base">Made for everyday movement.</p>
         </div>
       </div>
