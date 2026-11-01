@@ -12,16 +12,6 @@ export const metadata = pageMetadata("The Seagull Labs (SGL) — Urban Lifestyle
 export default function Home() {
   return (
     <div>
-      <section className="border-b border-sglInk bg-black text-sglCream">
-        <div className="mx-auto max-w-sgl">
-          <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs font-black uppercase tracking-[0.24em] md:px-8">
-            <span className="border border-sglAcid bg-sglAcid px-3 py-1 text-sglInk">SGL Film</span>
-            <span>Seagull — New York</span>
-          </div>
-          <Films src="/videos/seagull.mp4" title="Seagull — New York" />
-        </div>
-      </section>
-
       <section className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto grid max-w-sgl gap-10 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-24">
           <div>
@@ -181,6 +171,14 @@ export default function Home() {
           <h2 className="mt-2 text-4xl font-black uppercase md:text-5xl">
             Ride, drink, meet.
           </h2>
+        </div>
+
+        <div className="mb-8 border border-sglInk bg-black text-sglCream">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs font-black uppercase tracking-[0.24em] md:px-6">
+            <span className="border border-sglAcid bg-sglAcid px-3 py-1 text-sglInk">SGL Film</span>
+            <span>Story 001 — Shanghai</span>
+          </div>
+          <Films src="/videos/shanghai.mp4" title="Story 001 — Shanghai" />
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
