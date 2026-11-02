@@ -1052,6 +1052,7 @@ export const products: Product[] = [
     "priceLabel": "15",
     "badge": "Travel",
     "images": [
+      "/products/sgl-shoe-bag-studio.webp",
       "/products/optimized/sgl-product-027.webp"
     ],
     "description": "A zippered SGL bag for carrying and separating a pair of shoes while travelling or training.",
@@ -1069,7 +1070,7 @@ export const products: Product[] = [
         ],
         "price": 15.0,
         "inventory": 0,
-        "image": "/products/optimized/sgl-product-027.webp"
+        "image": "/products/sgl-shoe-bag-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/reveal-shoe-sack",
@@ -1428,6 +1429,7 @@ export const products: Product[] = [
     "priceLabel": "8",
     "badge": "Character Gear",
     "images": [
+      "/products/baby-seagull-reflector-studio.webp",
       "/products/optimized/sgl-product-055.webp",
       "/products/optimized/sgl-product-056.webp",
       "/products/optimized/sgl-product-057.webp",
@@ -1448,7 +1450,7 @@ export const products: Product[] = [
         ],
         "price": 8.0,
         "inventory": 500,
-        "image": "/products/optimized/sgl-product-055.webp"
+        "image": "/products/baby-seagull-reflector-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/reflective-gear-safety-reflector-baby-seagull",
@@ -1467,6 +1469,7 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "Set of Three",
     "images": [
+      "/products/three-seagulls-pin-studio.webp",
       "/products/optimized/sgl-product-059.webp",
       "/products/optimized/sgl-product-060.webp",
       "/products/optimized/sgl-product-061.webp",
@@ -1490,7 +1493,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 500,
-        "image": "/products/optimized/sgl-product-061.webp"
+        "image": "/products/three-seagulls-pin-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/pin",
@@ -1975,6 +1978,7 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "Character Gear",
     "images": [
+      "/products/sgl-bicycle-reflector-studio.webp",
       "/products/optimized/sgl-product-082.webp",
       "/products/optimized/sgl-product-083.webp",
       "/products/optimized/sgl-product-084.webp",
@@ -1995,7 +1999,7 @@ export const products: Product[] = [
         ],
         "price": 13.0,
         "inventory": 1000,
-        "image": "/products/optimized/sgl-product-082.webp"
+        "image": "/products/sgl-bicycle-reflector-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/cover",

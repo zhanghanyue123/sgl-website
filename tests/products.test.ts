@@ -86,3 +86,18 @@ test("bike cover uses the approved studio primary image and new detail gallery",
     "/products/bike-cover-detail-zip.webp"
   ]);
 });
+
+test("new accessory and shoe bag studio images are used as primary images", () => {
+  const expected = [
+    ["reveal-shoe-sack", "/products/sgl-shoe-bag-studio.webp"],
+    ["reflective-gear-safety-reflector-baby-seagull", "/products/baby-seagull-reflector-studio.webp"],
+    ["pin", "/products/three-seagulls-pin-studio.webp"],
+    ["cover", "/products/sgl-bicycle-reflector-studio.webp"]
+  ] as const;
+
+  for (const [slug, image] of expected) {
+    const product = getProduct(slug)!;
+    assert.equal(product.images[0], image);
+    assert.equal(product.variants[0]?.image, image);
+  }
+});
