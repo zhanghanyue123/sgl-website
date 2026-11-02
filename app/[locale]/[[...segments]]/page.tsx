@@ -9,7 +9,7 @@ import ProductPurchase from "@/components/ProductPurchase";
 import CartPage from "@/app/cart/page";
 import { getProduct, storefrontProducts } from "@/data/products";
 import { absoluteUrl, productJsonLd, serializeJsonLd, stationJsonLd } from "@/lib/seo";
-import { isLocale, languageAlternates, localizedPath, type Locale } from "@/lib/i18n";
+import { languageAlternates, localizedPath, localeFromSegment, type Locale } from "@/lib/i18n";
 import { localizedProduct, pageCopy } from "@/lib/localized-copy";
 
 type LocalizedLocale = Exclude<Locale, "en">;
@@ -18,7 +18,8 @@ type PageProps = { params: { locale: string; segments?: string[] } };
 const labels: Record<LocalizedLocale, Record<string, string>> = {
   "zh-CN": { shop: "商店", viewShop: "浏览商品", visit: "到访 Station", history: "品牌历程", current: "当前体验", calendar: "SGL 日历", exhibitions: "展会记录", characters: "认识角色", screens: "小程序体验", contact: "联系方式", address: "Station 地址", payment: "付款", delivery: "配送", returns: "退换与支持", items: "件商品", details: "产品详情", back: "返回商店", archive: "活动海报与历史档案", open: "联系 SGL", soldOut: "售罄" },
   "ja-JP": { shop: "ショップ", viewShop: "商品を見る", visit: "Stationへ", history: "ブランドの歩み", current: "現在の体験", calendar: "SGLカレンダー", exhibitions: "展示会の記録", characters: "キャラクター", screens: "ミニプログラム体験", contact: "お問い合わせ", address: "Station所在地", payment: "支払い", delivery: "配送", returns: "返品・サポート", items: "点", details: "商品詳細", back: "ショップへ戻る", archive: "イベントポスターとアーカイブ", open: "SGLへ連絡", soldOut: "売り切れ" },
-  "ko-KR": { shop: "스토어", viewShop: "제품 보기", visit: "Station 방문", history: "브랜드 연혁", current: "현재 경험", calendar: "SGL 캘린더", exhibitions: "전시 기록", characters: "캐릭터 만나기", screens: "미니 프로그램 경험", contact: "문의", address: "Station 주소", payment: "결제", delivery: "배송", returns: "반품 및 지원", items: "개 제품", details: "제품 상세", back: "스토어로", archive: "이벤트 포스터와 아카이브", open: "SGL 문의", soldOut: "품절" }
+  "ko-KR": { shop: "스토어", viewShop: "제품 보기", visit: "Station 방문", history: "브랜드 연혁", current: "현재 경험", calendar: "SGL 캘린더", exhibitions: "전시 기록", characters: "캐릭터 만나기", screens: "미니 프로그램 경험", contact: "문의", address: "Station 주소", payment: "결제", delivery: "배송", returns: "반품 및 지원", items: "개 제품", details: "제품 상세", back: "스토어로", archive: "이벤트 포스터와 아카이브", open: "SGL 문의", soldOut: "품절" },
+  "it-IT": { shop: "Negozio", viewShop: "Scopri i prodotti", visit: "Visita la Station", history: "Storia del brand", current: "Esperienza attuale", calendar: "Calendario SGL", exhibitions: "SGL in viaggio", characters: "Incontra i personaggi", screens: "Esperienza Mini Program", contact: "Contatti", address: "Indirizzo della Station", payment: "Pagamento", delivery: "Spedizione", returns: "Resi e assistenza", items: "prodotti", details: "Dettagli del prodotto", back: "Torna al negozio", archive: "Poster e archivio degli eventi", open: "Contatta SGL", soldOut: "Esaurito" }
 };
 
 const timeline: Record<LocalizedLocale, { date: string; text: string }[]> = {
@@ -30,6 +31,9 @@ const timeline: Record<LocalizedLocale, { date: string; text: string }[]> = {
   ],
   "ko-KR": [
     { date: "2023.06.09", text: "The Seagull Labs 설립." }, { date: "2025", text: "ISPO Shanghai와 상하이 국제 자전거 전시회 참가." }, { date: "2025.10", text: "상하이 Seagull Station 운영 시작." }, { date: "2026", text: "상하이 자전거 전시회 두 번째 참가." }, { date: "2026.06", text: "SGL WeChat 미니 프로그램 출시." }, { date: "2027년 초", text: "개발과 테스트를 전제로 AR 경험 공개 예정." }
+  ],
+  "it-IT": [
+    { date: "09.06.2023", text: "Nasce The Seagull Labs." }, { date: "2025", text: "Partecipazione a ISPO Shanghai e alla China Cycle di Shanghai." }, { date: "10.2025", text: "Seagull Station apre a Shanghai." }, { date: "2026", text: "Seconda partecipazione alla fiera della bicicletta di Shanghai." }, { date: "06.2026", text: "Lancio del Mini Program WeChat SGL." }, { date: "Inizio 2027", text: "Uscita prevista delle interazioni AR, soggetta a sviluppo e test." }
   ]
 };
 
@@ -51,6 +55,12 @@ const characterCopy: Record<LocalizedLocale, { name: string; text: string; image
     { name: "Fries", text: "활기차고 명랑하며 어디를 가든 재미와 즉흥성, 약간의 소동을 가져옵니다.", image: "/characters/fries.webp", alt: "Seagull Station 앞을 걷는 Fries" },
     { name: "Oreo", text: "조용하고 관찰력이 뛰어나 다른 이들이 놓치는 작은 것을 발견하는 사색가입니다.", image: "/characters/oreo-running.webp", alt: "도시 거리를 달리는 Oreo" },
     { name: "Bagel", text: "모두를 한자리에 모으고 어디든 집처럼 느끼게 하는 따뜻하고 믿음직한 동료입니다.", image: "/characters/bagel-city.webp", alt: "도시 거리의 Bagel" }
+  ],
+  "it-IT": [
+    { name: "Pickle", text: "Un piccolo esploratore curioso, per cui ogni angolo della città è l’inizio di una nuova avventura.", image: "/characters/pickle-riding.webp", alt: "Pickle attraversa la città in bicicletta" },
+    { name: "Fries", text: "Energico e solare, porta ovunque divertimento, spontaneità e un pizzico di caos.", image: "/characters/fries.webp", alt: "Fries cammina davanti alla Seagull Station" },
+    { name: "Oreo", text: "Silenzioso e attento, nota i piccoli dettagli che sfuggono a tutti gli altri.", image: "/characters/oreo-running.webp", alt: "Oreo corre per le strade della città" },
+    { name: "Bagel", text: "Un compagno affettuoso e affidabile, capace di riunire tutti e far sentire ogni luogo come casa.", image: "/characters/bagel-city.webp", alt: "Bagel in una strada della città" }
   ]
 };
 
@@ -62,6 +72,28 @@ const calendarPosters = [
   { src: "/events/calendar/station-craft-beer-open.webp", alt: "SGL Station craft beer poster", title: "Station Craft Beer · Archive", width: 1024, height: 1536 }
 ];
 
+const italianCalendarCopy = [
+  { alt: "Poster SGL del festival ciclistico al West Bund", title: "West Bund · 1–5 maggio 2026" },
+  { alt: "Poster SGL della pedalata serale con birra", title: "Pedalata serale e birra · 16 maggio" },
+  { alt: "Poster SGL della Giornata d’autunno", title: "Giornata d’autunno" },
+  { alt: "Poster del caffè alla Seagull Station", title: "Caffè alla Station · Archivio" },
+  { alt: "Poster della birra artigianale alla Seagull Station", title: "Birra artigianale alla Station · Archivio" }
+];
+
+const stationAddresses: Record<LocalizedLocale, string> = {
+  "zh-CN": "上海市浦东新区锦延路东绣路广场 L1",
+  "ja-JP": "中国・上海市浦東新区、錦延路と東繡路の交差点広場 L1",
+  "ko-KR": "중국 상하이 푸둥신구 진옌로·둥슈로 광장 L1",
+  "it-IT": "Cina, Shanghai, Nuova Area di Pudong, piazza tra Jinyan Road e Dongxiu Road, livello L1"
+};
+
+const returnsCopy: Record<LocalizedLocale, string> = {
+  "zh-CN": "退换与售后安排按订单和商品状态确认。请在退回商品前联系 SGL。",
+  "ja-JP": "返品とアフターサポートは注文内容と商品の状態に応じて確認します。返送前にSGLへご連絡ください。",
+  "ko-KR": "반품과 사후 지원은 주문 및 제품 상태에 따라 확인합니다. 반송 전에 SGL에 문의해 주세요.",
+  "it-IT": "Resi e assistenza vengono valutati in base all’ordine e alle condizioni del prodotto. Contatta SGL prima di restituire un articolo."
+};
+
 function routeKey(segments: string[]) {
   if (!segments.length) return "home";
   if (segments[0] === "shop" && segments[1]) return "product";
@@ -70,17 +102,19 @@ function routeKey(segments: string[]) {
 }
 
 export function generateMetadata({ params }: PageProps): Metadata {
-  if (!isLocale(params.locale) || params.locale === "en") return {};
+  const resolvedLocale = localeFromSegment(params.locale);
+  if (!resolvedLocale || resolvedLocale === "en") return {};
   const segments = params.segments || [];
   const key = routeKey(segments);
-  const locale = params.locale as LocalizedLocale;
+  const locale = resolvedLocale as LocalizedLocale;
   const product = key === "product" ? getProduct(segments[1]) : undefined;
   const path = `/${segments.join("/")}`.replace(/\/$/, "") || "/";
   const base = pageCopy[locale][key === "product" ? "shop" : key];
   if (!base) return {};
-  const title = product ? `${product.title}｜The Seagull Labs` : base.title;
+  const title = product ? `${product.title}${locale === "it-IT" ? " | " : "｜"}The Seagull Labs` : base.title;
   const description = product ? localizedProduct(product, locale).description : base.description;
   const alternates = languageAlternates(path);
+  const image = absoluteUrl(product?.images[0] || "/station/seagull-sunset.webp");
   return {
     title,
     description,
@@ -88,7 +122,8 @@ export function generateMetadata({ params }: PageProps): Metadata {
       canonical: absoluteUrl(localizedPath(path, locale)),
       languages: Object.fromEntries(Object.entries(alternates).map(([language, href]) => [language, absoluteUrl(href)]))
     },
-    openGraph: { title, description, url: absoluteUrl(localizedPath(path, locale)), siteName: "The Seagull Labs", type: "website" }
+    openGraph: { title, description, url: absoluteUrl(localizedPath(path, locale)), siteName: "The Seagull Labs", type: "website", locale, images: [{ url: image }] },
+    twitter: { card: "summary_large_image", title, description, images: [image] }
   };
 }
 
@@ -105,25 +140,37 @@ function ProductCards({ locale, products }: { locale: LocalizedLocale; products:
   return <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{products.map((raw) => { const product = localizedProduct(raw, locale); return <Link key={product.slug} href={localizedPath(`/shop/${product.slug}`, locale)} className="overflow-hidden border border-sglInk bg-sglPaper transition hover:-translate-y-1"><div className="relative aspect-[4/5] border-b border-sglInk bg-sglGraphite"><Image src={product.images[0]} alt={product.title} fill sizes="25vw" className="object-contain p-6" /></div><div className="p-5">{product.soldOut && <p className="mb-3 inline-block border border-sglInk bg-sglInk px-3 py-1 text-xs font-black uppercase tracking-wide text-sglCream">{labels[locale].soldOut}</p>}<h2 className="text-xl font-black">{product.title}</h2><p className="mt-3 text-sm leading-6 opacity-70">{product.description}</p><p className="mt-4 font-black">$ {product.priceLabel}</p></div></Link>; })}</div>;
 }
 
-function About({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].about; const l = labels[locale]; return <><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.history}</h2><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{timeline[locale].map(item => <article key={item.date} className="border border-sglInk bg-sglPaper p-5"><p className="font-black">{item.date}</p><p className="mt-3 leading-7">{item.text}</p></article>)}</div></section><section className="border-y border-sglInk bg-sglAcid"><div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-2 md:px-8"><figure><Image src="/events/calendar/one-year-anniversary.webp" alt="SGL one year anniversary" width={778} height={822} className="w-full border border-sglInk" /></figure><div className="flex items-center"><p className="text-xl leading-9">{c.intro}<br /><br />{c.secondary}</p></div></div></section></> }
+function About({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].about; const l = labels[locale]; const anniversaryAlt = locale === "it-IT" ? "Illustrazione del primo anniversario SGL con un ciclista e un gabbiano" : "SGL one year anniversary"; return <><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.history}</h2><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{timeline[locale].map(item => <article key={item.date} className="border border-sglInk bg-sglPaper p-5"><p className="font-black">{item.date}</p><p className="mt-3 leading-7">{item.text}</p></article>)}</div></section><section className="border-y border-sglInk bg-sglAcid"><div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-2 md:px-8"><figure><Image src="/events/calendar/one-year-anniversary.webp" alt={anniversaryAlt} width={778} height={822} className="w-full border border-sglInk" /></figure><div className="flex items-center"><p className="text-xl leading-9">{c.intro}<br /><br />{c.secondary}</p></div></div></section></> }
 
-function Shop({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].home; const l = labels[locale]; return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8"><div className="relative overflow-hidden border border-sglInk bg-sglInk"><Image src="/products/shop-ride-banner.webp" alt="SGL rider with a bicycle" width={2000} height={1326} priority className="aspect-[2/1] w-full object-cover" /><h1 className="absolute bottom-6 left-6 text-5xl font-black uppercase text-sglCream">{l.shop}</h1></div><p className="mt-6 max-w-3xl text-lg leading-8">{c.intro}</p><p className="mt-3 opacity-65">USD · {pageCopy[locale].shipping.secondary}</p><ProductCards locale={locale} products={storefrontProducts} /></section> }
+function Shop({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].shop; const l = labels[locale]; const bannerAlt = locale === "it-IT" ? "Ciclista SGL con una bicicletta in città" : "SGL rider with a bicycle"; return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8"><div className="relative overflow-hidden border border-sglInk bg-sglInk"><Image src="/products/shop-ride-banner.webp" alt={bannerAlt} width={2000} height={1326} priority className="aspect-[2/1] w-full object-cover" /><h1 className="absolute bottom-6 left-6 text-5xl font-black uppercase text-sglCream">{l.shop}</h1></div><p className="mt-6 max-w-3xl text-lg leading-8">{c.intro}</p><p className="mt-3 opacity-65">{c.secondary}</p><ProductCards locale={locale} products={storefrontProducts} /></section> }
 
 function ProductDetail({ locale, slug }: { locale: LocalizedLocale; slug: string }) { const raw = getProduct(slug); if (!raw || raw.hidden) notFound(); const product = localizedProduct(raw, locale); const l = labels[locale]; const path = localizedPath(`/shop/${slug}`, locale); return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product, path)) }} /><Link href={localizedPath("/shop", locale)} className="font-bold underline">← {l.back}</Link><div className="mt-8 grid gap-10 lg:grid-cols-2"><ProductGallery images={product.images} title={product.title} /><div><p className="text-sm font-black uppercase tracking-widest opacity-60">{product.category}</p><h1 className="mt-3 text-5xl font-black">{product.title}</h1><p className="mt-5 text-lg leading-8">{product.description}</p><h2 className="mt-8 text-xl font-black uppercase">{l.details}</h2><ul className="mt-4 list-disc space-y-2 pl-5">{product.details.map(item => <li key={item}>{item}</li>)}</ul><ProductPurchase product={product} /></div></div></section> }
 
-function Station({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].station; const l = labels[locale]; const cards = locale === "zh-CN" ? ["咖啡与饮品", "零售商品", "骑行社群", "活动与聚会"] : locale === "ja-JP" ? ["コーヒーとドリンク", "リテールグッズ", "サイクリングコミュニティ", "イベントと集まり"] : ["커피와 음료", "리테일 굿즈", "사이클링 커뮤니티", "이벤트와 모임"]; const address = locale === "zh-CN" ? "上海市浦东新区锦延路东绣路广场 L1" : locale === "ja-JP" ? "中国・上海市浦東新区、錦延路と東繡路の交差点広場 L1" : "중국 상하이 푸둥신구 진옌로·둥슈로 광장 L1"; const path = localizedPath("/station", locale); return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(stationJsonLd(path)) }} /><Image src="/station/seagull-sunset.webp" alt="Seagull Station" width={1672} height={941} priority className="mx-auto h-auto w-full max-w-sgl" /><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.current}</h2><div className="mt-8 grid gap-5 md:grid-cols-4">{cards.map(item => <article key={item} className="border border-sglInk bg-sglPaper p-6"><h3 className="text-2xl font-black">{item}</h3></article>)}</div><div className="mt-10 border border-sglInk bg-sglAcid p-6"><h2 className="text-2xl font-black uppercase">{l.address}</h2><p className="mt-4 text-lg">{address}</p></div></section></> }
+function Station({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].station; const l = labels[locale]; const cards = locale === "zh-CN" ? ["咖啡与饮品", "零售商品", "骑行社群", "活动与聚会"] : locale === "ja-JP" ? ["コーヒーとドリンク", "リテールグッズ", "サイクリングコミュニティ", "イベントと集まり"] : locale === "ko-KR" ? ["커피와 음료", "리테일 굿즈", "사이클링 커뮤니티", "이벤트와 모임"] : ["Caffè e bevande", "Prodotti SGL", "Comunità ciclistica", "Eventi e incontri"]; const address = stationAddresses[locale]; const path = localizedPath("/station", locale); return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(stationJsonLd(path)) }} /><Image src="/station/seagull-sunset.webp" alt="Seagull Station" width={1672} height={941} priority className="mx-auto h-auto w-full max-w-sgl" /><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.current}</h2><div className="mt-8 grid gap-5 md:grid-cols-4">{cards.map(item => <article key={item} className="border border-sglInk bg-sglPaper p-6"><h3 className="text-2xl font-black">{item}</h3></article>)}</div><div className="mt-10 border border-sglInk bg-sglAcid p-6"><h2 className="text-2xl font-black uppercase">{l.address}</h2><p className="mt-4 text-lg">{address}</p></div></section></> }
 
-function Events({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].events; const l = labels[locale]; return <><section className="bg-black"><div className="mx-auto max-w-sgl"><Films src="/videos/seagull.mp4" title="Seagull — New York" frameless /></div></section><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.calendar}</h2><p className="mt-4 max-w-3xl leading-7">{l.archive}</p><div className="mt-8"><EventGallery photos={calendarPosters} display="grid" /></div></section><section className="border-y border-sglInk bg-sglCream"><div className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">SGL on the road</h2><p className="mt-5 max-w-3xl text-lg leading-8">{c.secondary}</p><div className="mt-8"><EventGallery display="compact" photos={[{ src: "/events/ispo-shanghai.webp", alt: "SGL at ISPO Shanghai 2025", title: "ISPO Shanghai 2025", width: 1920, height: 1280 }]} /></div></div></section></> }
+function Events({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].events; const l = labels[locale]; const posters = locale === "it-IT" ? calendarPosters.map((poster, index) => ({ ...poster, ...italianCalendarCopy[index] })) : calendarPosters; const ispoAlt = locale === "it-IT" ? "The Seagull Labs a ISPO Shanghai 2025" : "SGL at ISPO Shanghai 2025"; return <><section className="bg-black"><div className="mx-auto max-w-sgl"><Films src="/videos/seagull.mp4" title="Seagull — New York" frameless /></div></section><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.calendar}</h2><p className="mt-4 max-w-3xl leading-7">{l.archive}</p><div className="mt-8"><EventGallery photos={posters} display="grid" /></div></section><section className="border-y border-sglInk bg-sglCream"><div className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.exhibitions}</h2><p className="mt-5 max-w-3xl text-lg leading-8">{c.secondary}</p><div className="mt-8"><EventGallery display="compact" photos={[{ src: "/events/ispo-shanghai.webp", alt: ispoAlt, title: "ISPO Shanghai 2025", width: 1920, height: 1280 }]} /></div></div></section></> }
 
-function Universe({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].universe; const l = labels[locale]; return <><Image src="/characters/sgl-birds-night.webp" alt="SGL character gathering" width={2400} height={800} className="w-full" /><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.characters}</h2><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{characterCopy[locale].map(character => <article key={character.name} className="border border-sglInk bg-sglPaper p-4"><div className="relative aspect-[4/5] overflow-hidden border border-sglInk bg-sglGraphite"><Image src={character.image} alt={character.alt} fill sizes="25vw" className="object-cover" /></div><h3 className="mt-5 text-3xl font-black uppercase">{character.name}</h3><p className="mt-4 leading-7 opacity-80">{character.text}</p></article>)}</div></section></> }
+function Universe({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].universe; const l = labels[locale]; const heroAlt = locale === "it-IT" ? "I personaggi SGL riuniti di notte" : "SGL character gathering"; return <><Image src="/characters/sgl-birds-night.webp" alt={heroAlt} width={2400} height={800} className="w-full" /><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.characters}</h2><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{characterCopy[locale].map(character => <article key={character.name} className="border border-sglInk bg-sglPaper p-4"><div className="relative aspect-[4/5] overflow-hidden border border-sglInk bg-sglGraphite"><Image src={character.image} alt={character.alt} fill sizes="25vw" className="object-cover" /></div><h3 className="mt-5 text-3xl font-black uppercase">{character.name}</h3><p className="mt-4 leading-7 opacity-80">{character.text}</p></article>)}</div></section></> }
 
 function AppPage({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].app; const l = labels[locale]; const screens = ["map-v2-en.webp", "refuel-en.webp", "goods-en.webp", "missions-en.webp"]; return <><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.screens}</h2><div className="mt-10 grid gap-8 sm:grid-cols-2 xl:grid-cols-4">{screens.map((file, index) => <figure key={file}><div className="overflow-hidden rounded-[2rem] border border-sglInk bg-sglInk p-1.5"><Image src={`/app/${file}`} alt={`${l.screens} ${index + 1}`} width={850} height={1846} className="w-full rounded-[1.6rem]" /></div></figure>)}</div><p className="mt-10 leading-7">{c.secondary}</p></section></> }
 
-function SimplePage({ locale, kind }: { locale: LocalizedLocale; kind: "contact" | "stockists" | "shipping" | "success" }) { const c = pageCopy[locale][kind]; const l = labels[locale]; const sections = kind === "shipping" ? [l.payment, l.delivery, l.returns] : kind === "success" ? [] : [l.contact, l.address, l.open]; return <><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><div className="grid gap-6 md:grid-cols-3">{sections.map((section, index) => <article key={section} className="border border-sglInk bg-sglPaper p-6"><h2 className="text-2xl font-black uppercase">{section}</h2><p className="mt-4 leading-7">{index === 0 ? "hello@theseagulllabs.com" : index === 1 ? "上海市浦东新区锦延路东绣路广场 L1" : c.secondary}</p></article>)}</div></section></> }
+function SimplePage({ locale, kind }: { locale: LocalizedLocale; kind: "contact" | "stockists" | "shipping" | "success" }) {
+  const c = pageCopy[locale][kind];
+  const l = labels[locale];
+  const sections = kind === "shipping"
+    ? [{ heading: l.payment, body: c.intro }, { heading: l.delivery, body: c.secondary }, { heading: l.returns, body: returnsCopy[locale] }]
+    : kind === "contact"
+      ? [{ heading: l.contact, body: "hello@theseagulllabs.com" }, { heading: l.address, body: stationAddresses[locale] }, { heading: l.open, body: c.secondary }]
+      : kind === "stockists"
+        ? [{ heading: l.contact, body: "hello@theseagulllabs.com" }, { heading: l.current, body: c.intro }, { heading: l.open, body: c.secondary }]
+        : [];
+  return <><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><div className="grid gap-6 md:grid-cols-3">{sections.map((section) => <article key={section.heading} className="border border-sglInk bg-sglPaper p-6"><h2 className="text-2xl font-black uppercase">{section.heading}</h2><p className="mt-4 leading-7">{section.body}</p></article>)}</div></section></>;
+}
 
 export default function LocalizedPage({ params }: PageProps) {
-  if (!isLocale(params.locale) || params.locale === "en") notFound();
-  const locale = params.locale as LocalizedLocale;
+  const resolvedLocale = localeFromSegment(params.locale);
+  if (!resolvedLocale || resolvedLocale === "en") notFound();
+  const locale = resolvedLocale as LocalizedLocale;
   const segments = params.segments || [];
   const key = routeKey(segments);
   if (key === "home") return <Home locale={locale} />;

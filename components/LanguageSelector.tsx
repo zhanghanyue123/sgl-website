@@ -11,7 +11,8 @@ export default function LanguageSelector() {
     en: "Region / Language",
     "zh-CN": "地区 / 语言",
     "ja-JP": "地域 / 言語",
-    "ko-KR": "지역 / 언어"
+    "ko-KR": "지역 / 언어",
+    "it-IT": "Paese / Lingua"
   };
 
   function change(next: Locale) {

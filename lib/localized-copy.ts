@@ -6,6 +6,7 @@ type LocalizedPage = { title: string; description: string; eyebrow: string; head
 export const pageCopy: Record<Exclude<Locale, "en">, Record<string, LocalizedPage>> = {
   "zh-CN": {
     home: { title: "The Seagull Labs｜骑行产品、Station 与城市故事", description: "探索 SGL 产品、骑行文化、原创角色、上海 Seagull Station 与社群生活。", eyebrow: "城市骑行 / Station 好物 / 小小冒险", heading: "Seagull Station，让城市继续向前。", intro: "The Seagull Labs 将产品设计、骑行文化、影像、原创角色与上海真实运营的 Seagull Station 连接在一起。这里有咖啡、饮品、商品、活动和社群生活。", secondary: "SGL 微信小程序已于 2026 年 6 月上线；AR 互动正在开发中，计划于 2027 年初发布。" },
+    shop: { title: "SGL 商店｜骑行配件、包袋与生活方式产品", description: "浏览 SGL 自行车、骑行配件、包袋、服饰、咖啡与生活方式产品，价格以美元显示。", eyebrow: "SGL 商店", heading: "为移动生活设计的产品。", intro: "浏览 SGL 骑行配件、包袋、服饰、咖啡与生活方式产品。", secondary: "价格以美元显示；库存与配送需按订单确认。" },
     about: { title: "关于 The Seagull Labs｜品牌历史与骑行文化", description: "了解 SGL 从产品、影像与骑行文化，走向展会、实体 Station 与数字互动体验的历程。", eyebrow: "关于 SGL", heading: "从产品、影像、骑行与真实地点中生长。", intro: "SGL 成立于 2023 年 6 月 9 日，从原创产品、影像和骑行文化出发，逐步参与行业展会，并在上海建立 Seagull Station。", secondary: "2026 年 6 月，SGL 微信小程序上线。原创角色、城市任务与 AR 互动继续拓展这个真实城市世界。" },
     station: { title: "上海 Seagull Station｜咖啡、骑行与社群", description: "到访上海浦东 Seagull Station：咖啡、饮品、SGL 商品、骑行文化与社群活动的真实空间。", eyebrow: "Seagull Station", heading: "为穿行城市的人准备的一处小站。", intro: "Seagull Station 是上海真实运营的实体空间，连接咖啡与饮品、零售商品、骑行社群、活动和聚会。", secondary: "地址：上海市浦东新区锦延路东绣路广场 L1。到访前请确认当日营业时间与商品库存。" },
     events: { title: "SGL 活动｜骑行、展会与 Station 聚会", description: "查看 SGL 的展会记录、社群骑行、户外快闪、Station 聚会与活动海报。", eyebrow: "SGL 活动", heading: "骑行、喝一杯、见面、留下记录。", intro: "SGL 的活动把城市骑行、咖啡饮品、Station 商品、展会与真实地点中的相聚连接起来。", secondary: "SGL 于 2025 年参加 ISPO Shanghai 和上海国际自行车展，并于 2026 年第二次参加上海自行车展。" },
@@ -19,6 +20,7 @@ export const pageCopy: Record<Exclude<Locale, "en">, Record<string, LocalizedPag
   },
   "ja-JP": {
     home: { title: "The Seagull Labs｜サイクリング用品、Station、都市の物語", description: "SGLのプロダクト、サイクリングカルチャー、キャラクター、上海のSeagull Stationとコミュニティを紹介します。", eyebrow: "都市のライド / Stationグッズ / 小さな冒険", heading: "Seagull Stationが、街の動きをつないでいく。", intro: "The Seagull Labsは、プロダクトデザイン、サイクリングカルチャー、写真、オリジナルキャラクター、上海で実際に営業するSeagull Stationをつなぎます。", secondary: "SGL WeChatミニプログラムは2026年6月に公開。AR体験は開発中で、2027年初頭の公開を予定しています。" },
+    shop: { title: "SGLショップ｜サイクリング用品、バッグ、ライフスタイルグッズ", description: "SGLの自転車、サイクリング用品、バッグ、ウェア、コーヒー、ライフスタイルグッズを米ドル価格で紹介します。", eyebrow: "SGLショップ", heading: "移動する日々のためのプロダクト。", intro: "SGLのサイクリング用品、バッグ、ウェア、コーヒー、ライフスタイルグッズをご覧ください。", secondary: "価格は米ドル表示です。在庫と配送は注文ごとに確認します。" },
     about: { title: "The Seagull Labsについて｜ブランドの歩み", description: "プロダクト、写真、サイクリングカルチャーから展示会、Station、デジタル体験へ広がるSGLの歩み。", eyebrow: "SGLについて", heading: "プロダクト、写真、ライド、実在する場所から育ったブランド。", intro: "SGLは2023年6月9日に設立され、オリジナルプロダクト、写真、サイクリングカルチャーから展示会と上海のSeagull Stationへ発展しました。", secondary: "2026年6月にWeChatミニプログラムを公開。キャラクター、都市ミッション、AR体験が次の章をつくります。" },
     station: { title: "Seagull Station上海｜コーヒー、ライド、コミュニティ", description: "上海・浦東のSeagull Station。コーヒー、ドリンク、SGLグッズ、サイクリングカルチャー、イベントが集まる実店舗です。", eyebrow: "Seagull Station", heading: "街を移動する人のための、小さな停留所。", intro: "Seagull Stationは上海で実際に営業する場所です。コーヒーとドリンク、リテール、サイクリングコミュニティ、イベントがひとつにつながります。", secondary: "所在地：中国・上海市浦東新区、錦延路と東繡路の交差点広場 L1。営業時間と在庫は来店前にご確認ください。" },
     events: { title: "SGLイベント｜ライド、展示会、Stationの集まり", description: "SGLの展示会、コミュニティライド、ポップアップ、Stationイベントとポスターアーカイブ。", eyebrow: "SGLイベント", heading: "走る、飲む、出会う、記録する。", intro: "SGLのイベントは、都市のライド、コーヒー、Stationグッズ、展示会、リアルな場所で過ごす時間をつなぎます。", secondary: "SGLは2025年にISPO Shanghaiと上海国際自転車展へ参加し、2026年に同自転車展へ2回目の出展を行いました。" },
@@ -32,6 +34,7 @@ export const pageCopy: Record<Exclude<Locale, "en">, Record<string, LocalizedPag
   },
   "ko-KR": {
     home: { title: "The Seagull Labs｜사이클링 굿즈, Station, 도시 이야기", description: "SGL 제품, 사이클링 문화, 캐릭터, 상하이 Seagull Station과 커뮤니티를 만나보세요.", eyebrow: "도시 라이딩 / Station 굿즈 / 작은 모험", heading: "Seagull Station이 도시의 움직임을 이어갑니다.", intro: "The Seagull Labs는 제품 디자인, 사이클링 문화, 사진, 오리지널 캐릭터와 상하이에서 실제 운영되는 Seagull Station을 연결합니다.", secondary: "SGL WeChat 미니 프로그램은 2026년 6월 출시되었습니다. AR 경험은 개발 중이며 2027년 초 공개를 목표로 합니다." },
+    shop: { title: "SGL 스토어｜사이클링 액세서리, 가방과 라이프스타일 굿즈", description: "SGL 자전거, 사이클링 액세서리, 가방, 의류, 커피와 라이프스타일 굿즈를 미국 달러 가격으로 확인하세요.", eyebrow: "SGL 스토어", heading: "움직이는 일상을 위한 제품.", intro: "SGL 사이클링 액세서리, 가방, 의류, 커피와 라이프스타일 굿즈를 살펴보세요.", secondary: "가격은 미국 달러로 표시되며 재고와 배송은 주문별로 확인합니다." },
     about: { title: "The Seagull Labs 소개｜브랜드 역사", description: "제품, 사진, 사이클링 문화에서 전시, Station, 디지털 경험으로 확장된 SGL의 여정.", eyebrow: "SGL 소개", heading: "제품, 이미지, 라이딩과 실제 장소에서 성장했습니다.", intro: "SGL은 2023년 6월 9일 설립되어 오리지널 제품, 사진, 사이클링 문화에서 전시와 상하이 Seagull Station으로 발전했습니다.", secondary: "2026년 6월 WeChat 미니 프로그램을 출시했고, 캐릭터와 도시 미션, AR 경험으로 다음 장을 만들고 있습니다." },
     station: { title: "상하이 Seagull Station｜커피, 라이딩, 커뮤니티", description: "상하이 푸둥의 Seagull Station은 커피, 음료, SGL 굿즈, 사이클링 문화와 이벤트가 만나는 실제 공간입니다.", eyebrow: "Seagull Station", heading: "도시를 움직이는 사람들을 위한 작은 정거장.", intro: "Seagull Station은 상하이에서 실제 운영되는 공간으로 커피와 음료, 리테일, 사이클링 커뮤니티, 이벤트를 연결합니다.", secondary: "주소: 중국 상하이 푸둥신구 진옌로·둥슈로 광장 L1. 방문 전 영업시간과 재고를 확인해 주세요." },
     events: { title: "SGL 이벤트｜라이드, 전시, Station 모임", description: "SGL 전시, 커뮤니티 라이드, 팝업, Station 모임과 포스터 아카이브.", eyebrow: "SGL 이벤트", heading: "라이드하고, 마시고, 만나고, 기록합니다.", intro: "SGL 이벤트는 도시 라이딩, 커피와 음료, Station 굿즈, 전시와 실제 장소에서의 시간을 연결합니다.", secondary: "SGL은 2025년 ISPO Shanghai와 상하이 국제 자전거 전시회에 참가했고 2026년 같은 자전거 전시회에 두 번째로 참가했습니다." },
@@ -42,67 +45,81 @@ export const pageCopy: Record<Exclude<Locale, "en">, Record<string, LocalizedPag
     shipping: { title: "판매, 배송 및 반품｜The Seagull Labs", description: "재고 확인, 결제, 해외 배송, Station 픽업과 반품 지원 안내.", eyebrow: "고객 안내", heading: "판매, 배송 및 반품", intro: "가격은 미국 달러로 표시됩니다. 온라인 결제가 활성화된 경우 해외 주문은 Stripe의 안전한 카드 결제를 이용합니다. 중국 본토 주문은 SGL 확인 후 WeChat Pay 또는 Alipay를 지원합니다.", secondary: "배송비, 세금, 재고와 발송 일정은 주문별로 확인합니다. 장바구니 담기는 재고를 예약하지 않습니다." },
     cart: { title: "장바구니｜The Seagull Labs", description: "SGL 장바구니를 확인하고 가능한 경우 안전한 결제로 이동합니다.", eyebrow: "SGL 스토어", heading: "장바구니", intro: "가격은 미국 달러로 표시되며 배송비와 재고는 결제 전에 확인됩니다.", secondary: "중국 본토 주문은 SGL을 통해 WeChat Pay 또는 Alipay를 이용할 수 있습니다. 해외 온라인 결제는 Stripe가 처리합니다." },
     success: { title: "주문 상태｜The Seagull Labs", description: "SGL 주문 반환 상태를 확인합니다.", eyebrow: "주문 상태", heading: "주문이 접수되었습니다", intro: "이 페이지는 결제 화면에서 돌아왔음을 뜻하며 결제 완료 증명이 아닙니다.", secondary: "결제 확인과 SGL 주문 안내를 확인해 주세요." }
+  },
+  "it-IT": {
+    home: { title: "The Seagull Labs | Accessori bici, design e cultura urbana", description: "Scopri The Seagull Labs: accessori per bici, prodotti di design, personaggi originali e la Seagull Station a Shanghai.", eyebrow: "Ciclismo urbano / Prodotti Station / Piccole avventure", heading: "Seagull Station tiene la città in movimento.", intro: "The Seagull Labs è un brand indipendente di ciclismo che unisce design, cultura ciclistica, fotografia, personaggi originali e la Seagull Station, uno spazio reale a Shanghai dedicato a caffè, bevande, prodotti ed eventi di comunità.", secondary: "Il Mini Program WeChat di SGL è attivo da giugno 2026. Le interazioni AR sono in fase di sviluppo, con un’uscita prevista per l’inizio del 2027." },
+    shop: { title: "Negozio SGL | Accessori ciclismo e borse per bicicletta", description: "Scopri accessori ciclismo, borse da manubrio, borse per bicicletta, abbigliamento ciclismo urbano e prodotti lifestyle SGL con prezzi in USD.", eyebrow: "Negozio SGL", heading: "Prodotti pensati per muoversi in città.", intro: "Scopri accessori bici urbana, borse, abbigliamento, caffè e prodotti lifestyle SGL nati dall’incontro tra design e cultura ciclistica.", secondary: "I prezzi sono indicati in dollari statunitensi (USD). Disponibilità e spedizione vengono confermate per ogni ordine." },
+    about: { title: "Chi siamo | The Seagull Labs, design e cultura ciclistica", description: "La storia di SGL: prodotti, fotografia, cultura ciclistica, fiere, attività internazionali, Seagull Station ed esperienze digitali.", eyebrow: "Chi siamo", heading: "Un brand cresciuto tra prodotti, immagini, biciclette e luoghi reali.", intro: "SGL è nata il 9 giugno 2023 da prodotti originali, fotografia e cultura ciclistica, per poi svilupparsi attraverso fiere di settore e la Seagull Station a Shanghai.", secondary: "Nel giugno 2026 è stato lanciato il Mini Program WeChat. Personaggi originali, missioni urbane ed esperienze AR continuano ad ampliare questo mondo legato alla città reale." },
+    station: { title: "Seagull Station Shanghai | Caffè, ciclismo e comunità", description: "Visita Seagull Station a Pudong, Shanghai: caffè, bevande, prodotti SGL, cultura ciclistica ed eventi di comunità.", eyebrow: "Seagull Station", heading: "Una piccola sosta per chi attraversa la città.", intro: "Seagull Station è uno spazio reale e operativo a Shanghai che riunisce caffè e bevande, prodotti, comunità ciclistica, eventi e incontri.", secondary: "Indirizzo: Cina, Shanghai, Nuova Area di Pudong, piazza tra Jinyan Road e Dongxiu Road, livello L1. Verifica orari e disponibilità prima della visita." },
+    events: { title: "Eventi SGL | Pedalate, fiere e incontri alla Station", description: "Scopri fiere, pedalate di comunità, iniziative all’aperto, incontri alla Station e l’archivio dei poster SGL.", eyebrow: "Eventi SGL", heading: "Pedalare, bere qualcosa, incontrarsi e lasciare una traccia.", intro: "Gli eventi SGL collegano ciclismo urbano, caffè e bevande, prodotti Station, fiere e momenti condivisi in luoghi reali.", secondary: "SGL ha partecipato a ISPO Shanghai e alla China Cycle di Shanghai nel 2025, tornando alla fiera della bicicletta per la seconda volta nel 2026." },
+    universe: { title: "SGL Universe | Personaggi originali e storie urbane", description: "Incontra Pickle, Fries, Oreo e Bagel nel mondo SGL, dove prodotti, luoghi reali e storie urbane si incontrano.", eyebrow: "SGL Universe", heading: "Un mondo da esplorare nascosto negli spostamenti quotidiani.", intro: "SGL Universe nasce da personaggi originali, prodotti, fotografia, itinerari, eventi e luoghi reali della città.", secondary: "Il Mini Program è attivo da giugno 2026. Le interazioni AR sono ancora in sviluppo e sono previste per l’inizio del 2027." },
+    app: { title: "Mini Program WeChat SGL | Missioni urbane e AR", description: "Scopri il Mini Program WeChat SGL, attivo da giugno 2026, e le missioni con i personaggi e le esperienze AR in sviluppo.", eyebrow: "Mini Program WeChat SGL", heading: "La tua città, la prossima piccola avventura.", intro: "Il Mini Program WeChat SGL è stato lanciato nel giugno 2026 e collega Station, prodotti, personaggi ed esperienze urbane.", secondary: "Le funzioni si trovano in fasi diverse. Le interazioni AR sono in sviluppo e l’uscita, soggetta a sviluppo e test, è prevista per l’inizio del 2027." },
+    contact: { title: "Contatta The Seagull Labs | Ordini e collaborazioni", description: "Contatta SGL per prodotti, spedizioni, visite alla Station, rivendita, eventi e collaborazioni.", eyebrow: "Contatta SGL", heading: "Ordini, ritiro, eventi e collaborazioni.", intro: "Scrivi a hello@theseagulllabs.com per disponibilità, ordini internazionali, ritiro alla Station, fiere, pedalate di comunità e collaborazioni con il brand.", secondary: "Seagull Station: Cina, Shanghai, Nuova Area di Pudong, piazza tra Jinyan Road e Dongxiu Road, livello L1. Verifica gli orari prima della visita." },
+    stockists: { title: "Rivenditori SGL e collaborazioni commerciali", description: "Informazioni su disponibilità, ritiro alla Station di Shanghai e collaborazioni con negozi e rivenditori SGL.", eyebrow: "Trova SGL", heading: "Rivenditori", intro: "Esplora la collezione online e contatta SGL per confermare disponibilità, spedizione e ritiro alla Station di Shanghai.", secondary: "Al momento non è pubblicato un elenco di rivenditori. Negozi e spazi lifestyle possono inviare sede, sito e prodotti di interesse per proporre una collaborazione." },
+    shipping: { title: "Vendite, spedizioni e resi | The Seagull Labs", description: "Informazioni SGL su disponibilità, pagamenti in USD, spedizioni internazionali, ritiro alla Station e assistenza.", eyebrow: "Informazioni per i clienti", heading: "Vendite, spedizioni e resi", intro: "I prezzi sono indicati in dollari statunitensi (USD). Quando il pagamento online è attivo, gli ordini internazionali vengono elaborati tramite Stripe con pagamento con carta.", secondary: "Costi di spedizione, imposte, eventuali oneri doganali, disponibilità e tempi vengono confermati per ogni ordine. L’aggiunta al carrello non riserva gli articoli e non implica spedizione dall’Unione Europea." },
+    cart: { title: "Carrello | The Seagull Labs", description: "Controlla il carrello SGL e, quando disponibile, procedi al pagamento sicuro.", eyebrow: "Negozio SGL", heading: "Carrello", intro: "Tutti i prezzi sono espressi in dollari statunitensi (USD). Spedizione e disponibilità vengono confermate prima del pagamento.", secondary: "Il checkout online internazionale è gestito da Stripe e accetta pagamenti con carta. Contatta SGL se il checkout non è attivo." },
+    success: { title: "Stato dell’ordine | The Seagull Labs", description: "Controlla lo stato di ritorno di un ordine SGL.", eyebrow: "Stato dell’ordine", heading: "Ordine ricevuto", intro: "Questa pagina indica soltanto il ritorno dal checkout e non costituisce conferma del pagamento.", secondary: "Fai riferimento alla conferma di pagamento e alla notifica d’ordine inviata da SGL." }
   }
 };
 
-const productDescriptions: Record<string, [string, string, string]> = {
-  "sgl-three-pair-sock-set": ["日常出行与骑行使用的三双 SGL 袜子组合。", "日常の移動とライドに使える、3種類のSGLソックスセット。", "일상 이동과 라이딩을 위한 세 가지 SGL 양말 세트입니다."],
-  "sgl-house-blend-01": ["深度烘焙咖啡豆，带有坚果、黄油、蜂蜜与黑巧克力风味。", "ナッツ、バター、ハチミツ、ダークチョコレートを感じる深煎りブレンド。", "견과류, 버터, 꿀, 다크초콜릿 향을 담은 다크 로스트 블렌드입니다."],
-  "seat-bag": ["安装在自行车座垫下方、用于携带小件物品的紧凑型 SGL 座包。", "サドル下に装着し、小物を収納できるコンパクトなSGLサドルバッグ。", "자전거 안장 아래에 장착해 작은 소지품을 담는 컴팩트 SGL 새들백입니다."],
-  "sports-bandana-outdoor-magic-scarf": ["适合骑行、户外活动与日常穿搭的 SGL 印花运动头巾。", "ライド、アウトドア、日常に使えるSGLプリントバンダナ。", "라이딩, 아웃도어와 일상 착용을 위한 SGL 프린트 반다나입니다."],
-  "bike-cover": ["用于两次骑行之间遮盖自行车的 M 码 SGL 车罩。", "ライドの合間に自転車を覆う、MサイズのSGLバイクカバー。", "라이딩 사이 자전거를 덮어 두는 M 사이즈 SGL 자전거 커버입니다."],
-  "reveal-shoe-sack": ["训练或旅行时用于携带并分隔鞋子的拉链 SGL 鞋袋。", "トレーニングや旅行時に靴を分けて収納できる、ファスナー付きSGLシューズバッグ。", "훈련이나 여행 중 신발을 분리해 보관하는 지퍼형 SGL 슈백입니다."],
-  "cycling-leg-strap-pant-strap": ["骑行时将裤脚固定贴近腿部的包裹式束裤带。", "ライド中にパンツの裾を脚に沿わせるラップ式トラウザーストラップ。", "라이딩 중 바지 밑단을 다리에 고정하는 랩형 트라우저 스트랩입니다."],
-  "reflective-gear-safety-reflector-baby-seagull": ["可挂在包、钥匙或随身物品上的 Baby Seagull 反光挂件。", "バッグや鍵に付けられるBaby Seagullデザインのリフレクター。", "가방, 열쇠와 일상 소지품에 달 수 있는 Baby Seagull 리플렉터입니다."],
-  "pin": ["三枚 Seagull 角色徽章组合，配 SGL 展示卡。", "3種類のSeagullキャラクターピンをSGLカードにまとめたセット。", "세 가지 Seagull 캐릭터 핀을 SGL 카드에 담은 세트입니다."],
-  "cover": ["适合挂在包袋和随身物品上的 SGL 自行车插画反光挂件。", "バッグや携行品に付けられる、SGL自転車イラストのリフレクター。", "가방과 소지품에 달 수 있는 SGL 자전거 일러스트 리플렉터입니다."]
+const productDescriptions: Record<string, [string, string, string, string]> = {
+  "sgl-three-pair-sock-set": ["日常出行与骑行使用的三双 SGL 袜子组合。", "日常の移動とライドに使える、3種類のSGLソックスセット。", "일상 이동과 라이딩을 위한 세 가지 SGL 양말 세트입니다.", "Set di tre paia di calze SGL, pensato per gli spostamenti quotidiani e il ciclismo urbano."],
+  "sgl-house-blend-01": ["深度烘焙咖啡豆，带有坚果、黄油、蜂蜜与黑巧克力风味。", "ナッツ、バター、ハチミツ、ダークチョコレートを感じる深煎りブレンド。", "견과류, 버터, 꿀, 다크초콜릿 향을 담은 다크 로스트 블렌드입니다.", "Miscela a tostatura scura con note di frutta secca, burro, miele e cioccolato fondente."],
+  "seat-bag": ["安装在自行车座垫下方、用于携带小件物品的紧凑型 SGL 座包。", "サドル下に装着し、小物を収納できるコンパクトなSGLサドルバッグ。", "자전거 안장 아래에 장착해 작은 소지품을 담는 컴팩트 SGL 새들백입니다.", "Borsa sottosella SGL compatta, pensata per portare piccoli oggetti durante gli spostamenti in bicicletta."],
+  "sports-bandana-outdoor-magic-scarf": ["适合骑行、户外活动与日常穿搭的 SGL 印花运动头巾。", "ライド、アウトドア、日常に使えるSGLプリントバンダナ。", "라이딩, 아웃도어와 일상 착용을 위한 SGL 프린트 반다나입니다.", "Bandana sportiva SGL stampata, adatta al ciclismo, alle attività all’aperto e all’uso quotidiano."],
+  "bike-cover": ["用于两次骑行之间遮盖自行车的 M 码 SGL 车罩。", "ライドの合間に自転車を覆う、MサイズのSGLバイクカバー。", "라이딩 사이 자전거를 덮어 두는 M 사이즈 SGL 자전거 커버입니다.", "Copertura SGL taglia M per proteggere la bicicletta tra un’uscita e l’altra."],
+  "reveal-shoe-sack": ["训练或旅行时用于携带并分隔鞋子的拉链 SGL 鞋袋。", "トレーニングや旅行時に靴を分けて収納できる、ファスナー付きSGLシューズバッグ。", "훈련이나 여행 중 신발을 분리해 보관하는 지퍼형 SGL 슈백입니다.", "Borsa SGL con cerniera per trasportare e separare le scarpe durante allenamenti e viaggi."],
+  "cycling-leg-strap-pant-strap": ["骑行时将裤脚固定贴近腿部的包裹式束裤带。", "ライド中にパンツの裾を脚に沿わせるラップ式トラウザーストラップ。", "라이딩 중 바지 밑단을 다리에 고정하는 랩형 트라우저 스트랩입니다.", "Fascia avvolgente che mantiene il fondo dei pantaloni vicino alla gamba mentre si pedala."],
+  "reflective-gear-safety-reflector-baby-seagull": ["可挂在包、钥匙或随身物品上的 Baby Seagull 反光挂件。", "バッグや鍵に付けられるBaby Seagullデザインのリフレクター。", "가방, 열쇠와 일상 소지품에 달 수 있는 Baby Seagull 리플렉터입니다.", "Accessorio riflettente Baby Seagull da agganciare a borse, chiavi o oggetti personali."],
+  "pin": ["三枚 Seagull 角色徽章组合，配 SGL 展示卡。", "3種類のSeagullキャラクターピンをSGLカードにまとめたセット。", "세 가지 Seagull 캐릭터 핀을 SGL 카드에 담은 세트입니다.", "Set di tre spille con i personaggi Seagull, presentate su una scheda SGL."],
+  "cover": ["适合挂在包袋和随身物品上的 SGL 自行车插画反光挂件。", "バッグや携行品に付けられる、SGL自転車イラストのリフレクター。", "가방과 소지품에 달 수 있는 SGL 자전거 일러스트 리플렉터입니다.", "Accessorio riflettente con illustrazione ciclistica SGL, da agganciare a borse e oggetti personali."]
 };
 
-const categoryTranslations: Record<string, [string, string, string]> = {
-  "Wear & Ride": ["穿戴与骑行", "ウェア＆ライド", "웨어 & 라이드"],
-  "Coffee & Refuel": ["咖啡与补给", "コーヒー＆補給", "커피 & 리퓨얼"],
-  "Bikes / Frames": ["自行车 / 车架", "自転車／フレーム", "자전거 / 프레임"],
-  "Bags & Carry": ["包袋与携带", "バッグ＆キャリー", "가방 & 캐리"],
-  "Accessories": ["配件", "アクセサリー", "액세서리"]
+const categoryTranslations: Record<string, [string, string, string, string]> = {
+  "Wear & Ride": ["穿戴与骑行", "ウェア＆ライド", "웨어 & 라이드", "Abbigliamento e ciclismo"],
+  "Coffee & Refuel": ["咖啡与补给", "コーヒー＆補給", "커피 & 리퓨얼", "Caffè e ristoro"],
+  "Bikes / Frames": ["自行车 / 车架", "自転車／フレーム", "자전거 / 프레임", "Biciclette / Telai"],
+  "Bags & Carry": ["包袋与携带", "バッグ＆キャリー", "가방 & 캐리", "Borse e trasporto"],
+  "Accessories": ["配件", "アクセサリー", "액세서리", "Accessori"]
 };
 
-const detailTranslations: Record<string, [string, string, string]> = {
-  "Set of three pairs": ["三双组合", "3足セット", "세 켤레 세트"],
-  "Three coordinated SGL designs": ["三款协调的 SGL 设计", "3種類のSGLデザイン", "세 가지 SGL 디자인"],
-  "Net weight: 450g": ["净重：450g", "内容量：450g", "순중량: 450g"],
-  "Dark roast blend": ["深度烘焙拼配", "深煎りブレンド", "다크 로스트 블렌드"],
-  "Origins: Costa Rica, Brazil and Uganda": ["产地：哥斯达黎加、巴西与乌干达", "原産国：コスタリカ、ブラジル、ウガンダ", "원산지: 코스타리카, 브라질, 우간다"],
-  "Tasting notes: nuts, butter, honey and dark chocolate": ["风味：坚果、黄油、蜂蜜与黑巧克力", "風味：ナッツ、バター、ハチミツ、ダークチョコレート", "향미: 견과류, 버터, 꿀, 다크초콜릿"],
-  "Altitude: 1,200–1,800m": ["海拔：1,200–1,800m", "標高：1,200～1,800m", "고도: 1,200–1,800m"],
-  "Embroidered Sea Gull logo": ["Sea Gull 刺绣标志", "Sea Gull刺繍ロゴ", "Sea Gull 자수 로고"],
-  "Aluminum alloy frame": ["铝合金车架", "アルミニウム合金フレーム", "알루미늄 합금 프레임"],
-  "Titanium alloy frame": ["钛合金车架", "チタン合金フレーム", "티타늄 합금 프레임"],
-  "Original SGL bicycle model": ["SGL 原创自行车型号", "SGLオリジナル自転車モデル", "SGL 오리지널 자전거 모델"],
-  "Options vary by size and colour": ["选项因尺码与颜色而异", "サイズとカラーにより仕様が異なります", "사이즈와 색상에 따라 옵션이 다릅니다"],
-  "Options vary by size and finish": ["选项因尺码与表面处理而异", "サイズと仕上げにより仕様が異なります", "사이즈와 마감에 따라 옵션이 다릅니다"],
-  "Size and style options available": ["提供尺码与款式选项", "サイズとスタイルを選択可能", "사이즈와 스타일 옵션 제공"],
-  "Bicycle saddle bag": ["自行车座包", "自転車用サドルバッグ", "자전거 새들백"],
-  "Printed SGL design": ["SGL 印花设计", "SGLプリントデザイン", "SGL 프린트 디자인"],
-  "Size: M": ["尺码：M", "サイズ：M", "사이즈: M"],
-  "Colour options available": ["提供颜色选项", "カラーを選択可能", "색상 옵션 제공"],
-  "Zippered shoe bag": ["拉链鞋袋", "ファスナー付きシューズバッグ", "지퍼형 슈백"],
-  "Five colour options": ["五种颜色选项", "5色展開", "다섯 가지 색상"],
-  "Baby Seagull character design": ["Baby Seagull 角色设计", "Baby Seagullキャラクターデザイン", "Baby Seagull 캐릭터 디자인"],
-  "Set of three pins": ["三枚徽章组合", "3個セット", "핀 세 개 세트"],
-  "Zinc alloy": ["锌合金", "亜鉛合金", "아연 합금"],
-  "Handlebar-mounted bag": ["车把安装包", "ハンドルバー取付バッグ", "핸들바 장착 가방"],
-  "Drawcord closure": ["抽绳开合", "ドローコード開閉", "드로코드 여밈"],
-  "Side mesh pockets": ["侧面网袋", "サイドメッシュポケット", "측면 메시 포켓"],
-  "SGL cycling character artwork": ["SGL 骑行角色图案", "SGLサイクリングキャラクターアート", "SGL 사이클링 캐릭터 아트워크"]
+const detailTranslations: Record<string, [string, string, string, string]> = {
+  "Set of three pairs": ["三双组合", "3足セット", "세 켤레 세트", "Set di tre paia"],
+  "Three coordinated SGL designs": ["三款协调的 SGL 设计", "3種類のSGLデザイン", "세 가지 SGL 디자인", "Tre design SGL coordinati"],
+  "Net weight: 450g": ["净重：450g", "内容量：450g", "순중량: 450g", "Peso netto: 450 g"],
+  "Dark roast blend": ["深度烘焙拼配", "深煎りブレンド", "다크 로스트 블렌드", "Miscela a tostatura scura"],
+  "Origins: Costa Rica, Brazil and Uganda": ["产地：哥斯达黎加、巴西与乌干达", "原産国：コスタリカ、ブラジル、ウガンダ", "원산지: 코스타리카, 브라질, 우간다", "Origini: Costa Rica, Brasile e Uganda"],
+  "Tasting notes: nuts, butter, honey and dark chocolate": ["风味：坚果、黄油、蜂蜜与黑巧克力", "風味：ナッツ、バター、ハチミツ、ダークチョコレート", "향미: 견과류, 버터, 꿀, 다크초콜릿", "Note aromatiche: frutta secca, burro, miele e cioccolato fondente"],
+  "Altitude: 1,200–1,800m": ["海拔：1,200–1,800m", "標高：1,200～1,800m", "고도: 1,200–1,800m", "Altitudine: 1.200–1.800 m"],
+  "Embroidered Sea Gull logo": ["Sea Gull 刺绣标志", "Sea Gull刺繍ロゴ", "Sea Gull 자수 로고", "Logo Sea Gull ricamato"],
+  "Aluminum alloy frame": ["铝合金车架", "アルミニウム合金フレーム", "알루미늄 합금 프레임", "Telaio in lega di alluminio"],
+  "Titanium alloy frame": ["钛合金车架", "チタン合金フレーム", "티타늄 합금 프레임", "Telaio in lega di titanio"],
+  "Original SGL bicycle model": ["SGL 原创自行车型号", "SGLオリジナル自転車モデル", "SGL 오리지널 자전거 모델", "Modello di bicicletta originale SGL"],
+  "Options vary by size and colour": ["选项因尺码与颜色而异", "サイズとカラーにより仕様が異なります", "사이즈와 색상에 따라 옵션이 다릅니다", "Le opzioni variano in base a taglia e colore"],
+  "Options vary by size and finish": ["选项因尺码与表面处理而异", "サイズと仕上げにより仕様が異なります", "사이즈와 마감에 따라 옵션이 다릅니다", "Le opzioni variano in base a taglia e finitura"],
+  "Size and style options available": ["提供尺码与款式选项", "サイズとスタイルを選択可能", "사이즈와 스타일 옵션 제공", "Disponibile in diverse taglie e varianti"],
+  "Bicycle saddle bag": ["自行车座包", "自転車用サドルバッグ", "자전거 새들백", "Borsa sottosella per bicicletta"],
+  "Printed SGL design": ["SGL 印花设计", "SGLプリントデザイン", "SGL 프린트 디자인", "Grafica SGL stampata"],
+  "Size: M": ["尺码：M", "サイズ：M", "사이즈: M", "Taglia: M"],
+  "Colour options available": ["提供颜色选项", "カラーを選択可能", "색상 옵션 제공", "Disponibile in più colori"],
+  "Zippered shoe bag": ["拉链鞋袋", "ファスナー付きシューズバッグ", "지퍼형 슈백", "Borsa per scarpe con cerniera"],
+  "Five colour options": ["五种颜色选项", "5色展開", "다섯 가지 색상", "Cinque colori disponibili"],
+  "Baby Seagull character design": ["Baby Seagull 角色设计", "Baby Seagullキャラクターデザイン", "Baby Seagull 캐릭터 디자인", "Design del personaggio Baby Seagull"],
+  "Set of three pins": ["三枚徽章组合", "3個セット", "핀 세 개 세트", "Set di tre spille"],
+  "Zinc alloy": ["锌合金", "亜鉛合金", "아연 합금", "Lega di zinco"],
+  "Handlebar-mounted bag": ["车把安装包", "ハンドルバー取付バッグ", "핸들바 장착 가방", "Borsa da manubrio"],
+  "Drawcord closure": ["抽绳开合", "ドローコード開閉", "드로코드 여밈", "Chiusura con cordino"],
+  "Side mesh pockets": ["侧面网袋", "サイドメッシュポケット", "측면 메시 포켓", "Tasche laterali in rete"],
+  "SGL cycling character artwork": ["SGL 骑行角色图案", "SGLサイクリングキャラクターアート", "SGL 사이클링 캐릭터 아트워크", "Illustrazione del personaggio ciclistico SGL"]
 };
 
 export function localizedProduct(product: Product, locale: Exclude<Locale, "en">) {
-  const index = locale === "zh-CN" ? 0 : locale === "ja-JP" ? 1 : 2;
+  const index = locale === "zh-CN" ? 0 : locale === "ja-JP" ? 1 : locale === "ko-KR" ? 2 : 3;
   let description = productDescriptions[product.slug]?.[index];
-  if (!description && product.slug.startsWith("seagull-cap")) description = ["带有 Sea Gull 刺绣标志的日常帽款。", "Sea Gull刺繍ロゴを配したデイリーキャップ。", "Sea Gull 자수 로고를 적용한 데일리 캡입니다."][index];
-  if (!description && /handlebar-bags|handleber-bags/.test(product.slug)) description = ["安装在自行车车把位置的紧凑抽绳 SGL 车包，两侧带网袋。", "ハンドルバーに装着する、両側メッシュポケット付きのコンパクトなSGLドローコードバッグ。", "자전거 핸들바에 장착하는 컴팩트 드로코드 SGL 가방으로 양옆에 메시 포켓이 있습니다."][index];
-  if (!description && product.slug === "chrissy1") description = ["采用钛合金车架的 SeaGull Labs Chrissy Ti。当前配置、尺码与库存请联系 SGL 确认。", "チタン合金フレームを採用したSeaGull Labs Chrissy Ti。仕様、サイズ、在庫はSGLへご確認ください。", "티타늄 합금 프레임을 사용한 SeaGull Labs Chrissy Ti입니다. 구성, 사이즈와 재고는 SGL에 확인해 주세요."][index];
-  if (!description && product.slug.startsWith("chrissy")) description = [`采用铝合金车架的 SeaGull Labs ${product.title}。当前配置、尺码与库存请联系 SGL 确认。`, `アルミニウム合金フレームを採用したSeaGull Labs ${product.title}。仕様、サイズ、在庫はSGLへご確認ください。`, `알루미늄 합금 프레임을 사용한 SeaGull Labs ${product.title}입니다. 구성, 사이즈와 재고는 SGL에 확인해 주세요.`][index];
+  if (!description && product.slug.startsWith("seagull-cap")) description = ["带有 Sea Gull 刺绣标志的日常帽款。", "Sea Gull刺繍ロゴを配したデイリーキャップ。", "Sea Gull 자수 로고를 적용한 데일리 캡입니다.", "Cappellino da uso quotidiano con logo Sea Gull ricamato, parte dell’abbigliamento da ciclismo urbano SGL."][index];
+  if (!description && /handlebar-bags|handleber-bags/.test(product.slug)) description = ["安装在自行车车把位置的紧凑抽绳 SGL 车包，两侧带网袋。", "ハンドルバーに装着する、両側メッシュポケット付きのコンパクトなSGLドローコードバッグ。", "자전거 핸들바에 장착하는 컴팩트 드로코드 SGL 가방으로 양옆에 메시 포켓이 있습니다.", "Borsa da manubrio SGL compatta con chiusura a cordino e tasche laterali in rete, pensata per la bici urbana."][index];
+  if (!description && product.slug === "chrissy1") description = ["采用钛合金车架的 SeaGull Labs Chrissy Ti。当前配置、尺码与库存请联系 SGL 确认。", "チタン合金フレームを採用したSeaGull Labs Chrissy Ti。仕様、サイズ、在庫はSGLへご確認ください。", "티타늄 합금 프레임을 사용한 SeaGull Labs Chrissy Ti입니다. 구성, 사이즈와 재고는 SGL에 확인해 주세요.", "SeaGull Labs Chrissy Ti con telaio in lega di titanio. Contatta SGL per configurazione, taglie e disponibilità attuali."][index];
+  if (!description && product.slug.startsWith("chrissy")) description = [`采用铝合金车架的 SeaGull Labs ${product.title}。当前配置、尺码与库存请联系 SGL 确认。`, `アルミニウム合金フレームを採用したSeaGull Labs ${product.title}。仕様、サイズ、在庫はSGLへご確認ください。`, `알루미늄 합금 프레임을 사용한 SeaGull Labs ${product.title}입니다. 구성, 사이즈와 재고는 SGL에 확인해 주세요.`, `SeaGull Labs ${product.title} con telaio in lega di alluminio. Contatta SGL per configurazione, taglie e disponibilità attuali.`][index];
   return {
     ...product,
     category: categoryTranslations[product.category]?.[index] || product.category,
