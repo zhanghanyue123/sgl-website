@@ -5,7 +5,7 @@ import { products } from "../data/products";
 import { locales } from "../lib/i18n";
 import { hasPermission } from "../lib/admin/permissions";
 import { hashPassword, safeOrigin, verifyPassword } from "../lib/admin/security";
-import { parseAdminProduct, parseInventoryAdjustment } from "../lib/admin/validation";
+import { parseAdminProduct, parseInventoryAdjustment, parseShipment, parseShipmentStatus } from "../lib/admin/validation";
 
 const categoryId = "11111111-1111-4111-8111-111111111111";
 const validProduct = () => ({
@@ -68,4 +68,22 @@ test("catalogue import preserves identifiers and never fabricates blank SKUs", (
   assert.equal(new Set(products.map((product) => product.slug)).size, products.length);
   const missing = products.reduce((count, product) => count + (product.variants.length ? product.variants.filter((variant) => !variant.sku?.trim()).length : 1), 0);
   assert.ok(missing > 0);
+});
+
+test("manual shipment actions require address confirmation and safe tracking data", () => {
+  const shipment = parseShipment({ orderId: categoryId, carrier: "SF Express", trackingNumber: "SF123456", trackingUrl: "https://example.test/track/SF123456", addressConfirmed: true });
+  assert.equal(shipment.carrier, "SF Express");
+  assert.throws(() => parseShipment({ ...shipment, addressConfirmed: false }));
+  assert.throws(() => parseShipment({ ...shipment, trackingUrl: "http://example.test/track" }));
+  assert.deepEqual(parseShipmentStatus({ shipmentId: categoryId, status: "delivered" }), { shipmentId: categoryId, status: "delivered" });
+  assert.throws(() => parseShipmentStatus({ shipmentId: categoryId, status: "paid" }));
+});
+
+test("fulfillment schema keeps shipment history and notification delivery evidence", async () => {
+  const sql = await readFile(new URL("../db/migrations/0003_fulfillment.sql", import.meta.url), "utf8");
+  assert.match(sql, /CREATE TABLE fulfillment_shipments/);
+  assert.match(sql, /CREATE TABLE fulfillment_events/);
+  assert.match(sql, /CREATE TABLE notification_outbox/);
+  assert.match(sql, /status IN \('pending', 'accepted', 'delivered', 'failed', 'cancelled'\)/);
+  assert.match(sql, /address_confirmed_at timestamptz NOT NULL/);
 });

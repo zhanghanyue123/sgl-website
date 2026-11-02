@@ -121,6 +121,33 @@ export function parseInventoryAdjustment(value: unknown) {
   return { variantId, deltaOnHand, reason };
 }
 
+export function parseShipment(value: unknown) {
+  if (!value || typeof value !== "object") throw new AdminValidationError("Shipment is required");
+  const data = value as Record<string, unknown>;
+  const orderId = text(data.orderId, "orderId", 36);
+  if (!uuidPattern.test(orderId)) throw new AdminValidationError("orderId is invalid");
+  const carrier = text(data.carrier, "carrier", 100);
+  const trackingNumber = text(data.trackingNumber, "trackingNumber", 150);
+  if (carrier.length < 2 || trackingNumber.length < 2) throw new AdminValidationError("Carrier and tracking number are required");
+  if (data.addressConfirmed !== true) throw new AdminValidationError("Confirm the shipping address before dispatch");
+  let trackingUrl: string | null = null;
+  if (typeof data.trackingUrl === "string" && data.trackingUrl.trim()) {
+    const url = new URL(data.trackingUrl.trim());
+    if (url.protocol !== "https:" || url.username || url.password) throw new AdminValidationError("trackingUrl must be a safe HTTPS URL");
+    trackingUrl = url.href;
+  }
+  return { orderId, carrier, trackingNumber, trackingUrl, addressConfirmed: true as const };
+}
+
+export function parseShipmentStatus(value: unknown) {
+  const data = object(value);
+  const shipmentId = text(data.shipmentId, "shipmentId", 36);
+  if (!uuidPattern.test(shipmentId)) throw new AdminValidationError("shipmentId is invalid");
+  const status = text(data.status, "status", 20);
+  if (status !== "delivered" && status !== "cancelled") throw new AdminValidationError("status must be delivered or cancelled");
+  return { shipmentId, status: status as "delivered" | "cancelled" };
+}
+
 export function parseCategory(value: unknown) {
   const data = object(value);
   const slug = text(data.slug, "slug", 100);
