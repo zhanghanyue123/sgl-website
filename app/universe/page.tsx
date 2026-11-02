@@ -44,10 +44,8 @@ const characters = [
 const worldPoints = [
   "Station nodes · Live",
   "Park routes · Active",
-  "Member cards · In development",
   "Check-in missions · In development",
-  "Character rewards · In development",
-  "AR story layers · In development for early 2027"
+  "Character rewards · In development"
 ];
 
 export default function UniversePage() {
@@ -100,18 +98,6 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div data-content-section="universe.film" className="border-b border-sglInk bg-black">
-        <div className="mx-auto w-full max-w-sgl md:w-2/3">
-          <Films
-            src="/videos/universe-animation-preview.mp4"
-            poster="/videos/universe-animation-preview.jpg"
-            title="SGL Universe animation preview"
-            frameless
-            loop
-          />
-        </div>
-      </div>
-
       <div id="meet-the-birds" data-content-section="universe.characters" className="mx-auto max-w-sgl scroll-mt-20 px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
@@ -160,31 +146,16 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div data-content-section="universe.world-system" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.28em]">
-              World System
-            </p>
-
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
-              From characters to a real-world mini game.
-            </h2>
-          </div>
-
-          <div className="space-y-5 text-lg leading-8">
-            <p>
-              The characters are original SGL IP, not decoration added to the
-              Station. They carry stories across products, photography,
-              exhibitions and real encounters in the city.
-            </p>
-
-            <p>
-              The SGL WeChat Mini Program launched in June 2026. Character-led
-              journeys continue to develop around it. AR interactions are
-              currently in development, with a planned release in early 2027.
-            </p>
-
+      <div data-content-section="universe.film" className="border-y border-sglInk bg-sglAcid">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto w-full overflow-hidden bg-black md:w-2/3">
+            <Films
+              src="/videos/universe-animation-preview.mp4"
+              poster="/videos/universe-animation-preview.jpg"
+              title="SGL Universe animation preview"
+              frameless
+              loop
+            />
           </div>
         </div>
       </div>
@@ -199,6 +170,21 @@ export default function UniversePage() {
               {point}
             </div>
           ))}
+        </div>
+      </div>
+
+      <div data-content-section="universe.world-system" className="border-t border-sglInk bg-sglAcid">
+        <div className="mx-auto max-w-sgl space-y-8 px-4 py-14 text-xl leading-9 md:px-8 md:py-16 md:text-2xl md:leading-[1.55]">
+          <p>
+            The characters are original SGL IP, not decoration added to the
+            Station. They carry stories across products, photography,
+            exhibitions and real encounters in the city.
+          </p>
+          <p>
+            The SGL WeChat Mini Program launched in June 2026. Character-led
+            journeys continue to develop around it. AR interactions are
+            currently in development, with a planned release in early 2027.
+          </p>
         </div>
       </div>
 
