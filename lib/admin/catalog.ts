@@ -165,6 +165,8 @@ export async function adminDashboardCounts() {
     (SELECT count(*)::int FROM products WHERE status = 'published') AS published,
     (SELECT count(*)::int FROM product_variants WHERE active AND sku IS NULL) AS missing_skus,
     (SELECT count(*)::int FROM inventory_levels WHERE available <= low_stock_threshold) AS low_stock,
+    (SELECT count(*)::int FROM orders WHERE order_status = 'pending_payment') AS pending_orders,
+    (SELECT count(*)::int FROM orders WHERE payment_status = 'paid' AND fulfillment_status = 'unfulfilled') AS paid_unfulfilled,
     (SELECT count(*)::int FROM admin_users WHERE active) AS users`;
   return rows[0];
 }

@@ -10,6 +10,7 @@
     "test:store": "node --import tsx --test tests/*.test.ts",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "db:seed": "tsx scripts/db-seed-catalog.ts",
+    "orders:expire": "tsx scripts/expire-order-reservations.ts",
     "admin:create": "tsx scripts/create-admin.ts"
   },
   "dependencies": {
