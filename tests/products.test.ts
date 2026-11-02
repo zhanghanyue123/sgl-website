@@ -41,3 +41,10 @@ test("cap prices and newly supplied primary images match the approved catalogue"
   assert.equal(getProduct("sgl-three-pair-sock-set")?.images[0], "/products/socks/sgl-three-pair-sock-set-studio.webp");
   assert.equal(getProduct("seat-bag")?.images[0], "/products/seat-bag-studio.webp");
 });
+
+test("white and grey handlebar bag has its own storefront link", () => {
+  const bag = getProduct("handlebar-bag-white-grey")!;
+  assert.equal(bag.title, "SGL Handlebar Bag — White / Grey");
+  assert.equal(bag.price, 50);
+  assert.equal(bag.images[0], "/products/handlebar-bag-white-grey.webp");
+});

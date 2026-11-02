@@ -35,10 +35,10 @@ export default function EventGallery({ photos, display = "cover" }: { photos: Ph
           ))}
         </div>
       ) : display === "compact" ? (
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className={`grid gap-4 ${photos.length === 1 ? "grid-cols-1" : "sm:grid-cols-3"}`}>
           {photos.map((photo, photoIndex) => (
             <button key={photo.src} type="button" onClick={() => open(photoIndex)} className="group overflow-hidden border border-sglInk bg-sglCream text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4" aria-label={`${copy.view} ${photo.title}`}>
-              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, 33vw" className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes={photos.length === 1 ? "(max-width: 1439px) 100vw, 1376px" : "(max-width: 639px) 100vw, 33vw"} className="aspect-[3/2] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
               <span className="block border-t border-sglInk px-4 py-3 text-xs font-black uppercase leading-4 tracking-wide">{photo.title} ↗</span>
             </button>
           ))}

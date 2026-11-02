@@ -10,13 +10,13 @@ export default function ProductCard({ product }: { product: Product }) {
       href={`/shop/${product.slug}`}
       className="group block overflow-hidden border border-sglInk bg-sglPaper transition hover:-translate-y-1 hover:shadow-[8px_8px_0_#111111]"
     >
-      <div className="relative flex aspect-[4/5] items-center justify-center border-b border-sglInk bg-sglGraphite p-6">
+      <div className="relative flex aspect-[4/5] items-center justify-center border-b border-sglInk bg-white">
         <Image
           src={image}
           alt={product.title}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-contain p-6"
+          className="object-contain"
         />
       </div>
 

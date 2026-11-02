@@ -1494,6 +1494,28 @@ export const products: Product[] = [
     }
   },
   {
+    "slug": "handlebar-bag-white-grey",
+    "originalHandle": "handlebar-bag-white-grey",
+    "title": "SGL Handlebar Bag — White / Grey",
+    "category": "Bags & Carry",
+    "price": 50.0,
+    "priceLabel": "50",
+    "badge": "White / Grey",
+    "images": [
+      "/products/handlebar-bag-white-grey.webp"
+    ],
+    "description": "A white and grey compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
+    "details": [
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
+    ],
+    "variants": [],
+    "buyLinks": {
+      "contact": "/contact"
+    }
+  },
+  {
     "slug": "handlebar-bags-purple",
     "originalHandle": "handlebar-bags-purple",
     "title": "SGL Handlebar Bag — Purple",
