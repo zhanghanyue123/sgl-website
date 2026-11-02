@@ -87,6 +87,7 @@ export const products: Product[] = [
   "price": 45,
   "priceLabel": "45",
   "images": [
+    "/products/caps/khaki-brown-studio.webp",
     "/products/caps/khaki-brown-13.webp",
     "/products/caps/khaki-brown-14.webp"
   ],
@@ -108,6 +109,7 @@ export const products: Product[] = [
   "price": 45,
   "priceLabel": "45",
   "images": [
+    "/products/caps/lavender-studio.webp",
     "/products/caps/lavender-10.webp",
     "/products/caps/lavender-11.webp",
     "/products/caps/lavender-8.webp",
@@ -130,6 +132,7 @@ export const products: Product[] = [
   "price": 45,
   "priceLabel": "45",
   "images": [
+    "/products/caps/black-grey-studio.webp",
     "/products/caps/black-grey-7.webp",
     "/products/caps/black-grey-6.webp",
     "/products/caps/black-grey-5.webp"

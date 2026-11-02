@@ -34,6 +34,9 @@ test("cap prices and newly supplied primary images match the approved catalogue"
   assert.equal(friendsFamily.price, 50);
   assert.equal(friendsFamily.priceLabel, "50");
   assert.equal(friendsFamily.images[0], "/products/caps/friends-family-white-blue.webp");
+  assert.equal(getProduct("seagull-cap-khaki-brown")?.images[0], "/products/caps/khaki-brown-studio.webp");
+  assert.equal(getProduct("seagull-cap-lavender")?.images[0], "/products/caps/lavender-studio.webp");
+  assert.equal(getProduct("seagull-cap-black-grey")?.images[0], "/products/caps/black-grey-studio.webp");
 
   assert.equal(getProduct("sgl-three-pair-sock-set")?.images[0], "/products/socks/sgl-three-pair-sock-set-studio.webp");
   assert.equal(getProduct("seat-bag")?.images[0], "/products/seat-bag-studio.webp");
