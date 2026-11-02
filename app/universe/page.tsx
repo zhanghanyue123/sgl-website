@@ -101,7 +101,7 @@ export default function UniversePage() {
       </div>
 
       <div data-content-section="universe.film" className="border-b border-sglInk bg-black">
-        <div className="mx-auto max-w-sgl">
+        <div className="mx-auto w-full max-w-sgl md:w-2/3">
           <Films
             src="/videos/universe-animation-preview.mp4"
             poster="/videos/universe-animation-preview.jpg"
