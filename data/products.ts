@@ -104,20 +104,18 @@ export const products: Product[] = [
   "slug": "seagull-cap-lavender",
   "soldOut": true,
   "originalHandle": "seagull-cap-lavender",
-  "title": "Sea Gull Cap — Lavender",
+  "title": "SGL Friends & Family Cap — Navy / Grey",
   "category": "Wear & Ride",
   "price": 45,
   "priceLabel": "45",
   "images": [
-    "/products/caps/lavender-studio.webp",
-    "/products/caps/lavender-10.webp",
-    "/products/caps/lavender-11.webp",
-    "/products/caps/lavender-8.webp",
-    "/products/caps/lavender-9.webp"
+    "/products/caps/navy-grey-friends-family-studio.webp"
   ],
-  "description": "An everyday cap with embroidered Sea Gull branding.",
+  "description": "A washed navy and charcoal-grey cap with raised SGL embroidery and Friends & Family lettering.",
   "details": [
-    "Embroidered Sea Gull logo"
+    "Washed navy crown with charcoal-grey brim",
+    "Raised SGL Friends & Family embroidery",
+    "Curved six-panel everyday cap"
   ],
   "variants": [],
   "buyLinks": {

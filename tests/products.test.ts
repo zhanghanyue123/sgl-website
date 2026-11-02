@@ -65,7 +65,11 @@ test("cap prices and newly supplied primary images match the approved catalogue"
   assert.equal(friendsFamily.priceLabel, "50");
   assert.equal(friendsFamily.images[0], "/products/caps/friends-family-white-blue.webp");
   assert.equal(getProduct("seagull-cap-khaki-brown")?.images[0], "/products/caps/khaki-brown-studio.webp");
-  assert.equal(getProduct("seagull-cap-lavender")?.images[0], "/products/caps/lavender-studio.webp");
+  const navyGrey = getProduct("seagull-cap-lavender")!;
+  assert.equal(navyGrey.images[0], "/products/caps/navy-grey-friends-family-studio.webp");
+  assert.equal(navyGrey.images.length, 1);
+  assert.equal(navyGrey.title, "SGL Friends & Family Cap — Navy / Grey");
+  assert.match(navyGrey.description, /washed navy and charcoal-grey/i);
   assert.equal(getProduct("seagull-cap-black-grey")?.images[0], "/products/caps/black-grey-studio.webp");
 
   assert.equal(getProduct("sgl-three-pair-sock-set")?.images[0], "/products/socks/sgl-three-pair-sock-set-studio.webp");
