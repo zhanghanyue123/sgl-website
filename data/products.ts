@@ -1502,9 +1502,79 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "White / Grey",
     "images": [
-      "/products/handlebar-bag-white-grey.webp"
+      "/products/handlebar-bag-white-grey.webp",
+      "/products/handlebar-bag-white-grey-detail.webp"
     ],
     "description": "A white and grey compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
+    "details": [
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
+    ],
+    "variants": [],
+    "buyLinks": {
+      "contact": "/contact"
+    }
+  },
+  {
+    "slug": "handlebar-bag-black-white",
+    "originalHandle": "handlebar-bag-black-white",
+    "title": "SGL Handlebar Bag — Black / White",
+    "category": "Bags & Carry",
+    "price": 55.0,
+    "priceLabel": "55",
+    "badge": "Black / White",
+    "images": [
+      "/products/handlebar-bag-black-white-studio.webp",
+      "/products/handlebar-bag-black-white-detail.webp"
+    ],
+    "description": "A black and white compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
+    "details": [
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
+    ],
+    "variants": [],
+    "buyLinks": {
+      "contact": "/contact"
+    }
+  },
+  {
+    "slug": "handlebar-bag-brown-purple",
+    "originalHandle": "handlebar-bag-brown-purple",
+    "title": "SGL Handlebar Bag — Brown / Purple",
+    "category": "Bags & Carry",
+    "price": 50.0,
+    "priceLabel": "50",
+    "badge": "Brown / Purple",
+    "images": [
+      "/products/handlebar-bag-brown-purple-studio.webp",
+      "/products/handlebar-bag-brown-purple-detail-01.webp",
+      "/products/handlebar-bag-brown-purple-detail-02.webp"
+    ],
+    "description": "A brown and purple compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
+    "details": [
+      "Handlebar-mounted bag",
+      "Drawcord closure",
+      "Side mesh pockets"
+    ],
+    "variants": [],
+    "buyLinks": {
+      "contact": "/contact"
+    }
+  },
+  {
+    "slug": "handlebar-bag-red-grey",
+    "originalHandle": "handlebar-bag-red-grey",
+    "title": "SGL Handlebar Bag — Red / Grey",
+    "category": "Bags & Carry",
+    "price": 50.0,
+    "priceLabel": "50",
+    "badge": "Red / Grey",
+    "images": [
+      "/products/handlebar-bag-red-grey-studio.webp"
+    ],
+    "description": "A red and grey compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
       "Handlebar-mounted bag",
       "Drawcord closure",
@@ -1565,7 +1635,8 @@ export const products: Product[] = [
     "priceLabel": "55",
     "badge": "Grey / Orange",
     "images": [
-      "/products/optimized/sgl-product-069.webp"
+      "/products/handlebar-bag-grey-orange-studio.webp",
+      "/products/handlebar-bag-grey-orange-detail.webp"
     ],
     "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [
@@ -1584,7 +1655,7 @@ export const products: Product[] = [
         ],
         "price": 55.0,
         "inventory": 55,
-        "image": "/products/optimized/sgl-product-069.webp"
+        "image": "/products/handlebar-bag-grey-orange-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags-reflect-grey",
@@ -1682,6 +1753,7 @@ export const products: Product[] = [
     "priceLabel": "55",
     "badge": "Black",
     "images": [
+      "/products/handlebar-bag-black-studio.webp",
       "/products/optimized/sgl-product-075.webp",
       "/products/optimized/sgl-product-076.webp",
       "/products/optimized/sgl-product-077.webp",
@@ -1706,7 +1778,7 @@ export const products: Product[] = [
         ],
         "price": 55.0,
         "inventory": 50,
-        "image": "/products/optimized/sgl-product-075.webp"
+        "image": "/products/handlebar-bag-black-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags",

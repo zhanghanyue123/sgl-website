@@ -47,4 +47,20 @@ test("white and grey handlebar bag has its own storefront link", () => {
   assert.equal(bag.title, "SGL Handlebar Bag — White / Grey");
   assert.equal(bag.price, 50);
   assert.equal(bag.images[0], "/products/handlebar-bag-white-grey.webp");
+  assert.equal(bag.images[1], "/products/handlebar-bag-white-grey-detail.webp");
+});
+
+test("new handlebar bag colourways have independent links and approved imagery", () => {
+  const expected = [
+    ["handlebar-bag-black-white", 55, "/products/handlebar-bag-black-white-studio.webp"],
+    ["handlebar-bag-brown-purple", 50, "/products/handlebar-bag-brown-purple-studio.webp"],
+    ["handlebar-bag-red-grey", 50, "/products/handlebar-bag-red-grey-studio.webp"]
+  ] as const;
+  for (const [slug, price, image] of expected) {
+    const bag = getProduct(slug)!;
+    assert.equal(bag.price, price);
+    assert.equal(bag.images[0], image);
+  }
+  assert.equal(getProduct("handlebar-bags")?.images[0], "/products/handlebar-bag-black-studio.webp");
+  assert.equal(getProduct("handlebar-bags-reflect-grey")?.images[0], "/products/handlebar-bag-grey-orange-studio.webp");
 });
