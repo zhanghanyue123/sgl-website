@@ -2026,11 +2026,42 @@ export function isProductReadyForStorefront(product: Product) {
   return !product.hidden && hasImage && hasPrice;
 }
 
-export const storefrontProducts = products.filter(isProductReadyForStorefront);
+const featuredStorefrontOrder = [
+  "seagull-cap-khaki-brown",
+  "seagull-cap-lavender",
+  "seagull-cap-black-grey",
+  "seagull-friends-family-cap-white-blue",
+  "sgl-three-pair-sock-set"
+];
+
+const featuredStorefrontRank = new Map(
+  featuredStorefrontOrder.map((slug, index) => [slug, index])
+);
+
+export const storefrontProducts = products
+  .filter(isProductReadyForStorefront)
+  .sort((a, b) => {
+    const aRank = featuredStorefrontRank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
+    const bRank = featuredStorefrontRank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
+    return aRank - bRank;
+  });
+
+const categoryOrder = [
+  "Bikes / Frames",
+  "Bags & Carry",
+  "Wear & Ride",
+  "Coffee & Refuel",
+  "Accessories"
+];
 
 export const categories = Array.from(
   new Set(storefrontProducts.map((product) => product.category))
-);
+).sort((a, b) => {
+  const aRank = categoryOrder.indexOf(a);
+  const bRank = categoryOrder.indexOf(b);
+  return (aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank) -
+    (bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank);
+});
 
 export function getProduct(slug: string) {
   return storefrontProducts.find((product) => product.slug === slug);

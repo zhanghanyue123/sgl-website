@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  categories,
   getProduct,
   isProductReadyForStorefront,
   products,
@@ -13,6 +14,26 @@ test("storefront hides products without a real image or price", () => {
   assert.equal(getProduct("tote-bag-1"), undefined);
   assert.equal(getProduct("toiletry-bag"), undefined);
   assert.ok(getProduct("seat-bag"));
+});
+
+test("storefront begins with one row of caps and socks start the second row", () => {
+  assert.deepEqual(storefrontProducts.slice(0, 5).map(product => product.slug), [
+    "seagull-cap-khaki-brown",
+    "seagull-cap-lavender",
+    "seagull-cap-black-grey",
+    "seagull-friends-family-cap-white-blue",
+    "sgl-three-pair-sock-set"
+  ]);
+});
+
+test("shop category sections follow the approved order", () => {
+  assert.deepEqual(categories, [
+    "Bikes / Frames",
+    "Bags & Carry",
+    "Wear & Ride",
+    "Coffee & Refuel",
+    "Accessories"
+  ]);
 });
 
 test("placeholder-only and missing-photo products stay hidden even with a price", () => {

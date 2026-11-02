@@ -20,8 +20,8 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
   const photos = images.length ? images : ["/products/placeholder-bag.svg"];
   return (
     <div>
-      <div className="relative aspect-square border border-sglInk bg-sglPaper" aria-live="polite">
-        <Image src={photos[selected]} alt={`${title} — ${copy.image} ${selected + 1}`} fill priority sizes="(max-width: 768px) 100vw, 50vw" className="object-contain p-4" />
+      <div className={`relative aspect-square overflow-hidden border border-sglInk ${selected === 0 ? "bg-[#ededeb]" : "bg-sglPaper"}`} aria-live="polite">
+        <Image src={photos[selected]} alt={`${title} — ${copy.image} ${selected + 1}`} fill priority sizes="(max-width: 768px) 100vw, 50vw" className={selected === 0 ? "object-cover mix-blend-darken" : "object-contain p-4"} />
       </div>
       {photos.length > 1 && (
         <div className="mt-4 grid grid-cols-4 gap-3" aria-label={copy.images}>
