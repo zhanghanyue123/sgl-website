@@ -54,20 +54,20 @@ test("sitemap exposes Italian pages and every visible Italian product", () => {
     const languages = entry.alternates?.languages;
     assert.ok(languages);
     for (const locale of ["en", "zh-CN", "ja-JP", "ko-KR", "it-IT", "x-default"]) {
-      assert.ok(languages?.[locale], `${entry.url} is missing ${locale}`);
+      assert.ok(languages && Object.prototype.hasOwnProperty.call(languages, locale), `${entry.url} is missing ${locale}`);
     }
   }
 });
 
-test("Italian pages and products emit localized canonical and social metadata", () => {
-  const about = generateMetadata({ params: { locale: "it", segments: ["about"] } });
+test("Italian pages and products emit localized canonical and social metadata", async () => {
+  const about = await generateMetadata({ params: Promise.resolve({ locale: "it", segments: ["about"] }) });
   assert.equal(about.title, "Chi siamo | The Seagull Labs, design e cultura ciclistica");
   assert.equal(about.alternates?.canonical, `${SITE_URL}/it/about`);
   assert.equal(about.alternates?.languages?.["it-IT"], `${SITE_URL}/it/about`);
   assert.equal(about.alternates?.languages?.["x-default"], `${SITE_URL}/about`);
   assert.equal(about.openGraph?.locale, "it-IT");
 
-  const product = generateMetadata({ params: { locale: "it", segments: ["shop", "seat-bag"] } });
+  const product = await generateMetadata({ params: Promise.resolve({ locale: "it", segments: ["shop", "seat-bag"] }) });
   assert.match(String(product.title), /The Seagull Labs/);
   assert.match(String(product.description), /Borsa sottosella/);
   assert.equal(product.alternates?.canonical, `${SITE_URL}/it/shop/seat-bag`);

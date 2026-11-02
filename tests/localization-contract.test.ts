@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { NextRequest } from "next/server";
 import { storefrontProducts } from "../data/products";
 import { generateMetadata } from "../app/[locale]/[[...segments]]/page";
-import { middleware } from "../middleware";
+import { proxy } from "../proxy";
 import {
   localizedLocales,
   missingSectionCopy,
@@ -60,13 +60,13 @@ test("localized products preserve commerce identity and contain no English copy 
   }
 });
 
-test("every localized public route emits canonical SEO metadata", () => {
+test("every localized public route emits canonical SEO metadata", async () => {
   const metadataPages = Object.entries(publicPageRoutes).filter(([page]) => !["cart", "success"].includes(page));
   for (const locale of localizedLocales) {
     const segment = localePrefixes[locale];
     for (const [page, path] of metadataPages) {
       const segments = path === "/" ? [] : path.slice(1).split("/");
-      const metadata = generateMetadata({ params: { locale: segment, segments } });
+      const metadata = await generateMetadata({ params: Promise.resolve({ locale: segment, segments }) });
       assert.ok(metadata.title, `${locale}.${page} title`);
       assert.ok(metadata.description, `${locale}.${page} description`);
       assert.ok(metadata.alternates?.canonical, `${locale}.${page} canonical`);
@@ -74,7 +74,7 @@ test("every localized public route emits canonical SEO metadata", () => {
       assert.ok(metadata.twitter, `${locale}.${page} twitter`);
     }
     for (const product of storefrontProducts) {
-      const metadata = generateMetadata({ params: { locale: segment, segments: ["shop", product.slug] } });
+      const metadata = await generateMetadata({ params: Promise.resolve({ locale: segment, segments: ["shop", product.slug] }) });
       assert.ok(metadata.title, `${locale}.${product.slug} title`);
       assert.ok(metadata.description, `${locale}.${product.slug} description`);
       assert.ok(metadata.alternates?.canonical, `${locale}.${product.slug} canonical`);
@@ -88,15 +88,15 @@ test("manual locale preference wins, while crawlers remain on canonical English"
   const preferred = new NextRequest("https://www.theseagulllabs.com/shop", {
     headers: { cookie: "sgl_locale=ja-JP", "x-vercel-ip-country": "US", "accept-language": "en-US" }
   });
-  assert.equal(middleware(preferred).headers.get("location"), "https://www.theseagulllabs.com/ja-JP/shop");
+  assert.equal(proxy(preferred).headers.get("location"), "https://www.theseagulllabs.com/ja-JP/shop");
 
   const regional = new NextRequest("https://www.theseagulllabs.com/about", {
     headers: { "x-vercel-ip-country": "IT", "accept-language": "en-US" }
   });
-  assert.equal(middleware(regional).headers.get("location"), "https://www.theseagulllabs.com/it/about");
+  assert.equal(proxy(regional).headers.get("location"), "https://www.theseagulllabs.com/it/about");
 
   const crawler = new NextRequest("https://www.theseagulllabs.com/about", {
     headers: { "user-agent": "Googlebot", "x-vercel-ip-country": "CN", "accept-language": "zh-CN" }
   });
-  assert.equal(middleware(crawler).headers.get("location"), null);
+  assert.equal(proxy(crawler).headers.get("location"), null);
 });

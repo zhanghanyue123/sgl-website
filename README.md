@@ -1,5 +1,7 @@
 # SGL Site From Shopify Export
 
+Phase 2 production administration setup is documented in [`docs/SGL_2_PHASE_2_ADMIN.md`](docs/SGL_2_PHASE_2_ADMIN.md).
+
 This is the independent SGL website starter rebuilt from the Shopify export.
 
 Imported data:

@@ -3,9 +3,15 @@ import { browserLocale, isLocale, localizedPath, localeFromPath, localeFromSegme
 
 const botPattern = /bot|crawler|spider|slurp|bingpreview|facebookexternalhit|duckduckbot|baiduspider|yandex/i;
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const first = pathname.split("/").filter(Boolean)[0];
+
+  if (first === "admin") {
+    const headers = new Headers(request.headers);
+    headers.set("x-sgl-locale", "en");
+    return NextResponse.next({ request: { headers } });
+  }
 
   if (first === "en") {
     return NextResponse.redirect(new URL(stripLocale(pathname), request.url), 308);

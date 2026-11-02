@@ -15,7 +15,7 @@ import { sectionMarker, type PublicPage } from "@/lib/content-schema";
 import { getSectionCopy } from "@/lib/localized-sections";
 
 type LocalizedLocale = Exclude<Locale, "en">;
-type PageProps = { params: { locale: string; segments?: string[] } };
+type PageProps = { params: Promise<{ locale: string; segments?: string[] }> };
 
 const labels: Record<LocalizedLocale, Record<string, string>> = {
   "zh-CN": { shop: "商店", viewShop: "浏览商品", visit: "到访 Station", history: "品牌历程", current: "当前体验", calendar: "SGL 日历", exhibitions: "展会记录", characters: "认识角色", screens: "小程序体验", contact: "联系方式", address: "Station 地址", payment: "付款", delivery: "配送", returns: "退换与支持", items: "件商品", details: "产品详情", back: "返回商店", archive: "活动海报与历史档案", open: "联系 SGL", soldOut: "售罄" },
@@ -117,10 +117,11 @@ function routeKey(segments: string[]) {
   return segments[0];
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const resolvedLocale = localeFromSegment(params.locale);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const resolvedLocale = localeFromSegment(resolvedParams.locale);
   if (!resolvedLocale || resolvedLocale === "en") return {};
-  const segments = params.segments || [];
+  const segments = resolvedParams.segments || [];
   const key = routeKey(segments);
   const locale = resolvedLocale as LocalizedLocale;
   const product = key === "product" ? getProduct(segments[1]) : undefined;
@@ -234,11 +235,12 @@ function SimplePage({ locale, kind }: { locale: LocalizedLocale; kind: "contact"
   return <><Hero copy={c} page="stockists" /><LocalizedBand locale={locale} page="stockists" section="channels" /><LocalizedBand locale={locale} page="stockists" section="partnership" tone="acid" /></>;
 }
 
-export default function LocalizedPage({ params }: PageProps) {
-  const resolvedLocale = localeFromSegment(params.locale);
+export default async function LocalizedPage({ params }: PageProps) {
+  const resolvedParams = await params;
+  const resolvedLocale = localeFromSegment(resolvedParams.locale);
   if (!resolvedLocale || resolvedLocale === "en") notFound();
   const locale = resolvedLocale as LocalizedLocale;
-  const segments = params.segments || [];
+  const segments = resolvedParams.segments || [];
   const key = routeKey(segments);
   if (key === "home") return <Home locale={locale} />;
   if (key === "about") return <About locale={locale} />;

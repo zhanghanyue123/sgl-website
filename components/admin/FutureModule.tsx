@@ -1,0 +1,2 @@
+import { AdminPage } from "./AdminPage";
+export default function FutureModule({ title, phase }: { title: string; phase: string }) { return <AdminPage title={title} eyebrow={`${phase} planned module`}><div className="border border-sglInk bg-white p-8"><p className="max-w-2xl text-lg leading-8">This navigation position is reserved so the production operations structure remains stable. The data model and workflows for this module will be implemented in {phase}; no placeholder action writes data.</p></div></AdminPage>; }

@@ -6,8 +6,9 @@ import { notFound } from "next/navigation";
 import BuyButton from "@/components/BuyButton";
 import { getProduct, storefrontProducts } from "@/data/products";
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const product = getProduct(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = getProduct(slug);
   if (!product) return { title: "Product not found — SGL", robots: { index: false, follow: false } };
   return pageMetadata(`${product.title} — SGL Cycling & Lifestyle Goods`, productDescription(product), `/shop/${product.slug}`, product.images[0]);
 }
@@ -18,8 +19,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
-  const product = getProduct(params.slug);
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = getProduct(slug);
 
   if (!product) {
     notFound();

@@ -1,0 +1,6 @@
+import CategoryForm from "@/components/admin/CategoryForm";
+import { AdminPage, PermissionDenied } from "@/components/admin/AdminPage";
+import { listCategories } from "@/lib/admin/catalog";
+import { currentAdminWithPermission } from "@/lib/admin/current";
+import { hasPermission } from "@/lib/admin/permissions";
+export default async function SettingsPage() { const session = await currentAdminWithPermission("settings:read"); if (!session) return <PermissionDenied />; const categories = await listCategories(); return <AdminPage title="Settings" eyebrow="Catalogue configuration"><h2 className="text-2xl font-black uppercase">Categories</h2><div className="mt-3 border border-sglInk bg-white">{categories.map((category) => <div key={category.id} className="grid grid-cols-[1fr_auto] border-b border-sglInk/20 p-3 last:border-0"><span className="font-black">{category.name}</span><span className="text-sm opacity-60">{category.slug}</span></div>)}</div>{hasPermission(session.role, "settings:write") && <CategoryForm />}<p className="mt-8 border border-sglInk bg-white p-5 text-sm leading-6">Administrator accounts are created through the protected command-line setup task. No default credentials are included.</p></AdminPage>; }
