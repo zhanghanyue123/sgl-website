@@ -7,7 +7,7 @@ import Films from "@/components/Films";
 import ProductGallery from "@/components/ProductGallery";
 import ProductPurchase from "@/components/ProductPurchase";
 import CartPage from "@/app/cart/page";
-import { getProduct, storefrontProducts } from "@/data/products";
+import { categories, getProduct, getProductsByCategory, storefrontProducts } from "@/data/products";
 import { absoluteUrl, productJsonLd, serializeJsonLd, stationJsonLd } from "@/lib/seo";
 import { languageAlternates, localizedPath, localeFromSegment, type Locale } from "@/lib/i18n";
 import { localizedProduct, pageCopy } from "@/lib/localized-copy";
@@ -87,6 +87,20 @@ const stationAddresses: Record<LocalizedLocale, string> = {
   "it-IT": "Cina, Shanghai, Nuova Area di Pudong, piazza tra Jinyan Road e Dongxiu Road, livello L1"
 };
 
+const shopFeatureCopy: Record<LocalizedLocale, { eyebrow: string; heading: string; text: string; bannerAlt: string; featureAlt: string }> = {
+  "zh-CN": { eyebrow: "SGL 商品", heading: "商店", text: "为日常移动而设计。", bannerAlt: "骑行者与自行车停在城市栏杆旁", featureAlt: "夜晚路灯下站在自行车旁的骑行者" },
+  "ja-JP": { eyebrow: "SGL グッズ", heading: "ショップ", text: "日々の移動のために。", bannerAlt: "街の手すりのそばに立つ自転車とライダー", featureAlt: "夜の街灯の下で自転車と立つライダー" },
+  "ko-KR": { eyebrow: "SGL 굿즈", heading: "스토어", text: "매일의 움직임을 위해 만들었습니다.", bannerAlt: "도시 난간 옆의 자전거와 라이더", featureAlt: "밤 가로등 아래 자전거와 함께 선 라이더" },
+  "it-IT": { eyebrow: "Prodotti SGL", heading: "Negozio", text: "Creati per muoversi ogni giorno.", bannerAlt: "Ciclista con bicicletta accanto a una ringhiera urbana", featureAlt: "Ciclista con bicicletta sotto un lampione di notte" }
+};
+
+const afterDarkCopy: Record<LocalizedLocale, { eyebrow: string; heading: string; text: string }> = {
+  "zh-CN": { eyebrow: "天黑之后", heading: "夜间路线。\n小轮前行。", text: "日落后骑行，在 Station 补给。" },
+  "ja-JP": { eyebrow: "日没後", heading: "夜のルート。\n小さなホイール。", text: "日没後に走り、Stationでひと休み。" },
+  "ko-KR": { eyebrow: "해가 진 뒤", heading: "밤의 루트.\n작은 바퀴.", text: "해가 진 뒤 달리고 Station에서 쉬어가세요." },
+  "it-IT": { eyebrow: "Dopo il tramonto", heading: "Percorsi notturni.\nPiccole ruote.", text: "Pedala dopo il tramonto. Fai rifornimento alla Station." }
+};
+
 const returnsCopy: Record<LocalizedLocale, string> = {
   "zh-CN": "退换与售后安排按订单和商品状态确认。请在退回商品前联系 SGL。",
   "ja-JP": "返品とアフターサポートは注文内容と商品の状態に応じて確認します。返送前にSGLへご連絡ください。",
@@ -142,7 +156,49 @@ function ProductCards({ locale, products }: { locale: LocalizedLocale; products:
 
 function About({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].about; const l = labels[locale]; const anniversaryAlt = locale === "it-IT" ? "Illustrazione del primo anniversario SGL con un ciclista e un gabbiano" : "SGL one year anniversary"; return <><Hero copy={c} /><section className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.history}</h2><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{timeline[locale].map(item => <article key={item.date} className="border border-sglInk bg-sglPaper p-5"><p className="font-black">{item.date}</p><p className="mt-3 leading-7">{item.text}</p></article>)}</div></section><section className="border-y border-sglInk bg-sglAcid"><div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-2 md:px-8"><figure><Image src="/events/calendar/one-year-anniversary.webp" alt={anniversaryAlt} width={778} height={822} className="w-full border border-sglInk" /></figure><div className="flex items-center"><p className="text-xl leading-9">{c.intro}<br /><br />{c.secondary}</p></div></div></section></> }
 
-function Shop({ locale }: { locale: LocalizedLocale }) { const c = pageCopy[locale].shop; const l = labels[locale]; const bannerAlt = locale === "it-IT" ? "Ciclista SGL con una bicicletta in città" : "SGL rider with a bicycle"; return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8"><div className="relative overflow-hidden border border-sglInk bg-sglInk"><Image src="/products/shop-ride-banner.webp" alt={bannerAlt} width={2000} height={1326} priority className="aspect-[2/1] w-full object-cover" /><h1 className="absolute bottom-6 left-6 text-5xl font-black uppercase text-sglCream">{l.shop}</h1></div><p className="mt-6 max-w-3xl text-lg leading-8">{c.intro}</p><p className="mt-3 opacity-65">{c.secondary}</p><ProductCards locale={locale} products={storefrontProducts} /></section> }
+function Shop({ locale }: { locale: LocalizedLocale }) {
+  const c = pageCopy[locale].shop;
+  const l = labels[locale];
+  const feature = shopFeatureCopy[locale];
+  const afterDark = afterDarkCopy[locale];
+  return <section className="mx-auto max-w-sgl px-4 pb-16 pt-6 md:px-8 md:pt-8">
+    <div className="relative isolate overflow-hidden border border-sglInk bg-sglInk text-sglCream">
+      <Image src="/products/shop-ride-banner.webp" alt={feature.bannerAlt} width={2000} height={1326} priority sizes="(max-width: 767px) 100vw, 1280px" className="aspect-[2/1] w-full object-cover object-bottom" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 p-3 sm:p-6 md:p-10">
+        <p className="text-sm font-black uppercase tracking-[0.28em]">{feature.eyebrow}</p>
+        <h1 className="mt-2 text-4xl font-black uppercase sm:text-5xl md:text-6xl">{feature.heading}</h1>
+        <p className="mt-2 text-[10px] font-bold uppercase tracking-widest sm:mt-3 sm:text-sm md:text-base">{feature.text}</p>
+      </div>
+    </div>
+    <p className="mt-6 max-w-3xl text-lg leading-8 opacity-75">{c.intro}</p>
+    <p className="mt-3 max-w-3xl text-base leading-7 opacity-60">{c.secondary}</p>
+    <div className="mt-10 grid gap-12">
+      {categories.map((category, index) => {
+        const categoryProducts = getProductsByCategory(category);
+        const categoryTitle = categoryProducts.length ? localizedProduct(categoryProducts[0], locale).category : category;
+        return <div key={category}>
+          <div className="mb-5 flex items-center gap-4">
+            <h2 className="text-2xl font-black uppercase">{categoryTitle}</h2>
+            <div className="h-px flex-1 bg-sglInk/30" />
+            <p className="text-xs font-black uppercase tracking-[0.2em] opacity-60">{categoryProducts.length} {l.items}</p>
+          </div>
+          <ProductCards locale={locale} products={categoryProducts} />
+          {index === 1 && <figure className="mt-12 grid overflow-hidden border border-sglInk bg-sglPaper text-sglInk md:grid-cols-[0.7fr_1.3fr]">
+            <figcaption className="flex flex-col justify-between gap-8 p-6 md:p-10">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{afterDark.eyebrow}</p>
+                <h3 className="mt-3 whitespace-pre-line text-4xl font-black uppercase leading-none md:text-5xl">{afterDark.heading}</h3>
+              </div>
+              <p className="max-w-sm text-sm uppercase tracking-[0.18em] opacity-65">{afterDark.text}</p>
+            </figcaption>
+            <Image src="/events/calendar/night-ride-shadow.webp" alt={feature.featureAlt} width={1280} height={1930} sizes="(max-width: 767px) 100vw, 65vw" className="max-h-[760px] w-full object-cover object-center" />
+          </figure>}
+        </div>;
+      })}
+    </div>
+  </section>;
+}
 
 function ProductDetail({ locale, slug }: { locale: LocalizedLocale; slug: string }) { const raw = getProduct(slug); if (!raw || raw.hidden) notFound(); const product = localizedProduct(raw, locale); const l = labels[locale]; const path = localizedPath(`/shop/${slug}`, locale); return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product, path)) }} /><Link href={localizedPath("/shop", locale)} className="font-bold underline">← {l.back}</Link><div className="mt-8 grid gap-10 lg:grid-cols-2"><ProductGallery images={product.images} title={product.title} insetPrimary={raw.slug === "pin"} /><div><p className="text-sm font-black uppercase tracking-widest opacity-60">{product.category}</p><h1 className="mt-3 text-5xl font-black">{product.title}</h1><p className="mt-5 text-lg leading-8">{product.description}</p><h2 className="mt-8 text-xl font-black uppercase">{l.details}</h2><ul className="mt-4 list-disc space-y-2 pl-5">{product.details.map(item => <li key={item}>{item}</li>)}</ul><ProductPurchase product={product} /></div></div></section> }
 

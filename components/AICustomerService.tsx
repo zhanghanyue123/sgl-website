@@ -144,8 +144,8 @@ export default function AICustomerService() {
 
           <div className="max-h-[min(34rem,calc(100vh-9rem))] overflow-y-auto p-4">
             <div className="flex items-start gap-3">
-              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border border-[#c9c5bc] bg-sglPaper">
-                <Image src="/assistant/sgl-ai-assistant.webp" alt="" width={48} height={48} className="h-full w-full object-contain" />
+              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border border-[#d8d5cd] bg-sglPaper">
+                <Image src="/assistant/sgl-ai-assistant.webp" alt="" width={48} height={48} className="h-full w-full translate-y-0.5 object-contain" />
               </div>
               <p className="rounded-br-xl rounded-tr-xl rounded-bl-xl bg-sglFog px-4 py-3 text-sm font-bold leading-5">{c.greeting}</p>
             </div>
@@ -191,7 +191,7 @@ export default function AICustomerService() {
         aria-label={open ? c.close : c.open}
         aria-expanded={open}
         aria-controls="sgl-ai-customer-service"
-        className="relative grid h-[4.5rem] w-[4.5rem] place-items-center overflow-hidden rounded-full border-2 border-[#aaa69d] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.18)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
+        className="relative grid h-[4.5rem] w-[4.5rem] place-items-center overflow-hidden rounded-full border border-[#d5d2ca] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.14)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
       >
         <Image
           src="/assistant/sgl-ai-assistant.webp"
@@ -199,7 +199,7 @@ export default function AICustomerService() {
           width={72}
           height={72}
           priority
-          className="h-full w-full scale-[1.08] object-contain"
+          className="h-full w-full translate-y-1.5 scale-[1.08] object-contain"
         />
         <span className="absolute right-1 top-1 h-3 w-3 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
       </button>
