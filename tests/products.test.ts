@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   categories,
   getProduct,
+  getProductsByCategory,
   isProductReadyForStorefront,
   products,
   storefrontProducts
@@ -18,10 +19,10 @@ test("storefront hides products without a real image or price", () => {
 
 test("storefront begins with one row of caps and socks start the second row", () => {
   assert.deepEqual(storefrontProducts.slice(0, 5).map(product => product.slug), [
+    "seagull-friends-family-cap-white-blue",
     "seagull-cap-khaki-brown",
     "seagull-cap-lavender",
     "seagull-cap-black-grey",
-    "seagull-friends-family-cap-white-blue",
     "sgl-three-pair-sock-set"
   ]);
 });
@@ -33,6 +34,14 @@ test("shop category sections follow the approved order", () => {
     "Wear & Ride",
     "Coffee & Refuel",
     "Accessories"
+  ]);
+});
+
+test("black handlebar bag sits between the white-grey and grey colourways", () => {
+  assert.deepEqual(getProductsByCategory("Bags & Carry").slice(0, 3).map(product => product.slug), [
+    "handlebar-bag-white-grey",
+    "handlebar-bags",
+    "handleber-bags-grey"
   ]);
 });
 
@@ -84,6 +93,7 @@ test("new handlebar bag colourways have independent links and approved imagery",
   }
   assert.equal(getProduct("handlebar-bags")?.images[0], "/products/handlebar-bag-black-studio.webp");
   assert.equal(getProduct("handlebar-bags-reflect-grey")?.images[0], "/products/handlebar-bag-grey-orange-studio.webp");
+  assert.equal(getProduct("handleber-bags-grey")?.images[0], "/products/handlebar-bag-grey-studio.webp");
   assert.equal(getProduct("handlebar-bags-purple")?.images[0], "/products/handlebar-bag-purple-studio.webp");
   assert.equal(getProduct("handleber-bags-red")?.images[0], "/products/handlebar-bag-red-studio.webp");
 });

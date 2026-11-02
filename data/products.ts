@@ -1729,6 +1729,7 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Grey",
     "images": [
+      "/products/handlebar-bag-grey-studio.webp",
       "/products/optimized/sgl-product-074.webp"
     ],
     "description": "A compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
@@ -1748,7 +1749,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 50,
-        "image": "/products/optimized/sgl-product-074.webp"
+        "image": "/products/handlebar-bag-grey-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handleber-bags-grey",
@@ -2027,10 +2028,10 @@ export function isProductReadyForStorefront(product: Product) {
 }
 
 const featuredStorefrontOrder = [
+  "seagull-friends-family-cap-white-blue",
   "seagull-cap-khaki-brown",
   "seagull-cap-lavender",
   "seagull-cap-black-grey",
-  "seagull-friends-family-cap-white-blue",
   "sgl-three-pair-sock-set"
 ];
 
@@ -2076,9 +2077,11 @@ export function getProductsByCategory(category: string) {
     ];
   }
   if (category !== "Bags & Carry") return items;
+  const first = ["handlebar-bag-white-grey", "handlebar-bags", "handleber-bags-grey"];
   const last = ["seat-bag", "bike-cover", "reveal-shoe-sack", "sportglassea-case"];
   return [
-    ...items.filter(product => !last.includes(product.slug)),
+    ...first.flatMap(slug => items.filter(product => product.slug === slug)),
+    ...items.filter(product => !first.includes(product.slug) && !last.includes(product.slug)),
     ...last.flatMap(slug => items.filter(product => product.slug === slug))
   ];
 }

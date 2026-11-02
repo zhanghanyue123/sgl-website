@@ -13,7 +13,7 @@ const galleryCopy: Record<Locale, { image: string; images: string; show: string;
   "it-IT": { image: "immagine", images: "Immagini del prodotto", show: "Mostra", thumbnail: "miniatura" }
 };
 
-export default function ProductGallery({ images, title }: { images: string[]; title: string }) {
+export default function ProductGallery({ images, title, insetPrimary = false }: { images: string[]; title: string; insetPrimary?: boolean }) {
   const locale = localeFromPath(usePathname());
   const copy = galleryCopy[locale];
   const [selected, setSelected] = useState(0);
@@ -21,7 +21,7 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
   return (
     <div>
       <div className={`relative aspect-square overflow-hidden border border-sglInk ${selected === 0 ? "bg-[#ededeb]" : "bg-sglPaper"}`} aria-live="polite">
-        <Image src={photos[selected]} alt={`${title} — ${copy.image} ${selected + 1}`} fill priority sizes="(max-width: 768px) 100vw, 50vw" className={selected === 0 ? "object-cover mix-blend-darken" : "object-contain p-4"} />
+        <Image src={photos[selected]} alt={`${title} — ${copy.image} ${selected + 1}`} fill priority sizes="(max-width: 768px) 100vw, 50vw" className={selected === 0 ? (insetPrimary ? "object-contain p-10 mix-blend-darken" : "object-cover mix-blend-darken") : "object-contain p-4"} />
       </div>
       {photos.length > 1 && (
         <div className="mt-4 grid grid-cols-4 gap-3" aria-label={copy.images}>

@@ -4,6 +4,7 @@ import type { Product } from "@/data/products";
 
 export default function ProductCard({ product }: { product: Product }) {
   const image = product.images[0] || "/products/placeholder-bag.svg";
+  const useInsetComposition = product.slug === "pin";
 
   return (
     <Link
@@ -16,7 +17,7 @@ export default function ProductCard({ product }: { product: Product }) {
           alt={product.title}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover mix-blend-darken"
+          className={useInsetComposition ? "object-contain p-8 mix-blend-darken" : "object-cover mix-blend-darken"}
         />
       </div>
 
