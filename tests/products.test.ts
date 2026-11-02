@@ -63,6 +63,8 @@ test("new handlebar bag colourways have independent links and approved imagery",
   }
   assert.equal(getProduct("handlebar-bags")?.images[0], "/products/handlebar-bag-black-studio.webp");
   assert.equal(getProduct("handlebar-bags-reflect-grey")?.images[0], "/products/handlebar-bag-grey-orange-studio.webp");
+  assert.equal(getProduct("handlebar-bags-purple")?.images[0], "/products/handlebar-bag-purple-studio.webp");
+  assert.equal(getProduct("handleber-bags-red")?.images[0], "/products/handlebar-bag-red-studio.webp");
 });
 
 test("newly supplied catalogue images are used as product primary images", () => {
@@ -73,4 +75,14 @@ test("newly supplied catalogue images are used as product primary images", () =>
   const toiletryBag = products.find(product => product.slug === "toiletry-bag")!;
   assert.equal(toiletryBag.images[0], "/products/toiletry-bag-orange-studio.webp");
   assert.equal(getProduct("toiletry-bag"), undefined);
+});
+
+test("bike cover uses the approved studio primary image and new detail gallery", () => {
+  const bikeCover = getProduct("bike-cover")!;
+  assert.deepEqual(bikeCover.images.slice(0, 4), [
+    "/products/bike-cover-studio.webp",
+    "/products/bike-cover-detail-logo.webp",
+    "/products/bike-cover-detail-white.webp",
+    "/products/bike-cover-detail-zip.webp"
+  ]);
 });

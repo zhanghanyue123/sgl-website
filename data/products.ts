@@ -957,6 +957,10 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "5 Variants",
     "images": [
+      "/products/bike-cover-studio.webp",
+      "/products/bike-cover-detail-logo.webp",
+      "/products/bike-cover-detail-white.webp",
+      "/products/bike-cover-detail-zip.webp",
       "/products/optimized/sgl-product-022.webp",
       "/products/optimized/sgl-product-023.webp",
       "/products/optimized/sgl-product-024.webp",
@@ -1599,6 +1603,7 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Purple",
     "images": [
+      "/products/handlebar-bag-purple-studio.webp",
       "/products/optimized/sgl-product-065.webp",
       "/products/optimized/sgl-product-066.webp",
       "/products/optimized/sgl-product-067.webp",
@@ -1621,7 +1626,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 55,
-        "image": "/products/optimized/sgl-product-068.webp"
+        "image": "/products/handlebar-bag-purple-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handlebar-bags-purple",
@@ -1679,6 +1684,7 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Red",
     "images": [
+      "/products/handlebar-bag-red-studio.webp",
       "/products/optimized/sgl-product-070.webp",
       "/products/optimized/sgl-product-071.webp",
       "/products/optimized/sgl-product-072.webp",
@@ -1701,7 +1707,7 @@ export const products: Product[] = [
         ],
         "price": 50.0,
         "inventory": 55,
-        "image": "/products/optimized/sgl-product-070.webp"
+        "image": "/products/handlebar-bag-red-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/handleber-bags-red",
