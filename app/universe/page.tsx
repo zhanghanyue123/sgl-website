@@ -1,6 +1,7 @@
 import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
+import Films from "@/components/Films";
 
 export const metadata = pageMetadata("SGL Universe — Original Characters, Stories & City Missions", "Meet Pickle, Fries, Oreo and Bagel in the SGL Universe, where original characters connect products, real places, city stories and experiences in development.", "/universe");
 
@@ -96,6 +97,18 @@ export default function UniversePage() {
               View Events
             </Link>
           </div>
+        </div>
+      </div>
+
+      <div data-content-section="universe.film" className="border-b border-sglInk bg-black">
+        <div className="mx-auto max-w-sgl">
+          <Films
+            src="/videos/universe-animation-preview.mp4"
+            poster="/videos/universe-animation-preview.jpg"
+            title="SGL Universe animation preview"
+            frameless
+            loop
+          />
         </div>
       </div>
 

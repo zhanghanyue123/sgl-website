@@ -156,22 +156,22 @@ const structuralLabels: Record<LocalizedLocale, Record<string, string>> = {
   "zh-CN": {
     history: "品牌历程", bikes: "自行车", bags: "包袋与携带", wear: "穿戴", coffee: "Station 好物", accessories: "配件",
     product: "商品详情", stationImage: "Seagull Station 主视觉", eventFilm: "活动影片", calendar: "活动日历", exhibitions: "展会记录",
-    universeImage: "SGL 角色世界主视觉", characters: "原创角色", cart: "购物车", footer: "页脚"
+    universeImage: "SGL 角色世界主视觉", universeFilm: "SGL 角色动画预览", characters: "原创角色", cart: "购物车", footer: "页脚"
   },
   "ja-JP": {
     history: "ブランドの歩み", bikes: "自転車", bags: "バッグ＆キャリー", wear: "ウェア", coffee: "Stationグッズ", accessories: "アクセサリー",
     product: "商品詳細", stationImage: "Seagull Station メインビジュアル", eventFilm: "イベントフィルム", calendar: "イベントカレンダー", exhibitions: "展示会の記録",
-    universeImage: "SGL Universe メインビジュアル", characters: "オリジナルキャラクター", cart: "カート", footer: "フッター"
+    universeImage: "SGL Universe メインビジュアル", universeFilm: "SGLキャラクターアニメーションプレビュー", characters: "オリジナルキャラクター", cart: "カート", footer: "フッター"
   },
   "ko-KR": {
     history: "브랜드 연혁", bikes: "자전거", bags: "가방 & 캐리", wear: "웨어", coffee: "Station 굿즈", accessories: "액세서리",
     product: "제품 상세", stationImage: "Seagull Station 메인 이미지", eventFilm: "이벤트 영상", calendar: "이벤트 캘린더", exhibitions: "전시 기록",
-    universeImage: "SGL Universe 메인 이미지", characters: "오리지널 캐릭터", cart: "장바구니", footer: "푸터"
+    universeImage: "SGL Universe 메인 이미지", universeFilm: "SGL 캐릭터 애니메이션 미리보기", characters: "오리지널 캐릭터", cart: "장바구니", footer: "푸터"
   },
   "it-IT": {
     history: "Storia del brand", bikes: "Biciclette", bags: "Borse e trasporto", wear: "Abbigliamento", coffee: "Prodotti Station", accessories: "Accessori",
     product: "Dettagli del prodotto", stationImage: "Immagine principale di Seagull Station", eventFilm: "Film degli eventi", calendar: "Calendario degli eventi", exhibitions: "Archivio delle fiere",
-    universeImage: "Immagine principale di SGL Universe", characters: "Personaggi originali", cart: "Carrello", footer: "Piè di pagina"
+    universeImage: "Immagine principale di SGL Universe", universeFilm: "Anteprima dell’animazione dei personaggi SGL", characters: "Personaggi originali", cart: "Carrello", footer: "Piè di pagina"
   }
 };
 
@@ -207,6 +207,7 @@ function makeCatalog(locale: LocalizedLocale) {
   catalog.events.calendar = { heading: labels.calendar, body: labels.calendar };
   catalog.events.exhibitions = { heading: labels.exhibitions, body: labels.exhibitions };
   catalog.universe["hero-image"] = { heading: labels.universeImage, body: labels.universeImage };
+  catalog.universe.film = { heading: labels.universeFilm, body: labels.universeFilm };
   catalog.universe.characters = { heading: labels.characters, body: labels.characters };
   catalog.cart.cart = { heading: labels.cart, body: labels.cart };
   catalog.footer.footer = { heading: labels.footer, body: labels.footer };

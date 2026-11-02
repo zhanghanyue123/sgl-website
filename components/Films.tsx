@@ -17,9 +17,10 @@ type FilmsProps = {
   title: string;
   poster?: string;
   frameless?: boolean;
+  loop?: boolean;
 };
 
-export default function Films({ src, title, poster = "/videos/poster.jpg", frameless = false }: FilmsProps) {
+export default function Films({ src, title, poster = "/videos/poster.jpg", frameless = false, loop = false }: FilmsProps) {
   const copy = filmCopy[localeFromPath(usePathname())];
   const [failed, setFailed] = useState(false);
   return (
@@ -30,7 +31,7 @@ export default function Films({ src, title, poster = "/videos/poster.jpg", frame
         src={src}
         poster={poster}
         aria-label={title}
-        autoPlay muted playsInline controls preload="metadata"
+        autoPlay muted loop={loop} playsInline controls preload="metadata"
         onError={() => setFailed(true)}
       >
         {copy.unsupported}
