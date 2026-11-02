@@ -77,7 +77,7 @@ export default function StationPage() {
   return (
     <section>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(stationJsonLd()) }} />
-      <div className="border-b border-sglInk bg-sglInk">
+      <div data-content-section="station.hero-image" className="border-b border-sglInk bg-sglInk">
         <div className="mx-auto max-w-sgl">
           <Image
             src="/station/seagull-sunset.webp"
@@ -90,7 +90,7 @@ export default function StationPage() {
           />
         </div>
       </div>
-      <div className="border-b border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="station.hero" className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
             Seagull Station
@@ -129,7 +129,7 @@ export default function StationPage() {
         </div>
       </div>
 
-      <section id="station-life" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
+      <section id="station-life" data-content-section="station.station-life" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Station life</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Pause. Refuel. Stay a while.</h2>
@@ -143,7 +143,7 @@ export default function StationPage() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-4 md:px-8">
+      <div data-content-section="station.offerings" className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-4 md:px-8">
         {stationBlocks.map((item) => (
           <div key={item.title} className="border border-sglInk bg-sglPaper p-6">
             <p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">
@@ -159,7 +159,7 @@ export default function StationPage() {
         ))}
       </div>
 
-      <div className="border-y border-sglInk bg-sglAcid">
+      <div data-content-section="station.station-logic" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em]">
@@ -189,7 +189,7 @@ export default function StationPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <div data-content-section="station.mini-program" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="border border-sglInk bg-sglCream p-6 md:col-span-2">
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
@@ -223,7 +223,7 @@ export default function StationPage() {
         </div>
       </div>
 
-      <section className="border-t border-sglInk bg-sglCream">
+      <section data-content-section="station.station-stories" className="border-t border-sglInk bg-sglCream">
         <div className="mx-auto grid max-w-5xl gap-8 px-4 py-12 md:grid-cols-[0.8fr_1.2fr] md:items-end md:px-8 md:py-16">
           <div className="md:pb-4">
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">Station Stories</p>

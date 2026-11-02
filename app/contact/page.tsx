@@ -29,7 +29,7 @@ const contactItems = [
 export default function ContactPage() {
   return (
     <section>
-      <div className="border-b border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="contact.hero" className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
             Contact SGL
@@ -47,7 +47,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-2 md:px-8">
+      <div data-content-section="contact.contact-methods" className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-2 md:px-8">
         {contactItems.map((item) => (
           <div key={item.title} className="border border-sglInk bg-sglPaper p-6">
             <p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">
@@ -63,7 +63,7 @@ export default function ContactPage() {
         ))}
       </div>
 
-      <div className="border-y border-sglInk bg-sglAcid">
+      <div data-content-section="contact.fast-order" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em]">
@@ -86,7 +86,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <div data-content-section="contact.collaboration" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="border border-sglInk bg-sglCream p-6 md:col-span-2">
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
@@ -136,7 +136,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="border-t border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="contact.cta" className="border-t border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">

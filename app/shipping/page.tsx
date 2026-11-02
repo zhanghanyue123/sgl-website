@@ -14,7 +14,7 @@ const sections = [
 ];
 
 export default function ShippingPage() {
-  return <section className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+  return <section data-content-section="shipping.information" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
     <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Customer information</p>
     <h1 className="mt-4 max-w-4xl text-5xl font-black uppercase leading-none md:text-6xl">Sales, shipping &amp; returns</h1>
     <p className="mt-6 max-w-3xl text-lg leading-8 opacity-75">Planning an order? Here is what to check with the SGL team, from product availability to delivery and after-sales support.</p>

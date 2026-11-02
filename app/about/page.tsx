@@ -32,7 +32,7 @@ const milestones = [
 export default function AboutPage() {
   return (
     <section>
-      <div className="border-b border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="about.hero" className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
             About SGL
@@ -52,7 +52,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <section className="border-b border-sglInk bg-sglCream">
+      <section data-content-section="about.history" className="border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">SGL History</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">From products to a connected city world.</h2>
@@ -67,7 +67,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
+      <div data-content-section="about.principles" className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
         {principles.map((item, index) => (
           <div key={item.title} className="border border-sglInk bg-sglPaper p-6">
             <p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">
@@ -83,7 +83,7 @@ export default function AboutPage() {
         ))}
       </div>
 
-      <div className="border-y border-sglInk bg-sglAcid">
+      <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em]">
@@ -108,7 +108,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <section className="border-b border-sglInk bg-sglPaper">
+      <section data-content-section="about.media" className="border-b border-sglInk bg-sglPaper">
         <div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">
           <figure className="overflow-hidden border border-sglInk bg-sglCream md:col-span-4">
             <Image src="/events/calendar/one-year-anniversary.webp" alt="SGL one year anniversary cycling illustration" width={778} height={822} sizes="(max-width: 767px) 100vw, 34vw" className="aspect-[4/5] w-full object-cover" />
@@ -124,7 +124,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <div data-content-section="about.directions" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="border border-sglInk bg-sglCream p-6">
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
@@ -160,7 +160,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="border-t border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="about.cta" className="border-t border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">

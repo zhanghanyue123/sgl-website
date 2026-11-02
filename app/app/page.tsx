@@ -15,7 +15,7 @@ const screens = [
 export default function AppPage() {
   return (
     <>
-      <section className="overflow-hidden border-b border-sglInk bg-sglInk text-sglCream">
+      <section data-content-section="app.hero" className="overflow-hidden border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto grid max-w-sgl items-center gap-12 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-24">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">SGL App &amp; Mini Program</p>
@@ -34,7 +34,7 @@ export default function AppPage() {
         </div>
       </section>
 
-      <section id="screens" className="scroll-mt-20 mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
+      <section id="screens" data-content-section="app.screens" className="scroll-mt-20 mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
         <div className="mb-12 max-w-3xl">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Mini Program · Launched June 2026</p>
           <h2 className="mt-4 text-4xl font-black uppercase leading-none md:text-5xl">From your screen<br />to the street.</h2>
@@ -57,7 +57,7 @@ export default function AppPage() {
         <p className="mt-10 text-sm opacity-60">The mini program is live, while individual screens and functions shown here may use sample content or remain in development. Station menu prices shown in CNY. AR interactions are currently in development, with a planned release in early 2027.</p>
       </section>
 
-      <section className="border-y border-sglInk bg-sglAcid">
+      <section data-content-section="app.next-chapter" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-12 md:grid-cols-2 md:px-8">
           <div><p className="text-sm font-black uppercase tracking-[0.2em]">The next chapter</p><h2 className="mt-3 text-4xl font-black uppercase">A story worth stepping into.</h2></div>
           <div><p className="text-lg leading-8">The launched mini program brings digital Station experiences into the SGL world. Character-led missions continue to develop around it, with AR interactions planned for early 2027.</p><Link href="/station" className="mt-6 inline-block border border-sglInk bg-sglInk px-6 py-3 font-black uppercase text-sglCream">Explore SGL Station</Link></div>

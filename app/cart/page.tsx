@@ -58,7 +58,7 @@ export default function CartPage() {
   });
   const total = items.reduce((sum, line) => sum + line.price * line.quantity, 0);
 
-  return <section className="mx-auto max-w-sgl px-4 py-12 md:px-8">
+  return <section data-content-section="cart.cart" className="mx-auto max-w-sgl px-4 py-12 md:px-8">
     <h1 className="text-5xl font-black uppercase">{c.title}</h1>
     {!ready ? <p className="mt-8">{c.loading}</p> : !items.length ? <p className="mt-8">{c.empty} <Link href={localizedPath("/shop", locale)} className="underline">{c.browse}</Link></p> : <>
       <div className="mt-8 divide-y divide-sglInk border-y border-sglInk">{items.map((line) => <article key={`${line.slug}:${line.variant}`} className="flex flex-wrap items-center justify-between gap-4 py-6">

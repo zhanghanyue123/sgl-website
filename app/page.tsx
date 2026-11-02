@@ -12,7 +12,7 @@ export const metadata = pageMetadata("The Seagull Labs — Cycling Goods, Statio
 export default function Home() {
   return (
     <div>
-      <section className="border-b border-sglInk bg-sglInk text-sglCream">
+      <section data-content-section="home.hero" className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto grid max-w-sgl gap-10 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-24">
           <div>
             <p className="mb-5 inline-block border border-sglAcid px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-sglAcid">
@@ -94,7 +94,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <section data-content-section="home.shop" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
@@ -117,7 +117,7 @@ export default function Home() {
         <ProductGrid limit={8} />
       </section>
 
-      <section className="border-y border-sglInk bg-sglAcid">
+      <section data-content-section="home.station" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-3 md:px-8">
           <div className="md:col-span-1">
             <p className="text-sm font-black uppercase tracking-[0.28em]">
@@ -166,7 +166,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <section data-content-section="home.events" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
             Events

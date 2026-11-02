@@ -52,7 +52,7 @@ const worldPoints = [
 export default function UniversePage() {
   return (
     <section>
-      <div className="border-b border-sglInk bg-sglInk">
+      <div data-content-section="universe.hero-image" className="border-b border-sglInk bg-sglInk">
         <Image
           src="/characters/sgl-birds-night.webp"
           alt="SGL bird characters gathering in a warmly lit city bar at night"
@@ -64,7 +64,7 @@ export default function UniversePage() {
         />
       </div>
 
-      <div className="border-b border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="universe.hero" className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
             SGL Universe
@@ -99,7 +99,7 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div id="meet-the-birds" className="mx-auto max-w-sgl scroll-mt-20 px-4 py-16 md:px-8">
+      <div id="meet-the-birds" data-content-section="universe.characters" className="mx-auto max-w-sgl scroll-mt-20 px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
             Characters
@@ -147,7 +147,7 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div className="border-y border-sglInk bg-sglAcid">
+      <div data-content-section="universe.world-system" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em]">
@@ -176,7 +176,7 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <div data-content-section="universe.world-points" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
           {worldPoints.map((point) => (
             <div
@@ -189,7 +189,7 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div className="border-t border-sglInk bg-sglGraphite text-sglCream">
+      <div data-content-section="universe.cta" className="border-t border-sglInk bg-sglGraphite text-sglCream">
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">

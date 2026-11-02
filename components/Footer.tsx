@@ -19,7 +19,7 @@ export default function Footer() {
   const c = copy[locale];
   const links = ["/shop", "/station", "/events", "/universe", "/app", "/about", "/stockists", "/shipping"];
   return (
-    <footer className="border-t border-sglInk bg-sglInk text-sglCream">
+    <footer data-content-section="footer.footer" className="border-t border-sglInk bg-sglInk text-sglCream">
       <div className="mx-auto grid max-w-sgl gap-8 px-4 py-10 md:grid-cols-[1.2fr_0.8fr_0.8fr] md:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">

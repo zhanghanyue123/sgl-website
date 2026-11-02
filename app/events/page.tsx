@@ -150,13 +150,13 @@ const calendarPosters = [
 export default function EventsPage() {
   return (
     <section>
-      <section className="bg-black">
+      <section data-content-section="events.film" className="bg-black">
         <div className="mx-auto max-w-sgl">
           <Films src="/videos/seagull.mp4" title="Seagull — New York" frameless />
         </div>
       </section>
 
-      <div className="border-b border-sglInk bg-sglInk text-sglCream">
+      <div data-content-section="events.hero" className="border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8 md:py-24">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
             SGL Events
@@ -190,7 +190,7 @@ export default function EventsPage() {
         </div>
       </div>
 
-      <section id="calendar" className="scroll-mt-24 border-b border-sglInk bg-sglPaper">
+      <section id="calendar" data-content-section="events.calendar" className="scroll-mt-24 border-b border-sglInk bg-sglPaper">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-end">
             <div>
@@ -206,7 +206,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section id="exhibitions" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
+      <section id="exhibitions" data-content-section="events.exhibitions" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Exhibitions · Shanghai</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">SGL on the road</h2>
@@ -219,7 +219,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section id="community-moments" className="scroll-mt-24 border-b border-sglInk bg-sglInk text-sglCream">
+      <section id="community-moments" data-content-section="events.community" className="scroll-mt-24 border-b border-sglInk bg-sglInk text-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-sglAcid">Rides · Pop-ups · Gatherings</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Community moments</h2>
@@ -235,7 +235,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+      <div data-content-section="events.formats" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
         <div className="mb-8">
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
             Event Formats
@@ -258,7 +258,7 @@ export default function EventsPage() {
         </div>
       </div>
 
-      <div className="border-y border-sglInk bg-sglCream">
+      <div data-content-section="events.event-list" className="border-y border-sglInk bg-sglCream">
         <div className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
           {events.map((event) => (
             <div key={event.title} className="border border-sglInk bg-sglPaper p-6">
@@ -280,7 +280,7 @@ export default function EventsPage() {
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
+      <div data-content-section="events.development" className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
             In Development
@@ -302,7 +302,7 @@ export default function EventsPage() {
         </div>
       </div>
 
-      <div className="border-t border-sglInk bg-sglGraphite text-sglCream">
+      <div data-content-section="events.cta" className="border-t border-sglInk bg-sglGraphite text-sglCream">
         <div className="mx-auto flex max-w-sgl flex-col gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-sglAcid">
