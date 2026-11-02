@@ -148,13 +148,13 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div data-content-section="universe.world-points" className="border-y border-sglInk bg-sglCream">
+      <div data-content-section="universe.world-points" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
             {worldPoints.map((point) => (
               <div
                 key={point}
-                className="flex items-center border border-sglInk bg-sglPaper px-5 py-4 text-xl font-black uppercase"
+                className="flex items-center border border-sglInk bg-sglCream px-5 py-4 text-xl font-black uppercase"
               >
                 {point}
               </div>
@@ -163,9 +163,9 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div data-content-section="universe.world-system" className="border-t border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-14 md:grid-cols-2 md:items-center md:px-8 md:py-16">
-          <div className="space-y-8 text-xl leading-9 md:text-2xl md:leading-[1.55]">
+      <div data-content-section="universe.world-system" className="border-t border-sglInk bg-sglPaper">
+        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-14 md:grid-cols-[0.8fr_1.2fr] md:items-stretch md:px-8 md:py-16">
+          <div className="flex h-full flex-col justify-center space-y-6 text-base leading-7 md:text-lg md:leading-8">
             <p>
               The characters are original SGL IP, not decoration added to the
               Station. They carry stories across products, photography,
@@ -177,7 +177,7 @@ export default function UniversePage() {
               currently in development, with a planned release in early 2027.
             </p>
           </div>
-          <div data-content-section="universe.film" className="min-w-0 overflow-hidden bg-black">
+          <div data-content-section="universe.film" className="min-w-0 self-center overflow-hidden bg-black">
             <Films src="/videos/universe-animation-preview.mp4" poster="/videos/universe-animation-preview.jpg" title="SGL Universe animation preview" frameless loop />
           </div>
         </div>
