@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AICustomerService from "@/components/AICustomerService";
 import { headers } from "next/headers";
 import { isLocale } from "@/lib/i18n";
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
+        <AICustomerService />
         </CartProvider>
       </body>
     </html>
