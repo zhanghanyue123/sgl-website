@@ -81,6 +81,17 @@ export default function ShopPage() {
           );
         })}
       </div>
+
+      <div data-content-section="shop.closing-image" className="mt-16 overflow-hidden border border-sglInk bg-black">
+        <Image
+          src="/products/shop-night-ride-closing.webp"
+          alt="A rider crossing a dark city car park on a small silver bicycle at night"
+          width={3575}
+          height={2293}
+          sizes="(max-width: 767px) 100vw, 1280px"
+          className="h-auto w-full"
+        />
+      </div>
     </section>
   );
 }

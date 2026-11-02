@@ -90,11 +90,11 @@ const stationAddresses: Record<LocalizedLocale, string> = {
   "it-IT": "Cina, Shanghai, Nuova Area di Pudong, piazza tra Jinyan Road e Dongxiu Road, livello L1"
 };
 
-const shopFeatureCopy: Record<LocalizedLocale, { eyebrow: string; heading: string; text: string; bannerAlt: string; featureAlt: string }> = {
-  "zh-CN": { eyebrow: "SGL 商品", heading: "商店", text: "为日常移动而设计。", bannerAlt: "骑行者与自行车停在城市栏杆旁", featureAlt: "夜晚路灯下站在自行车旁的骑行者" },
-  "ja-JP": { eyebrow: "SGL グッズ", heading: "ショップ", text: "日々の移動のために。", bannerAlt: "街の手すりのそばに立つ自転車とライダー", featureAlt: "夜の街灯の下で自転車と立つライダー" },
-  "ko-KR": { eyebrow: "SGL 굿즈", heading: "스토어", text: "매일의 움직임을 위해 만들었습니다.", bannerAlt: "도시 난간 옆의 자전거와 라이더", featureAlt: "밤 가로등 아래 자전거와 함께 선 라이더" },
-  "it-IT": { eyebrow: "Prodotti SGL", heading: "Negozio", text: "Creati per muoversi ogni giorno.", bannerAlt: "Ciclista con bicicletta accanto a una ringhiera urbana", featureAlt: "Ciclista con bicicletta sotto un lampione di notte" }
+const shopFeatureCopy: Record<LocalizedLocale, { eyebrow: string; heading: string; text: string; bannerAlt: string; featureAlt: string; closingAlt: string }> = {
+  "zh-CN": { eyebrow: "SGL 商品", heading: "商店", text: "为日常移动而设计。", bannerAlt: "骑行者与自行车停在城市栏杆旁", featureAlt: "夜晚路灯下站在自行车旁的骑行者", closingAlt: "骑行者夜间骑着银色小轮自行车穿过城市停车场" },
+  "ja-JP": { eyebrow: "SGL グッズ", heading: "ショップ", text: "日々の移動のために。", bannerAlt: "街の手すりのそばに立つ自転車とライダー", featureAlt: "夜の街灯の下で自転車と立つライダー", closingAlt: "夜の駐車場を小さなシルバーの自転車で走るライダー" },
+  "ko-KR": { eyebrow: "SGL 굿즈", heading: "스토어", text: "매일의 움직임을 위해 만들었습니다.", bannerAlt: "도시 난간 옆의 자전거와 라이더", featureAlt: "밤 가로등 아래 자전거와 함께 선 라이더", closingAlt: "밤의 도심 주차장을 작은 은색 자전거로 달리는 라이더" },
+  "it-IT": { eyebrow: "Prodotti SGL", heading: "Negozio", text: "Creati per muoversi ogni giorno.", bannerAlt: "Ciclista con bicicletta accanto a una ringhiera urbana", featureAlt: "Ciclista con bicicletta sotto un lampione di notte", closingAlt: "Ciclista su una piccola bicicletta argentata in un parcheggio urbano di notte" }
 };
 
 const afterDarkCopy: Record<LocalizedLocale, { eyebrow: string; heading: string; text: string }> = {
@@ -262,6 +262,9 @@ function Shop({ locale }: { locale: LocalizedLocale }) {
           </figure>}
         </div>;
       })}
+    </div>
+    <div {...sectionMarker("shop", "closing-image")} className="mt-16 overflow-hidden border border-sglInk bg-black">
+      <Image src="/products/shop-night-ride-closing.webp" alt={feature.closingAlt} width={3575} height={2293} sizes="(max-width: 767px) 100vw, 1280px" className="h-auto w-full" />
     </div>
   </section>;
 }

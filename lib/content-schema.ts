@@ -3,7 +3,7 @@ import { locales, type Locale } from "./i18n";
 export const publicPageSections = {
   home: ["hero", "shop", "station", "events"],
   about: ["hero", "history", "principles", "brand-structure", "media", "directions", "cta"],
-  shop: ["hero", "bikes-frames", "bags-carry", "wear-ride", "coffee-refuel", "accessories"],
+  shop: ["hero", "bikes-frames", "bags-carry", "wear-ride", "coffee-refuel", "accessories", "closing-image"],
   product: ["product-detail"],
   station: ["hero-image", "hero", "station-life", "offerings", "station-logic", "mini-program", "station-stories"],
   events: ["film", "hero", "calendar", "exhibitions", "community", "formats", "event-list", "development", "cta"],
