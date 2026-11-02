@@ -125,9 +125,9 @@ export default function AICustomerService() {
           id="sgl-ai-customer-service"
           role="dialog"
           aria-label={c.title}
-          className="absolute bottom-[5.25rem] right-0 w-[min(23rem,calc(100vw-2rem))] overflow-hidden border-2 border-sglInk bg-sglPaper shadow-[7px_7px_0_#111111]"
+          className="absolute bottom-[5.25rem] right-0 w-[min(23rem,calc(100vw-2rem))] overflow-hidden border border-[#b8b4aa] bg-sglPaper shadow-[0_12px_32px_rgba(17,17,17,0.14)]"
         >
-          <div className="flex items-center justify-between gap-4 border-b-2 border-sglInk bg-sglAcid px-4 py-3">
+          <div className="flex items-center justify-between gap-4 border-b border-[#b8b4aa] bg-sglAcid px-4 py-3">
             <div>
               <p className="text-base font-black uppercase leading-none">{c.title}</p>
               <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.16em] opacity-65">{c.status}</p>
@@ -136,7 +136,7 @@ export default function AICustomerService() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label={c.close}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border-2 border-sglInk bg-sglPaper text-xl font-black leading-none transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglPaper"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#aaa69d] bg-sglPaper text-xl font-black leading-none transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglPaper"
             >
               ×
             </button>
@@ -144,7 +144,7 @@ export default function AICustomerService() {
 
           <div className="max-h-[min(34rem,calc(100vh-9rem))] overflow-y-auto p-4">
             <div className="flex items-start gap-3">
-              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-sglInk bg-sglPaper">
+              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border border-[#c9c5bc] bg-sglPaper">
                 <Image src="/assistant/sgl-ai-assistant.webp" alt="" width={48} height={48} className="h-full w-full object-contain" />
               </div>
               <p className="rounded-br-xl rounded-tr-xl rounded-bl-xl bg-sglFog px-4 py-3 text-sm font-bold leading-5">{c.greeting}</p>
@@ -157,7 +157,7 @@ export default function AICustomerService() {
                   key={topic}
                   type="button"
                   onClick={() => setActiveTopic(topic)}
-                  className={`border-2 px-4 py-3 text-left text-sm font-black uppercase transition focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid ${activeTopic === topic ? "border-sglInk bg-sglInk text-sglPaper" : "border-sglInk bg-sglPaper hover:bg-sglAcid"}`}
+                  className={`border px-4 py-3 text-left text-sm font-black uppercase transition focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid ${activeTopic === topic ? "border-[#77736b] bg-sglGraphite text-sglPaper" : "border-[#c3bfb5] bg-sglPaper hover:bg-sglAcid"}`}
                 >
                   {c.topics[topic].label}
                 </button>
@@ -165,12 +165,12 @@ export default function AICustomerService() {
             </div>
 
             {active && (
-              <div className="mt-3 border-2 border-sglInk bg-sglCream p-4">
+              <div className="mt-3 border border-[#c3bfb5] bg-sglCream p-4">
                 <p className="text-sm font-bold leading-6">{active.answer}</p>
                 <Link
                   href={localizedPath(active.href, locale)}
                   onClick={() => setOpen(false)}
-                  className="mt-4 inline-flex border-2 border-sglInk bg-sglAcid px-4 py-2 text-xs font-black uppercase tracking-wide"
+                  className="mt-4 inline-flex border border-[#aaa69d] bg-sglAcid px-4 py-2 text-xs font-black uppercase tracking-wide"
                 >
                   {active.cta} →
                 </Link>
@@ -191,7 +191,7 @@ export default function AICustomerService() {
         aria-label={open ? c.close : c.open}
         aria-expanded={open}
         aria-controls="sgl-ai-customer-service"
-        className="relative grid h-[4.5rem] w-[4.5rem] place-items-center overflow-hidden rounded-full border-[3px] border-sglInk bg-sglPaper shadow-[4px_4px_0_#111111] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
+        className="relative grid h-[4.5rem] w-[4.5rem] place-items-center overflow-hidden rounded-full border-2 border-[#aaa69d] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.18)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
       >
         <Image
           src="/assistant/sgl-ai-assistant.webp"
