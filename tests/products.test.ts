@@ -23,3 +23,18 @@ test("placeholder-only and missing-photo products stay hidden even with a price"
   assert.equal(getProduct("socks"), undefined);
   assert.equal(getProduct("airtag-case"), undefined);
 });
+
+test("cap prices and newly supplied primary images match the approved catalogue", () => {
+  for (const slug of ["seagull-cap-khaki-brown", "seagull-cap-lavender", "seagull-cap-black-grey"]) {
+    const cap = getProduct(slug)!;
+    assert.equal(cap.price, 45);
+    assert.equal(cap.priceLabel, "45");
+  }
+  const friendsFamily = getProduct("seagull-friends-family-cap-white-blue")!;
+  assert.equal(friendsFamily.price, 50);
+  assert.equal(friendsFamily.priceLabel, "50");
+  assert.equal(friendsFamily.images[0], "/products/caps/friends-family-white-blue.webp");
+
+  assert.equal(getProduct("sgl-three-pair-sock-set")?.images[0], "/products/socks/sgl-three-pair-sock-set-studio.webp");
+  assert.equal(getProduct("seat-bag")?.images[0], "/products/seat-bag-studio.webp");
+});

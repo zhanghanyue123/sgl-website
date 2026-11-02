@@ -38,6 +38,7 @@ export const products: Product[] = [
   "price": 35,
   "priceLabel": "35",
   "images": [
+    "/products/socks/sgl-three-pair-sock-set-studio.webp",
     "/products/socks/sgl-three-pair-sock-set-01.webp",
     "/products/socks/sgl-three-pair-sock-set-02.webp",
     "/products/socks/sgl-three-pair-sock-set-03.webp",
@@ -83,8 +84,8 @@ export const products: Product[] = [
   "originalHandle": "seagull-cap-khaki-brown",
   "title": "Sea Gull Cap — Khaki / Brown",
   "category": "Wear & Ride",
-  "price": 50,
-  "priceLabel": "50",
+  "price": 45,
+  "priceLabel": "45",
   "images": [
     "/products/caps/khaki-brown-13.webp",
     "/products/caps/khaki-brown-14.webp"
@@ -104,8 +105,8 @@ export const products: Product[] = [
   "originalHandle": "seagull-cap-lavender",
   "title": "Sea Gull Cap — Lavender",
   "category": "Wear & Ride",
-  "price": 50,
-  "priceLabel": "50",
+  "price": 45,
+  "priceLabel": "45",
   "images": [
     "/products/caps/lavender-10.webp",
     "/products/caps/lavender-11.webp",
@@ -126,8 +127,8 @@ export const products: Product[] = [
   "originalHandle": "seagull-cap-black-grey",
   "title": "Sea Gull Cap — Black / Grey",
   "category": "Wear & Ride",
-  "price": 50,
-  "priceLabel": "50",
+  "price": 45,
+  "priceLabel": "45",
   "images": [
     "/products/caps/black-grey-7.webp",
     "/products/caps/black-grey-6.webp",
@@ -136,6 +137,25 @@ export const products: Product[] = [
   "description": "An everyday cap with embroidered Sea Gull branding.",
   "details": [
     "Embroidered Sea Gull logo"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
+  "slug": "seagull-friends-family-cap-white-blue",
+  "originalHandle": "seagull-friends-family-cap-white-blue",
+  "title": "Sea Gull Friends & Family Cap — White / Blue",
+  "category": "Wear & Ride",
+  "price": 50,
+  "priceLabel": "50",
+  "images": [
+    "/products/caps/friends-family-white-blue.webp"
+  ],
+  "description": "A white and blue cap featuring embroidered Friends & Family artwork from Sea Gull Labs.",
+  "details": [
+    "Embroidered Friends & Family artwork"
   ],
   "variants": [],
   "buyLinks": {
@@ -635,6 +655,7 @@ export const products: Product[] = [
     "priceLabel": "30",
     "badge": "Everyday Carry",
     "images": [
+      "/products/seat-bag-studio.webp",
       "/products/seat-bag-detail.webp"
     ],
     "description": "A compact SGL seat bag designed to carry small essentials beneath a bicycle saddle.",
@@ -652,7 +673,7 @@ export const products: Product[] = [
         ],
         "price": 30.0,
         "inventory": 0,
-        "image": "/products/seat-bag-detail.webp"
+        "image": "/products/seat-bag-studio.webp"
       }
     ],
     "temporaryShopifyUrl": "https://581ff0-3.myshopify.com/products/seat-bag",

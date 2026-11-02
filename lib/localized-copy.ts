@@ -64,6 +64,7 @@ export const pageCopy: Record<Exclude<Locale, "en">, Record<string, LocalizedPag
 
 const productDescriptions: Record<string, [string, string, string, string]> = {
   "sgl-three-pair-sock-set": ["日常出行与骑行使用的三双 SGL 袜子组合。", "日常の移動とライドに使える、3種類のSGLソックスセット。", "일상 이동과 라이딩을 위한 세 가지 SGL 양말 세트입니다.", "Set di tre paia di calze SGL, pensato per gli spostamenti quotidiani e il ciclismo urbano."],
+  "seagull-friends-family-cap-white-blue": ["白色帽身搭配蓝色帽檐，绣有 Sea Gull Labs Friends & Family 图案。", "白いクラウンと青いバイザーに、Sea Gull LabsのFriends & Familyアートワークを刺繍したキャップ。", "화이트 크라운과 블루 바이저에 Sea Gull Labs Friends & Family 아트워크를 자수한 캡입니다.", "Cappellino bianco e blu con grafica Friends & Family di Sea Gull Labs ricamata."],
   "sgl-house-blend-01": ["深度烘焙咖啡豆，带有坚果、黄油、蜂蜜与黑巧克力风味。", "ナッツ、バター、ハチミツ、ダークチョコレートを感じる深煎りブレンド。", "견과류, 버터, 꿀, 다크초콜릿 향을 담은 다크 로스트 블렌드입니다.", "Miscela a tostatura scura con note di frutta secca, burro, miele e cioccolato fondente."],
   "seat-bag": ["安装在自行车座垫下方、用于携带小件物品的紧凑型 SGL 座包。", "サドル下に装着し、小物を収納できるコンパクトなSGLサドルバッグ。", "자전거 안장 아래에 장착해 작은 소지품을 담는 컴팩트 SGL 새들백입니다.", "Borsa sottosella SGL compatta, pensata per portare piccoli oggetti durante gli spostamenti in bicicletta."],
   "sports-bandana-outdoor-magic-scarf": ["适合骑行、户外活动与日常穿搭的 SGL 印花运动头巾。", "ライド、アウトドア、日常に使えるSGLプリントバンダナ。", "라이딩, 아웃도어와 일상 착용을 위한 SGL 프린트 반다나입니다.", "Bandana sportiva SGL stampata, adatta al ciclismo, alle attività all’aperto e all’uso quotidiano."],
@@ -92,6 +93,7 @@ const detailTranslations: Record<string, [string, string, string, string]> = {
   "Tasting notes: nuts, butter, honey and dark chocolate": ["风味：坚果、黄油、蜂蜜与黑巧克力", "風味：ナッツ、バター、ハチミツ、ダークチョコレート", "향미: 견과류, 버터, 꿀, 다크초콜릿", "Note aromatiche: frutta secca, burro, miele e cioccolato fondente"],
   "Altitude: 1,200–1,800m": ["海拔：1,200–1,800m", "標高：1,200～1,800m", "고도: 1,200–1,800m", "Altitudine: 1.200–1.800 m"],
   "Embroidered Sea Gull logo": ["Sea Gull 刺绣标志", "Sea Gull刺繍ロゴ", "Sea Gull 자수 로고", "Logo Sea Gull ricamato"],
+  "Embroidered Friends & Family artwork": ["Friends & Family 刺绣图案", "Friends & Familyの刺繍アートワーク", "Friends & Family 자수 아트워크", "Grafica Friends & Family ricamata"],
   "Aluminum alloy frame": ["铝合金车架", "アルミニウム合金フレーム", "알루미늄 합금 프레임", "Telaio in lega di alluminio"],
   "Titanium alloy frame": ["钛合金车架", "チタン合金フレーム", "티타늄 합금 프레임", "Telaio in lega di titanio"],
   "Original SGL bicycle model": ["SGL 原创自行车型号", "SGLオリジナル自転車モデル", "SGL 오리지널 자전거 모델", "Modello di bicicletta originale SGL"],
