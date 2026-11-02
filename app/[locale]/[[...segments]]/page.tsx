@@ -73,28 +73,28 @@ const universeWorldCopy: Record<LocalizedLocale, { paragraphs: [string, string];
       "这些角色是 SGL 的原创 IP，并非添加到 Station 的装饰。它们的故事贯穿商品、摄影、展览，以及城市里的真实相遇。",
       "SGL 微信小程序已于 2026 年 6 月上线，围绕角色展开的旅程仍在持续发展。AR 互动目前正在开发中，计划于 2027 年初发布。"
     ],
-    points: ["Station 节点 · 已上线", "公园路线 · 运行中", "打卡任务 · 开发中", "角色奖励 · 开发中"]
+    points: ["Station 节点 · 已上线", "公园路线 · 运行中", "会员卡 · 开发中", "打卡任务 · 开发中", "角色奖励 · 开发中", "AR 故事层 · 计划于 2027 年初推出"]
   },
   "ja-JP": {
     paragraphs: [
       "キャラクターはStationに添えた装飾ではなく、SGLのオリジナルIPです。プロダクト、写真、展示、そして街で生まれる実際の出会いを通して物語を紡ぎます。",
       "SGL WeChatミニプログラムは2026年6月に公開されました。キャラクターと歩く体験は今も広がっています。ARインタラクションは開発中で、2027年初頭の公開を予定しています。"
     ],
-    points: ["Station拠点 · 稼働中", "公園ルート · 稼働中", "チェックインミッション · 開発中", "キャラクター報酬 · 開発中"]
+    points: ["Station拠点 · 稼働中", "公園ルート · 稼働中", "メンバーカード · 開発中", "チェックインミッション · 開発中", "キャラクター報酬 · 開発中", "ARストーリー · 2027年初頭に向けて開発中"]
   },
   "ko-KR": {
     paragraphs: [
       "이 캐릭터들은 Station에 덧붙인 장식이 아니라 SGL의 오리지널 IP입니다. 제품과 사진, 전시, 그리고 도시에서의 실제 만남을 따라 이야기를 이어 갑니다.",
       "SGL WeChat 미니 프로그램은 2026년 6월 출시되었습니다. 캐릭터와 함께하는 여정은 계속 확장되고 있으며, AR 인터랙션은 2027년 초 공개를 목표로 개발 중입니다."
     ],
-    points: ["Station 거점 · 운영 중", "공원 루트 · 운영 중", "체크인 미션 · 개발 중", "캐릭터 리워드 · 개발 중"]
+    points: ["Station 거점 · 운영 중", "공원 루트 · 운영 중", "멤버 카드 · 개발 중", "체크인 미션 · 개발 중", "캐릭터 리워드 · 개발 중", "AR 스토리 · 2027년 초 공개 목표"]
   },
   "it-IT": {
     paragraphs: [
       "I personaggi sono IP originali SGL, non decorazioni aggiunte alla Station. Le loro storie attraversano prodotti, fotografia, mostre e incontri reali in città.",
       "Il Mini Program WeChat SGL è attivo da giugno 2026. I percorsi guidati dai personaggi continuano a evolversi. Le interazioni AR sono in sviluppo, con uscita prevista per l’inizio del 2027."
     ],
-    points: ["Nodi Station · Attivi", "Percorsi nei parchi · Attivi", "Missioni check-in · In sviluppo", "Ricompense dei personaggi · In sviluppo"]
+    points: ["Nodi Station · Attivi", "Percorsi nei parchi · Attivi", "Member card · In sviluppo", "Missioni check-in · In sviluppo", "Ricompense dei personaggi · In sviluppo", "Storie AR · In sviluppo per l’inizio del 2027"]
   }
 };
 
@@ -330,8 +330,8 @@ function Universe({ locale }: { locale: LocalizedLocale }) {
     <div {...sectionMarker("universe", "hero-image")}><Image src="/characters/sgl-birds-night.webp" alt={heroAlt} width={2400} height={800} className="w-full" /></div>
     <Hero copy={c} page="universe" />
     <section {...sectionMarker("universe", "characters")} className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.characters}</h2><div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{characterCopy[locale].map(character => <article key={character.name} className="border border-sglInk bg-sglPaper p-4"><div className="relative aspect-[4/5] overflow-hidden border border-sglInk bg-sglGraphite"><Image src={character.image} alt={character.alt} fill sizes="25vw" className="object-cover" /></div><h3 className="mt-5 text-3xl font-black uppercase">{character.name}</h3><p className="mt-4 leading-7 opacity-80">{character.text}</p></article>)}</div></section>
-    <section {...sectionMarker("universe", "world-points")} className="border-y border-sglInk bg-sglAcid"><div className="mx-auto grid max-w-sgl gap-6 px-4 py-12 md:grid-cols-[minmax(220px,1fr)_minmax(0,2fr)] md:items-stretch md:px-8 md:py-16"><div className="grid content-stretch gap-3 sm:grid-cols-2 md:grid-cols-1">{world.points.map(point => <div key={point} className="flex items-center border border-sglInk bg-sglCream px-5 py-4 text-xl font-black uppercase">{point}</div>)}</div><div {...sectionMarker("universe", "film")} className="flex min-w-0 items-center overflow-hidden bg-black"><Films src="/videos/universe-animation-preview.mp4" poster="/videos/universe-animation-preview.jpg" title={filmTitle} frameless loop /></div></div></section>
-    <section {...sectionMarker("universe", "world-system")} className="border-t border-sglInk bg-sglAcid"><div className="mx-auto max-w-sgl space-y-8 px-4 py-14 text-xl leading-9 md:px-8 md:py-16 md:text-2xl md:leading-[1.55]">{world.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div></section>
+    <section {...sectionMarker("universe", "world-points")} className="border-y border-sglInk bg-sglCream"><div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16"><div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">{world.points.map(point => <div key={point} className="flex items-center border border-sglInk bg-sglPaper px-5 py-4 text-xl font-black uppercase">{point}</div>)}</div></div></section>
+    <section {...sectionMarker("universe", "world-system")} className="border-t border-sglInk bg-sglAcid"><div className="mx-auto grid max-w-sgl gap-8 px-4 py-14 md:grid-cols-2 md:items-center md:px-8 md:py-16"><div className="space-y-8 text-xl leading-9 md:text-2xl md:leading-[1.55]">{world.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div><div {...sectionMarker("universe", "film")} className="min-w-0 overflow-hidden bg-black"><Films src="/videos/universe-animation-preview.mp4" poster="/videos/universe-animation-preview.jpg" title={filmTitle} frameless loop /></div></div></section>
     <LocalizedBand locale={locale} page="universe" section="cta" tone="ink" />
   </>;
 }

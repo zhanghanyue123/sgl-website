@@ -44,8 +44,10 @@ const characters = [
 const worldPoints = [
   "Station nodes · Live",
   "Park routes · Active",
+  "Member cards · In development",
   "Check-in missions · In development",
-  "Character rewards · In development"
+  "Character rewards · In development",
+  "AR story layers · In development for early 2027"
 ];
 
 export default function UniversePage() {
@@ -146,42 +148,38 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div data-content-section="universe.world-points" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-sgl gap-6 px-4 py-12 md:grid-cols-[minmax(220px,1fr)_minmax(0,2fr)] md:items-stretch md:px-8 md:py-16">
-          <div className="grid content-stretch gap-3 sm:grid-cols-2 md:grid-cols-1">
+      <div data-content-section="universe.world-points" className="border-y border-sglInk bg-sglCream">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
             {worldPoints.map((point) => (
               <div
                 key={point}
-                className="flex items-center border border-sglInk bg-sglCream px-5 py-4 text-xl font-black uppercase"
+                className="flex items-center border border-sglInk bg-sglPaper px-5 py-4 text-xl font-black uppercase"
               >
                 {point}
               </div>
             ))}
           </div>
-          <div data-content-section="universe.film" className="flex min-w-0 items-center overflow-hidden bg-black">
-            <Films
-              src="/videos/universe-animation-preview.mp4"
-              poster="/videos/universe-animation-preview.jpg"
-              title="SGL Universe animation preview"
-              frameless
-              loop
-            />
-          </div>
         </div>
       </div>
 
       <div data-content-section="universe.world-system" className="border-t border-sglInk bg-sglAcid">
-        <div className="mx-auto max-w-sgl space-y-8 px-4 py-14 text-xl leading-9 md:px-8 md:py-16 md:text-2xl md:leading-[1.55]">
-          <p>
-            The characters are original SGL IP, not decoration added to the
-            Station. They carry stories across products, photography,
-            exhibitions and real encounters in the city.
-          </p>
-          <p>
-            The SGL WeChat Mini Program launched in June 2026. Character-led
-            journeys continue to develop around it. AR interactions are
-            currently in development, with a planned release in early 2027.
-          </p>
+        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-14 md:grid-cols-2 md:items-center md:px-8 md:py-16">
+          <div className="space-y-8 text-xl leading-9 md:text-2xl md:leading-[1.55]">
+            <p>
+              The characters are original SGL IP, not decoration added to the
+              Station. They carry stories across products, photography,
+              exhibitions and real encounters in the city.
+            </p>
+            <p>
+              The SGL WeChat Mini Program launched in June 2026. Character-led
+              journeys continue to develop around it. AR interactions are
+              currently in development, with a planned release in early 2027.
+            </p>
+          </div>
+          <div data-content-section="universe.film" className="min-w-0 overflow-hidden bg-black">
+            <Films src="/videos/universe-animation-preview.mp4" poster="/videos/universe-animation-preview.jpg" title="SGL Universe animation preview" frameless loop />
+          </div>
         </div>
       </div>
 
