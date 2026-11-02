@@ -85,8 +85,8 @@ export default function StationPage() {
             width={1672}
             height={941}
             priority
-            sizes="(max-width: 1440px) 100vw, 1440px"
-            className="h-auto w-full"
+            sizes="(max-width: 767px) 100vw, 960px"
+            className="mx-auto h-auto w-full md:w-2/3"
           />
         </div>
       </div>
