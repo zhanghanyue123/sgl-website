@@ -2155,6 +2155,25 @@ export function getProductsByCategory(category: string) {
       ...items.filter(product => product.slug !== "chrissy1")
     ];
   }
+  if (category === "Wear") {
+    const caps = [
+      "seagull-friends-family-cap-white-blue",
+      "seagull-cap-khaki-brown",
+      "seagull-cap-lavender",
+      "seagull-cap-black-grey"
+    ];
+    const tees = [
+      "wheel-deal-logo-study-tee",
+      "wheel-deal-gull-rider-tee",
+      "celtic-gull-tee-washed-black",
+      "sgl-patch-tee-sky-blue"
+    ];
+    return [
+      ...caps.flatMap(slug => items.filter(product => product.slug === slug)),
+      ...tees.flatMap(slug => items.filter(product => product.slug === slug)),
+      ...items.filter(product => !caps.includes(product.slug) && !tees.includes(product.slug))
+    ];
+  }
   if (category !== "Bags & Carry") return items;
   const first = ["handlebar-bag-white-grey", "handlebar-bags", "handleber-bags-grey"];
   const last = ["seat-bag", "bike-cover", "reveal-shoe-sack", "sportglassea-case"];

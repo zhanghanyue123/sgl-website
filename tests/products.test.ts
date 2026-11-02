@@ -17,13 +17,16 @@ test("storefront hides products without a real image or price", () => {
   assert.ok(getProduct("seat-bag"));
 });
 
-test("storefront begins with one row of caps and socks start the second row", () => {
-  assert.deepEqual(storefrontProducts.slice(0, 5).map(product => product.slug), [
+test("Wear begins with one row of caps followed by one row of tees", () => {
+  assert.deepEqual(getProductsByCategory("Wear").slice(0, 8).map(product => product.slug), [
     "seagull-friends-family-cap-white-blue",
     "seagull-cap-khaki-brown",
     "seagull-cap-lavender",
     "seagull-cap-black-grey",
-    "sgl-three-pair-sock-set"
+    "wheel-deal-logo-study-tee",
+    "wheel-deal-gull-rider-tee",
+    "celtic-gull-tee-washed-black",
+    "sgl-patch-tee-sky-blue"
   ]);
 });
 
