@@ -152,10 +152,34 @@ const words: Record<LocalizedLocale, LocaleWords> = {
   "it-IT": it
 };
 
+const structuralLabels: Record<LocalizedLocale, Record<string, string>> = {
+  "zh-CN": {
+    history: "品牌历程", bikes: "自行车", bags: "包袋与携带", wear: "穿戴", coffee: "Station 好物", accessories: "配件",
+    product: "商品详情", stationImage: "Seagull Station 主视觉", eventFilm: "活动影片", calendar: "活动日历", exhibitions: "展会记录",
+    universeImage: "SGL 角色世界主视觉", characters: "原创角色", cart: "购物车", footer: "页脚"
+  },
+  "ja-JP": {
+    history: "ブランドの歩み", bikes: "自転車", bags: "バッグ＆キャリー", wear: "ウェア", coffee: "Stationグッズ", accessories: "アクセサリー",
+    product: "商品詳細", stationImage: "Seagull Station メインビジュアル", eventFilm: "イベントフィルム", calendar: "イベントカレンダー", exhibitions: "展示会の記録",
+    universeImage: "SGL Universe メインビジュアル", characters: "オリジナルキャラクター", cart: "カート", footer: "フッター"
+  },
+  "ko-KR": {
+    history: "브랜드 연혁", bikes: "자전거", bags: "가방 & 캐리", wear: "웨어", coffee: "Station 굿즈", accessories: "액세서리",
+    product: "제품 상세", stationImage: "Seagull Station 메인 이미지", eventFilm: "이벤트 영상", calendar: "이벤트 캘린더", exhibitions: "전시 기록",
+    universeImage: "SGL Universe 메인 이미지", characters: "오리지널 캐릭터", cart: "장바구니", footer: "푸터"
+  },
+  "it-IT": {
+    history: "Storia del brand", bikes: "Biciclette", bags: "Borse e trasporto", wear: "Abbigliamento", coffee: "Prodotti Station", accessories: "Accessori",
+    product: "Dettagli del prodotto", stationImage: "Immagine principale di Seagull Station", eventFilm: "Film degli eventi", calendar: "Calendario degli eventi", exhibitions: "Archivio delle fiere",
+    universeImage: "Immagine principale di SGL Universe", characters: "Personaggi originali", cart: "Carrello", footer: "Piè di pagina"
+  }
+};
+
 const heroPages = ["home", "about", "shop", "station", "events", "universe", "app", "contact", "stockists"] as const;
 
 function makeCatalog(locale: LocalizedLocale) {
   const source = words[locale];
+  const labels = structuralLabels[locale];
   const catalog: Record<string, Record<string, SectionCopy>> = {};
 
   for (const [page, sections] of Object.entries(publicPageSections)) {
@@ -171,21 +195,21 @@ function makeCatalog(locale: LocalizedLocale) {
     const copy = pageCopy[locale][page];
     catalog[page].hero = { kicker: copy.eyebrow, heading: copy.heading, body: `${copy.intro} ${copy.secondary}` };
   }
-  catalog.about.history = { heading: "History", body: "History" };
-  catalog.shop["bikes-frames"] = { heading: "Bikes / Frames", body: "Bikes / Frames" };
-  catalog.shop["bags-carry"] = { heading: "Bags & Carry", body: "Bags & Carry" };
-  catalog.shop["wear-ride"] = { heading: "Wear & Ride", body: "Wear & Ride" };
-  catalog.shop["coffee-refuel"] = { heading: "Coffee & Refuel", body: "Coffee & Refuel" };
-  catalog.shop.accessories = { heading: "Accessories", body: "Accessories" };
-  catalog.product["product-detail"] = { heading: "Product", body: "Product" };
-  catalog.station["hero-image"] = { heading: "Seagull Station", body: "Seagull Station" };
-  catalog.events.film = { heading: "Film", body: "Film" };
-  catalog.events.calendar = { heading: "Calendar", body: "Calendar" };
-  catalog.events.exhibitions = { heading: "Exhibitions", body: "Exhibitions" };
-  catalog.universe["hero-image"] = { heading: "SGL Universe", body: "SGL Universe" };
-  catalog.universe.characters = { heading: "Characters", body: "Characters" };
-  catalog.cart.cart = { heading: "Cart", body: "Cart" };
-  catalog.footer.footer = { heading: "Footer", body: "Footer" };
+  catalog.about.history = { heading: labels.history, body: labels.history };
+  catalog.shop["bikes-frames"] = { heading: labels.bikes, body: labels.bikes };
+  catalog.shop["bags-carry"] = { heading: labels.bags, body: labels.bags };
+  catalog.shop["wear-ride"] = { heading: labels.wear, body: labels.wear };
+  catalog.shop["coffee-refuel"] = { heading: labels.coffee, body: labels.coffee };
+  catalog.shop.accessories = { heading: labels.accessories, body: labels.accessories };
+  catalog.product["product-detail"] = { heading: labels.product, body: labels.product };
+  catalog.station["hero-image"] = { heading: labels.stationImage, body: labels.stationImage };
+  catalog.events.film = { heading: labels.eventFilm, body: labels.eventFilm };
+  catalog.events.calendar = { heading: labels.calendar, body: labels.calendar };
+  catalog.events.exhibitions = { heading: labels.exhibitions, body: labels.exhibitions };
+  catalog.universe["hero-image"] = { heading: labels.universeImage, body: labels.universeImage };
+  catalog.universe.characters = { heading: labels.characters, body: labels.characters };
+  catalog.cart.cart = { heading: labels.cart, body: labels.cart };
+  catalog.footer.footer = { heading: labels.footer, body: labels.footer };
 
   return catalog;
 }

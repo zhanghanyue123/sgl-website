@@ -34,7 +34,7 @@ export const products: Product[] = [
   "slug": "sgl-three-pair-sock-set",
   "originalHandle": "sgl-three-pair-sock-set",
   "title": "SGL Three-Pair Sock Set",
-  "category": "Wear & Ride",
+  "category": "Wear",
   "price": 35,
   "priceLabel": "35",
   "images": [
@@ -59,7 +59,7 @@ export const products: Product[] = [
   "slug": "sgl-house-blend-01",
   "originalHandle": "sgl-house-blend-01",
   "title": "SGL House Blend 01 — 450g",
-  "category": "Coffee & Refuel",
+  "category": "Station Goods",
   "price": 18,
   "priceLabel": "18",
   "images": [
@@ -81,9 +81,10 @@ export const products: Product[] = [
 
 {
   "slug": "seagull-cap-khaki-brown",
+  "soldOut": true,
   "originalHandle": "seagull-cap-khaki-brown",
   "title": "Sea Gull Cap — Khaki / Brown",
-  "category": "Wear & Ride",
+  "category": "Wear",
   "price": 45,
   "priceLabel": "45",
   "images": [
@@ -102,10 +103,9 @@ export const products: Product[] = [
 },
 {
   "slug": "seagull-cap-lavender",
-  "soldOut": true,
   "originalHandle": "seagull-cap-lavender",
   "title": "SGL Friends & Family Cap — Navy / Grey",
-  "category": "Wear & Ride",
+  "category": "Wear",
   "price": 45,
   "priceLabel": "45",
   "images": [
@@ -126,7 +126,7 @@ export const products: Product[] = [
   "slug": "seagull-cap-black-grey",
   "originalHandle": "seagull-cap-black-grey",
   "title": "Sea Gull Cap — Black / Grey",
-  "category": "Wear & Ride",
+  "category": "Wear",
   "price": 45,
   "priceLabel": "45",
   "images": [
@@ -148,7 +148,7 @@ export const products: Product[] = [
   "slug": "seagull-friends-family-cap-white-blue",
   "originalHandle": "seagull-friends-family-cap-white-blue",
   "title": "Sea Gull Friends & Family Cap — White / Blue",
-  "category": "Wear & Ride",
+  "category": "Wear",
   "price": 50,
   "priceLabel": "50",
   "images": [
@@ -169,7 +169,7 @@ export const products: Product[] = [
     "hidden": true,
     "originalHandle": "chrissy-p",
     "title": "Chrissy P",
-    "category": "Bikes / Frames",
+    "category": "Bikes",
     "price": 899.0,
     "priceLabel": "899",
     "badge": "2 Variants",
@@ -229,7 +229,7 @@ export const products: Product[] = [
     hidden: true,
     "originalHandle": "chrissy-m",
     "title": "Chrissy M",
-    "category": "Bikes / Frames",
+    "category": "Bikes",
     "price": 1299.0,
     "priceLabel": "1299",
     "badge": "2 Variants",
@@ -279,7 +279,7 @@ export const products: Product[] = [
     "slug": "chrissy",
     "originalHandle": "chrissy",
     "title": "Chrissy",
-    "category": "Bikes / Frames",
+    "category": "Bikes",
     "price": 899.0,
     "priceLabel": "899",
     "badge": "8 Variants",
@@ -435,7 +435,7 @@ export const products: Product[] = [
     "slug": "chrissy-team",
     "originalHandle": "chrissy-team",
     "title": "Chrissy Team",
-    "category": "Bikes / Frames",
+    "category": "Bikes",
     "price": 2299.0,
     "priceLabel": "2299–2499",
     "badge": "8 Variants",
@@ -592,7 +592,7 @@ export const products: Product[] = [
     "slug": "chrissy-special",
     "originalHandle": "chrissy-special",
     "title": "Chrissy Special",
-    "category": "Bikes / Frames",
+    "category": "Bikes",
     "price": 1299.0,
     "priceLabel": "1299",
     "badge": "2 Variants",
@@ -688,7 +688,7 @@ export const products: Product[] = [
     "slug": "socks",
     "originalHandle": "socks",
     "title": "Socks",
-    "category": "Wear & Ride",
+    "category": "Wear",
     "price": 18.0,
     "priceLabel": "18",
     "badge": "Archive",
@@ -760,7 +760,7 @@ export const products: Product[] = [
     "slug": "sports-bandana-outdoor-magic-scarf",
     "originalHandle": "sports-bandana-outdoor-magic-scarf",
     "title": "SGL Sports Bandana",
-    "category": "Wear & Ride",
+    "category": "Wear",
     "price": 20.0,
     "priceLabel": "20",
     "badge": "SGL Print",
@@ -1259,7 +1259,7 @@ export const products: Product[] = [
     "slug": "copy-of-overshoes-oversocks",
     "originalHandle": "copy-of-overshoes-oversocks",
     "title": "Cycling Overshoes / Oversocks",
-    "category": "Wear & Ride",
+    "category": "Wear",
     "price": 0,
     "priceLabel": "TBD",
     "badge": "Archive",
@@ -1331,7 +1331,7 @@ export const products: Product[] = [
     "slug": "cycling-leg-strap-pant-strap",
     "originalHandle": "cycling-leg-strap-pant-strap",
     "title": "SGL Cycling Trouser Strap",
-    "category": "Wear & Ride",
+    "category": "Wear",
     "price": 13.0,
     "priceLabel": "13",
     "badge": "5 Variants",
@@ -1420,6 +1420,7 @@ export const products: Product[] = [
   },
   {
     "slug": "reflective-gear-safety-reflector-baby-seagull",
+    "soldOut": true,
     "originalHandle": "reflective-gear-safety-reflector-baby-seagull",
     "title": "Baby Seagull Reflector",
     "category": "Accessories",
@@ -1805,7 +1806,7 @@ export const products: Product[] = [
     "slug": "chrissy1",
     "originalHandle": "chrissy1",
     "title": "Chrissy Ti",
-    "category": "Bikes / Frames",
+    "category": "Bikes",
     "price": 1999.0,
     "priceLabel": "1999",
     "badge": "7 Variants",
@@ -2046,10 +2047,10 @@ export const storefrontProducts = products
   });
 
 const categoryOrder = [
-  "Bikes / Frames",
+  "Bikes",
   "Bags & Carry",
-  "Wear & Ride",
-  "Coffee & Refuel",
+  "Wear",
+  "Station Goods",
   "Accessories"
 ];
 
@@ -2068,7 +2069,7 @@ export function getProduct(slug: string) {
 
 export function getProductsByCategory(category: string) {
   const items = storefrontProducts.filter((product) => product.category === category);
-  if (category === "Bikes / Frames") {
+  if (category === "Bikes") {
     return [
       ...items.filter(product => product.slug === "chrissy1"),
       ...items.filter(product => product.slug !== "chrissy1")

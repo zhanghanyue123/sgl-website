@@ -11,6 +11,7 @@ import {
   publicPageSections
 } from "../lib/content-schema";
 import { localizedProduct, pageCopy } from "../lib/localized-copy";
+import { localizedRichCopy } from "../lib/localized-rich-copy";
 import { localizedSectionCatalog } from "../lib/localized-sections";
 import { localePrefixes } from "../lib/i18n";
 
@@ -39,6 +40,20 @@ test("localized page copy is complete and non-empty", () => {
         assert.ok(String(value).trim(), `${locale}.${page}.${field} is empty`);
       }
     }
+  }
+});
+
+test("localized feature pages keep the same media depth as English", () => {
+  for (const locale of localizedLocales) {
+    const copy = localizedRichCopy[locale];
+    assert.equal(copy.home.events.length, 3, `${locale} home events`);
+    assert.ok(copy.home.filmTitle.trim(), `${locale} home film title`);
+    assert.equal(copy.station.photos.length, 6, `${locale} station photo gallery`);
+    assert.equal(copy.station.offerings.length, 4, `${locale} station offerings`);
+    assert.ok(copy.station.storiesAlt.trim(), `${locale} station closing image`);
+    assert.equal(copy.app.screens.length, 4, `${locale} app screens`);
+    assert.ok(copy.app.heroAlt.trim(), `${locale} app hero image`);
+    assert.ok(copy.about.filmTitle.trim(), `${locale} about film`);
   }
 });
 

@@ -29,10 +29,10 @@ test("storefront begins with one row of caps and socks start the second row", ()
 
 test("shop category sections follow the approved order", () => {
   assert.deepEqual(categories, [
-    "Bikes / Frames",
+    "Bikes",
     "Bags & Carry",
-    "Wear & Ride",
-    "Coffee & Refuel",
+    "Wear",
+    "Station Goods",
     "Accessories"
   ]);
 });
@@ -71,6 +71,10 @@ test("cap prices and newly supplied primary images match the approved catalogue"
   assert.equal(navyGrey.title, "SGL Friends & Family Cap — Navy / Grey");
   assert.match(navyGrey.description, /washed navy and charcoal-grey/i);
   assert.equal(getProduct("seagull-cap-black-grey")?.images[0], "/products/caps/black-grey-studio.webp");
+
+  assert.equal(getProduct("seagull-cap-khaki-brown")?.soldOut, true);
+  assert.equal(navyGrey.soldOut, undefined);
+  assert.equal(getProduct("reflective-gear-safety-reflector-baby-seagull")?.soldOut, true);
 
   assert.equal(getProduct("sgl-three-pair-sock-set")?.images[0], "/products/socks/sgl-three-pair-sock-set-studio.webp");
   assert.equal(getProduct("seat-bag")?.images[0], "/products/seat-bag-studio.webp");

@@ -7,11 +7,11 @@ export const metadata = pageMetadata("Shop Cycling Accessories & Lifestyle Goods
 
 
 const categoryLabels = {
-  "BIKES / FRAMES": "Frames",
-  "BAGS & CARRY": "Bags & Carry",
-  "WEAR & RIDE": "Wear & Ride",
-  "ACCESSORIES": "Accessories",
-  "STATION GOODS": "Station Goods"
+  "Bikes": "Bikes",
+  "Bags & Carry": "Bags & Carry",
+  "Wear": "Wear",
+  "Station Goods": "Station Goods",
+  "Accessories": "Accessories"
 } as const;
 
 export default function ShopPage() {

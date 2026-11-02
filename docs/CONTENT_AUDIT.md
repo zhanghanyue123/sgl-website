@@ -95,7 +95,7 @@ Verification labels used below:
 |---|---|---:|---|---|---|
 | English introduction | “SGL goods for city riding, park loops, station stops and everyday movement…” | OK | Keep, with “frames, bags, wearables and accessories” aligned to the final catalogue taxonomy. | Clear collection-focused copy. | Verified from public categories. |
 | Chinese purchasing statement | “商品购买入口将陆续接入淘宝、小程序与门店客服。” | VERIFY | Translate the approved current ordering method only. Suggested interim: “Contact SGL to confirm stock, payment and delivery.” | It promises Taobao and mini-program channels that are not documented as live. | Operational confirmation required. |
-| Category labels | Frames / Bags & Carry / Wear & Ride / Accessories / Coffee & Refuel | REWRITE | Adopt one title-case taxonomy and use it consistently in data, cards, metadata, and translations. | Current source casing and category mapping are inconsistent. | Catalogue structure verified. |
+| Category labels | Bikes / Bags & Carry / Wear / Station Goods / Accessories | REWRITE | Use the approved title-case taxonomy consistently in data, cards, metadata, and translations. | Category names are customer-facing and must stay synchronized across locales. | Catalogue structure verified. |
 | After Dark editorial card | “Night routes. Small wheels. Ride after sunset. Refuel at the station.” | OK | Keep. | The image shows a rider and small-wheel bicycle at night. | Visually verified. |
 
 ### Product detail template — /shop/[slug]

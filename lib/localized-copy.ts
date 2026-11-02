@@ -82,9 +82,9 @@ const productTitles: Record<string, [string, string, string, string]> = {
 };
 
 const categoryTranslations: Record<string, [string, string, string, string]> = {
-  "Wear & Ride": ["穿戴与骑行", "ウェア＆ライド", "웨어 & 라이드", "Abbigliamento e ciclismo"],
-  "Coffee & Refuel": ["咖啡与补给", "コーヒー＆補給", "커피 & 리퓨얼", "Caffè e ristoro"],
-  "Bikes / Frames": ["自行车 / 车架", "自転車／フレーム", "자전거 / 프레임", "Biciclette / Telai"],
+  "Wear": ["穿戴", "ウェア", "웨어", "Abbigliamento"],
+  "Station Goods": ["Station 好物", "Stationグッズ", "Station 굿즈", "Prodotti Station"],
+  "Bikes": ["自行车", "自転車", "자전거", "Biciclette"],
   "Bags & Carry": ["包袋与携带", "バッグ＆キャリー", "가방 & 캐리", "Borse e trasporto"],
   "Accessories": ["配件", "アクセサリー", "액세서리", "Accessori"]
 };
