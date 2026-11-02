@@ -64,6 +64,10 @@ export const pageCopy: Record<Exclude<Locale, "en">, Record<string, LocalizedPag
 
 const productDescriptions: Record<string, [string, string, string, string]> = {
   "sgl-three-pair-sock-set": ["日常出行与骑行使用的三双 SGL 袜子组合。", "日常の移動とライドに使える、3種類のSGLソックスセット。", "일상 이동과 라이딩을 위한 세 가지 SGL 양말 세트입니다.", "Set di tre paia di calze SGL, pensato per gli spostamenti quotidiani e il ciclismo urbano."],
+  "wheel-deal-logo-study-tee": ["奶油白色 SGL T 恤，背面以醒目的红色排版呈现 Wheel Deal 标志组合。", "クリームカラーのSGL Tシャツ。背面に赤いWheel Dealロゴを大胆にレイアウトしています。", "크림 컬러 SGL 티셔츠로, 뒷면에 레드 Wheel Deal 로고 스터디를 대담하게 배치했습니다.", "T-shirt SGL color crema con una composizione decisa di loghi Wheel Deal rossi sul retro."],
+  "wheel-deal-gull-rider-tee": ["沙色 SGL T 恤，背面印有 Wheel Deal 海鸥骑车插画。", "サンドカラーのSGL Tシャツ。背面にWheel Dealのカモメと自転車のイラストを配しています。", "샌드 컬러 SGL 티셔츠로, 뒷면에 Wheel Deal 갈매기와 자전거 일러스트를 담았습니다.", "T-shirt SGL color sabbia con illustrazione Wheel Deal del gabbiano in bicicletta sul retro."],
+  "celtic-gull-tee-washed-black": ["水洗黑色 SGL T 恤，左胸印有银灰色凯尔特海鸥徽记。", "ウォッシュドブラックのSGL Tシャツ。左胸にシルバートーンのケルト調カモメエンブレムを配しています。", "워시드 블랙 SGL 티셔츠로, 왼쪽 가슴에 실버 톤 켈틱 갈매기 엠블럼을 더했습니다.", "T-shirt SGL nera lavata con emblema celtico del gabbiano in tonalità argento sul petto sinistro."],
+  "sgl-patch-tee-sky-blue": ["天蓝色 SGL T 恤，左胸以小幅 Sea Gull / SGL 徽章图案收尾。", "スカイブルーのSGL Tシャツ。左胸にコンパクトなSea Gull / SGLバッジグラフィックを配しています。", "스카이 블루 SGL 티셔츠로, 왼쪽 가슴에 작은 Sea Gull / SGL 배지 그래픽을 적용했습니다.", "T-shirt SGL azzurro cielo con una piccola grafica a stemma Sea Gull / SGL sul petto sinistro."],
   "seagull-friends-family-cap-white-blue": ["白色帽身搭配蓝色帽檐，绣有 Sea Gull Labs Friends & Family 图案。", "白いクラウンと青いバイザーに、Sea Gull LabsのFriends & Familyアートワークを刺繍したキャップ。", "화이트 크라운과 블루 바이저에 Sea Gull Labs Friends & Family 아트워크를 자수한 캡입니다.", "Cappellino bianco e blu con grafica Friends & Family di Sea Gull Labs ricamata."],
   "seagull-cap-lavender": ["水洗海军蓝帽身搭配炭灰色帽檐，正面采用立体 SGL 刺绣与 Friends & Family 字样。", "ウォッシュ加工のネイビークラウンとチャコールグレーのバイザーに、立体的なSGL刺繍とFriends & Familyの文字をあしらったキャップ。", "워시드 네이비 크라운과 차콜 그레이 바이저에 입체 SGL 자수와 Friends & Family 레터링을 더한 캡입니다.", "Cappellino lavato blu navy e grigio antracite, con ricamo SGL in rilievo e scritta Friends & Family."],
   "sgl-house-blend-01": ["深度烘焙咖啡豆，带有坚果、黄油、蜂蜜与黑巧克力风味。", "ナッツ、バター、ハチミツ、ダークチョコレートを感じる深煎りブレンド。", "견과류, 버터, 꿀, 다크초콜릿 향을 담은 다크 로스트 블렌드입니다.", "Miscela a tostatura scura con note di frutta secca, burro, miele e cioccolato fondente."],
@@ -78,7 +82,11 @@ const productDescriptions: Record<string, [string, string, string, string]> = {
 };
 
 const productTitles: Record<string, [string, string, string, string]> = {
-  "seagull-cap-lavender": ["SGL Friends & Family 帽款 — 海军蓝 / 灰色", "SGL Friends & Family キャップ — ネイビー / グレー", "SGL Friends & Family 캡 — 네이비 / 그레이", "Cappellino SGL Friends & Family — Navy / Grigio"]
+  "seagull-cap-lavender": ["SGL Friends & Family 帽款 — 海军蓝 / 灰色", "SGL Friends & Family キャップ — ネイビー / グレー", "SGL Friends & Family 캡 — 네이비 / 그레이", "Cappellino SGL Friends & Family — Navy / Grigio"],
+  "wheel-deal-logo-study-tee": ["Wheel Deal 标志组合 T 恤 — 奶油白 / 红色", "Wheel Deal ロゴスタディ Tシャツ — クリーム / レッド", "Wheel Deal 로고 스터디 티셔츠 — 크림 / 레드", "T-shirt Wheel Deal Logo Study — Crema / Rosso"],
+  "wheel-deal-gull-rider-tee": ["Wheel Deal 海鸥骑手 T 恤 — 沙色", "Wheel Deal ガルライダー Tシャツ — サンド", "Wheel Deal 갈매기 라이더 티셔츠 — 샌드", "T-shirt Wheel Deal Gull Rider — Sabbia"],
+  "celtic-gull-tee-washed-black": ["凯尔特海鸥 T 恤 — 水洗黑", "ケルトガル Tシャツ — ウォッシュドブラック", "켈틱 갈매기 티셔츠 — 워시드 블랙", "T-shirt Celtic Gull — Nero Lavato"],
+  "sgl-patch-tee-sky-blue": ["SGL 徽章 T 恤 — 天蓝色", "SGL パッチ Tシャツ — スカイブルー", "SGL 패치 티셔츠 — 스카이 블루", "T-shirt SGL Patch — Azzurro Cielo"]
 };
 
 const categoryTranslations: Record<string, [string, string, string, string]> = {
@@ -92,6 +100,13 @@ const categoryTranslations: Record<string, [string, string, string, string]> = {
 const detailTranslations: Record<string, [string, string, string, string]> = {
   "Set of three pairs": ["三双组合", "3足セット", "세 켤레 세트", "Set di tre paia"],
   "Three coordinated SGL designs": ["三款协调的 SGL 设计", "3種類のSGLデザイン", "세 가지 SGL 디자인", "Tre design SGL coordinati"],
+  "Cream body with red artwork": ["奶油白色衣身，搭配红色图案", "クリームのボディに赤いグラフィック", "크림 바디와 레드 그래픽", "Corpo color crema con grafica rossa"],
+  "Sand body with multicolour artwork": ["沙色衣身，搭配多彩图案", "サンドのボディにマルチカラーグラフィック", "샌드 바디와 멀티컬러 그래픽", "Corpo color sabbia con grafica multicolore"],
+  "Large back graphic": ["大幅背面图案", "大きなバックグラフィック", "대형 백 그래픽", "Grande grafica sul retro"],
+  "Washed black body": ["水洗黑色衣身", "ウォッシュドブラックのボディ", "워시드 블랙 바디", "Corpo nero lavato"],
+  "Left-chest gull emblem": ["左胸海鸥徽记", "左胸のカモメエンブレム", "왼쪽 가슴 갈매기 엠블럼", "Emblema del gabbiano sul petto sinistro"],
+  "Sky-blue body": ["天蓝色衣身", "スカイブルーのボディ", "스카이 블루 바디", "Corpo azzurro cielo"],
+  "Left-chest SGL badge": ["左胸 SGL 徽章图案", "左胸のSGLバッジ", "왼쪽 가슴 SGL 배지", "Stemma SGL sul petto sinistro"],
   "Net weight: 450g": ["净重：450g", "内容量：450g", "순중량: 450g", "Peso netto: 450 g"],
   "Dark roast blend": ["深度烘焙拼配", "深煎りブレンド", "다크 로스트 블렌드", "Miscela a tostatura scura"],
   "Origins: Costa Rica, Brazil and Uganda": ["产地：哥斯达黎加、巴西与乌干达", "原産国：コスタリカ、ブラジル、ウガンダ", "원산지: 코스타리카, 브라질, 우간다", "Origini: Costa Rica, Brasile e Uganda"],

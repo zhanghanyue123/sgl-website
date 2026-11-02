@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   return (
     <section data-content-section="product.product-detail" className="mx-auto grid max-w-sgl gap-10 px-4 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product)) }} />
-      <ProductGallery images={product.images} title={product.title} insetPrimary={product.slug === "pin"} />
+      <ProductGallery images={product.images} title={product.title} insetPrimary={product.slug === "pin" || product.slug.includes("tee")} />
 
       <div>
         <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">

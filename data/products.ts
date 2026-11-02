@@ -56,6 +56,86 @@ export const products: Product[] = [
   }
 },
 {
+  "slug": "wheel-deal-logo-study-tee",
+  "originalHandle": "wheel-deal-logo-study-tee",
+  "title": "Wheel Deal Logo Study Tee — Cream / Red",
+  "category": "Wear",
+  "price": 59,
+  "priceLabel": "59",
+  "images": [
+    "/products/tees/wheel-deal-logo-study-cream-red.webp"
+  ],
+  "description": "A cream SGL tee with a bold red Wheel Deal logo study arranged across the back.",
+  "details": [
+    "Cream body with red artwork",
+    "Large back graphic"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
+  "slug": "wheel-deal-gull-rider-tee",
+  "originalHandle": "wheel-deal-gull-rider-tee",
+  "title": "Wheel Deal Gull Rider Tee — Sand",
+  "category": "Wear",
+  "price": 59,
+  "priceLabel": "59",
+  "images": [
+    "/products/tees/wheel-deal-gull-rider-sand.webp"
+  ],
+  "description": "A sand-coloured SGL tee featuring the Wheel Deal gull and bicycle illustration across the back.",
+  "details": [
+    "Sand body with multicolour artwork",
+    "Large back graphic"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
+  "slug": "celtic-gull-tee-washed-black",
+  "originalHandle": "celtic-gull-tee-washed-black",
+  "title": "Celtic Gull Tee — Washed Black",
+  "category": "Wear",
+  "price": 59,
+  "priceLabel": "59",
+  "images": [
+    "/products/tees/celtic-gull-washed-black.webp"
+  ],
+  "description": "A washed-black SGL tee with a silver-toned Celtic gull emblem printed at the left chest.",
+  "details": [
+    "Washed black body",
+    "Left-chest gull emblem"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
+  "slug": "sgl-patch-tee-sky-blue",
+  "originalHandle": "sgl-patch-tee-sky-blue",
+  "title": "SGL Patch Tee — Sky Blue",
+  "category": "Wear",
+  "price": 59,
+  "priceLabel": "59",
+  "images": [
+    "/products/tees/sgl-patch-sky-blue.webp"
+  ],
+  "description": "A sky-blue SGL tee finished with a compact Sea Gull / SGL badge graphic at the left chest.",
+  "details": [
+    "Sky-blue body",
+    "Left-chest SGL badge"
+  ],
+  "variants": [],
+  "buyLinks": {
+    "contact": "/contact"
+  }
+},
+{
   "slug": "sgl-house-blend-01",
   "originalHandle": "sgl-house-blend-01",
   "title": "SGL House Blend 01 — 450g",

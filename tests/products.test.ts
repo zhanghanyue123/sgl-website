@@ -27,6 +27,23 @@ test("storefront begins with one row of caps and socks start the second row", ()
   ]);
 });
 
+test("four tee products use the approved images, descriptions and USD 59 price", () => {
+  const expected = [
+    ["wheel-deal-logo-study-tee", "/products/tees/wheel-deal-logo-study-cream-red.webp"],
+    ["wheel-deal-gull-rider-tee", "/products/tees/wheel-deal-gull-rider-sand.webp"],
+    ["celtic-gull-tee-washed-black", "/products/tees/celtic-gull-washed-black.webp"],
+    ["sgl-patch-tee-sky-blue", "/products/tees/sgl-patch-sky-blue.webp"]
+  ] as const;
+  for (const [slug, image] of expected) {
+    const tee = getProduct(slug)!;
+    assert.equal(tee.category, "Wear");
+    assert.equal(tee.price, 59);
+    assert.equal(tee.priceLabel, "59");
+    assert.equal(tee.images[0], image);
+    assert.ok(tee.description.length > 40);
+  }
+});
+
 test("shop category sections follow the approved order", () => {
   assert.deepEqual(categories, [
     "Bikes",

@@ -64,7 +64,7 @@ test("database contract prevents overselling and records every movement", async 
 });
 
 test("catalogue import preserves identifiers and never fabricates blank SKUs", () => {
-  assert.equal(products.length, 40);
+  assert.equal(products.length, 44);
   assert.equal(new Set(products.map((product) => product.slug)).size, products.length);
   const missing = products.reduce((count, product) => count + (product.variants.length ? product.variants.filter((variant) => !variant.sku?.trim()).length : 1), 0);
   assert.ok(missing > 0);

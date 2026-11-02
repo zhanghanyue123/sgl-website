@@ -4,7 +4,7 @@ import type { Product } from "@/data/products";
 
 export default function ProductCard({ product }: { product: Product }) {
   const image = product.images[0] || "/products/placeholder-bag.svg";
-  const useInsetComposition = product.slug === "pin";
+  const useInsetComposition = product.slug === "pin" || product.slug.includes("tee");
 
   return (
     <Link
