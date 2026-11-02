@@ -146,9 +146,19 @@ export default function UniversePage() {
         </div>
       </div>
 
-      <div data-content-section="universe.film" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
-          <div className="mx-auto w-full overflow-hidden bg-black md:w-2/3">
+      <div data-content-section="universe.world-points" className="border-y border-sglInk bg-sglAcid">
+        <div className="mx-auto grid max-w-sgl gap-6 px-4 py-12 md:grid-cols-[minmax(220px,1fr)_minmax(0,2fr)] md:items-stretch md:px-8 md:py-16">
+          <div className="grid content-stretch gap-3 sm:grid-cols-2 md:grid-cols-1">
+            {worldPoints.map((point) => (
+              <div
+                key={point}
+                className="flex items-center border border-sglInk bg-sglCream px-5 py-4 text-xl font-black uppercase"
+              >
+                {point}
+              </div>
+            ))}
+          </div>
+          <div data-content-section="universe.film" className="flex min-w-0 items-center overflow-hidden bg-black">
             <Films
               src="/videos/universe-animation-preview.mp4"
               poster="/videos/universe-animation-preview.jpg"
@@ -157,19 +167,6 @@ export default function UniversePage() {
               loop
             />
           </div>
-        </div>
-      </div>
-
-      <div data-content-section="universe.world-points" className="mx-auto max-w-sgl px-4 py-16 md:px-8">
-        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-          {worldPoints.map((point) => (
-            <div
-              key={point}
-              className="border border-sglInk bg-sglCream px-5 py-4 text-xl font-black uppercase"
-            >
-              {point}
-            </div>
-          ))}
         </div>
       </div>
 
