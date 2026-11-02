@@ -767,6 +767,7 @@ export const products: Product[] = [
     "priceLabel": "20",
     "badge": "SGL Print",
     "images": [
+      "/products/sports-bandana-studio.webp",
       "/products/optimized/sgl-product-015.webp",
       "/products/optimized/sgl-product-016.webp",
       "/products/optimized/sgl-product-017.webp",
@@ -846,11 +847,12 @@ export const products: Product[] = [
     "priceLabel": "TBD",
     "badge": "Archive",
     "images": [
-      "/products/placeholder-bag.svg"
+      "/products/toiletry-bag-orange-studio.webp"
     ],
-    "description": "A preserved SGL toiletry bag record awaiting confirmed imagery, specifications and sale status.",
+    "description": "An orange zippered SGL toiletry bag with a carry handle. Price and current sale status are awaiting confirmation.",
     "details": [
-      "Archived product record"
+      "Zippered storage bag",
+      "Carry handle"
     ],
     "variants": [
       {
@@ -1331,6 +1333,7 @@ export const products: Product[] = [
     "priceLabel": "13",
     "badge": "5 Variants",
     "images": [
+      "/products/cycling-trouser-strap-white-studio.webp",
       "/products/optimized/sgl-product-048.webp",
       "/products/optimized/sgl-product-049.webp",
       "/products/optimized/sgl-product-050.webp",
@@ -1549,6 +1552,7 @@ export const products: Product[] = [
     "badge": "Brown / Purple",
     "images": [
       "/products/handlebar-bag-brown-purple-studio.webp",
+      "/products/handlebar-bag-brown-purple-detail-studio.webp",
       "/products/handlebar-bag-brown-purple-detail-01.webp",
       "/products/handlebar-bag-brown-purple-detail-02.webp"
     ],
@@ -1572,7 +1576,8 @@ export const products: Product[] = [
     "priceLabel": "50",
     "badge": "Red / Grey",
     "images": [
-      "/products/handlebar-bag-red-grey-studio.webp"
+      "/products/handlebar-bag-red-grey-studio.webp",
+      "/products/handlebar-bag-red-grey-detail.webp"
     ],
     "description": "A red and grey compact drawcord SGL bag designed to mount at the bicycle handlebar, with side mesh pockets for small essentials.",
     "details": [

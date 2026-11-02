@@ -64,3 +64,13 @@ test("new handlebar bag colourways have independent links and approved imagery",
   assert.equal(getProduct("handlebar-bags")?.images[0], "/products/handlebar-bag-black-studio.webp");
   assert.equal(getProduct("handlebar-bags-reflect-grey")?.images[0], "/products/handlebar-bag-grey-orange-studio.webp");
 });
+
+test("newly supplied catalogue images are used as product primary images", () => {
+  assert.equal(getProduct("sports-bandana-outdoor-magic-scarf")?.images[0], "/products/sports-bandana-studio.webp");
+  assert.equal(getProduct("cycling-leg-strap-pant-strap")?.images[0], "/products/cycling-trouser-strap-white-studio.webp");
+  assert.equal(getProduct("handlebar-bag-brown-purple")?.images[0], "/products/handlebar-bag-brown-purple-studio.webp");
+  assert.equal(getProduct("handlebar-bag-red-grey")?.images[0], "/products/handlebar-bag-red-grey-studio.webp");
+  const toiletryBag = products.find(product => product.slug === "toiletry-bag")!;
+  assert.equal(toiletryBag.images[0], "/products/toiletry-bag-orange-studio.webp");
+  assert.equal(getProduct("toiletry-bag"), undefined);
+});
