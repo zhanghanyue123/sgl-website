@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "tsc --noEmit",
     "test:store": "node --import tsx --test tests/*.test.ts",
+    "test:smoke": "node --import tsx scripts/smoke-public-routes.ts",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "db:seed": "tsx scripts/db-seed-catalog.ts",
     "orders:expire": "tsx scripts/expire-order-reservations.ts",
