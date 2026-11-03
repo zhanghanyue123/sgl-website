@@ -82,11 +82,37 @@ const productDescriptions: Record<string, [string, string, string, string]> = {
 };
 
 const productTitles: Record<string, [string, string, string, string]> = {
+  "seagull-friends-family-cap-white-blue": ["Sea Gull Friends & Family 帽款 — 白色 / 蓝色", "Sea Gull Friends & Family キャップ — ホワイト / ブルー", "Sea Gull Friends & Family 캡 — 화이트 / 블루", "Cappellino Sea Gull Friends & Family — Bianco / Blu"],
+  "seagull-cap-khaki-brown": ["Sea Gull 帽款 — 卡其色 / 棕色", "Sea Gull キャップ — カーキ / ブラウン", "Sea Gull 캡 — 카키 / 브라운", "Cappellino Sea Gull — Cachi / Marrone"],
   "seagull-cap-lavender": ["SGL Friends & Family 帽款 — 海军蓝 / 灰色", "SGL Friends & Family キャップ — ネイビー / グレー", "SGL Friends & Family 캡 — 네이비 / 그레이", "Cappellino SGL Friends & Family — Navy / Grigio"],
+  "seagull-cap-black-grey": ["Sea Gull 帽款 — 黑色 / 灰色", "Sea Gull キャップ — ブラック / グレー", "Sea Gull 캡 — 블랙 / 그레이", "Cappellino Sea Gull — Nero / Grigio"],
+  "sgl-three-pair-sock-set": ["SGL 三双袜子组合", "SGLソックス 3足セット", "SGL 양말 3켤레 세트", "Set di tre paia di calze SGL"],
   "wheel-deal-logo-study-tee": ["Wheel Deal 标志组合 T 恤 — 奶油白 / 红色", "Wheel Deal ロゴスタディ Tシャツ — クリーム / レッド", "Wheel Deal 로고 스터디 티셔츠 — 크림 / 레드", "T-shirt Wheel Deal Logo Study — Crema / Rosso"],
   "wheel-deal-gull-rider-tee": ["Wheel Deal 海鸥骑手 T 恤 — 沙色", "Wheel Deal ガルライダー Tシャツ — サンド", "Wheel Deal 갈매기 라이더 티셔츠 — 샌드", "T-shirt Wheel Deal Gull Rider — Sabbia"],
   "celtic-gull-tee-washed-black": ["凯尔特海鸥 T 恤 — 水洗黑", "ケルトガル Tシャツ — ウォッシュドブラック", "켈틱 갈매기 티셔츠 — 워시드 블랙", "T-shirt Celtic Gull — Nero Lavato"],
-  "sgl-patch-tee-sky-blue": ["SGL 徽章 T 恤 — 天蓝色", "SGL パッチ Tシャツ — スカイブルー", "SGL 패치 티셔츠 — 스카이 블루", "T-shirt SGL Patch — Azzurro Cielo"]
+  "sgl-patch-tee-sky-blue": ["SGL 徽章 T 恤 — 天蓝色", "SGL パッチ Tシャツ — スカイブルー", "SGL 패치 티셔츠 — 스카이 블루", "T-shirt SGL Patch — Azzurro Cielo"],
+  "sgl-house-blend-01": ["SGL 01 号咖啡拼配 — 450 克", "SGL ハウスブレンド 01 — 450g", "SGL 하우스 블렌드 01 — 450g", "Miscela SGL House Blend 01 — 450 g"],
+  "chrissy": ["SGL Chrissy 自行车", "SGL Chrissy 自転車", "SGL Chrissy 자전거", "Bicicletta SGL Chrissy"],
+  "chrissy-team": ["SGL Chrissy Team 自行车", "SGL Chrissy Team 自転車", "SGL Chrissy Team 자전거", "Bicicletta SGL Chrissy Team"],
+  "chrissy-special": ["SGL Chrissy Special 自行车", "SGL Chrissy Special 自転車", "SGL Chrissy Special 자전거", "Bicicletta SGL Chrissy Special"],
+  "chrissy1": ["SGL Chrissy Ti 钛合金自行车", "SGL Chrissy Ti チタン自転車", "SGL Chrissy Ti 티타늄 자전거", "Bicicletta in titanio SGL Chrissy Ti"],
+  "seat-bag": ["SGL 自行车座包", "SGL サドルバッグ", "SGL 자전거 새들백", "Borsa sottosella SGL"],
+  "sports-bandana-outdoor-magic-scarf": ["SGL 运动头巾", "SGL スポーツバンダナ", "SGL 스포츠 반다나", "Bandana sportiva SGL"],
+  "bike-cover": ["SGL 自行车罩 M 码", "SGL バイクカバー Mサイズ", "SGL 자전거 커버 M", "Copertura bici SGL taglia M"],
+  "reveal-shoe-sack": ["SGL 鞋袋", "SGL シューズバッグ", "SGL 슈백", "Borsa per scarpe SGL"],
+  "cycling-leg-strap-pant-strap": ["SGL 骑行束裤带", "SGL サイクリング裾バンド", "SGL 사이클링 바지 스트랩", "Fascia pantaloni da ciclismo SGL"],
+  "reflective-gear-safety-reflector-baby-seagull": ["Baby Seagull 反光挂件", "Baby Seagull リフレクター", "Baby Seagull 리플렉터", "Accessorio riflettente Baby Seagull"],
+  "pin": ["三只海鸥徽章组合", "3羽のSeagull ピンセット", "세 마리 Seagull 핀 세트", "Set di spille Tre Gabbiani"],
+  "handlebar-bag-white-grey": ["SGL 车把包 — 白色 / 灰色", "SGL ハンドルバーバッグ — ホワイト / グレー", "SGL 핸들바 가방 — 화이트 / 그레이", "Borsa da manubrio SGL — Bianco / Grigio"],
+  "handlebar-bag-black-white": ["SGL 车把包 — 黑色 / 白色", "SGL ハンドルバーバッグ — ブラック / ホワイト", "SGL 핸들바 가방 — 블랙 / 화이트", "Borsa da manubrio SGL — Nero / Bianco"],
+  "handlebar-bag-brown-purple": ["SGL 车把包 — 棕色 / 紫色", "SGL ハンドルバーバッグ — ブラウン / パープル", "SGL 핸들바 가방 — 브라운 / 퍼플", "Borsa da manubrio SGL — Marrone / Viola"],
+  "handlebar-bag-red-grey": ["SGL 车把包 — 红色 / 灰色", "SGL ハンドルバーバッグ — レッド / グレー", "SGL 핸들바 가방 — 레드 / 그레이", "Borsa da manubrio SGL — Rosso / Grigio"],
+  "handlebar-bags-purple": ["SGL 车把包 — 紫色", "SGL ハンドルバーバッグ — パープル", "SGL 핸들바 가방 — 퍼플", "Borsa da manubrio SGL — Viola"],
+  "handlebar-bags-reflect-grey": ["SGL 车把包 — 灰色 / 橙色", "SGL ハンドルバーバッグ — グレー / オレンジ", "SGL 핸들바 가방 — 그레이 / 오렌지", "Borsa da manubrio SGL — Grigio / Arancione"],
+  "handleber-bags-red": ["SGL 车把包 — 红色", "SGL ハンドルバーバッグ — レッド", "SGL 핸들바 가방 — 레드", "Borsa da manubrio SGL — Rosso"],
+  "handleber-bags-grey": ["SGL 车把包 — 灰色", "SGL ハンドルバーバッグ — グレー", "SGL 핸들바 가방 — 그레이", "Borsa da manubrio SGL — Grigio"],
+  "handlebar-bags": ["SGL 车把包 — 黑色", "SGL ハンドルバーバッグ — ブラック", "SGL 핸들바 가방 — 블랙", "Borsa da manubrio SGL — Nero"],
+  "cover": ["SGL 自行车反光挂件", "SGL 自転車リフレクター", "SGL 자전거 리플렉터", "Accessorio riflettente bici SGL"]
 };
 
 const categoryTranslations: Record<string, [string, string, string, string]> = {

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import type { Product } from "@/data/products";
-import { languageAlternates } from "@/lib/i18n";
+import { languageAlternates, type Locale } from "@/lib/i18n";
 
 export const SITE_URL = "https://www.theseagulllabs.com";
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();
+
+export const openGraphLocales: Record<Locale, string> = {
+  en: "en_US", "zh-CN": "zh_CN", "ja-JP": "ja_JP", "ko-KR": "ko_KR", "it-IT": "it_IT"
+};
 
 export function pageMetadata(title: string, description: string, path: string, image = "/station/seagull-sunset.webp"): Metadata {
   const languages = Object.fromEntries(
@@ -12,8 +16,46 @@ export function pageMetadata(title: string, description: string, path: string, i
   return {
     title, description,
     alternates: { canonical: absoluteUrl(path), languages },
-    openGraph: { title, description, url: absoluteUrl(path), siteName: "The Seagull Labs", type: "website", images: [{ url: absoluteUrl(image) }] },
+    openGraph: { title, description, url: absoluteUrl(path), siteName: "The Seagull Labs", type: "website", locale: openGraphLocales.en,
+      alternateLocale: Object.values(openGraphLocales).filter((locale) => locale !== openGraphLocales.en), images: [{ url: absoluteUrl(image) }] },
     twitter: { card: "summary_large_image", title, description, images: [absoluteUrl(image)] }
+  };
+}
+
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
+    name: "The Seagull Labs",
+    alternateName: "SGL",
+    url: SITE_URL,
+    logo: { "@type": "ImageObject", url: absoluteUrl("/apple-icon.png") },
+    foundingDate: "2023-06-09"
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: "The Seagull Labs",
+    url: SITE_URL,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    inLanguage: ["en", "zh-CN", "ja-JP", "ko-KR", "it-IT"]
+  };
+}
+
+export function productBreadcrumbJsonLd(product: Product, path = `/shop/${product.slug}`, shopPath = "/shop", shopName = "Shop") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "The Seagull Labs", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: shopName, item: absoluteUrl(shopPath) },
+      { "@type": "ListItem", position: 3, name: product.title, item: absoluteUrl(path) }
+    ]
   };
 }
 

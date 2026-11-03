@@ -4,6 +4,7 @@ import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import { headers } from "next/headers";
 import { isLocale } from "@/lib/i18n";
+import { organizationJsonLd, serializeJsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.theseagulllabs.com"),
@@ -23,6 +24,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale}>
       <body className="min-h-screen bg-sglCream text-sglInk antialiased">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationJsonLd()) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(websiteJsonLd()) }} />
         <CartProvider>
         <SiteChrome>{children}</SiteChrome>
         </CartProvider>

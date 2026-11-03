@@ -65,10 +65,11 @@ test("Italian pages and products emit localized canonical and social metadata", 
   assert.equal(about.alternates?.canonical, `${SITE_URL}/it/about`);
   assert.equal(about.alternates?.languages?.["it-IT"], `${SITE_URL}/it/about`);
   assert.equal(about.alternates?.languages?.["x-default"], `${SITE_URL}/about`);
-  assert.equal(about.openGraph?.locale, "it-IT");
+  assert.equal(about.openGraph?.locale, "it_IT");
 
   const product = await generateMetadata({ params: Promise.resolve({ locale: "it", segments: ["shop", "seat-bag"] }) });
   assert.match(String(product.title), /The Seagull Labs/);
+  assert.match(String(product.title), /Borsa sottosella/);
   assert.match(String(product.description), /Borsa sottosella/);
   assert.equal(product.alternates?.canonical, `${SITE_URL}/it/shop/seat-bag`);
 });

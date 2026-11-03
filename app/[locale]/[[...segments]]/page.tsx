@@ -8,7 +8,7 @@ import ProductGallery from "@/components/ProductGallery";
 import ProductPurchase from "@/components/ProductPurchase";
 import CartPage from "@/app/cart/page";
 import { categories, getProduct, getProductsByCategory, storefrontProducts } from "@/data/products";
-import { absoluteUrl, productJsonLd, serializeJsonLd, stationJsonLd } from "@/lib/seo";
+import { absoluteUrl, openGraphLocales, productBreadcrumbJsonLd, productJsonLd, serializeJsonLd, stationJsonLd } from "@/lib/seo";
 import { languageAlternates, localizedPath, localeFromSegment, type Locale } from "@/lib/i18n";
 import { localizedProduct, pageCopy } from "@/lib/localized-copy";
 import { localizedRichCopy } from "@/lib/localized-rich-copy";
@@ -160,8 +160,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const path = `/${segments.join("/")}`.replace(/\/$/, "") || "/";
   const base = pageCopy[locale][key === "product" ? "shop" : key];
   if (!base) return {};
-  const title = product ? `${product.title}${locale === "it-IT" ? " | " : "｜"}The Seagull Labs` : base.title;
-  const description = product ? localizedProduct(product, locale).description : base.description;
+  const localized = product ? localizedProduct(product, locale) : undefined;
+  const title = localized ? `${localized.title}${locale === "it-IT" ? " | " : "｜"}The Seagull Labs` : base.title;
+  const description = localized ? localized.description : base.description;
   const alternates = languageAlternates(path);
   const image = absoluteUrl(product?.images[0] || "/station/seagull-sunset.webp");
   return {
@@ -171,7 +172,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: absoluteUrl(localizedPath(path, locale)),
       languages: Object.fromEntries(Object.entries(alternates).map(([language, href]) => [language, absoluteUrl(href)]))
     },
-    openGraph: { title, description, url: absoluteUrl(localizedPath(path, locale)), siteName: "The Seagull Labs", type: "website", locale, images: [{ url: image }] },
+    openGraph: { title, description, url: absoluteUrl(localizedPath(path, locale)), siteName: "The Seagull Labs", type: "website",
+      locale: openGraphLocales[locale], alternateLocale: Object.values(openGraphLocales).filter((value) => value !== openGraphLocales[locale]), images: [{ url: image }] },
     twitter: { card: "summary_large_image", title, description, images: [image] }
   };
 }
@@ -300,7 +302,7 @@ function Shop({ locale }: { locale: LocalizedLocale }) {
   </section>;
 }
 
-function ProductDetail({ locale, slug }: { locale: LocalizedLocale; slug: string }) { const raw = getProduct(slug); if (!raw || raw.hidden) notFound(); const product = localizedProduct(raw, locale); const l = labels[locale]; const path = localizedPath(`/shop/${slug}`, locale); return <section {...sectionMarker("product", "product-detail")} className="mx-auto max-w-sgl px-4 py-12 md:px-8"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product, path)) }} /><Link href={localizedPath("/shop", locale)} className="font-bold underline">← {l.back}</Link><div className="mt-8 grid gap-10 lg:grid-cols-2"><ProductGallery images={product.images} title={product.title} insetPrimary={raw.slug === "pin" || raw.slug.includes("tee")} /><div><p className="text-sm font-black uppercase tracking-widest opacity-60">{product.category}</p><h1 className="mt-3 text-5xl font-black">{product.title}</h1><p className="mt-5 text-lg leading-8">{product.description}</p><h2 className="mt-8 text-xl font-black uppercase">{l.details}</h2><ul className="mt-4 list-disc space-y-2 pl-5">{product.details.map(item => <li key={item}>{item}</li>)}</ul><ProductPurchase product={product} /></div></div></section> }
+function ProductDetail({ locale, slug }: { locale: LocalizedLocale; slug: string }) { const raw = getProduct(slug); if (!raw || raw.hidden) notFound(); const product = localizedProduct(raw, locale); const l = labels[locale]; const path = localizedPath(`/shop/${slug}`, locale); const shopPath = localizedPath("/shop", locale); return <section {...sectionMarker("product", "product-detail")} className="mx-auto max-w-sgl px-4 py-12 md:px-8"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productJsonLd(product, path)) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(productBreadcrumbJsonLd(product, path, shopPath, pageCopy[locale].shop.heading)) }} /><Link href={shopPath} className="font-bold underline">← {l.back}</Link><div className="mt-8 grid gap-10 lg:grid-cols-2"><ProductGallery images={product.images} title={product.title} insetPrimary={raw.slug === "pin" || raw.slug.includes("tee")} /><div><p className="text-sm font-black uppercase tracking-widest opacity-60">{product.category}</p><h1 className="mt-3 text-5xl font-black">{product.title}</h1><p className="mt-5 text-lg leading-8">{product.description}</p><h2 className="mt-8 text-xl font-black uppercase">{l.details}</h2><ul className="mt-4 list-disc space-y-2 pl-5">{product.details.map(item => <li key={item}>{item}</li>)}</ul><ProductPurchase product={product} /></div></div></section> }
 
 function Station({ locale }: { locale: LocalizedLocale }) {
   const c = pageCopy[locale].station;

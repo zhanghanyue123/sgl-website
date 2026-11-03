@@ -67,6 +67,7 @@ test("localized products preserve commerce identity and contain no English copy 
       assert.equal(localized.priceLabel, product.priceLabel);
       assert.deepEqual(localized.images, product.images);
       assert.deepEqual(localized.variants, product.variants);
+      assert.notEqual(localized.title, product.title, `${locale}.${product.slug} title fell back to English`);
       assert.notEqual(localized.description, product.description, `${locale}.${product.slug} description fell back to English`);
       localized.details.forEach((detail, index) => {
         assert.notEqual(detail, product.details[index], `${locale}.${product.slug} detail ${index} fell back to English`);
