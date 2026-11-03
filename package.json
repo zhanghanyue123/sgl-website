@@ -11,7 +11,8 @@
     "db:migrate": "tsx scripts/db-migrate.ts",
     "db:seed": "tsx scripts/db-seed-catalog.ts",
     "orders:expire": "tsx scripts/expire-order-reservations.ts",
-    "admin:create": "tsx scripts/create-admin.ts"
+    "admin:create": "tsx scripts/create-admin.ts",
+    "agent:create-token": "tsx scripts/create-agent-token.ts"
   },
   "dependencies": {
     "next": "^16.4.3",

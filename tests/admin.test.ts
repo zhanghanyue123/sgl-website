@@ -6,6 +6,8 @@ import { locales } from "../lib/i18n";
 import { hasPermission } from "../lib/admin/permissions";
 import { hashPassword, safeOrigin, verifyPassword } from "../lib/admin/security";
 import { parseAdminProduct, parseInventoryAdjustment, parseShipment, parseShipmentStatus } from "../lib/admin/validation";
+import { agentActionPolicies, hasAgentScope, parseBearerToken } from "../lib/agent/policy";
+import { parseAgentAction } from "../lib/agent/service";
 
 const categoryId = "11111111-1111-4111-8111-111111111111";
 const validProduct = () => ({
@@ -21,6 +23,33 @@ test("RBAC keeps read-only, catalogue and inventory roles separated", () => {
   assert.equal(hasPermission("inventory", "inventory:adjust"), true);
   assert.equal(hasPermission("inventory", "products:write"), false);
   assert.equal(hasPermission("owner", "users:manage"), true);
+  assert.equal(hasPermission("viewer", "agents:read"), false);
+  assert.equal(hasPermission("admin", "agents:approve"), true);
+});
+
+test("agent tokens and scopes are explicit", () => {
+  assert.equal(parseBearerToken(`Bearer sgla_${"a".repeat(43)}`)?.startsWith("sgla_"), true);
+  assert.equal(parseBearerToken("Bearer invalid"), null);
+  assert.equal(hasAgentScope(["catalog:read"], "catalog:read"), true);
+  assert.equal(hasAgentScope(["catalog:read"], "refund:propose"), false);
+  assert.equal(agentActionPolicies.refund.scope, "refund:propose");
+});
+
+test("agent high-impact actions are proposals with strict validation", () => {
+  const proposal = parseAgentAction({ actionType: "inventory_adjustment", targetId: categoryId, idempotencyKey: "agent-test-001", payload: { deltaOnHand: -2, reason: "Cycle count correction" } });
+  assert.equal(proposal.targetType, "product_variant");
+  assert.throws(() => parseAgentAction({ ...proposal, payload: { deltaOnHand: 0, reason: "No-op" } }));
+  assert.throws(() => parseAgentAction({ actionType: "shipping_dispatch", targetId: categoryId, idempotencyKey: "agent-test-002", payload: { carrier: "SF", trackingNumber: "123", addressConfirmed: false } }));
+  assert.throws(() => parseAgentAction({ actionType: "refund", targetId: categoryId, idempotencyKey: "agent-test-003", payload: { amountCents: -1, reason: "Invalid" } }));
+});
+
+test("agent database contract keeps proposals separate from execution", async () => {
+  const sql = await readFile(new URL("../db/migrations/0004_agent_api.sql", import.meta.url), "utf8");
+  const route = await readFile(new URL("../app/api/agent/v1/actions/route.ts", import.meta.url), "utf8");
+  assert.match(sql, /CREATE TABLE agent_action_requests/);
+  assert.match(sql, /CREATE TABLE agent_audit_logs/);
+  assert.match(sql, /status IN \('pending', 'approved', 'rejected', 'cancelled'\)/);
+  assert.doesNotMatch(route, /adjustAdminInventory|createShipment|capture_order_payment/);
 });
 
 test("admin passwords use a salted verifier", async () => {
