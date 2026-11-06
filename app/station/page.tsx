@@ -1,8 +1,8 @@
-import { pageMetadata, serializeJsonLd, stationJsonLd } from "@/lib/seo";
+import { pageMetadata, serializeJsonLd, stationJsonLd, STATION_HERO_IMAGE } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = pageMetadata("Seagull Station Shanghai — Coffee, Rides & Community", "Visit Seagull Station in Pudong, Shanghai: an operating gathering place for coffee, drinks, SGL goods, cycling culture and community events.", "/station");
+export const metadata = pageMetadata("Seagull Station Shanghai — Coffee, Rides & Community", "Visit Seagull Station in Pudong, Shanghai: an operating gathering place for coffee, drinks, SGL goods, cycling culture and community events.", "/station", STATION_HERO_IMAGE);
 
 
 const stationPhotos = [
@@ -80,10 +80,10 @@ export default function StationPage() {
       <div data-content-section="station.hero-image" className="border-b border-sglInk bg-sglInk">
         <div className="mx-auto max-w-sgl">
           <Image
-            src="/station/seagull-sunset.webp"
-            alt="Seagull characters gathering at the SeaGull Labs coffee station in warm sunset light"
-            width={1672}
-            height={941}
+            src={STATION_HERO_IMAGE}
+            alt="Sea Gull Station Club cafe storefront and community patio in warm golden light"
+            width={1447}
+            height={1087}
             priority
             sizes="(max-width: 1440px) 100vw, 1440px"
             className="h-auto w-full"
@@ -128,6 +128,33 @@ export default function StationPage() {
           </div>
         </div>
       </div>
+
+      <section data-content-section="station.shanghai-store" className="border-b border-sglInk bg-sglPaper">
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+            <div className="lg:pb-3">
+              <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">
+                Shanghai Offline Store
+              </p>
+              <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
+                SGL Bike Studio · Shanghai
+              </h2>
+              <p className="mt-5 max-w-lg text-lg leading-8 opacity-75">
+                Bikes, parts, riding service and SGL goods meet in our physical
+                Shanghai showroom.
+              </p>
+            </div>
+            <Image
+              src="/station/shanghai-bike-studio.webp"
+              alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
+              width={1670}
+              height={941}
+              sizes="(max-width: 1023px) 100vw, 64vw"
+              className="h-auto w-full border border-sglInk"
+            />
+          </div>
+        </div>
+      </section>
 
       <section id="station-life" data-content-section="station.station-life" className="scroll-mt-24 border-b border-sglInk bg-sglCream">
         <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">

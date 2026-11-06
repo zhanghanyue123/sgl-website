@@ -115,7 +115,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "Wheel Deal 海鸥骑行插画"
     },
     station: {
-      heroAlt: "夕阳下聚在 Seagull Station 的海鸥角色",
+      heroAlt: "暖金色光线下的 Sea Gull Station Club 咖啡与社群空间",
       lifeKicker: "Station 日常",
       lifeHeading: "停一停，补充能量，再多待一会。",
       lifeBody: "暖黄灯光、新鲜饮品和熟悉的朋友，组成 Seagull Station 的日常片段。",
@@ -200,7 +200,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "自転車に乗るカモメを描いたWheel Dealのイラスト"
     },
     station: {
-      heroAlt: "夕暮れのSeagull Stationに集まるカモメのキャラクター",
+      heroAlt: "あたたかな金色の光に包まれたSea Gull Station Clubのカフェとコミュニティスペース",
       lifeKicker: "Stationの日常",
       lifeHeading: "立ち止まって、ひと息ついて、もう少し。",
       lifeBody: "あたたかな灯り、注ぎたての一杯、気の合う仲間。Seagull Stationの日常をのぞいてみましょう。",
@@ -285,7 +285,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "자전거를 타는 갈매기를 그린 Wheel Deal 일러스트"
     },
     station: {
-      heroAlt: "노을빛 Seagull Station에 모인 갈매기 캐릭터들",
+      heroAlt: "따뜻한 황금빛 속 Sea Gull Station Club 카페와 커뮤니티 공간",
       lifeKicker: "Station의 일상",
       lifeHeading: "잠시 멈추고, 채우고, 조금 더 머물기.",
       lifeBody: "따뜻한 조명, 갓 따른 한 잔과 좋은 사람들이 만드는 Seagull Station의 일상을 만나보세요.",
@@ -370,7 +370,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "Illustrazione Wheel Deal con un gabbiano in bicicletta"
     },
     station: {
-      heroAlt: "I personaggi SGL riuniti alla Seagull Station nella luce del tramonto",
+      heroAlt: "Il caffè e lo spazio comunitario Sea Gull Station Club nella calda luce dorata",
       lifeKicker: "Vita alla Station",
       lifeHeading: "Fermati. Ricaricati. Resta ancora un po’.",
       lifeBody: "Luci calde, una bevanda appena versata e buona compagnia: piccoli momenti quotidiani alla Seagull Station.",

@@ -3,6 +3,7 @@ import type { Product } from "@/data/products";
 import { languageAlternates, type Locale } from "@/lib/i18n";
 
 export const SITE_URL = "https://www.theseagulllabs.com";
+export const STATION_HERO_IMAGE = "/station/station-club-storefront.png";
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();
 
 export const openGraphLocales: Record<Locale, string> = {
@@ -95,7 +96,7 @@ export function stationJsonLd(path = "/station") {
     "@id": `${absoluteUrl(path)}#station`,
     name: "Seagull Station",
     url: absoluteUrl(path),
-    image: absoluteUrl("/station/seagull-sunset.webp"),
+    image: absoluteUrl(STATION_HERO_IMAGE),
     address: {
       "@type": "PostalAddress",
       streetAddress: "Jinyan Road & Dongxiu Road Plaza, L1",

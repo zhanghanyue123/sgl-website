@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { storefrontProducts, products } from "../data/products";
-import { organizationJsonLd, productBreadcrumbJsonLd, productJsonLd, serializeJsonLd, SITE_URL, websiteJsonLd } from "../lib/seo";
+import { organizationJsonLd, productBreadcrumbJsonLd, productJsonLd, serializeJsonLd, SITE_URL, stationJsonLd, STATION_HERO_IMAGE, websiteJsonLd } from "../lib/seo";
 import sitemap from "../app/sitemap";
 import robots from "../app/robots";
 
@@ -43,6 +43,10 @@ test("organization and website schemas use only verified first-party facts", () 
   assert.ok(!("telephone" in organization));
   assert.ok(!("sameAs" in organization));
   assert.deepEqual(website.inLanguage, ["en", "zh-CN", "ja-JP", "ko-KR", "it-IT"]);
+});
+
+test("station schema uses the current Station Club storefront image", () => {
+  assert.equal(stationJsonLd().image, `${SITE_URL}${STATION_HERO_IMAGE}`);
 });
 
 test("product breadcrumbs preserve localized canonical paths", () => {

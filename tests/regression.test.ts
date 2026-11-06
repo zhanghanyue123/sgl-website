@@ -5,11 +5,16 @@ import test from "node:test";
 import { storefrontProducts } from "../data/products";
 import { CART_STORAGE_KEY, normalizeSavedCart, validCartLine } from "../lib/cart";
 import { locales, localizedPath } from "../lib/i18n";
+import { STATION_HERO_IMAGE } from "../lib/seo";
 
 test("every public product image exists in the production asset tree", () => {
   for (const product of storefrontProducts) for (const image of product.images) {
     assert.equal(existsSync(join(process.cwd(), "public", image.slice(1))), true, `${product.slug}: ${image}`);
   }
+});
+
+test("the Station hero image exists in the production asset tree", () => {
+  assert.equal(existsSync(join(process.cwd(), "public", STATION_HERO_IMAGE.slice(1))), true, STATION_HERO_IMAGE);
 });
 
 test("cart persistence is locale-independent and rejects invalid or sold-out lines", () => {

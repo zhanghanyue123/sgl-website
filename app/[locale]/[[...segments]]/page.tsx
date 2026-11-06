@@ -8,7 +8,7 @@ import ProductGallery from "@/components/ProductGallery";
 import ProductPurchase from "@/components/ProductPurchase";
 import CartPage from "@/app/cart/page";
 import { categories, getProduct, getProductsByCategory, storefrontProducts } from "@/data/products";
-import { absoluteUrl, openGraphLocales, productBreadcrumbJsonLd, productJsonLd, serializeJsonLd, stationJsonLd } from "@/lib/seo";
+import { absoluteUrl, openGraphLocales, productBreadcrumbJsonLd, productJsonLd, serializeJsonLd, stationJsonLd, STATION_HERO_IMAGE } from "@/lib/seo";
 import { languageAlternates, localizedPath, localeFromSegment, type Locale } from "@/lib/i18n";
 import { localizedProduct, pageCopy } from "@/lib/localized-copy";
 import { localizedRichCopy } from "@/lib/localized-rich-copy";
@@ -164,7 +164,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = localized ? `${localized.title}${locale === "it-IT" ? " | " : "｜"}The Seagull Labs` : base.title;
   const description = localized ? localized.description : base.description;
   const alternates = languageAlternates(path);
-  const image = absoluteUrl(product?.images[0] || "/station/seagull-sunset.webp");
+  const image = absoluteUrl(product?.images[0] || (key === "station" ? STATION_HERO_IMAGE : "/station/seagull-sunset.webp"));
   return {
     title,
     description,
@@ -308,11 +308,13 @@ function Station({ locale }: { locale: LocalizedLocale }) {
   const c = pageCopy[locale].station;
   const l = labels[locale];
   const copy = localizedRichCopy[locale].station;
+  const showroom = getSectionCopy(locale, "station", "shanghai-store");
   const address = stationAddresses[locale];
   const path = localizedPath("/station", locale);
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(stationJsonLd(path)) }} />
-    <div {...sectionMarker("station", "hero-image")} className="border-b border-sglInk bg-sglInk"><div className="mx-auto max-w-sgl"><Image src="/station/seagull-sunset.webp" alt={copy.heroAlt} width={1672} height={941} priority sizes="(max-width: 1440px) 100vw, 1440px" className="h-auto w-full" /></div></div>
+    <div {...sectionMarker("station", "hero-image")} className="border-b border-sglInk bg-sglInk"><div className="mx-auto max-w-sgl"><Image src={STATION_HERO_IMAGE} alt={copy.heroAlt} width={1447} height={1087} priority sizes="(max-width: 1440px) 100vw, 1440px" className="h-auto w-full" /></div></div>
     <Hero copy={c} page="station" />
+    <section {...sectionMarker("station", "shanghai-store")} className="border-b border-sglInk bg-sglPaper"><div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16"><div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end"><div className="lg:pb-3"><p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">{showroom.kicker}</p><h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">{showroom.heading}</h2><p className="mt-5 max-w-lg text-lg leading-8 opacity-75">{showroom.body}</p></div><Image src="/station/shanghai-bike-studio.webp" alt={showroom.heading} width={1670} height={941} sizes="(max-width: 1023px) 100vw, 64vw" className="h-auto w-full border border-sglInk" /></div></div></section>
     <section id="station-life" {...sectionMarker("station", "station-life")} className="scroll-mt-24 border-b border-sglInk bg-sglCream"><div className="mx-auto max-w-sgl px-4 py-16 md:px-8"><p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">{copy.lifeKicker}</p><h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">{copy.lifeHeading}</h2><p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">{copy.lifeBody}</p><div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">{copy.photos.map(photo => <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglInk bg-sglPaper"><Image src={`/station/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="h-auto w-full" /><figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption></figure>)}</div></div></section>
     <section {...sectionMarker("station", "offerings")} className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.current}</h2><div className="mt-8 grid gap-5 md:grid-cols-4">{copy.offerings.map(item => <article key={item.number} className="border border-sglInk bg-sglPaper p-6"><p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">{item.number}</p><h3 className="mt-3 text-2xl font-black uppercase leading-tight">{item.title}</h3><p className="mt-4 leading-7 opacity-75">{item.text}</p></article>)}</div><div className="mt-10 border border-sglInk bg-sglAcid p-6"><h2 className="text-2xl font-black uppercase">{l.address}</h2><p className="mt-4 text-lg">{address}</p></div></section>
     <LocalizedBand locale={locale} page="station" section="station-logic" tone="acid" /><LocalizedBand locale={locale} page="station" section="mini-program" />
