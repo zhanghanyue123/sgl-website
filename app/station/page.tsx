@@ -151,12 +151,6 @@ export default function StationPage() {
           <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">Station life</p>
           <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">Pause. Refuel. Stay a while.</h2>
           <p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">Warm lights, a fresh pour and good company. A closer look at everyday moments at Seagull Station.</p>
-          <div className="mt-10 grid items-start gap-6 md:grid-cols-2">
-            {stationLocationPhotos.map(photo => <figure key={photo.src} className="overflow-hidden border border-sglInk bg-sglPaper">
-              <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 100vw, 50vw" className="h-auto w-full" />
-              <figcaption className="px-5 py-4 text-sm font-black uppercase tracking-wide">{photo.title}</figcaption>
-            </figure>)}
-          </div>
           <div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">
             {stationPhotos.map(photo => <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglInk bg-sglPaper">
               <Image src={`/station/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="h-auto w-full" />
@@ -247,20 +241,30 @@ export default function StationPage() {
       </div>
 
       <section data-content-section="station.station-stories" className="border-t border-sglInk bg-sglCream">
-        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-12 md:grid-cols-[0.8fr_1.2fr] md:items-end md:px-8 md:py-16">
-          <div className="md:pb-4">
-            <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">Station Stories</p>
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none">Meet at the station.</h2>
-            <p className="mt-5 max-w-md leading-7 opacity-70">Characters, drinks and everyday city stories meet at Seagull Station.</p>
+        <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
+          <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+            <div className="md:pb-4">
+              <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">Station Stories</p>
+              <h2 className="mt-3 text-4xl font-black uppercase leading-none">Meet at the station.</h2>
+              <p className="mt-5 max-w-md leading-7 opacity-70">Characters, drinks and everyday city stories meet at Seagull Station.</p>
+            </div>
+            <Image
+              src="/characters/station-three-birds.webp"
+              alt="Three SGL bird characters sharing drinks outside Seagull Station"
+              width={1122}
+              height={1402}
+              sizes="(max-width: 767px) 100vw, 52vw"
+              className="max-h-[620px] w-full border border-sglInk object-contain"
+            />
           </div>
-          <Image
-            src="/characters/station-three-birds.webp"
-            alt="Three SGL bird characters sharing drinks outside Seagull Station"
-            width={1122}
-            height={1402}
-            sizes="(max-width: 767px) 100vw, 52vw"
-            className="max-h-[620px] w-full border border-sglInk object-contain"
-          />
+          <div className="mt-12 grid items-stretch gap-6 md:grid-cols-2">
+            {stationLocationPhotos.map(photo => <figure key={photo.src} className="flex h-full flex-col overflow-hidden border border-sglInk bg-sglPaper">
+              <div className="relative aspect-[3/2] w-full overflow-hidden">
+                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />
+              </div>
+              <figcaption className="flex min-h-20 flex-1 items-center px-5 py-4 text-sm font-black uppercase tracking-wide">{photo.title}</figcaption>
+            </figure>)}
+          </div>
         </div>
       </section>
     </section>
