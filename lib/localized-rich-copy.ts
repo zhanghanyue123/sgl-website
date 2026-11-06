@@ -1,8 +1,10 @@
 import type { LocalizedLocale } from "./content-schema";
+import { STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE } from "./seo";
 
 type HomeCard = { number: string; title: string; text: string };
 type EventCard = { date: string; title: string; description: string };
 type StationPhoto = { name: string; title: string; alt: string; width: number; height: number };
+type StationLocationPhoto = { src: string; title: string; alt: string; width: number; height: number };
 type StationOffering = { number: string; title: string; text: string };
 type AppScreen = { file: string; label: string; title: string; text: string; alt: string };
 
@@ -36,6 +38,7 @@ type RichCopy = {
     lifeKicker: string;
     lifeHeading: string;
     lifeBody: string;
+    locationPhotos: StationLocationPhoto[];
     photos: StationPhoto[];
     offerings: StationOffering[];
     storiesKicker: string;
@@ -76,8 +79,17 @@ const stationPhotoFiles = [
   { name: "cheers-together", width: 1200, height: 1800 }
 ] as const;
 
+const stationLocationFiles = [
+  { src: STATION_BIKE_STUDIO_IMAGE, width: 1670, height: 941 },
+  { src: STATION_CLUB_HOUSE_IMAGE, width: 1447, height: 1087 }
+] as const;
+
 function photos(copy: Array<{ title: string; alt: string }>): StationPhoto[] {
   return stationPhotoFiles.map((photo, index) => ({ ...photo, ...copy[index] }));
+}
+
+function locationPhotos(copy: Array<{ title: string; alt: string }>): StationLocationPhoto[] {
+  return stationLocationFiles.map((photo, index) => ({ ...photo, ...copy[index] }));
 }
 
 export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
@@ -115,10 +127,14 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "Wheel Deal 海鸥骑行插画"
     },
     station: {
-      heroAlt: "暖金色光线下的 Sea Gull Station Club 咖啡与社群空间",
+      heroAlt: "夕阳下聚在 Seagull Station 的海鸥角色",
       lifeKicker: "Station 日常",
       lifeHeading: "停一停，补充能量，再多待一会。",
       lifeBody: "暖黄灯光、新鲜饮品和熟悉的朋友，组成 Seagull Station 的日常片段。",
+      locationPhotos: locationPhotos([
+        { title: "SGL Bike Studio · Shanghai", alt: "上海 SGL Bike Studio 的自行车、服饰与骑行商品展示空间" },
+        { title: "Station Club House", alt: "暖金色光线下的 Sea Gull Station Club House 咖啡与社群空间" }
+      ]),
       photos: photos([
         { title: "夜间补给", alt: "夜晚户外桌上的 SGL 冰饮" },
         { title: "现打饮品", alt: "在 Station 饮品龙头下接取一杯金色饮品" },
@@ -200,10 +216,14 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "自転車に乗るカモメを描いたWheel Dealのイラスト"
     },
     station: {
-      heroAlt: "あたたかな金色の光に包まれたSea Gull Station Clubのカフェとコミュニティスペース",
+      heroAlt: "夕暮れのSeagull Stationに集まるカモメのキャラクター",
       lifeKicker: "Stationの日常",
       lifeHeading: "立ち止まって、ひと息ついて、もう少し。",
       lifeBody: "あたたかな灯り、注ぎたての一杯、気の合う仲間。Seagull Stationの日常をのぞいてみましょう。",
+      locationPhotos: locationPhotos([
+        { title: "SGL Bike Studio · Shanghai", alt: "自転車、ウェア、ライド用品を展示する上海のSGL Bike Studio" },
+        { title: "Station Club House", alt: "あたたかな金色の光に包まれたSea Gull Station Club Houseのカフェとコミュニティスペース" }
+      ]),
       photos: photos([
         { title: "夜のひと休み", alt: "夜の屋外テーブルに置かれた冷たいSGLドリンク" },
         { title: "タップから一杯", alt: "Stationのタップから注がれる金色のドリンク" },
@@ -285,10 +305,14 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "자전거를 타는 갈매기를 그린 Wheel Deal 일러스트"
     },
     station: {
-      heroAlt: "따뜻한 황금빛 속 Sea Gull Station Club 카페와 커뮤니티 공간",
+      heroAlt: "노을빛 Seagull Station에 모인 갈매기 캐릭터들",
       lifeKicker: "Station의 일상",
       lifeHeading: "잠시 멈추고, 채우고, 조금 더 머물기.",
       lifeBody: "따뜻한 조명, 갓 따른 한 잔과 좋은 사람들이 만드는 Seagull Station의 일상을 만나보세요.",
+      locationPhotos: locationPhotos([
+        { title: "SGL Bike Studio · Shanghai", alt: "자전거, 의류와 라이딩 제품을 전시하는 상하이 SGL Bike Studio" },
+        { title: "Station Club House", alt: "따뜻한 황금빛 속 Sea Gull Station Club House 카페와 커뮤니티 공간" }
+      ]),
       photos: photos([
         { title: "저녁의 리퓨얼", alt: "밤의 야외 테이블 위에 놓인 차가운 SGL 음료" },
         { title: "탭에서 바로", alt: "Station 탭에서 황금빛 음료를 따르는 모습" },
@@ -370,10 +394,14 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       heroImageAlt: "Illustrazione Wheel Deal con un gabbiano in bicicletta"
     },
     station: {
-      heroAlt: "Il caffè e lo spazio comunitario Sea Gull Station Club nella calda luce dorata",
+      heroAlt: "I personaggi SGL riuniti alla Seagull Station nella luce del tramonto",
       lifeKicker: "Vita alla Station",
       lifeHeading: "Fermati. Ricaricati. Resta ancora un po’.",
       lifeBody: "Luci calde, una bevanda appena versata e buona compagnia: piccoli momenti quotidiani alla Seagull Station.",
+      locationPhotos: locationPhotos([
+        { title: "SGL Bike Studio · Shanghai", alt: "Lo showroom SGL Bike Studio di Shanghai con biciclette, abbigliamento e prodotti da ciclismo" },
+        { title: "Station Club House", alt: "Il caffè e lo spazio comunitario Sea Gull Station Club House nella calda luce dorata" }
+      ]),
       photos: photos([
         { title: "Ristoro serale", alt: "Una bevanda fredda SGL su un tavolo all’aperto di sera" },
         { title: "Direttamente alla spina", alt: "Una bevanda dorata versata dai rubinetti della Station" },

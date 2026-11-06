@@ -45,7 +45,7 @@ test("organization and website schemas use only verified first-party facts", () 
   assert.deepEqual(website.inLanguage, ["en", "zh-CN", "ja-JP", "ko-KR", "it-IT"]);
 });
 
-test("station schema uses the current Station Club storefront image", () => {
+test("station schema uses the original Station hero image", () => {
   assert.equal(stationJsonLd().image, `${SITE_URL}${STATION_HERO_IMAGE}`);
 });
 

@@ -5,7 +5,7 @@ export const publicPageSections = {
   about: ["hero", "history", "principles", "brand-structure", "media", "directions", "cta"],
   shop: ["hero", "bikes-frames", "bags-carry", "wear-ride", "coffee-refuel", "accessories", "closing-image"],
   product: ["product-detail"],
-  station: ["hero-image", "hero", "shanghai-store", "station-life", "offerings", "station-logic", "mini-program", "station-stories"],
+  station: ["hero-image", "hero", "station-life", "offerings", "station-logic", "mini-program", "station-stories"],
   events: ["film", "hero", "calendar", "exhibitions", "community", "formats", "event-list", "development", "cta"],
   universe: ["hero-image", "hero", "film", "characters", "world-system", "world-points", "cta"],
   app: ["hero", "screens", "next-chapter"],

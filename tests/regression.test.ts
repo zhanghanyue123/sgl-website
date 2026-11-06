@@ -5,7 +5,7 @@ import test from "node:test";
 import { storefrontProducts } from "../data/products";
 import { CART_STORAGE_KEY, normalizeSavedCart, validCartLine } from "../lib/cart";
 import { locales, localizedPath } from "../lib/i18n";
-import { STATION_HERO_IMAGE } from "../lib/seo";
+import { STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE, STATION_HERO_IMAGE } from "../lib/seo";
 
 test("every public product image exists in the production asset tree", () => {
   for (const product of storefrontProducts) for (const image of product.images) {
@@ -13,8 +13,13 @@ test("every public product image exists in the production asset tree", () => {
   }
 });
 
-test("the Station hero image exists in the production asset tree", () => {
-  assert.equal(existsSync(join(process.cwd(), "public", STATION_HERO_IMAGE.slice(1))), true, STATION_HERO_IMAGE);
+test("Station media keeps the original hero and both store photos", () => {
+  assert.equal(STATION_HERO_IMAGE, "/station/seagull-sunset.webp");
+  assert.equal(STATION_BIKE_STUDIO_IMAGE, "/station/shanghai-bike-studio.webp");
+  assert.equal(STATION_CLUB_HOUSE_IMAGE, "/station/station-club-storefront.png");
+  for (const image of [STATION_HERO_IMAGE, STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE]) {
+    assert.equal(existsSync(join(process.cwd(), "public", image.slice(1))), true, image);
+  }
 });
 
 test("cart persistence is locale-independent and rejects invalid or sold-out lines", () => {

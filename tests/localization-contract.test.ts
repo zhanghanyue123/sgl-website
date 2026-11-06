@@ -14,9 +14,11 @@ import { localizedProduct, pageCopy } from "../lib/localized-copy";
 import { localizedRichCopy } from "../lib/localized-rich-copy";
 import { localizedSectionCatalog } from "../lib/localized-sections";
 import { localePrefixes } from "../lib/i18n";
+import { STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE } from "../lib/seo";
 
 test("every locale implements the canonical public section contract", () => {
   assert.deepEqual(missingSectionCopy(localizedSectionCatalog), []);
+  assert.equal((publicPageSections.station as readonly string[]).includes("shanghai-store"), false);
   for (const sections of Object.values(publicPageSections)) {
     assert.equal(new Set(sections).size, sections.length);
   }
@@ -48,6 +50,11 @@ test("localized feature pages keep the same media depth as English", () => {
     const copy = localizedRichCopy[locale];
     assert.equal(copy.home.events.length, 3, `${locale} home events`);
     assert.ok(copy.home.filmTitle.trim(), `${locale} home film title`);
+    assert.deepEqual(copy.station.locationPhotos.map(photo => photo.src), [STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE], `${locale} station locations`);
+    for (const photo of copy.station.locationPhotos) {
+      assert.ok(photo.title.trim(), `${locale} station location title`);
+      assert.ok(photo.alt.trim(), `${locale} station location alt`);
+    }
     assert.equal(copy.station.photos.length, 6, `${locale} station photo gallery`);
     assert.equal(copy.station.offerings.length, 4, `${locale} station offerings`);
     assert.ok(copy.station.storiesAlt.trim(), `${locale} station closing image`);
