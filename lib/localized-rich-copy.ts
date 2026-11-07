@@ -86,11 +86,11 @@ function photos(copy: Array<{ title: string; alt: string }>): StationPhoto[] {
 }
 
 function clubHousePhoto(copy: { title: string; alt: string; status: string; address: string }): StationLocationPhoto {
-  return { src: STATION_CLUB_HOUSE_IMAGE, width: 1447, height: 1087, ...copy };
+  return { src: STATION_CLUB_HOUSE_IMAGE, width: 1448, height: 1086, ...copy };
 }
 
 function bikeStudioPhoto(copy: { title: string; alt: string }): VenuePhoto {
-  return { src: STATION_BIKE_STUDIO_IMAGE, width: 1670, height: 942, ...copy };
+  return { src: STATION_BIKE_STUDIO_IMAGE, width: 1671, height: 941, ...copy };
 }
 
 export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {

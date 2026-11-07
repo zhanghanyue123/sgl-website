@@ -15,8 +15,8 @@ test("every public product image exists in the production asset tree", () => {
 
 test("Station and About venue assets remain available", () => {
   assert.equal(STATION_HERO_IMAGE, "/station/seagull-sunset.webp");
-  assert.equal(STATION_BIKE_STUDIO_IMAGE, "/station/shanghai-bike-studio-v2.webp");
-  assert.equal(STATION_CLUB_HOUSE_IMAGE, "/station/station-club-storefront.png");
+  assert.equal(STATION_BIKE_STUDIO_IMAGE, "/station/shanghai-bike-studio-v3.webp");
+  assert.equal(STATION_CLUB_HOUSE_IMAGE, "/station/station-club-house-v2.webp");
   for (const image of [STATION_HERO_IMAGE, STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE]) {
     assert.equal(existsSync(join(process.cwd(), "public", image.slice(1))), true, image);
   }

@@ -30,21 +30,21 @@ function assertStationMediaLayout(html: string) {
   const stationStories = section(html, "station.station-stories");
   const galleryStart = stationLife.indexOf('class="mt-8 columns-1');
   const galleryEnd = stationLife.indexOf("</div>", galleryStart);
-  const clubHouseImage = stationLife.indexOf("station-club-storefront.png");
+  const clubHouseImage = stationLife.indexOf("station-club-house-v2.webp");
 
   assert.match(hero, /seagull-sunset\.webp/);
-  assert.doesNotMatch(hero, /shanghai-bike-studio|station-club-storefront/);
+  assert.doesNotMatch(hero, /shanghai-bike-studio|station-club-house/);
   assert.doesNotMatch(stationLife, /shanghai-bike-studio/);
-  assert.match(stationLife, /station-club-storefront\.png/);
+  assert.match(stationLife, /station-club-house-v2\.webp/);
   assert.match(stationLife, /Station Club House/);
-  assert.doesNotMatch(html, /shanghai-bike-studio-v2\.webp/);
+  assert.doesNotMatch(html, /shanghai-bike-studio-v3\.webp/);
   assert.doesNotMatch(html, /Bike Studio/i);
-  assert.doesNotMatch(stationStories, /station-club-storefront\.png/);
+  assert.doesNotMatch(stationStories, /station-club-house-v2\.webp/);
   assert.match(stationStories, /station-three-birds\.webp/);
-  assert.equal(imageOccurrences(html, "station-club-storefront.png"), 1);
+  assert.equal(imageOccurrences(html, "station-club-house-v2.webp"), 1);
   assert.equal(stationLife.match(/<figure/g)?.length, 7, "Station Life must contain six moments and one current location");
   assert.ok(
-    stationLife.indexOf("cheers-together.webp") < stationLife.indexOf("station-club-storefront.png"),
+    stationLife.indexOf("cheers-together.webp") < stationLife.indexOf("station-club-house-v2.webp"),
     "the current Shanghai Station must render below the Station Life photo gallery",
   );
   assert.ok(galleryStart >= 0 && galleryEnd >= 0 && galleryEnd < clubHouseImage,
@@ -58,15 +58,15 @@ function assertStationMediaLayout(html: string) {
 function assertAboutMediaLayout(html: string, expectedTitle: string, expectedAlt: string) {
   const brandStructure = section(html, "about.brand-structure", "about.principles");
   const media = section(html, "about.media", "about.directions");
-  const bikeStudioFigure = figureWithImage(brandStructure, "shanghai-bike-studio-v2.webp");
+  const bikeStudioFigure = figureWithImage(brandStructure, "shanghai-bike-studio-v3.webp");
 
-  assert.equal(imageOccurrences(html, "shanghai-bike-studio-v2.webp"), 1);
+  assert.equal(imageOccurrences(html, "shanghai-bike-studio-v3.webp"), 1);
   assert.ok(bikeStudioFigure.includes(expectedTitle), `Bike Studio figure is missing ${expectedTitle}`);
   assert.ok(bikeStudioFigure.includes(expectedAlt), `Bike Studio figure is missing the localized alt text`);
   assert.match(brandStructure, /lg:grid-cols-\[1\.15fr_0\.85fr\]/);
   assert.match(brandStructure, /relative aspect-video w-full flex-1 overflow-hidden lg:aspect-auto lg:min-h-\[360px\]/);
   assert.doesNotMatch(media, /shanghai-bike-studio/);
-  assert.doesNotMatch(html, /station-club-storefront\.png/);
+  assert.doesNotMatch(html, /station-club-house-v2\.webp/);
   assert.ok(
     html.indexOf('data-content-section="about.history"')
       < html.indexOf('data-content-section="about.brand-structure"')

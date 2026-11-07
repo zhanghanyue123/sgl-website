@@ -57,8 +57,8 @@ const stationLocationPhotos = [
     alt: "Sea Gull Station Club House cafe storefront and community patio in warm golden light",
     status: "Current Station",
     address: "China, Shanghai, Pudong New Area, Jinyan Road & Dongxiu Road Plaza, L1",
-    width: 1447,
-    height: 1087
+    width: 1448,
+    height: 1086
   }
 ];
 
