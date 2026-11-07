@@ -203,7 +203,7 @@ export default function AICustomerService() {
             className="h-full w-full translate-y-1.5 scale-[1.08] object-contain"
           />
         </button>
-        <span className="pointer-events-none absolute right-0 top-0 h-3 w-3 translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
+        <span className="pointer-events-none absolute right-[5px] top-[5px] z-10 h-3 w-3 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
       </div>
     </div>
   );

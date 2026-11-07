@@ -16,7 +16,7 @@ test("AI customer service status dot straddles the launcher border", async () =>
   const statusDot = launcher.indexOf("bg-green-500");
   assert.ok(buttonEnd >= 0 && statusDot > buttonEnd, "status dot must be a sibling after the launcher button");
   const statusClasses = launcher.match(/<span className="([^"]*\bbg-green-500\b[^"]*)" aria-hidden="true" \/>/)?.[1].split(/\s+/) ?? [];
-  assert.ok(statusClasses.includes("right-0") && statusClasses.includes("top-0"), "status dot must anchor to the launcher corner");
-  assert.ok(statusClasses.includes("translate-x-1/2"), "status dot must extend halfway beyond the right border");
-  assert.ok(statusClasses.includes("-translate-y-1/2"), "status dot must extend halfway beyond the top border");
+  assert.ok(statusClasses.includes("right-[5px]") && statusClasses.includes("top-[5px]"), "status dot must sit on the circular launcher outline");
+  assert.ok(statusClasses.includes("z-10"), "status dot must paint above the launcher outline");
+  assert.ok(!statusClasses.some((className) => className.includes("translate-")), "status dot must not be translated back to the square corner");
 });
