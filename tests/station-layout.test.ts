@@ -37,7 +37,7 @@ function assertStationMediaLayout(html: string) {
   assert.doesNotMatch(stationLife, /shanghai-bike-studio/);
   assert.match(stationLife, /station-club-storefront\.png/);
   assert.match(stationLife, /Station Club House/);
-  assert.doesNotMatch(html, /shanghai-bike-studio\.webp/);
+  assert.doesNotMatch(html, /shanghai-bike-studio-v2\.webp/);
   assert.doesNotMatch(html, /Bike Studio/i);
   assert.doesNotMatch(stationStories, /station-club-storefront\.png/);
   assert.match(stationStories, /station-three-birds\.webp/);
@@ -58,9 +58,9 @@ function assertStationMediaLayout(html: string) {
 function assertAboutMediaLayout(html: string, expectedTitle: string, expectedAlt: string) {
   const brandStructure = section(html, "about.brand-structure", "about.principles");
   const media = section(html, "about.media", "about.directions");
-  const bikeStudioFigure = figureWithImage(brandStructure, "shanghai-bike-studio.webp");
+  const bikeStudioFigure = figureWithImage(brandStructure, "shanghai-bike-studio-v2.webp");
 
-  assert.equal(imageOccurrences(html, "shanghai-bike-studio.webp"), 1);
+  assert.equal(imageOccurrences(html, "shanghai-bike-studio-v2.webp"), 1);
   assert.ok(bikeStudioFigure.includes(expectedTitle), `Bike Studio figure is missing ${expectedTitle}`);
   assert.ok(bikeStudioFigure.includes(expectedAlt), `Bike Studio figure is missing the localized alt text`);
   assert.match(brandStructure, /lg:grid-cols-\[1\.15fr_0\.85fr\]/);

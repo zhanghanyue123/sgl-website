@@ -90,7 +90,7 @@ function clubHousePhoto(copy: { title: string; alt: string; status: string; addr
 }
 
 function bikeStudioPhoto(copy: { title: string; alt: string }): VenuePhoto {
-  return { src: STATION_BIKE_STUDIO_IMAGE, width: 1670, height: 941, ...copy };
+  return { src: STATION_BIKE_STUDIO_IMAGE, width: 1670, height: 942, ...copy };
 }
 
 export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {

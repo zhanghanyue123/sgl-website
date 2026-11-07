@@ -5,7 +5,7 @@ import { languageAlternates, type Locale } from "@/lib/i18n";
 export const SITE_URL = "https://www.theseagulllabs.com";
 export const STATION_HERO_IMAGE = "/station/seagull-sunset.webp";
 export const STATION_CLUB_HOUSE_IMAGE = "/station/station-club-storefront.png";
-export const STATION_BIKE_STUDIO_IMAGE = "/station/shanghai-bike-studio.webp";
+export const STATION_BIKE_STUDIO_IMAGE = "/station/shanghai-bike-studio-v2.webp";
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();
 
 export const openGraphLocales: Record<Locale, string> = {
