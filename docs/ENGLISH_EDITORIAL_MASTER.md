@@ -76,7 +76,7 @@ Founded on June 9, 2023, SGL grew from original products, images and cycling cul
 SGL starts from everyday movement: cycling, walking, park loops, coffee stops and small routes between places.
 
 **Principle 02 — Build from real places**  
-Seagull Station is the physical anchor. Products, events, characters and future missions grow from real encounters in the city.
+Real places are the physical anchor. Products, events, characters and future missions grow from encounters in the city.
 
 **Principle 03 — Make daily life playable**  
 SGL develops narrative experiences that connect riding, meeting, collecting and checking in with a wider character world.
@@ -84,7 +84,11 @@ SGL develops narrative experiences that connect riding, meeting, collecting and 
 **Brand Structure**  
 A physical home and an expanding story world.
 
-Products carry the visual language of SGL into everyday life. Seagull Station is where people meet, drink, shop and begin a ride. Exhibitions, photographs and events document the culture around it. The mini program, city missions and AR interactions are the digital layer now being developed around that real-world foundation.
+Rooted in original products, images and cycling culture, SGL takes physical form at SGL Bike Studio · Shanghai, where bicycles, apparel and riding goods come together. Seagull Station extends that real-world foundation into drinks, rides, events and community life.
+
+**Physical space caption**
+
+- SGL Bike Studio · Shanghai
 
 **Media captions**
 
@@ -254,9 +258,14 @@ Around that foundation, SGL is developing member journeys, route check-ins, char
 Mini Program / Membership / Missions  
 The SGL WeChat Mini Program is live. Individual functions shown in previews may still be in development. AR interactions are currently in development, with a planned release in early 2027.
 
-**Station Stories**  
+**Station Network**
+
 Meet at the Station.  
-Characters, drinks and everyday city stories meet at Seagull Station.
+Future Station locations will connect SGL communities across cities. For now, meet us at Station Club House in Shanghai.
+
+**Current Station**
+
+- Station Club House · Shanghai
 
 ## Events and Community — /events
 

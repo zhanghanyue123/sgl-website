@@ -1,4 +1,4 @@
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, STATION_BIKE_STUDIO_IMAGE } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ const principles = [
   },
   {
     title: "Build from real places",
-    text: "Seagull Station is the physical anchor. Products, events, characters and future missions grow from real encounters in the city."
+    text: "Real places are the physical anchor. Products, events, characters and future missions grow from encounters in the city."
   },
   {
     title: "Make daily life playable",
@@ -84,26 +84,30 @@ export default function AboutPage() {
       </div>
 
       <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.28em]">
-              Brand Structure
-            </p>
+        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
+          <figure className="flex min-h-full flex-col overflow-hidden border border-sglInk bg-sglPaper">
+            <div className="relative aspect-video w-full flex-1 overflow-hidden lg:aspect-auto lg:min-h-[360px]">
+              <Image
+                src={STATION_BIKE_STUDIO_IMAGE}
+                alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
+                fill
+                sizes="(max-width: 1023px) 100vw, 58vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="border-t border-sglInk px-5 py-4 text-sm font-black uppercase tracking-wide">
+              SGL Bike Studio · Shanghai
+            </figcaption>
+          </figure>
 
+          <div className="flex flex-col justify-center lg:py-6">
+            <p className="text-sm font-black uppercase tracking-[0.28em]">Brand Structure</p>
             <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
               A physical home and an expanding story world.
             </h2>
-          </div>
-
-          <div className="space-y-5 text-lg leading-8">
-            <p>
-              Products carry the visual language of SGL into everyday life.
-              Seagull Station is where people meet, drink, shop and begin a ride.
-              Exhibitions, photographs and events document the culture around it.
-              The mini program, city missions and AR interactions are the digital
-              layer now being developed around that real-world foundation.
+            <p className="mt-6 text-lg leading-8">
+              Rooted in original products, images and cycling culture, SGL takes physical form at SGL Bike Studio · Shanghai, where bicycles, apparel and riding goods come together. Seagull Station extends that real-world foundation into drinks, rides, events and community life.
             </p>
-
           </div>
         </div>
       </div>

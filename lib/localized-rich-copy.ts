@@ -4,7 +4,8 @@ import { STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE } from "./seo";
 type HomeCard = { number: string; title: string; text: string };
 type EventCard = { date: string; title: string; description: string };
 type StationPhoto = { name: string; title: string; alt: string; width: number; height: number };
-type StationLocationPhoto = { src: string; title: string; alt: string; width: number; height: number };
+type VenuePhoto = { src: string; title: string; alt: string; width: number; height: number };
+type StationLocationPhoto = VenuePhoto & { status: string; address: string };
 type StationOffering = { number: string; title: string; text: string };
 type AppScreen = { file: string; label: string; title: string; text: string; alt: string };
 
@@ -63,6 +64,7 @@ type RichCopy = {
     stationButton: string;
   };
   about: {
+    bikeStudioPhoto: VenuePhoto;
     anniversaryAlt: string;
     anniversaryCaption: string;
     filmTitle: string;
@@ -79,17 +81,16 @@ const stationPhotoFiles = [
   { name: "cheers-together", width: 1200, height: 1800 }
 ] as const;
 
-const stationLocationFiles = [
-  { src: STATION_BIKE_STUDIO_IMAGE, width: 1670, height: 941 },
-  { src: STATION_CLUB_HOUSE_IMAGE, width: 1447, height: 1087 }
-] as const;
-
 function photos(copy: Array<{ title: string; alt: string }>): StationPhoto[] {
   return stationPhotoFiles.map((photo, index) => ({ ...photo, ...copy[index] }));
 }
 
-function locationPhotos(copy: Array<{ title: string; alt: string }>): StationLocationPhoto[] {
-  return stationLocationFiles.map((photo, index) => ({ ...photo, ...copy[index] }));
+function clubHousePhoto(copy: { title: string; alt: string; status: string; address: string }): StationLocationPhoto {
+  return { src: STATION_CLUB_HOUSE_IMAGE, width: 1447, height: 1087, ...copy };
+}
+
+function bikeStudioPhoto(copy: { title: string; alt: string }): VenuePhoto {
+  return { src: STATION_BIKE_STUDIO_IMAGE, width: 1670, height: 941, ...copy };
 }
 
 export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
@@ -131,10 +132,12 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       lifeKicker: "Station 日常",
       lifeHeading: "停一停，补充能量，再多待一会。",
       lifeBody: "暖黄灯光、新鲜饮品和熟悉的朋友，组成 Seagull Station 的日常片段。",
-      locationPhotos: locationPhotos([
-        { title: "SGL Bike Studio · Shanghai", alt: "上海 SGL Bike Studio 的自行车、服饰与骑行商品展示空间" },
-        { title: "Station Club House", alt: "暖金色光线下的 Sea Gull Station Club House 咖啡与社群空间" }
-      ]),
+      locationPhotos: [clubHousePhoto({
+        title: "Station Club House · 上海",
+        alt: "暖金色光线下的 Sea Gull Station Club House 咖啡与社群空间",
+        status: "当前 Station",
+        address: "上海市浦东新区锦延路东绣路广场 L1"
+      })],
       photos: photos([
         { title: "夜间补给", alt: "夜晚户外桌上的 SGL 冰饮" },
         { title: "现打饮品", alt: "在 Station 饮品龙头下接取一杯金色饮品" },
@@ -149,9 +152,9 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
         { number: "03", title: "骑行社群", text: "这里是骑行者、朋友和附近社群的见面点，也记录城市里的日常移动。" },
         { number: "04", title: "活动与聚会", text: "社群骑行、展览、快闪与 Station 聚会，让 SGL 文化成为真实的共同体验。" }
       ],
-      storiesKicker: "Station 故事",
+      storiesKicker: "Station 网络",
       storiesHeading: "在 Station 见。",
-      storiesBody: "角色、饮品与城市日常，在 Seagull Station 相遇。",
+      storiesBody: "Seagull Station 将连接不同城市的 SGL 社群。目前只有上海一处 Station Club House。",
       storiesAlt: "三位 SGL 海鸥角色在 Seagull Station 门口一起喝饮品"
     },
     app: {
@@ -176,6 +179,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       stationButton: "探索 Seagull Station"
     },
     about: {
+      bikeStudioPhoto: bikeStudioPhoto({ title: "SGL Bike Studio · Shanghai", alt: "上海 SGL Bike Studio 的自行车、服饰与骑行商品展示空间" }),
       anniversaryAlt: "SGL 一周年骑行主题插画",
       anniversaryCaption: "一周年纪念",
       filmTitle: "SGL 夜骑影片",
@@ -220,10 +224,12 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       lifeKicker: "Stationの日常",
       lifeHeading: "立ち止まって、ひと息ついて、もう少し。",
       lifeBody: "あたたかな灯り、注ぎたての一杯、気の合う仲間。Seagull Stationの日常をのぞいてみましょう。",
-      locationPhotos: locationPhotos([
-        { title: "SGL Bike Studio · Shanghai", alt: "自転車、ウェア、ライド用品を展示する上海のSGL Bike Studio" },
-        { title: "Station Club House", alt: "あたたかな金色の光に包まれたSea Gull Station Club Houseのカフェとコミュニティスペース" }
-      ]),
+      locationPhotos: [clubHousePhoto({
+        title: "Station Club House · 上海",
+        alt: "あたたかな金色の光に包まれたSea Gull Station Club Houseのカフェとコミュニティスペース",
+        status: "現在のStation",
+        address: "中国・上海市浦東新区、錦延路と東繡路の交差点広場 L1"
+      })],
       photos: photos([
         { title: "夜のひと休み", alt: "夜の屋外テーブルに置かれた冷たいSGLドリンク" },
         { title: "タップから一杯", alt: "Stationのタップから注がれる金色のドリンク" },
@@ -238,9 +244,9 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
         { number: "03", title: "サイクリングコミュニティ", text: "ライダーや仲間、近隣の人々が出会い、街の日常的な移動を共有する集合場所です。" },
         { number: "04", title: "イベントと集まり", text: "コミュニティライド、展示、ポップアップ、Stationでの集まりを通してSGLの文化を共有します。" }
       ],
-      storiesKicker: "Stationストーリー",
+      storiesKicker: "Stationネットワーク",
       storiesHeading: "Stationで会いましょう。",
-      storiesBody: "キャラクターとドリンク、街の日常がSeagull Stationで交わります。",
+      storiesBody: "将来のStationは、各都市のSGLコミュニティをつなぎます。現在は上海のStation Club Houseのみです。",
       storiesAlt: "Seagull Stationの前でドリンクを楽しむ3羽のSGLキャラクター"
     },
     app: {
@@ -265,6 +271,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       stationButton: "Seagull Stationを見る"
     },
     about: {
+      bikeStudioPhoto: bikeStudioPhoto({ title: "SGL Bike Studio · Shanghai", alt: "自転車、ウェア、ライド用品を展示する上海のSGL Bike Studio" }),
       anniversaryAlt: "SGL一周年を記念したサイクリングイラスト",
       anniversaryCaption: "一周年記念",
       filmTitle: "SGLナイトライドフィルム",
@@ -309,10 +316,12 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       lifeKicker: "Station의 일상",
       lifeHeading: "잠시 멈추고, 채우고, 조금 더 머물기.",
       lifeBody: "따뜻한 조명, 갓 따른 한 잔과 좋은 사람들이 만드는 Seagull Station의 일상을 만나보세요.",
-      locationPhotos: locationPhotos([
-        { title: "SGL Bike Studio · Shanghai", alt: "자전거, 의류와 라이딩 제품을 전시하는 상하이 SGL Bike Studio" },
-        { title: "Station Club House", alt: "따뜻한 황금빛 속 Sea Gull Station Club House 카페와 커뮤니티 공간" }
-      ]),
+      locationPhotos: [clubHousePhoto({
+        title: "Station Club House · 상하이",
+        alt: "따뜻한 황금빛 속 Sea Gull Station Club House 카페와 커뮤니티 공간",
+        status: "현재 Station",
+        address: "중국 상하이 푸둥신구 진옌로·둥슈로 광장 L1"
+      })],
       photos: photos([
         { title: "저녁의 리퓨얼", alt: "밤의 야외 테이블 위에 놓인 차가운 SGL 음료" },
         { title: "탭에서 바로", alt: "Station 탭에서 황금빛 음료를 따르는 모습" },
@@ -327,9 +336,9 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
         { number: "03", title: "사이클링 커뮤니티", text: "라이더와 친구, 지역 커뮤니티가 만나 도시의 일상적인 움직임을 공유하는 공간입니다." },
         { number: "04", title: "이벤트와 모임", text: "커뮤니티 라이드, 전시, 팝업과 Station 모임을 통해 SGL 문화를 함께 경험합니다." }
       ],
-      storiesKicker: "Station 이야기",
+      storiesKicker: "Station 네트워크",
       storiesHeading: "Station에서 만나요.",
-      storiesBody: "캐릭터와 음료, 도시의 일상이 Seagull Station에서 만납니다.",
+      storiesBody: "앞으로 Station은 여러 도시의 SGL 커뮤니티를 연결합니다. 현재는 상하이 Station Club House 한 곳만 운영 중입니다.",
       storiesAlt: "Seagull Station 앞에서 함께 음료를 즐기는 세 SGL 캐릭터"
     },
     app: {
@@ -354,6 +363,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       stationButton: "Seagull Station 둘러보기"
     },
     about: {
+      bikeStudioPhoto: bikeStudioPhoto({ title: "SGL Bike Studio · Shanghai", alt: "자전거, 의류와 라이딩 제품을 전시하는 상하이 SGL Bike Studio" }),
       anniversaryAlt: "SGL 1주년 기념 사이클링 일러스트",
       anniversaryCaption: "1주년 기념",
       filmTitle: "SGL 나이트 라이드 영상",
@@ -398,10 +408,12 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       lifeKicker: "Vita alla Station",
       lifeHeading: "Fermati. Ricaricati. Resta ancora un po’.",
       lifeBody: "Luci calde, una bevanda appena versata e buona compagnia: piccoli momenti quotidiani alla Seagull Station.",
-      locationPhotos: locationPhotos([
-        { title: "SGL Bike Studio · Shanghai", alt: "Lo showroom SGL Bike Studio di Shanghai con biciclette, abbigliamento e prodotti da ciclismo" },
-        { title: "Station Club House", alt: "Il caffè e lo spazio comunitario Sea Gull Station Club House nella calda luce dorata" }
-      ]),
+      locationPhotos: [clubHousePhoto({
+        title: "Station Club House · Shanghai",
+        alt: "Il caffè e lo spazio comunitario Sea Gull Station Club House nella calda luce dorata",
+        status: "Station attuale",
+        address: "Cina, Shanghai, Nuova Area di Pudong, piazza tra Jinyan Road e Dongxiu Road, livello L1"
+      })],
       photos: photos([
         { title: "Ristoro serale", alt: "Una bevanda fredda SGL su un tavolo all’aperto di sera" },
         { title: "Direttamente alla spina", alt: "Una bevanda dorata versata dai rubinetti della Station" },
@@ -416,9 +428,9 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
         { number: "03", title: "Comunità ciclistica", text: "Un punto d’incontro per ciclisti, amici e vicinato, nato dal modo in cui ogni giorno ci si muove in città." },
         { number: "04", title: "Eventi e incontri", text: "Pedalate, mostre, pop-up e appuntamenti alla Station trasformano la cultura SGL in un’esperienza condivisa." }
       ],
-      storiesKicker: "Storie dalla Station",
+      storiesKicker: "Rete delle Station",
       storiesHeading: "Ci vediamo alla Station.",
-      storiesBody: "Personaggi, bevande e storie quotidiane della città si incontrano alla Seagull Station.",
+      storiesBody: "Le Seagull Station collegheranno le comunità SGL di città diverse. Per ora, l’unica sede è la Station Club House di Shanghai.",
       storiesAlt: "Tre personaggi SGL bevono insieme davanti alla Seagull Station"
     },
     app: {
@@ -443,6 +455,7 @@ export const localizedRichCopy: Record<LocalizedLocale, RichCopy> = {
       stationButton: "Scopri Seagull Station"
     },
     about: {
+      bikeStudioPhoto: bikeStudioPhoto({ title: "SGL Bike Studio · Shanghai", alt: "Lo showroom SGL Bike Studio di Shanghai con biciclette, abbigliamento e prodotti da ciclismo" }),
       anniversaryAlt: "Illustrazione ciclistica per il primo anniversario SGL",
       anniversaryCaption: "Primo anniversario",
       filmTitle: "Film SGL della pedalata notturna",

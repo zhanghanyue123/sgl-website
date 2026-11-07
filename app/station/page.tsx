@@ -1,4 +1,4 @@
-import { pageMetadata, serializeJsonLd, stationJsonLd, STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE, STATION_HERO_IMAGE } from "@/lib/seo";
+import { pageMetadata, serializeJsonLd, stationJsonLd, STATION_CLUB_HOUSE_IMAGE, STATION_HERO_IMAGE } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,16 +52,11 @@ const stationPhotos = [
 
 const stationLocationPhotos = [
   {
-    src: STATION_BIKE_STUDIO_IMAGE,
-    title: "SGL Bike Studio · Shanghai",
-    alt: "SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods",
-    width: 1670,
-    height: 941
-  },
-  {
     src: STATION_CLUB_HOUSE_IMAGE,
-    title: "Station Club House",
+    title: "Station Club House · Shanghai",
     alt: "Sea Gull Station Club House cafe storefront and community patio in warm golden light",
+    status: "Current Station",
+    address: "China, Shanghai, Pudong New Area, Jinyan Road & Dongxiu Road Plaza, L1",
     width: 1447,
     height: 1087
   }
@@ -244,9 +239,9 @@ export default function StationPage() {
         <div className="mx-auto max-w-sgl px-4 py-12 md:px-8 md:py-16">
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-end">
             <div className="md:pb-4">
-              <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">Station Stories</p>
+              <p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">Station Network</p>
               <h2 className="mt-3 text-4xl font-black uppercase leading-none">Meet at the station.</h2>
-              <p className="mt-5 max-w-md leading-7 opacity-70">Characters, drinks and everyday city stories meet at Seagull Station.</p>
+              <p className="mt-5 max-w-md leading-7 opacity-70">Future Station locations will connect SGL communities across cities. For now, meet us at Station Club House in Shanghai.</p>
             </div>
             <Image
               src="/characters/station-three-birds.webp"
@@ -257,12 +252,18 @@ export default function StationPage() {
               className="max-h-[620px] w-full border border-sglInk object-contain"
             />
           </div>
-          <div className="mt-12 grid items-stretch gap-6 md:grid-cols-2">
-            {stationLocationPhotos.map(photo => <figure key={photo.src} className="flex h-full flex-col overflow-hidden border border-sglInk bg-sglPaper">
-              <div className="relative aspect-[3/2] w-full overflow-hidden">
-                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="object-cover" />
+          <div className="mt-12 space-y-6">
+            {stationLocationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]">
+                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" />
               </div>
-              <figcaption className="flex min-h-20 flex-1 items-center px-5 py-4 text-sm font-black uppercase tracking-wide">{photo.title}</figcaption>
+              <figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8">
+                <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p>
+                <div>
+                  <h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3>
+                  <p className="mt-4 leading-7 opacity-70">{photo.address}</p>
+                </div>
+              </figcaption>
             </figure>)}
           </div>
         </div>

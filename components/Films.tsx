@@ -21,7 +21,7 @@ type FilmsProps = {
 };
 
 export default function Films({ src, title, poster = "/videos/poster.jpg", frameless = false, loop = false }: FilmsProps) {
-  const copy = filmCopy[localeFromPath(usePathname())];
+  const copy = filmCopy[localeFromPath(usePathname() || "/")];
   const [failed, setFailed] = useState(false);
   return (
     <div id="films" className={`overflow-hidden bg-black${frameless ? "" : " border border-sglInk"}`}>

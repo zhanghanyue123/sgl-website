@@ -50,10 +50,13 @@ test("localized feature pages keep the same media depth as English", () => {
     const copy = localizedRichCopy[locale];
     assert.equal(copy.home.events.length, 3, `${locale} home events`);
     assert.ok(copy.home.filmTitle.trim(), `${locale} home film title`);
-    assert.deepEqual(copy.station.locationPhotos.map(photo => photo.src), [STATION_BIKE_STUDIO_IMAGE, STATION_CLUB_HOUSE_IMAGE], `${locale} station locations`);
+    assert.deepEqual(copy.station.locationPhotos.map(photo => photo.src), [STATION_CLUB_HOUSE_IMAGE], `${locale} station locations`);
     for (const photo of copy.station.locationPhotos) {
       assert.ok(photo.title.trim(), `${locale} station location title`);
       assert.ok(photo.alt.trim(), `${locale} station location alt`);
+      assert.ok(photo.status.trim(), `${locale} station location status`);
+      assert.ok(photo.address.trim(), `${locale} station location address`);
+      assert.doesNotMatch(photo.title, /Bike Studio/i, `${locale} Station contains Bike Studio copy`);
     }
     assert.equal(copy.station.photos.length, 6, `${locale} station photo gallery`);
     assert.equal(copy.station.offerings.length, 4, `${locale} station offerings`);
@@ -61,6 +64,10 @@ test("localized feature pages keep the same media depth as English", () => {
     assert.equal(copy.app.screens.length, 4, `${locale} app screens`);
     assert.ok(copy.app.heroAlt.trim(), `${locale} app hero image`);
     assert.ok(copy.about.filmTitle.trim(), `${locale} about film`);
+    assert.equal(copy.about.bikeStudioPhoto.src, STATION_BIKE_STUDIO_IMAGE, `${locale} about Bike Studio image`);
+    assert.ok(copy.about.bikeStudioPhoto.title.trim(), `${locale} about Bike Studio title`);
+    assert.ok(copy.about.bikeStudioPhoto.alt.trim(), `${locale} about Bike Studio alt`);
+    assert.doesNotMatch(copy.about.bikeStudioPhoto.title, /Club House/i, `${locale} About contains Club House copy`);
   }
 });
 
