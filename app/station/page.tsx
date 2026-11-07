@@ -152,6 +152,20 @@ export default function StationPage() {
               <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
             </figure>)}
           </div>
+          <div className="mt-12 border-t border-sglInk pt-12">
+            {stationLocationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]">
+                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" />
+              </div>
+              <figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8">
+                <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p>
+                <div>
+                  <h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3>
+                  <p className="mt-4 leading-7 opacity-70">{photo.address}</p>
+                </div>
+              </figcaption>
+            </figure>)}
+          </div>
         </div>
       </section>
 
@@ -251,20 +265,6 @@ export default function StationPage() {
               sizes="(max-width: 767px) 100vw, 52vw"
               className="max-h-[620px] w-full border border-sglInk object-contain"
             />
-          </div>
-          <div className="mt-12 space-y-6">
-            {stationLocationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]">
-              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]">
-                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" />
-              </div>
-              <figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8">
-                <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p>
-                <div>
-                  <h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3>
-                  <p className="mt-4 leading-7 opacity-70">{photo.address}</p>
-                </div>
-              </figcaption>
-            </figure>)}
           </div>
         </div>
       </section>

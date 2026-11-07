@@ -67,22 +67,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div data-content-section="about.principles" className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
-        {principles.map((item, index) => (
-          <div key={item.title} className="border border-sglInk bg-sglPaper p-6">
-            <p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">
-              0{index + 1}
-            </p>
-
-            <h2 className="mt-3 text-3xl font-black uppercase leading-tight">
-              {item.title}
-            </h2>
-
-            <p className="mt-5 leading-7 opacity-75">{item.text}</p>
-          </div>
-        ))}
-      </div>
-
       <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
         <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
           <figure className="flex min-h-full flex-col overflow-hidden border border-sglInk bg-sglPaper">
@@ -112,7 +96,23 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <section data-content-section="about.media" className="border-b border-sglInk bg-sglPaper">
+      <div data-content-section="about.principles" className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
+        {principles.map((item, index) => (
+          <div key={item.title} className="border border-sglInk bg-sglPaper p-6">
+            <p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">
+              0{index + 1}
+            </p>
+
+            <h2 className="mt-3 text-3xl font-black uppercase leading-tight">
+              {item.title}
+            </h2>
+
+            <p className="mt-5 leading-7 opacity-75">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <section data-content-section="about.media" className="border-y border-sglInk bg-sglPaper">
         <div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">
           <figure className="overflow-hidden border border-sglInk bg-sglCream md:col-span-4">
             <Image src="/events/calendar/one-year-anniversary.webp" alt="SGL one year anniversary cycling illustration" width={778} height={822} sizes="(max-width: 767px) 100vw, 34vw" className="aspect-[4/5] w-full object-cover" />

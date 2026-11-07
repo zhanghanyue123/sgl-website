@@ -247,14 +247,15 @@ function About({ locale }: { locale: LocalizedLocale }) {
   const l = labels[locale];
   const media = localizedRichCopy[locale].about;
   const brand = getSectionCopy(locale, "about", "brand-structure")!;
-  return <><Hero copy={c} page="about" /><section {...sectionMarker("about", "history")} className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.history}</h2><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{timeline[locale].map(item => <article key={item.date} className="border border-sglInk bg-sglPaper p-5"><p className="font-black">{item.date}</p><p className="mt-3 leading-7">{item.text}</p></article>)}</div></section><LocalizedBand locale={locale} page="about" section="principles" />
+  return <><Hero copy={c} page="about" /><section {...sectionMarker("about", "history")} className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.history}</h2><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{timeline[locale].map(item => <article key={item.date} className="border border-sglInk bg-sglPaper p-5"><p className="font-black">{item.date}</p><p className="mt-3 leading-7">{item.text}</p></article>)}</div></section>
     <section {...sectionMarker("about", "brand-structure")} className="border-y border-sglInk bg-sglAcid">
       <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
         <figure className="flex min-h-full flex-col overflow-hidden border border-sglInk bg-sglPaper"><div className="relative aspect-video w-full flex-1 overflow-hidden lg:aspect-auto lg:min-h-[360px]"><Image src={media.bikeStudioPhoto.src} alt={media.bikeStudioPhoto.alt} fill sizes="(max-width: 1023px) 100vw, 58vw" className="object-cover" /></div><figcaption className="border-t border-sglInk px-5 py-4 text-sm font-black uppercase tracking-wide">{media.bikeStudioPhoto.title}</figcaption></figure>
         <div className="flex flex-col justify-center lg:py-6">{brand.kicker && <p className="text-sm font-black uppercase tracking-[0.28em]">{brand.kicker}</p>}<h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">{brand.heading}</h2><p className="mt-6 text-lg leading-8">{brand.body}</p></div>
       </div>
     </section>
-    <section {...sectionMarker("about", "media")} className="border-b border-sglInk bg-sglPaper"><div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">
+    <LocalizedBand locale={locale} page="about" section="principles" />
+    <section {...sectionMarker("about", "media")} className="border-y border-sglInk bg-sglPaper"><div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">
       <figure className="overflow-hidden border border-sglInk bg-sglCream md:col-span-4"><Image src="/events/calendar/one-year-anniversary.webp" alt={media.anniversaryAlt} width={778} height={822} sizes="(max-width: 767px) 100vw, 34vw" className="aspect-[4/5] w-full object-cover" /><figcaption className="border-t border-sglInk px-5 py-4 text-sm font-black uppercase tracking-wide">{media.anniversaryCaption}</figcaption></figure>
       <figure className="overflow-hidden border border-sglInk bg-black md:col-span-8"><Films src="/videos/night-ride-loop.mp4" title={media.filmTitle} poster="/events/calendar/night-ride-shadow.webp" frameless /><figcaption className="border-t border-sglCream/30 px-5 py-4 text-sm font-black uppercase tracking-wide text-sglCream">{media.filmCaption}</figcaption></figure>
     </div></section>
@@ -320,7 +321,19 @@ function Station({ locale }: { locale: LocalizedLocale }) {
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(stationJsonLd(path)) }} />
     <div {...sectionMarker("station", "hero-image")} className="border-b border-sglInk bg-sglInk"><div className="mx-auto max-w-sgl"><Image src={STATION_HERO_IMAGE} alt={copy.heroAlt} width={1672} height={941} priority sizes="(max-width: 1440px) 100vw, 1440px" className="h-auto w-full" /></div></div>
     <Hero copy={c} page="station" />
-    <section id="station-life" {...sectionMarker("station", "station-life")} className="scroll-mt-24 border-b border-sglInk bg-sglCream"><div className="mx-auto max-w-sgl px-4 py-16 md:px-8"><p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">{copy.lifeKicker}</p><h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">{copy.lifeHeading}</h2><p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">{copy.lifeBody}</p><div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">{copy.photos.map(photo => <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglInk bg-sglPaper"><Image src={`/station/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="h-auto w-full" /><figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption></figure>)}</div></div></section>
+    <section id="station-life" {...sectionMarker("station", "station-life")} className="scroll-mt-24 border-b border-sglInk bg-sglCream">
+      <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+        <p className="text-sm font-black uppercase tracking-[0.25em] opacity-60">{copy.lifeKicker}</p>
+        <h2 className="mt-3 text-4xl font-black uppercase md:text-5xl">{copy.lifeHeading}</h2>
+        <p className="mt-5 max-w-3xl text-lg leading-8 opacity-75">{copy.lifeBody}</p>
+        <div className="mt-8 columns-1 gap-6 sm:columns-2 lg:columns-3">
+          {copy.photos.map(photo => <figure key={photo.name} className="mb-6 break-inside-avoid overflow-hidden border border-sglInk bg-sglPaper"><Image src={`/station/${photo.name}.webp`} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="h-auto w-full" /><figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption></figure>)}
+        </div>
+        <div className="mt-12 border-t border-sglInk pt-12">
+          {copy.locationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]"><div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]"><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" /></div><figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8"><p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p><div><h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3><p className="mt-4 leading-7 opacity-70">{photo.address}</p></div></figcaption></figure>)}
+        </div>
+      </div>
+    </section>
     <section {...sectionMarker("station", "offerings")} className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.current}</h2><div className="mt-8 grid gap-5 md:grid-cols-4">{copy.offerings.map(item => <article key={item.number} className="border border-sglInk bg-sglPaper p-6"><p className="text-xs font-black uppercase tracking-[0.22em] opacity-60">{item.number}</p><h3 className="mt-3 text-2xl font-black uppercase leading-tight">{item.title}</h3><p className="mt-4 leading-7 opacity-75">{item.text}</p></article>)}</div><div className="mt-10 border border-sglInk bg-sglAcid p-6"><h2 className="text-2xl font-black uppercase">{l.address}</h2><p className="mt-4 text-lg">{address}</p></div></section>
     <LocalizedBand locale={locale} page="station" section="station-logic" tone="acid" /><LocalizedBand locale={locale} page="station" section="mini-program" />
     <section {...sectionMarker("station", "station-stories")} className="border-t border-sglInk bg-sglCream">
@@ -328,9 +341,6 @@ function Station({ locale }: { locale: LocalizedLocale }) {
         <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-end">
           <div className="md:pb-4"><p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">{copy.storiesKicker}</p><h2 className="mt-3 text-4xl font-black uppercase leading-none">{copy.storiesHeading}</h2><p className="mt-5 max-w-md leading-7 opacity-70">{copy.storiesBody}</p></div>
           <Image src="/characters/station-three-birds.webp" alt={copy.storiesAlt} width={1122} height={1402} sizes="(max-width: 767px) 100vw, 52vw" className="max-h-[620px] w-full border border-sglInk object-contain" />
-        </div>
-        <div className="mt-12 space-y-6">
-          {copy.locationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]"><div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]"><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" /></div><figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8"><p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p><div><h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3><p className="mt-4 leading-7 opacity-70">{photo.address}</p></div></figcaption></figure>)}
         </div>
       </div>
     </section>
