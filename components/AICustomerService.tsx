@@ -185,24 +185,26 @@ export default function AICustomerService() {
         </section>
       )}
 
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-label={open ? c.close : c.open}
-        aria-expanded={open}
-        aria-controls="sgl-ai-customer-service"
-        className="relative grid h-[4.5rem] w-[4.5rem] place-items-center overflow-hidden rounded-full border border-[#d5d2ca] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.14)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
-      >
-        <Image
-          src="/assistant/sgl-ai-assistant.webp"
-          alt=""
-          width={72}
-          height={72}
-          priority
-          className="h-full w-full translate-y-1.5 scale-[1.08] object-contain"
-        />
-        <span className="absolute right-1 top-1 h-3 w-3 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
-      </button>
+      <div className="relative h-[4.5rem] w-[4.5rem]">
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-label={open ? c.close : c.open}
+          aria-expanded={open}
+          aria-controls="sgl-ai-customer-service"
+          className="grid h-full w-full place-items-center overflow-hidden rounded-full border border-[#d5d2ca] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.14)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
+        >
+          <Image
+            src="/assistant/sgl-ai-assistant.webp"
+            alt=""
+            width={72}
+            height={72}
+            priority
+            className="h-full w-full translate-y-1.5 scale-[1.08] object-contain"
+          />
+        </button>
+        <span className="pointer-events-none absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
+      </div>
     </div>
   );
 }
