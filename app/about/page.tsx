@@ -68,7 +68,7 @@ export default function AboutPage() {
       </section>
 
       <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em]">Brand Structure</p>
             <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
@@ -79,13 +79,13 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <figure className="w-full max-w-md overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end">
+          <figure className="w-full max-w-lg overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end">
             <Image
               src={STATION_BIKE_STUDIO_IMAGE}
               alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
               width={1671}
               height={941}
-              sizes="(max-width: 1023px) calc(100vw - 2rem), 448px"
+              sizes="(max-width: 1023px) calc(100vw - 2rem), 512px"
               className="h-auto w-full object-cover"
             />
             <figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">
