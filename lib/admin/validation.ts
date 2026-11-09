@@ -115,10 +115,14 @@ export function parseInventoryAdjustment(value: unknown) {
   const data = object(value);
   const variantId = text(data.variantId, "variantId", 40);
   if (!uuidPattern.test(variantId)) throw new AdminValidationError("variantId is invalid");
+  const warehouseId = text(data.warehouseId, "warehouseId", 40);
+  if (!uuidPattern.test(warehouseId)) throw new AdminValidationError("warehouseId is invalid");
+  const idempotencyKey = text(data.idempotencyKey, "idempotencyKey", 40);
+  if (!uuidPattern.test(idempotencyKey)) throw new AdminValidationError("idempotencyKey is invalid");
   const deltaOnHand = integer(data.deltaOnHand, "deltaOnHand", -1_000_000, 1_000_000);
   const reason = text(data.reason, "reason", 500);
   if (deltaOnHand === 0) throw new AdminValidationError("inventory adjustment cannot be zero");
-  return { variantId, deltaOnHand, reason };
+  return { variantId, warehouseId, idempotencyKey, deltaOnHand, reason };
 }
 
 export function parseShipment(value: unknown) {

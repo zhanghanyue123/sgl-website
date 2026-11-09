@@ -1,9 +1,17 @@
 import { randomUUID } from "node:crypto";
 import type { TransactionSql } from "postgres";
+import { products as websiteProducts } from "@/data/products";
 import { getDb, toJson } from "./db";
+import { inventorySummary, mergeWebsiteCatalogueWithInventory, type DatabaseInventoryRow } from "./inventory-projection";
 import type { AdminProductInput } from "./validation";
 
 type Actor = { userId: string; requestId?: string | null; ipHash?: string | null };
+type AdminProductListRow = {
+  id: string | null; slug: string; original_handle: string; status: string; base_price_cents: number; currency: string;
+  sold_out_override: boolean; updated_at: Date | string | null; category: string; title: string; image_url: string | null;
+  variant_count: number; missing_sku_count: number; inventory_record_count: number; on_hand: number | null;
+  reserved: number | null; available: number | null; database_recorded: boolean;
+};
 
 async function audit(tx: TransactionSql, actor: Actor, action: string, entityType: string, entityId: string, before: unknown, after: unknown) {
   await tx`INSERT INTO audit_logs (id, actor_user_id, action, entity_type, entity_id, before_data, after_data, request_id, ip_hash)
@@ -13,14 +21,15 @@ async function audit(tx: TransactionSql, actor: Actor, action: string, entityTyp
 
 export async function listAdminProducts() {
   const db = getDb();
-  return db`SELECT p.id, p.slug, p.original_handle, p.status, p.base_price_cents, p.currency,
+  const databaseProducts = await db<AdminProductListRow[]>`SELECT p.id, p.slug, p.original_handle, p.status, p.base_price_cents, p.currency,
       p.sold_out_override, p.updated_at, c.name AS category,
       COALESCE(l.title, p.slug) AS title,
       count(DISTINCT v.id)::int AS variant_count,
       count(DISTINCT v.id) FILTER (WHERE v.sku IS NULL)::int AS missing_sku_count,
-      COALESCE(sum(i.on_hand) FILTER (WHERE v.active), 0)::int AS on_hand,
-      COALESCE(sum(i.reserved) FILTER (WHERE v.active), 0)::int AS reserved,
-      COALESCE(sum(i.available) FILTER (WHERE v.active), 0)::int AS available
+      count(DISTINCT i.variant_id)::int AS inventory_record_count,
+      sum(i.on_hand) FILTER (WHERE v.active)::int AS on_hand,
+      sum(i.reserved) FILTER (WHERE v.active)::int AS reserved,
+      sum(i.available) FILTER (WHERE v.active)::int AS available
     FROM products p
     JOIN product_categories c ON c.id = p.category_id
     LEFT JOIN product_localizations l ON l.product_id = p.id AND l.locale = 'en'
@@ -28,6 +37,33 @@ export async function listAdminProducts() {
     LEFT JOIN inventory_levels i ON i.variant_id = v.id
     GROUP BY p.id, c.name, l.title
     ORDER BY p.updated_at DESC, p.slug`;
+  const bySlug = new Map(databaseProducts.map((product) => [String(product.slug), product]));
+  const website: AdminProductListRow[] = websiteProducts.map((product) => {
+    const database = bySlug.get(product.slug);
+    bySlug.delete(product.slug);
+    const variants = product.variants.length ? product.variants : [{ sku: undefined }];
+    return {
+      id: database?.id || null,
+      slug: product.slug,
+      original_handle: product.originalHandle,
+      status: database?.status || (product.hidden ? "archived" : "published"),
+      base_price_cents: Math.round(product.price * 100),
+      currency: database?.currency || "USD",
+      sold_out_override: database?.sold_out_override ?? product.soldOut === true,
+      updated_at: database?.updated_at || null,
+      category: product.category,
+      title: product.title,
+      image_url: product.images[0] || null,
+      variant_count: variants.length,
+      missing_sku_count: variants.filter((variant) => !variant.sku?.trim()).length,
+      inventory_record_count: database?.inventory_record_count || 0,
+      on_hand: database?.on_hand ?? null,
+      reserved: database?.reserved ?? null,
+      available: database?.available ?? null,
+      database_recorded: Boolean(database),
+    };
+  });
+  return [...website, ...[...bySlug.values()].map((product): AdminProductListRow => ({ ...product, image_url: null, database_recorded: true }))];
 }
 
 export async function listCategories() {
@@ -42,7 +78,7 @@ export async function getAdminProduct(id: string) {
     db`SELECT id, url, alt_text, position FROM product_images WHERE product_id = ${id} ORDER BY position, id`,
     db`SELECT v.id, v.legacy_key, v.sku, v.title, v.options, v.price_cents, v.currency, v.image_url, v.position, v.active,
         i.on_hand, i.reserved, i.available, i.low_stock_threshold
-      FROM product_variants v JOIN inventory_levels i ON i.variant_id = v.id
+      FROM product_variants v LEFT JOIN inventory_levels i ON i.variant_id = v.id
       WHERE v.product_id = ${id} ORDER BY v.position, v.id`
   ]);
   if (!products[0]) return null;
@@ -121,23 +157,53 @@ export async function updateAdminProduct(id: string, input: AdminProductInput, a
 }
 
 export async function listInventory() {
-  return getDb()`SELECT v.id AS variant_id, v.product_id, p.slug, COALESCE(l.title, p.slug) AS product_title, v.title AS variant_title,
-      v.sku, v.active, i.on_hand, i.reserved, i.available, i.low_stock_threshold, i.updated_at,
-      (i.available <= i.low_stock_threshold) AS low_stock
+  const databaseRows = await getDb()<DatabaseInventoryRow[]>`SELECT v.id AS variant_id, v.product_id, p.slug,
+      COALESCE(l.title, p.slug) AS product_title, v.legacy_key AS variant_legacy_key, v.title AS variant_title,
+      v.sku, v.active, COALESCE(v.image_url, pi.url) AS image_url, v.price_cents, v.currency,
+      i.warehouse_id, w.name AS warehouse_name, i.on_hand, i.reserved, i.available, i.low_stock_threshold, i.updated_at
     FROM product_variants v
     JOIN products p ON p.id = v.product_id
     LEFT JOIN product_localizations l ON l.product_id = p.id AND l.locale = 'en'
-    JOIN inventory_levels i ON i.variant_id = v.id
-    ORDER BY low_stock DESC, product_title, v.position`;
+    LEFT JOIN LATERAL (
+      SELECT url FROM product_images WHERE product_id = p.id ORDER BY position, id LIMIT 1
+    ) pi ON true
+    LEFT JOIN inventory_levels i ON i.variant_id = v.id
+    LEFT JOIN warehouses w ON w.id = i.warehouse_id
+    ORDER BY product_title, v.position, w.name`;
+  return mergeWebsiteCatalogueWithInventory(websiteProducts, databaseRows);
 }
 
-export async function adjustAdminInventory(input: { variantId: string; deltaOnHand: number; reason: string }, actor: Actor) {
+export async function listRecentInventoryMovements(limit = 100) {
+  return getDb()`SELECT m.id, m.variant_id, m.warehouse_id, m.movement_type, m.delta_on_hand, m.delta_reserved,
+      m.on_hand_after, m.reserved_after, m.reason, m.created_at, v.sku, v.title AS variant_title,
+      COALESCE(l.title, p.slug) AS product_title, w.name AS warehouse_name, u.email AS actor_email
+    FROM inventory_movements m
+    JOIN product_variants v ON v.id = m.variant_id
+    JOIN products p ON p.id = v.product_id
+    LEFT JOIN product_localizations l ON l.product_id = p.id AND l.locale = 'en'
+    LEFT JOIN warehouses w ON w.id = m.warehouse_id
+    LEFT JOIN admin_users u ON u.id = m.actor_user_id
+    ORDER BY m.created_at DESC LIMIT ${Math.min(Math.max(limit, 1), 250)}`;
+}
+
+export async function getInventoryWorkspace() {
+  const [inventory, movements] = await Promise.all([listInventory(), listRecentInventoryMovements()]);
+  return { inventory, movements, summary: inventorySummary(inventory, movements.length) };
+}
+
+export async function adjustAdminInventory(input: { variantId: string; warehouseId: string; idempotencyKey: string; deltaOnHand: number; reason: string }, actor: Actor) {
   const db = getDb();
   return db.begin(async (tx) => {
-    const before = await tx`SELECT * FROM inventory_levels WHERE variant_id = ${input.variantId} FOR UPDATE`;
+    const before = await tx`SELECT * FROM inventory_levels WHERE variant_id = ${input.variantId} AND warehouse_id = ${input.warehouseId} FOR UPDATE`;
     if (!before[0]) return null;
-    const rows = await tx`SELECT * FROM adjust_inventory(${randomUUID()}, ${input.variantId}, ${input.deltaOnHand}, 0,
-      'adjustment', ${input.reason}, 'admin', ${actor.requestId || randomUUID()}, ${actor.userId})`;
+    const repeated = await tx`SELECT i.* FROM inventory_movements m
+      JOIN inventory_levels i ON i.variant_id = m.variant_id AND i.warehouse_id = m.warehouse_id
+      WHERE m.variant_id = ${input.variantId} AND m.warehouse_id = ${input.warehouseId}
+        AND m.reference_type = 'admin' AND m.reference_id = ${input.idempotencyKey} AND m.movement_type = 'adjustment'
+      LIMIT 1`;
+    if (repeated[0]) return repeated[0];
+    const rows = await tx`SELECT * FROM adjust_inventory_at_location(${randomUUID()}, ${input.variantId}, ${input.warehouseId}, ${input.deltaOnHand}, 0,
+      'adjustment', ${input.reason}, 'admin', ${input.idempotencyKey}, ${actor.userId})`;
     await audit(tx, actor, "inventory.adjust", "product_variant", input.variantId, before[0], rows[0]);
     return rows[0];
   });

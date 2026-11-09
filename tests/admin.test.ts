@@ -78,10 +78,13 @@ test("product validation requires complete locales and keeps update slugs immuta
 });
 
 test("inventory adjustments reject zero, fractions and malformed IDs", () => {
-  assert.deepEqual(parseInventoryAdjustment({ variantId: categoryId, deltaOnHand: -2, reason: "Cycle count" }), { variantId: categoryId, deltaOnHand: -2, reason: "Cycle count" });
-  assert.throws(() => parseInventoryAdjustment({ variantId: categoryId, deltaOnHand: 0, reason: "No-op" }));
-  assert.throws(() => parseInventoryAdjustment({ variantId: categoryId, deltaOnHand: 1.5, reason: "Fraction" }));
-  assert.throws(() => parseInventoryAdjustment({ variantId: "bad", deltaOnHand: 1, reason: "Bad id" }));
+  const input = { variantId: categoryId, warehouseId: categoryId, idempotencyKey: categoryId, deltaOnHand: -2, reason: "Cycle count" };
+  assert.deepEqual(parseInventoryAdjustment(input), input);
+  assert.throws(() => parseInventoryAdjustment({ ...input, deltaOnHand: 0, reason: "No-op" }));
+  assert.throws(() => parseInventoryAdjustment({ ...input, deltaOnHand: 1.5, reason: "Fraction" }));
+  assert.throws(() => parseInventoryAdjustment({ ...input, variantId: "bad", deltaOnHand: 1, reason: "Bad id" }));
+  assert.throws(() => parseInventoryAdjustment({ ...input, warehouseId: "bad", deltaOnHand: 1, reason: "Bad warehouse" }));
+  assert.throws(() => parseInventoryAdjustment({ ...input, idempotencyKey: "bad", deltaOnHand: 1, reason: "Bad key" }));
 });
 
 test("database contract prevents overselling and records every movement", async () => {
