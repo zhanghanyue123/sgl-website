@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { localeFromPath, localizedPath, type Locale } from "@/lib/i18n";
 
 type Topic = "products" | "shipping" | "station";
@@ -29,6 +29,11 @@ type AssistantCopy = {
   open: string;
   close: string;
   privacy: string;
+  fallbackNotice: string;
+  fallbackSubject: string;
+  fallbackMessage: string;
+  fallbackSend: string;
+  fallbackSuccess: string;
   topics: Record<Topic, { label: string; answer: string; cta: string; href: string }>;
   senders: Record<"customer" | "ai" | "staff" | "system", string>;
 };
@@ -53,6 +58,7 @@ const copy: Record<Locale, AssistantCopy> = {
     open: "Open Fries customer service",
     close: "Close Fries customer service",
     privacy: "Do not share payment details. Prices, live inventory, delivery dates and account-specific orders are only stated when verified by an approved source.",
+    fallbackNotice: "Fries is temporarily unavailable. Please leave us a message and our team will get back to you.", fallbackSubject: "Subject", fallbackMessage: "Message", fallbackSend: "Send message", fallbackSuccess: "Thank you! Your message has been sent. Our team will follow up with you. You can also continue the conversation from your own email.",
     topics: {
       products: { label: "Products & stock", answer: "Browse the current collection and USD prices. Please email SGL to confirm live stock before ordering.", cta: "View products", href: "/shop" },
       shipping: { label: "Shipping & payment", answer: "Shipping, taxes and timing are confirmed for each order. International card checkout uses Stripe when online checkout is available.", cta: "Sales & shipping", href: "/shipping" },
@@ -79,6 +85,7 @@ const copy: Record<Locale, AssistantCopy> = {
     open: "打开 Fries 客服",
     close: "关闭 Fries 客服",
     privacy: "请勿分享支付信息。价格、实时库存、交期和具体订单仅在有已审核来源时提供。",
+    fallbackNotice: "Fries 暂时无法使用。请留言，我们的团队会尽快回复。", fallbackSubject: "主题", fallbackMessage: "留言", fallbackSend: "发送留言", fallbackSuccess: "谢谢！您的留言已发送。团队会尽快跟进，您也可以通过自己的邮箱继续联系 SGL。",
     topics: {
       products: { label: "商品与库存", answer: "查看当前商品与美元价格。下单前请发送邮件向 SGL 确认实时库存。", cta: "查看商品", href: "/shop" },
       shipping: { label: "配送与支付", answer: "运费、税费和发货时间按订单确认；开放线上结账时，海外银行卡支付使用 Stripe。", cta: "销售与配送", href: "/shipping" },
@@ -105,6 +112,7 @@ const copy: Record<Locale, AssistantCopy> = {
     open: "Friesサポートを開く",
     close: "Friesサポートを閉じる",
     privacy: "支払い情報は共有しないでください。価格、在庫、納期、個別注文は承認済み情報がある場合のみご案内します。",
+    fallbackNotice: "Friesは一時的に利用できません。メッセージを残してください。担当チームよりご連絡します。", fallbackSubject: "件名", fallbackMessage: "メッセージ", fallbackSend: "送信", fallbackSuccess: "ありがとうございます。メッセージを送信しました。担当チームよりご連絡します。ご自身のメールからも引き続きお問い合わせいただけます。",
     topics: {
       products: { label: "商品・在庫", answer: "現在の商品と米ドル価格をご覧いただけます。ご注文前に在庫をメールでご確認ください。", cta: "商品を見る", href: "/shop" },
       shipping: { label: "配送・お支払い", answer: "送料、税金、発送時期は注文ごとに確認します。オンライン決済利用時の海外カード決済には Stripe を使用します。", cta: "販売・配送情報", href: "/shipping" },
@@ -131,6 +139,7 @@ const copy: Record<Locale, AssistantCopy> = {
     open: "Fries 고객지원 열기",
     close: "Fries 고객지원 닫기",
     privacy: "결제 정보를 공유하지 마세요. 가격, 실시간 재고, 배송일 및 개별 주문은 승인된 정보가 있을 때만 안내합니다.",
+    fallbackNotice: "Fries를 일시적으로 이용할 수 없습니다. 메시지를 남겨 주시면 담당 팀이 연락드리겠습니다.", fallbackSubject: "제목", fallbackMessage: "메시지", fallbackSend: "메시지 보내기", fallbackSuccess: "감사합니다. 메시지가 전송되었습니다. 담당 팀이 후속 연락을 드립니다. 본인 이메일로도 계속 문의하실 수 있습니다.",
     topics: {
       products: { label: "상품 및 재고", answer: "현재 상품과 USD 가격을 확인하세요. 주문 전 이메일로 실시간 재고를 확인해 주세요.", cta: "상품 보기", href: "/shop" },
       shipping: { label: "배송 및 결제", answer: "배송비, 세금, 발송 일정은 주문별로 확인됩니다. 온라인 결제 제공 시 해외 카드 결제는 Stripe를 사용합니다.", cta: "판매 및 배송", href: "/shipping" },
@@ -157,6 +166,7 @@ const copy: Record<Locale, AssistantCopy> = {
     open: "Apri l'assistenza Fries",
     close: "Chiudi l'assistenza Fries",
     privacy: "Non condividere dati di pagamento. Prezzi, disponibilità, date di consegna e ordini specifici vengono indicati solo con una fonte approvata.",
+    fallbackNotice: "Fries non è momentaneamente disponibile. Lascia un messaggio e il nostro team ti ricontatterà.", fallbackSubject: "Oggetto", fallbackMessage: "Messaggio", fallbackSend: "Invia messaggio", fallbackSuccess: "Grazie! Il messaggio è stato inviato. Il nostro team ti ricontatterà. Puoi anche continuare a scriverci dalla tua email.",
     topics: {
       products: { label: "Prodotti e disponibilità", answer: "Scopri la collezione e i prezzi in USD. Prima dell'ordine, conferma la disponibilità via email.", cta: "Vedi i prodotti", href: "/shop" },
       shipping: { label: "Spedizioni e pagamenti", answer: "Spedizione, tasse e tempi vengono confermati per ogni ordine. Quando disponibile, il pagamento internazionale online usa Stripe.", cta: "Vendite e spedizioni", href: "/shipping" },
@@ -182,6 +192,12 @@ export default function AICustomerService() {
   const [conversation, setConversation] = useState<StoredConversation | null>(null);
   const [limited, setLimited] = useState(false);
   const [aiLocked, setAiLocked] = useState(false);
+  const [mode, setMode] = useState<"chat" | "contact">("chat");
+  const [contactSubject, setContactSubject] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
+  const [contactSent, setContactSent] = useState(false);
+  const [contactKey, setContactKey] = useState("");
+  const healthFailures = useRef(0);
   const active = activeTopic ? labels.topics[activeTopic] : null;
 
   useEffect(() => {
@@ -206,6 +222,26 @@ export default function AICustomerService() {
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const controller = new AbortController();
+    const check = async () => {
+      try {
+        const response = await fetch("/api/support/health", { signal: controller.signal, cache: "no-store" });
+        const data = await response.json() as { chatAvailable?: boolean };
+        if (data.chatAvailable === true) { healthFailures.current = 0; setMode("chat"); return; }
+        healthFailures.current = 2; setMode("contact");
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        healthFailures.current += 1;
+        if (healthFailures.current >= 2) setMode("contact");
+      }
+    };
+    void check();
+    const timer = window.setInterval(check, 60_000);
+    return () => { controller.abort(); window.clearInterval(timer); };
   }, [open]);
 
   useEffect(() => {
@@ -260,7 +296,7 @@ export default function AICustomerService() {
           body: JSON.stringify({ locale, message: text.trim(), name: name.trim() || undefined, email: email.trim() || undefined })
         });
         const data = await response.json();
-        if (!response.ok) throw new Error(data.error);
+        if (!response.ok) { if (response.status >= 500) { healthFailures.current += 1; if (healthFailures.current >= 2) setMode("contact"); } throw new Error(data.error); }
         const next = { id: data.conversationId, token: data.accessToken };
         setConversation(next);
         sessionStorage.setItem("sgl-public-support", JSON.stringify(next));
@@ -275,7 +311,7 @@ export default function AICustomerService() {
           body: JSON.stringify({ conversationId: conversation.id, message: text.trim() })
         });
         const data = await response.json();
-        if (!response.ok) throw new Error(data.error);
+        if (!response.ok) { if (response.status >= 500) { healthFailures.current += 1; if (healthFailures.current >= 2) setMode("contact"); } throw new Error(data.error); }
         setAiLocked(data.answer?.aiLocked === true || data.answer?.humanHandoffRecommended === true);
         setLimited(data.answer?.confidence === "limited");
         setText("");
@@ -286,6 +322,21 @@ export default function AICustomerService() {
     } finally {
       setBusy(false);
     }
+  }
+
+  async function submitContact(event: FormEvent) {
+    event.preventDefault();
+    if (busy || !name.trim() || !email.trim() || !contactSubject.trim() || !contactMessage.trim()) return;
+    setBusy(true); setStatus("");
+    const key = contactKey || crypto.randomUUID();
+    if (!contactKey) setContactKey(key);
+    try {
+      const response = await fetch("/api/support/contact", { method: "POST", headers: { "content-type": "application/json", "idempotency-key": key }, body: JSON.stringify({ name: name.trim(), email: email.trim(), subject: contactSubject.trim(), message: contactMessage.trim(), locale, website: "" }) });
+      const data = await response.json();
+      if (!response.ok || data.sent !== true) throw new Error(data.error || labels.unavailable);
+      setContactSent(true); setStatus(labels.fallbackSuccess);
+    } catch (error) { setStatus(error instanceof Error ? error.message : labels.unavailable); }
+    finally { setBusy(false); }
   }
 
   async function createTicket() {
@@ -379,19 +430,33 @@ export default function AICustomerService() {
             {aiLocked && <p className="mt-3 border border-blue-300 bg-blue-50 p-3 text-xs font-bold">{labels.locked}</p>}
 
             <p className="mt-5 border-t border-sglInk/15 pt-4 text-[11px] font-black uppercase tracking-[0.16em] opacity-55">{labels.otherQuestions}</p>
-            <form onSubmit={submit} className="mt-2">
-              {!conversation && (
-                <div className="mb-2 grid grid-cols-2 gap-2">
-                  <input value={name} onChange={(event) => setName(event.target.value)} placeholder={labels.name} maxLength={160} autoComplete="name" className="min-w-0 border border-[#aaa] bg-white p-2 text-xs" />
-                  <input value={email} onChange={(event) => setEmail(event.target.value)} placeholder={labels.email} maxLength={320} type="email" autoComplete="email" className="min-w-0 border border-[#aaa] bg-white p-2 text-xs" />
-                </div>
-              )}
-              <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder={aiLocked ? labels.humanSend : labels.placeholder} maxLength={2000} rows={3} className="w-full border border-[#aaa] bg-white p-3 text-sm outline-none focus:ring-2 focus:ring-sglAcid" />
-              <div className="mt-2 flex gap-2">
-                <button type="submit" disabled={busy || !text.trim()} className="flex-1 border border-sglInk bg-sglAcid px-3 py-2 text-xs font-black uppercase disabled:opacity-50">{aiLocked ? labels.humanSend : labels.send}</button>
-                {conversation && <button type="button" disabled={busy} onClick={createTicket} className="border border-[#aaa] px-3 py-2 text-xs font-black uppercase disabled:opacity-50">{labels.ticket}</button>}
+            {mode === "contact" ? (
+              <div className="mt-2" data-fries-mode="email-contact">
+                <p className="mb-3 border border-amber-300 bg-amber-50 p-3 text-xs font-bold leading-5">{labels.fallbackNotice}</p>
+                <form onSubmit={submitContact} className="space-y-2">
+                  <input value={name} onChange={(event) => setName(event.target.value)} required placeholder={labels.name.replace(/\s*\([^)]*\)|（[^）]*）/g, "")} maxLength={160} autoComplete="name" className="w-full border border-[#aaa] bg-white p-3 text-sm" />
+                  <input value={email} onChange={(event) => setEmail(event.target.value)} required placeholder={labels.email.replace(/\s*\([^)]*\)|（[^）]*）/g, "")} maxLength={320} type="email" autoComplete="email" className="w-full border border-[#aaa] bg-white p-3 text-sm" />
+                  <input value={contactSubject} onChange={(event) => setContactSubject(event.target.value)} required placeholder={labels.fallbackSubject} maxLength={200} className="w-full border border-[#aaa] bg-white p-3 text-sm" />
+                  <textarea value={contactMessage} onChange={(event) => setContactMessage(event.target.value)} required placeholder={labels.fallbackMessage} maxLength={4000} rows={4} className="w-full border border-[#aaa] bg-white p-3 text-sm" />
+                  <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+                  <button type="submit" disabled={busy || contactSent} className="w-full border border-sglInk bg-sglAcid px-3 py-3 text-xs font-black uppercase disabled:opacity-50">{labels.fallbackSend}</button>
+                </form>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={submit} className="mt-2">
+                {!conversation && (
+                  <div className="mb-2 grid grid-cols-2 gap-2">
+                    <input value={name} onChange={(event) => setName(event.target.value)} placeholder={labels.name} maxLength={160} autoComplete="name" className="min-w-0 border border-[#aaa] bg-white p-2 text-xs" />
+                    <input value={email} onChange={(event) => setEmail(event.target.value)} placeholder={labels.email} maxLength={320} type="email" autoComplete="email" className="min-w-0 border border-[#aaa] bg-white p-2 text-xs" />
+                  </div>
+                )}
+                <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder={aiLocked ? labels.humanSend : labels.placeholder} maxLength={2000} rows={3} className="w-full border border-[#aaa] bg-white p-3 text-sm outline-none focus:ring-2 focus:ring-sglAcid" />
+                <div className="mt-2 flex gap-2">
+                  <button type="submit" disabled={busy || !text.trim()} className="flex-1 border border-sglInk bg-sglAcid px-3 py-2 text-xs font-black uppercase disabled:opacity-50">{aiLocked ? labels.humanSend : labels.send}</button>
+                  {conversation && <button type="button" disabled={busy} onClick={createTicket} className="border border-[#aaa] px-3 py-2 text-xs font-black uppercase disabled:opacity-50">{labels.ticket}</button>}
+                </div>
+              </form>
+            )}
             <p role="status" className="mt-2 min-h-4 text-xs font-bold">{status}</p>
             <p className="mt-3 border-t border-sglInk/15 pt-3 text-[10px] leading-4 opacity-60">{labels.privacy}</p>
           </div>
