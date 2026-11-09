@@ -67,6 +67,34 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
+        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-center">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.28em]">Brand Structure</p>
+            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
+              A physical home and an expanding story world.
+            </h2>
+            <p className="mt-6 text-lg leading-8">
+              Rooted in original products, images and cycling culture, SGL takes physical form at SGL Bike Studio · Shanghai, where bicycles, apparel and riding goods come together. Seagull Station extends that real-world foundation into drinks, rides, events and community life.
+            </p>
+          </div>
+
+          <figure className="w-full max-w-md overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end">
+            <Image
+              src={STATION_BIKE_STUDIO_IMAGE}
+              alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
+              width={1671}
+              height={941}
+              sizes="(max-width: 1023px) calc(100vw - 2rem), 448px"
+              className="h-auto w-full object-cover"
+            />
+            <figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">
+              SGL Bike Studio · Shanghai
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
       <div data-content-section="about.principles" className="mx-auto grid max-w-sgl gap-6 px-4 py-16 md:grid-cols-3 md:px-8">
         {principles.map((item, index) => (
           <div key={item.title} className="border border-sglInk bg-sglPaper p-6">
@@ -81,34 +109,6 @@ export default function AboutPage() {
             <p className="mt-5 leading-7 opacity-75">{item.text}</p>
           </div>
         ))}
-      </div>
-
-      <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto max-w-5xl px-4 py-16 md:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-black uppercase tracking-[0.28em]">Brand Structure</p>
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
-              A physical home and an expanding story world.
-            </h2>
-            <p className="mt-6 text-lg leading-8">
-              Rooted in original products, images and cycling culture, SGL takes physical form at SGL Bike Studio · Shanghai, where bicycles, apparel and riding goods come together. Seagull Station extends that real-world foundation into drinks, rides, events and community life.
-            </p>
-          </div>
-
-          <figure className="mx-auto mt-10 max-w-3xl overflow-hidden border border-sglInk bg-sglPaper">
-            <Image
-              src={STATION_BIKE_STUDIO_IMAGE}
-              alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
-              width={1671}
-              height={941}
-              sizes="(max-width: 767px) calc(100vw - 2rem), 768px"
-              className="h-auto w-full object-cover"
-            />
-            <figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">
-              SGL Bike Studio · Shanghai
-            </figcaption>
-          </figure>
-        </div>
       </div>
 
       <section data-content-section="about.media" className="border-y border-sglInk bg-sglPaper">

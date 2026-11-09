@@ -49,7 +49,7 @@ function assertStationMediaLayout(html: string) {
 }
 
 function assertAboutMediaLayout(html: string, expectedTitle: string, expectedAlt: string) {
-  const brandStructure = section(html, "about.brand-structure", "about.media");
+  const brandStructure = section(html, "about.brand-structure", "about.principles");
   const media = section(html, "about.media", "about.directions");
   const bikeStudioFigure = figureWithImage(brandStructure, "shanghai-bike-studio-v3.webp");
 
@@ -57,19 +57,20 @@ function assertAboutMediaLayout(html: string, expectedTitle: string, expectedAlt
   assert.ok(bikeStudioFigure.includes(expectedTitle), `Bike Studio figure is missing ${expectedTitle}`);
   assert.ok(bikeStudioFigure.includes(expectedAlt), `Bike Studio figure is missing the localized alt text`);
   assert.match(brandStructure, /max-w-5xl/);
-  assert.match(brandStructure, /max-w-3xl text-center/);
-  assert.match(brandStructure, /mx-auto mt-10 max-w-3xl/);
+  assert.match(brandStructure, /lg:grid-cols-\[1\.3fr_0\.7fr\]/);
+  assert.match(brandStructure, /max-w-md/);
+  assert.match(brandStructure, /lg:justify-self-end/);
   assert.match(brandStructure, /h-auto w-full object-cover/);
   assert.doesNotMatch(media, /shanghai-bike-studio/);
   assert.doesNotMatch(html, /station-club-house-v2\.webp/);
   assert.ok(
     html.indexOf('data-content-section="about.history"')
-      < html.indexOf('data-content-section="about.principles"')
-      && html.indexOf('data-content-section="about.principles"')
       < html.indexOf('data-content-section="about.brand-structure"')
       && html.indexOf('data-content-section="about.brand-structure"')
+      < html.indexOf('data-content-section="about.principles"')
+      && html.indexOf('data-content-section="about.principles"')
       < html.indexOf('data-content-section="about.media"'),
-    "Bike Studio must sit in the middle of About, between Principles and media",
+    "Principles must separate the Bike Studio row from the media section",
   );
 }
 
