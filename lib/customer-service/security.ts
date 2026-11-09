@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { safePublicOrigin } from "@/lib/admin/security";
 import { decodeUtf8Body, readBoundedRequestBody, RequestBodyError } from "@/lib/http/read-bounded-body";
+import { consumeDatabaseRateLimit, type DatabaseRateLimitConsumer } from "@/lib/customer-service/rate-limit";
 
 const injectionPatterns = [
   /ignore (all|any|the|previous|prior) instructions/i,
@@ -59,9 +60,10 @@ function consumeMemoryRateLimit(key:string,limit:number,windowMs:number){
   current.count += 1; return true;
 }
 
-export async function consumePublicRateLimit(key:string,limit=20,windowMs=60_000,environment:Readonly<Record<string,string|undefined>>=process.env,fetcher:typeof fetch=fetch){
+export async function consumePublicRateLimit(key:string,limit=20,windowMs=60_000,environment:Readonly<Record<string,string|undefined>>=process.env,fetcher:typeof fetch=fetch,databaseConsumer:DatabaseRateLimitConsumer=consumeDatabaseRateLimit){
   const baseUrl=(environment.UPSTASH_REDIS_REST_URL||environment.KV_REST_API_URL)?.trim(),token=(environment.UPSTASH_REDIS_REST_TOKEN||environment.KV_REST_API_TOKEN)?.trim();
   if(baseUrl&&token){try{const response=await fetcher(`${baseUrl.replace(/\/$/,"")}/pipeline`,{method:"POST",headers:{authorization:`Bearer ${token}`,"content-type":"application/json"},body:JSON.stringify([["INCR",key],["PEXPIRE",key,String(windowMs),"NX"]]),signal:AbortSignal.timeout(3_000)});if(!response.ok)throw new Error("rate_limit_http_error");const body=await response.json() as Array<{result?:number|string}>;const count=Number(body[0]?.result);if(!Number.isFinite(count))throw new Error("rate_limit_invalid_response");return count<=limit}catch{if(environment.NODE_ENV==="production")throw Object.assign(new Error("Rate limiting is temporarily unavailable"),{status:503})}}
+  if(environment.DATABASE_URL?.trim()){try{return await databaseConsumer(key,limit,windowMs)}catch{if(environment.NODE_ENV==="production")throw Object.assign(new Error("Rate limiting is temporarily unavailable"),{status:503})}}
   if(environment.NODE_ENV==="production")throw Object.assign(new Error("Shared rate limiting is not configured"),{status:503});
   return consumeMemoryRateLimit(key,limit,windowMs);
 }

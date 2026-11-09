@@ -6,7 +6,7 @@ import { buildBoundedConversationContext } from "../lib/customer-service/context
 import { classifyCommercialIntent } from "../lib/customer-service/intent";
 import { selectRelevantKnowledge } from "../lib/customer-service/knowledge";
 import { generateGroundedSupportAnswer } from "../lib/customer-service/provider";
-import { readPublicJson, redactSupportTextForLlm } from "../lib/customer-service/security";
+import { consumePublicRateLimit, readPublicJson, redactSupportTextForLlm } from "../lib/customer-service/security";
 
 const product = { id: "p-1", slug: "city-bag", title: "城市骑行包", category: "Bags", description: "适合城市骑行", details: ["防泼水面料"], variants: [] };
 
@@ -96,6 +96,68 @@ test("prompt injection consistently requests human handoff", async () => {
 test("public JSON reader rejects oversized bodies before JSON parsing", async () => {
   const request=new Request("https://example.test/api/support",{method:"POST",headers:{"content-type":"application/json","content-length":"20000"},body:"{}"});
   await assert.rejects(()=>readPublicJson(request,1024),(error:unknown)=>Boolean(error&&typeof error==="object"&&"status" in error&&(error as {status:number}).status===413));
+});
+
+test("production Fries uses the shared PostgreSQL limiter when Redis is absent", async () => {
+  const calls: Array<[string, number, number]> = [];
+  const allowed = await consumePublicRateLimit(
+    "support:chat:hashed-address",
+    20,
+    60_000,
+    { NODE_ENV: "production", DATABASE_URL: "configured" },
+    fetch,
+    async (key, limit, windowMs) => {
+      calls.push([key, limit, windowMs]);
+      return true;
+    }
+  );
+  assert.equal(allowed, true);
+  assert.deepEqual(calls, [["support:chat:hashed-address", 20, 60_000]]);
+});
+
+test("shared limiter counters are authoritative across server instances", async () => {
+  let count = 0;
+  const sharedConsumer = async (_key: string, limit: number) => ++count <= limit;
+  const environment = { NODE_ENV: "production", DATABASE_URL: "configured" };
+  assert.equal(await consumePublicRateLimit("shared", 2, 60_000, environment, fetch, sharedConsumer), true);
+  assert.equal(await consumePublicRateLimit("shared", 2, 60_000, environment, fetch, sharedConsumer), true);
+  assert.equal(await consumePublicRateLimit("shared", 2, 60_000, environment, fetch, sharedConsumer), false);
+});
+
+test("production Fries fails closed when the shared limiter is unavailable", async () => {
+  await assert.rejects(
+    () => consumePublicRateLimit(
+      "shared",
+      20,
+      60_000,
+      { NODE_ENV: "production", DATABASE_URL: "configured" },
+      fetch,
+      async () => { throw new Error("database unavailable"); }
+    ),
+    (error: unknown) => Boolean(
+      error && typeof error === "object" &&
+      "status" in error && (error as { status: number }).status === 503 &&
+      "message" in error && error.message === "Rate limiting is temporarily unavailable"
+    )
+  );
+});
+
+test("production Fries reports missing shared rate-limit configuration", async () => {
+  await assert.rejects(
+    () => consumePublicRateLimit("shared", 20, 60_000, { NODE_ENV: "production" }),
+    /Shared rate limiting is not configured/
+  );
+});
+
+test("shared limiter migration is atomic, indexed and registered", async () => {
+  const migration = await readFile(new URL("../db/migrations/0005_public_rate_limits.sql", import.meta.url), "utf8");
+  const implementation = await readFile(new URL("../lib/customer-service/rate-limit.ts", import.meta.url), "utf8");
+  assert.match(migration, /bucket_key text PRIMARY KEY/);
+  assert.match(migration, /public_rate_limit_buckets_reset_idx/);
+  assert.match(implementation, /pg_advisory_xact_lock/);
+  assert.match(implementation, /ON CONFLICT \(bucket_key\) DO UPDATE/);
+  assert.match(implementation, /0005_public_rate_limits\.sql/);
+  assert.match(implementation, /statement_timeout/);
 });
 
 test("five-locale fallback does not claim order details", async () => {
