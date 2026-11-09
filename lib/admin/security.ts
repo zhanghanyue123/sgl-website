@@ -54,7 +54,9 @@ export function safeOrigin(request: Request) {
   if (!origin) return false;
   const configured = process.env.SITE_URL || "https://www.theseagulllabs.com";
   try {
-    return new URL(origin).origin === new URL(configured).origin;
+    const requestOrigin = new URL(origin).origin;
+    if (requestOrigin === new URL(configured).origin) return true;
+    return process.env.VERCEL_ENV === "preview" && requestOrigin === new URL(request.url).origin;
   } catch {
     return false;
   }

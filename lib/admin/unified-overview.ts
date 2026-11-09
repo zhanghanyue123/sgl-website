@@ -90,7 +90,7 @@ async function projectionHealth(source: "station" | "retail" | "hello", label: s
   }
 }
 
-function normalizeOverviewProjection(source: "station" | "retail" | "hello", label: string, body: ProjectionPayload): { health: SourceHealth; counts: Record<string, number> } {
+export function normalizeOverviewProjection(source: "station" | "retail" | "hello", label: string, body: ProjectionPayload): { health: SourceHealth; counts: Record<string, number> } {
     if (body.schemaVersion !== "sgl.admin.overview.v1" || body.source !== source || typeof body.updatedAt !== "string") return { health: { source, label, status: "error", updatedAt: null, detail: `${label} returned an invalid projection contract` }, counts: {} };
     const updatedAt = new Date(body.updatedAt);
     if (!Number.isFinite(updatedAt.valueOf())) return { health: { source, label, status: "error", updatedAt: null, detail: `${label} returned an invalid timestamp` }, counts: {} };
@@ -116,7 +116,7 @@ function baseOverview(generatedAt = nowIso()): UnifiedOverview {
   };
 }
 
-async function loadUnifiedOverview(): Promise<UnifiedOverview> {
+export async function loadUnifiedOverviewUncached(): Promise<UnifiedOverview> {
   const generatedAt = nowIso();
   const overview = baseOverview(generatedAt);
   const [station, retail, hello] = await Promise.all([
@@ -197,7 +197,7 @@ async function loadUnifiedOverview(): Promise<UnifiedOverview> {
 
 // RBAC is evaluated before this shared read model is returned. Sessions and
 // service credentials are deliberately excluded from the cached value.
-export const getUnifiedOverview = unstable_cache(loadUnifiedOverview, ["admin-unified-overview-v1"], {
+export const getUnifiedOverview = unstable_cache(loadUnifiedOverviewUncached, ["admin-unified-overview-v1"], {
   revalidate: 30,
   tags: ["admin-overview"]
 });
