@@ -35,5 +35,5 @@ test("Unified Overview external adapters remain server-side", async () => {
   const source = await readFile(new URL("../lib/admin/unified-overview.ts", import.meta.url), "utf8");
   assert.doesNotMatch(source, /NEXT_PUBLIC_/);
   assert.match(source, /sgl\.admin\.overview\.v1/);
-  assert.match(source, /AbortSignal\.timeout\(3000\)/);
+  assert.match(source, /AbortSignal\.timeout\(adminSourceTimeoutMs\(\)\)/);
 });

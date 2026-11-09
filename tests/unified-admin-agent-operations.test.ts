@@ -34,7 +34,7 @@ test("Agent Operations integrations remain server-only and bounded", async () =>
   const source = await readFile(new URL("../lib/admin/agent-operations.ts", import.meta.url), "utf8");
   assert.doesNotMatch(source, /NEXT_PUBLIC_/);
   assert.match(source, /sgl\.admin\.agent-operations\.v1/);
-  assert.match(source, /AbortSignal\.timeout\(3000\)/);
+  assert.match(source, /AbortSignal\.timeout\(adminSourceTimeoutMs\(\)\)/);
   assert.doesNotMatch(source, /email_body|message_body|raw_mime/i);
 });
 

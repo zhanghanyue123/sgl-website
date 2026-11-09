@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import { hasPermission } from "../lib/admin/permissions";
+import { adminSourceTimeoutMs } from "../lib/admin/performance";
 import { safeOrigin } from "../lib/admin/security";
 import { loadUnifiedOverviewUncached, normalizeOverviewProjection } from "../lib/admin/unified-overview";
 
@@ -91,6 +92,13 @@ test("stale source timestamps are explicit", () => {
   });
   assert.equal(projection.health.status, "stale");
   assert.match(projection.health.detail, /older than 15 minutes/);
+});
+
+test("external source fallback is bounded for cold-cache isolation", () => {
+  assert.equal(adminSourceTimeoutMs(undefined), 750);
+  assert.equal(adminSourceTimeoutMs("100"), 250);
+  assert.equal(adminSourceTimeoutMs("9000"), 3000);
+  assert.equal(adminSourceTimeoutMs("invalid"), 750);
 });
 
 test("Preview accepts only its own origin in addition to the configured production origin", () => {

@@ -73,7 +73,7 @@ The optimized aggregate APIs meet the requested p95 direction of less than 800 m
 ## Verification
 
 - TypeScript/lint: passed.
-- Test suite: 116/116 passed.
+- Test suite: 117/117 passed.
 - Production build: passed; 52 static pages generated and all Admin/Station dynamic routes registered.
 - `git diff --check`: passed before commit.
 - Preview authentication and Preview Owner application login: HTTP 200.
@@ -106,6 +106,7 @@ Authorized roles received the same permission-independent business data. Differe
 
 - React request memoization wraps the Admin session lookup, so layout and page permission checks share one lookup within a render request.
 - Automated tests independently simulated Station timeout, Retail HTTP 503, and a healthy Hello projection. The resulting source states were `error`, `error`, and `ok`; the dashboard loader did not throw.
+- Retail and Hello now prefer the existing stored read-only projection instead of issuing a live cross-server request. When a stored projection is unavailable, external fallback is bounded to 750 ms by default and can only be configured within 250–3,000 ms.
 - A projection older than 15 minutes was verified to return `stale` with an explicit age message.
 - API response headers remain `private, no-store` for Overview and Agent Operations and `no-store` for Station. No response set an additional session cookie.
 

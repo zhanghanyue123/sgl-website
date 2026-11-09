@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { databaseConfigured, getDb } from "./db";
 import { readStoredAgentProjection } from "./agent-projections";
+import { adminSourceTimeoutMs } from "./performance";
 
 export type AgentId = "retail" | "hello" | "fries";
 export type AgentOperationalStatus = "running" | "healthy" | "degraded" | "error" | "not_connected" | "not_deployed" | "stale";
@@ -147,14 +148,12 @@ function businessStatus(value: unknown, updatedAt: string | null): AgentOperatio
 
 async function readProjection(id: "retail" | "hello", urlName: string, tokenName: string) {
   const fallback = emptyAgent(id);
+  const stored = await readStoredAgentProjection(id, "operations") as AgentProjection | null;
+  if (stored) return normalizeProjection(id, stored, fallback);
   const url = validServiceUrl(process.env[urlName]); const token = process.env[tokenName];
-  if (!url || !token) {
-    const stored = await readStoredAgentProjection(id, "operations") as AgentProjection | null;
-    if (!stored) return { agent: fallback, activity: [] as AgentActivity[], errors: [] as AgentError[] };
-    return normalizeProjection(id, stored, fallback);
-  }
+  if (!url || !token) return { agent: fallback, activity: [] as AgentActivity[], errors: [] as AgentError[] };
   try {
-    const response = await fetch(url, { headers: { authorization: `Bearer ${token}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(3000) });
+    const response = await fetch(url, { headers: { authorization: `Bearer ${token}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(adminSourceTimeoutMs()) });
     if (!response.ok) return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Unavailable", sourceDetail: `${agentNames[id]} returned HTTP ${response.status}` }, activity: [], errors: [] };
     return normalizeProjection(id, await response.json() as AgentProjection, fallback);
   } catch (error) {

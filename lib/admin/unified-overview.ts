@@ -1,6 +1,7 @@
 import { unstable_cache } from "next/cache";
 import { databaseConfigured, getDb } from "./db";
 import { readStoredAgentProjection } from "./agent-projections";
+import { adminSourceTimeoutMs } from "./performance";
 
 export type OverviewStatus = "ok" | "stale" | "not_connected" | "error" | "n_a";
 export type OverviewMetric = {
@@ -72,16 +73,16 @@ function validOverviewUrl(raw: string | undefined) {
 
 type ProjectionPayload = { schemaVersion?: unknown; source?: unknown; status?: unknown; updatedAt?: unknown; counts?: unknown };
 async function projectionHealth(source: "station" | "retail" | "hello", label: string, urlName: string, tokenName: string): Promise<{ health: SourceHealth; counts: Record<string, number> }> {
-  const url = validOverviewUrl(process.env[urlName]);
-  if (!url && source !== "station") {
+  if (source !== "station") {
     const stored = await readStoredAgentProjection(source, "overview") as ProjectionPayload | null;
     if (stored) return normalizeOverviewProjection(source, label, stored);
   }
+  const url = validOverviewUrl(process.env[urlName]);
   if (!url) return { health: { source, label, status: "not_connected", updatedAt: null, detail: `${label} read-only projection is not configured` }, counts: {} };
   const token = process.env[tokenName];
   if (!token) return { health: { source, label, status: "not_connected", updatedAt: null, detail: `${label} service credential is not configured` }, counts: {} };
   try {
-    const response = await fetch(url, { headers: { authorization: `Bearer ${token}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(3000) });
+    const response = await fetch(url, { headers: { authorization: `Bearer ${token}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(adminSourceTimeoutMs()) });
     if (!response.ok) return { health: { source, label, status: "error", updatedAt: null, detail: `${label} returned HTTP ${response.status}` }, counts: {} };
     return normalizeOverviewProjection(source, label, await response.json() as ProjectionPayload);
   } catch (error) {
