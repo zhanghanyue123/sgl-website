@@ -1,7 +1,7 @@
-import { configuredLlmProvider } from "@/lib/ai/provider";
 import { readApprovedPublicKnowledge, selectRelevantKnowledge } from "./knowledge";
 import { appendCustomerMessageForHuman, createConversation, createTicket, appendExchange, ownConversation, readConversationContext } from "./repository";
 import { generateGroundedSupportAnswer } from "./provider";
+import { configuredFriesAgentProvider } from "./fries-agent";
 import { sanitizeCustomerMessage, validateOptionalContact } from "./security";
 import { supportCategories, supportLocales, type SupportCategory, type SupportLocale, type SupportPriority } from "./types";
 
@@ -17,7 +17,7 @@ export function parsePublicConversationInput(value: unknown) {
 export async function startPublicConversation(value: unknown) {
   const input = parsePublicConversationInput(value); const knowledge = await readApprovedPublicKnowledge(input.locale);
   const selected = selectRelevantKnowledge(input.message, knowledge.products, knowledge.policies);
-  const provider = configuredLlmProvider(); const answer = await generateGroundedSupportAnswer({ ...input, ...selected }, provider);
+  const provider = configuredFriesAgentProvider(); const answer = await generateGroundedSupportAnswer({ ...input, ...selected }, provider);
   return createConversation({ ...input, answer, provider: provider.providerName });
 }
 
@@ -32,7 +32,7 @@ export async function chatInPublicConversation(id: string, token: string, value:
   const knowledge = await readApprovedPublicKnowledge(owned.locale);
   const selected = selectRelevantKnowledge(input.message, knowledge.products, knowledge.policies);
   const context = await readConversationContext(id);
-  const provider = configuredLlmProvider(); const answer = await generateGroundedSupportAnswer({ ...input, ...selected, context }, provider);
+  const provider = configuredFriesAgentProvider(); const answer = await generateGroundedSupportAnswer({ ...input, ...selected, context }, provider);
   const appended = await appendExchange({ conversationId: id, message: input.message, answer, provider: provider.providerName });
   if (!appended) {
     const handedOff = await appendCustomerMessageForHuman(id, input.message);

@@ -1,5 +1,6 @@
 import type { StructuredLlmProvider } from "@/lib/ai/provider";
-import { configuredLlmProvider, LlmProviderRequestError, LlmUnavailableError } from "@/lib/ai/provider";
+import { LlmProviderRequestError, LlmUnavailableError } from "@/lib/ai/provider";
+import { configuredFriesAgentProvider } from "./fries-agent";
 import { supportCategories, type ApprovedPolicyFact, type PublicProductFact, type SupportAnswer } from "./types";
 import type { ConversationContextMessage } from "./types";
 import { classifyCommercialIntent } from "./intent";
@@ -50,7 +51,7 @@ function unavailableAnswer(message: string, locale: string, products: PublicProd
   return enrich({ answer: order ? copy.order : copy.missing, category: order ? "order_issue" : "general_feedback", confidence: "limited", evidenceIds: [], humanHandoffRecommended: true });
 }
 
-export async function generateGroundedSupportAnswer(input: { message: string; locale: string; suspicious: boolean; products: PublicProductFact[]; policies: ApprovedPolicyFact[]; context?: ConversationContextMessage[] }, provider: StructuredLlmProvider = configuredLlmProvider()) {
+export async function generateGroundedSupportAnswer(input: { message: string; locale: string; suspicious: boolean; products: PublicProductFact[]; policies: ApprovedPolicyFact[]; context?: ConversationContextMessage[] }, provider: StructuredLlmProvider = configuredFriesAgentProvider()) {
   if (input.suspicious) { const copy = fallbackCopy[input.locale as keyof typeof fallbackCopy] || fallbackCopy.en; return { answer: copy.suspicious, category: "general_feedback", confidence: "limited", evidenceIds: [], humanHandoffRecommended: true, source: "website", commercialIntent: classifyCommercialIntent(input.message, input.products, true) } satisfies SupportAnswer; }
   const evidenceIds = new Set([...input.products.map((item) => `product:${item.id || item.slug}`), ...input.policies.map((item) => `policy:${item.id}`)]);
   if (evidenceIds.size === 0) return unavailableAnswer(input.message, input.locale, input.products, input.policies);
