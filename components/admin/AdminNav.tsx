@@ -16,7 +16,10 @@ const groups: readonly NavGroup[] = [
     ["Payments", "/admin/payments", "payments:read"],
   ] },
   { label: "Station Operations", items: [["Station Workspace", "/admin/station", "station:read"]] },
-  { label: "Agent Operations", items: [["Pending Approvals", "/admin/agent-actions", "agents:read"]] },
+  { label: "Agent Operations", items: [
+    ["Agent Overview", "/admin/agents", "agents:read"],
+    ["Pending Approvals", "/admin/agent-actions", "agents:read"],
+  ] },
   { label: "Customers & CRM", items: [["Customers", "/admin/customers", "customers:read"]] },
   { label: "System", items: [
     ["Settings", "/admin/settings", "settings:read"],
