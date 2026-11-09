@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { databaseConfigured, getDb } from "./db";
 import { readStoredAgentProjection } from "./agent-projections";
 
@@ -228,7 +229,7 @@ async function readApprovals(): Promise<AgentApproval[]> {
   } catch { return []; }
 }
 
-export async function getAgentOperations(): Promise<AgentOperations> {
+async function loadAgentOperations(): Promise<AgentOperations> {
   const generatedAt = new Date().toISOString();
   const [retail, hello, fries, approvals] = await Promise.all([
     readProjection("retail", "SGL_RETAIL_AGENT_OPERATIONS_URL", "SGL_RETAIL_OVERVIEW_TOKEN"),
@@ -239,3 +240,8 @@ export async function getAgentOperations(): Promise<AgentOperations> {
   const errors = [...retail.errors, ...hello.errors, ...fries.errors].sort((a, b) => b.occurredAt.localeCompare(a.occurredAt)).slice(0, 30);
   return { schemaVersion: "sgl.admin.agent-operations.v1", generatedAt, timezone: process.env.SGL_ADMIN_TIMEZONE || "Asia/Shanghai", agents: [retail.agent, hello.agent, fries.agent], activity, approvals, errors };
 }
+
+export const getAgentOperations = unstable_cache(loadAgentOperations, ["admin-agent-operations-v1"], {
+  revalidate: 30,
+  tags: ["admin-agent-operations"]
+});

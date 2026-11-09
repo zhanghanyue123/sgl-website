@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { databaseConfigured, getDb } from "./db";
 import { readStoredAgentProjection } from "./agent-projections";
 
@@ -115,7 +116,7 @@ function baseOverview(generatedAt = nowIso()): UnifiedOverview {
   };
 }
 
-export async function getUnifiedOverview(): Promise<UnifiedOverview> {
+async function loadUnifiedOverview(): Promise<UnifiedOverview> {
   const generatedAt = nowIso();
   const overview = baseOverview(generatedAt);
   const [station, retail, hello] = await Promise.all([
@@ -193,3 +194,10 @@ export async function getUnifiedOverview(): Promise<UnifiedOverview> {
     return overview;
   }
 }
+
+// RBAC is evaluated before this shared read model is returned. Sessions and
+// service credentials are deliberately excluded from the cached value.
+export const getUnifiedOverview = unstable_cache(loadUnifiedOverview, ["admin-unified-overview-v1"], {
+  revalidate: 30,
+  tags: ["admin-overview"]
+});

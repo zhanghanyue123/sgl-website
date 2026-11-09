@@ -1,4 +1,5 @@
 import { createHash, randomBytes, randomUUID } from "node:crypto";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { getDb, toJson } from "@/lib/admin/db";
 import { hashToken } from "@/lib/admin/security";
 
@@ -74,6 +75,10 @@ export async function storeStationSnapshot(scope: StationScope, value: unknown) 
     ON CONFLICT(organization_id,store_id) DO UPDATE SET version=excluded.version,generated_at=excluded.generated_at,
       received_at=now(),payload=excluded.payload,payload_digest=excluded.payload_digest
     WHERE station_admin_snapshots.version < excluded.version RETURNING version`;
+  if (rows[0]) {
+    revalidateTag("station-admin", { expire: 0 });
+    revalidateTag("admin-overview", { expire: 0 });
+  }
   return { accepted: Boolean(rows[0]), version: snapshot.version, digest };
 }
 
@@ -99,7 +104,7 @@ export function parseStationCommand(value: unknown) {
 
 export async function enqueueStationCommand(scope: StationScope, actorUserId: string, value: unknown) {
   const command = parseStationCommand(value); const db = getDb(); const id = randomUUID();
-  return db.begin(async (tx) => {
+  const result = await db.begin(async (tx) => {
     const rows = await tx<{ id: string }[]>`INSERT INTO integration_outbox
       (id,organization_id,store_id,destination,source,event_type,aggregate_type,aggregate_id,payload,dedupe_key)
       VALUES(${id},${scope.organizationId},${scope.storeId},'station','website',${command.type},${command.type === "station.customer.update" ? "station_customer" : "station_task"},${command.entityId},${tx.json(toJson(command.changes))},${command.idempotencyKey})
@@ -109,9 +114,11 @@ export async function enqueueStationCommand(scope: StationScope, actorUserId: st
       VALUES(${randomUUID()},${actorUserId},'station.command.enqueued','integration_outbox',${eventId},${tx.json(toJson({ type: command.type, entityId: command.entityId }))})`;
     return { id: eventId, created: Boolean(eventId) };
   });
+  revalidateTag("station-admin", { expire: 0 });
+  return result;
 }
 
-export async function getStationAdminView(scope: StationScope) {
+async function loadStationAdminView(scope: StationScope) {
   try {
     const db = getDb();
     const [snapshots, commands] = await Promise.all([
@@ -123,6 +130,16 @@ export async function getStationAdminView(scope: StationScope) {
   } catch {
     return { connected: false, stale: false, version: null, generatedAt: null, receivedAt: null, data: null, commands: [] as StationCommandRow[], error: "station_projection_unavailable" };
   }
+}
+
+const cachedStationAdminView = unstable_cache(
+  (organizationId: string, storeId: string) => loadStationAdminView({ organizationId, storeId }),
+  ["station-admin-view-v1"],
+  { revalidate: 30, tags: ["station-admin"] }
+);
+
+export function getStationAdminView(scope: StationScope) {
+  return cachedStationAdminView(scope.organizationId, scope.storeId);
 }
 
 export async function pullStationCommands(clientId: string, scope: StationScope, limit = 25) {
@@ -154,5 +171,6 @@ export async function acknowledgeStationCommand(clientId: string, scope: Station
   const db = getDb();
   const rows = await db<{ id: string }[]>`UPDATE integration_outbox SET status=${success ? "delivered" : "failed"},delivered_at=${success ? new Date() : null},acknowledged_at=now(),failed_at=${success ? null : new Date()},last_error_code=${success ? null : errorCode || "station_command_failed"},ack_idempotency_key=${`station:${eventId}`},updated_at=now()
     WHERE id=${eventId} AND destination='station' AND source='website' AND organization_id=${scope.organizationId} AND store_id=${scope.storeId} AND status='processing' AND leased_by_agent_client_id=${clientId} AND lease_token_hash=${hashToken(receipt)} AND lease_expires_at>now() RETURNING id`;
+  if (rows[0]) revalidateTag("station-admin", { expire: 0 });
   return rows[0] ? { accepted: true, status: success ? "delivered" : "failed" } : null;
 }
