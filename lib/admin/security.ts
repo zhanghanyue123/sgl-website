@@ -59,3 +59,14 @@ export function safeOrigin(request: Request) {
     return false;
   }
 }
+
+export function safePublicOrigin(request: Request) {
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  const configured = process.env.SITE_URL || "https://www.theseagulllabs.com";
+  try {
+    return new URL(origin).origin === new URL(configured).origin;
+  } catch {
+    return false;
+  }
+}
