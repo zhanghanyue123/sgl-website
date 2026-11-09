@@ -68,6 +68,29 @@ export async function consumePublicRateLimit(key:string,limit=20,windowMs=60_000
   return consumeMemoryRateLimit(key,limit,windowMs);
 }
 
+export type SharedRateLimitHealth = "connected" | "unconfigured" | "unavailable";
+
+export async function sharedRateLimitHealth(
+  environment: Readonly<Record<string, string | undefined>> = process.env,
+  fetcher: typeof fetch = fetch
+): Promise<SharedRateLimitHealth> {
+  const baseUrl = (environment.UPSTASH_REDIS_REST_URL || environment.KV_REST_API_URL)?.trim();
+  const token = (environment.UPSTASH_REDIS_REST_TOKEN || environment.KV_REST_API_TOKEN)?.trim();
+  if (!baseUrl || !token) return "unconfigured";
+  try {
+    const response = await fetcher(`${baseUrl.replace(/\/$/, "")}/ping`, {
+      headers: { authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(3_000),
+      cache: "no-store"
+    });
+    if (!response.ok) return "unavailable";
+    const body = await response.json() as { result?: unknown };
+    return body.result === "PONG" ? "connected" : "unavailable";
+  } catch {
+    return "unavailable";
+  }
+}
+
 export function rateLimitKey(request: Request, scope: string) {
   const address = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "local";
   return `${scope}:${createHash("sha256").update(address).digest("hex")}`;
