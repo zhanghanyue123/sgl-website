@@ -251,9 +251,9 @@ function About({ locale }: { locale: LocalizedLocale }) {
   const brand = getSectionCopy(locale, "about", "brand-structure")!;
   return <><Hero copy={c} page="about" /><section {...sectionMarker("about", "history")} className="mx-auto max-w-sgl px-4 py-16 md:px-8"><h2 className="text-4xl font-black uppercase">{l.history}</h2><div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{timeline[locale].map(item => <article key={item.date} className="border border-sglInk bg-sglPaper p-5"><p className="font-black">{item.date}</p><p className="mt-3 leading-7">{item.text}</p></article>)}</div></section>
     <section {...sectionMarker("about", "brand-structure")} className="border-y border-sglInk bg-sglAcid">
-      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
         <div>{brand.kicker && <p className="text-sm font-black uppercase tracking-[0.28em]">{brand.kicker}</p>}<h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">{brand.heading}</h2><p className="mt-6 text-lg leading-8">{brand.body}</p></div>
-        <figure className="w-full max-w-lg overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end"><Image src={media.bikeStudioPhoto.src} alt={media.bikeStudioPhoto.alt} width={media.bikeStudioPhoto.width} height={media.bikeStudioPhoto.height} sizes="(max-width: 1023px) calc(100vw - 2rem), 512px" className="h-auto w-full object-cover" /><figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">{media.bikeStudioPhoto.title}</figcaption></figure>
+        <figure className="w-full max-w-xl overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end"><Image src={media.bikeStudioPhoto.src} alt={media.bikeStudioPhoto.alt} width={media.bikeStudioPhoto.width} height={media.bikeStudioPhoto.height} sizes="(max-width: 1023px) calc(100vw - 2rem), 48vw" className="h-auto w-full object-cover" /><figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">{media.bikeStudioPhoto.title}</figcaption></figure>
       </div>
     </section>
     <LocalizedBand locale={locale} page="about" section="principles" />

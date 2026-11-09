@@ -57,8 +57,9 @@ function assertAboutMediaLayout(html: string, expectedTitle: string, expectedAlt
   assert.ok(bikeStudioFigure.includes(expectedTitle), `Bike Studio figure is missing ${expectedTitle}`);
   assert.ok(bikeStudioFigure.includes(expectedAlt), `Bike Studio figure is missing the localized alt text`);
   assert.match(brandStructure, /max-w-5xl/);
-  assert.match(brandStructure, /lg:grid-cols-\[1\.2fr_0\.8fr\]/);
-  assert.match(brandStructure, /max-w-lg/);
+  assert.match(brandStructure, /lg:grid-cols-\[1\.05fr_0\.95fr\]/);
+  assert.match(brandStructure, /max-w-xl/);
+  assert.match(brandStructure, /sizes="\(max-width: 1023px\) calc\(100vw - 2rem\), 48vw"/);
   assert.match(brandStructure, /lg:justify-self-end/);
   assert.match(brandStructure, /h-auto w-full object-cover/);
   assert.doesNotMatch(media, /shanghai-bike-studio/);
