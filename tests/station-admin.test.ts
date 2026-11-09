@@ -9,7 +9,7 @@ const customerId = "11111111-1111-4111-8111-111111111111";
 const taskId = "22222222-2222-4222-8222-222222222222";
 
 test("Station snapshot is bounded, typed and customer-linked", () => {
-  const operations = { daily: null, inventory: {}, purchaseSuggestions: {}, staff: {}, schedule: {}, products: {}, materials: {}, purchases: {}, camera: {}, miniCatalog: {}, miniOrders: {}, miniSales: {} };
+  const operations = { daily: null, inventory: {}, inventoryLedger: {}, purchaseSuggestions: {}, staff: {}, availability: {}, schedule: {}, products: {}, materials: {}, bom: {}, purchases: {}, camera: {}, miniCatalog: {}, miniOrders: {}, miniSales: {} };
   const snapshot = parseStationSnapshot({ version: 1, generatedAt: "2026-11-09T01:00:00Z", customers: [{ id: customerId, email: "customer@example.com", name: "Customer", source: "hello_email", lastContactAt: "2026-11-09T00:59:00Z", status: "active" }], tasks: [{ id: taskId, customerId, source: "hello_reception", type: "customer_followup", title: "Follow up", summary: "Reply required", priority: "high", status: "open", createdAt: "2026-11-09T01:00:00Z", dueAt: null, completedAt: null }], operations });
   assert.equal(snapshot.customers.length, 1);
   assert.equal(snapshot.tasks[0].customerId, customerId);
@@ -63,8 +63,31 @@ test("Station OS uses the authenticated unified Admin workspace", async () => {
   assert.match(page, /redirect\("\/admin\/station"\)/);
   assert.match(adminPage, /currentAdminWithPermission\("station:read"\)/);
   assert.match(adminPage, /getStationAdminView/);
+  assert.match(adminPage, /error=\{view\.error\}/);
   assert.match(adminPage, /writable=\{false\}/);
-  assert.match(workspace, /今日门店运营/);
-  for (const section of ["小程序系统", "小程序商品与活动", "小程序订单", "员工、考勤、工资与权限", "库存", "采购", "Station 排班", "产品经营", "客流与摄像头", "客户与人工任务"]) assert.match(workspace, new RegExp(section));
-  for (const state of ["Not Deployed", "Stale Mirror", "Bridge Required", "Incomplete"]) assert.match(workspace, new RegExp(state));
+  assert.match(workspace, /Station OS Admin/);
+  for (const section of ["Store Dashboard", "POS & Sales", "Products & Menu", "Inventory", "BOM & Recipes", "Purchasing", "Suppliers", "Staff", "Attendance", "Scheduling", "Reports", "Settings"]) assert.match(workspace, new RegExp(section.replace(/[&]/g, "\\&")));
+  for (const state of ["Read Only", "Not Available", "Error", "Not Connected", "Stale", "Connected"]) assert.match(workspace, new RegExp(state));
+  assert.match(workspace, /浏览器不接收 Station Token/);
+  assert.doesNotMatch(workspace, /StationOperationsEditor/);
+});
+
+test("Station module URLs resolve through the Station Admin workspace", async () => {
+  const source = await readFile(
+    new URL("../app/admin/(dashboard)/station/[section]/page.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(source, /inventory:\s*"inventory"/);
+  assert.match(source, /bom:\s*"bom-recipes"/);
+  assert.match(source, /redirect\(`\/admin\/station#/);
+  assert.match(source, /notFound\(\)/);
+});
+
+test("Unified Admin navigation separates Website Admin and Station OS Admin", async () => {
+  const nav = await readFile(new URL("../components/admin/AdminNav.tsx", import.meta.url), "utf8");
+  assert.match(nav, /Website Admin/);
+  assert.match(nav, /Station OS Admin/);
+  assert.match(nav, /Products & SKU/);
+  assert.match(nav, /Station Operations/);
+  assert.match(nav, /\/admin\/station/);
 });

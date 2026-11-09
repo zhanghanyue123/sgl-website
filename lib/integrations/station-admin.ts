@@ -9,7 +9,7 @@ const commandTypes = ["station.customer.update", "station.task.update"] as const
 
 type Customer = { id: string; email: string; name: string; source: string; lastContactAt: string; status: string };
 type Task = { id: string; customerId: string; source: string; type: string; title: string; summary: string; priority: string; status: string; createdAt: string; dueAt: string | null; completedAt: string | null };
-export type StationOperations = Record<"daily" | "inventory" | "purchaseSuggestions" | "staff" | "schedule" | "products" | "materials" | "purchases" | "camera" | "miniCatalog" | "miniOrders" | "miniSales", unknown>;
+export type StationOperations = Record<"daily" | "inventory" | "inventoryLedger" | "purchaseSuggestions" | "staff" | "availability" | "schedule" | "products" | "materials" | "bom" | "purchases" | "camera" | "miniCatalog" | "miniOrders" | "miniSales", unknown>;
 export type StationSnapshot = { version: number; generatedAt: string; customers: Customer[]; tasks: Task[]; operations: StationOperations };
 export type StationCommandRow = { id: string; event_type: string; aggregate_id: string; status: string; attempts: number; last_error_code: string | null; created_at: Date; delivered_at: Date | null; failed_at: Date | null };
 export type StationScope = { organizationId: string; storeId: string };
@@ -56,7 +56,7 @@ export function parseStationSnapshot(value: unknown): StationSnapshot {
     if (!customerIds.has(customerId)) throw new StationAdminInputError("task references a customer outside this snapshot");
     return { id: uuid(item.id, "task.id"), customerId, source: text(item.source, "task.source", 80)!, type: text(item.type, "task.type", 80)!, title: text(item.title, "task.title", 300)!, summary: text(item.summary, "task.summary", 1200)!, priority: oneOf(item.priority, priorities, "task.priority"), status: oneOf(item.status, taskStatuses, "task.status"), createdAt: iso(item.createdAt, "task.createdAt")!, dueAt: iso(item.dueAt, "task.dueAt", true), completedAt: iso(item.completedAt, "task.completedAt", true) };
   });
-  const operationKeys = ["daily", "inventory", "purchaseSuggestions", "staff", "schedule", "products", "materials", "purchases", "camera", "miniCatalog", "miniOrders", "miniSales"] as const;
+  const operationKeys = ["daily", "inventory", "inventoryLedger", "purchaseSuggestions", "staff", "availability", "schedule", "products", "materials", "bom", "purchases", "camera", "miniCatalog", "miniOrders", "miniSales"] as const;
   const rawOperations = input.operations;
   if (!rawOperations || typeof rawOperations !== "object" || Array.isArray(rawOperations)) throw new StationAdminInputError("operations is invalid");
   const operationsInput = rawOperations as Record<string, unknown>;

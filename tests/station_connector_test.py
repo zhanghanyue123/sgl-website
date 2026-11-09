@@ -30,4 +30,20 @@ class ConnectorTests(unittest.TestCase):
             ok, error=module.apply_command(sqlite3.connect(':memory:'), command, 'secret-not-logged')
         self.assertFalse(ok); self.assertEqual(error, 'verification_failed')
 
+    def test_station_api_write_requires_configured_token(self):
+        command={'type':'station.product.upsert','entityId':'coffee-01','changes':{'productId':'coffee-01','name':'Coffee','category':'drink'}}
+        with patch.object(module, 'local_json') as local_json:
+            ok, error=module.apply_command(sqlite3.connect(':memory:'), command, '')
+        self.assertFalse(ok); self.assertEqual(error, 'station_write_unavailable')
+        local_json.assert_not_called()
+
+    def test_bom_write_uses_real_list_response_key(self):
+        def fake(path, method='GET', body=None, write_token=None):
+            if path == '/ops/bom/list': return {'bom':[{'productId':'coffee-01'}]}
+            return {'ok': True}
+        command={'type':'station.bom.upsert','entityId':'coffee-01','changes':{'productId':'coffee-01','materials':[]}}
+        with patch.object(module, 'local_json', side_effect=fake):
+            ok, error=module.apply_command(sqlite3.connect(':memory:'), command, 'configured-token')
+        self.assertTrue(ok); self.assertIsNone(error)
+
 if __name__ == '__main__': unittest.main()

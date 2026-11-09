@@ -11,7 +11,7 @@ export default async function StationAdminPage() {
   if (!session) return <PermissionDenied />;
   const view = await getStationAdminView(scope);
   const data = view.data || { customers: [], tasks: [], operations: {} };
-  return <StationOSWorkspace connected={view.connected} stale={view.stale} receivedAt={view.receivedAt} generatedAt={view.generatedAt}
+  return <StationOSWorkspace connected={view.connected} stale={view.stale} error={view.error} receivedAt={view.receivedAt} generatedAt={view.generatedAt}
     operations={data.operations || {}} customers={data.customers} tasks={data.tasks}
     commands={view.commands.map((row) => ({ ...row, created_at: new Date(row.created_at).toISOString(), delivered_at: row.delivered_at ? new Date(row.delivered_at).toISOString() : null, failed_at: row.failed_at ? new Date(row.failed_at).toISOString() : null }))}
     writable={false} operator={session.displayName} />;
