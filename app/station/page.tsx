@@ -152,20 +152,6 @@ export default function StationPage() {
               <figcaption className="px-5 py-4 text-sm font-bold uppercase tracking-wide">{photo.title}</figcaption>
             </figure>)}
           </div>
-          <div className="mt-12 border-t border-sglInk pt-12">
-            {stationLocationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]">
-              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]">
-                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" />
-              </div>
-              <figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8">
-                <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p>
-                <div>
-                  <h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3>
-                  <p className="mt-4 leading-7 opacity-70">{photo.address}</p>
-                </div>
-              </figcaption>
-            </figure>)}
-          </div>
         </div>
       </section>
 
@@ -186,31 +172,47 @@ export default function StationPage() {
       </div>
 
       <div data-content-section="station.station-logic" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:px-8">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.28em]">
-              Station Logic
-            </p>
+        <div className="mx-auto max-w-sgl px-4 py-16 md:px-8">
+          <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.28em]">
+                Station Logic
+              </p>
 
-            <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
-              A real station, an expanding city network.
-            </h2>
+              <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
+                A real station, an expanding city network.
+              </h2>
+            </div>
+
+            <div className="space-y-5 text-lg leading-8">
+              <p>
+                Seagull Station is the physical anchor: a place to stop, drink,
+                shop, meet and begin a ride. Products, photographs, events and
+                community life all pass through this real location.
+              </p>
+
+              <p>
+                The SGL WeChat Mini Program launched in June 2026 and extends that
+                physical foundation through digital member journeys. AR
+                interactions are currently in development, with a planned release
+                in early 2027.
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-5 text-lg leading-8">
-            <p>
-              Seagull Station is the physical anchor: a place to stop, drink,
-              shop, meet and begin a ride. Products, photographs, events and
-              community life all pass through this real location.
-            </p>
-
-            <p>
-              The SGL WeChat Mini Program launched in June 2026 and extends that
-              physical foundation through digital member journeys. AR
-              interactions are currently in development, with a planned release
-              in early 2027.
-            </p>
-
+          <div className="mt-12 border-t border-sglInk pt-12">
+            {stationLocationPhotos.map((photo, index) => <figure key={photo.src} className="mx-auto grid w-full max-w-5xl overflow-hidden border border-sglInk bg-sglPaper md:grid-cols-[1.35fr_0.65fr]">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-auto md:min-h-[420px]">
+                <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 767px) 100vw, 65vw" className="object-cover" />
+              </div>
+              <figcaption className="flex min-h-52 flex-col justify-between gap-8 border-t border-sglInk p-6 md:border-l md:border-t-0 md:p-8">
+                <p className="text-xs font-black uppercase tracking-[0.24em] opacity-60">{String(index + 1).padStart(2, "0")} / {photo.status}</p>
+                <div>
+                  <h3 className="text-3xl font-black uppercase leading-tight">{photo.title}</h3>
+                  <p className="mt-4 leading-7 opacity-70">{photo.address}</p>
+                </div>
+              </figcaption>
+            </figure>)}
           </div>
         </div>
       </div>

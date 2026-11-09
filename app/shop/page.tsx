@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { pageMetadata } from "@/lib/seo";
-import ProductCard from "@/components/ProductCard";
+import ProductGrid from "@/components/ProductGrid";
 import { categories, getProductsByCategory } from "@/data/products";
 
 export const metadata = pageMetadata("Shop Cycling Accessories & Lifestyle Goods — SGL", "Explore SGL bicycles, cycling accessories, bags, apparel, coffee and lifestyle goods. Browse USD prices and contact SGL for availability.", "/shop");
@@ -59,11 +59,7 @@ export default function ShopPage() {
                 </p>
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {categoryProducts.map((product) => (
-                  <ProductCard key={product.slug} product={product} />
-                ))}
-              </div>
+              <ProductGrid products={categoryProducts} />
 
               {index === 1 && (
                 <figure className="mt-12 grid overflow-hidden border border-sglInk bg-sglPaper text-sglInk md:grid-cols-[0.7fr_1.3fr]">

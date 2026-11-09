@@ -8,6 +8,7 @@ import {
   products,
   storefrontProducts
 } from "../data/products";
+import { splitIntoProductRows } from "../lib/product-layout";
 
 test("storefront hides products without a real image or price", () => {
   assert.ok(storefrontProducts.length < products.length);
@@ -31,7 +32,8 @@ test("Wear begins with one row of caps followed by one row of tees", () => {
 });
 
 test("home shop keeps all tees together and starts socks on the next row", () => {
-  assert.deepEqual(storefrontProducts.slice(0, 9).map(product => product.slug), [
+  const featured = storefrontProducts.slice(0, 9);
+  assert.deepEqual(featured.map(product => product.slug), [
     "seagull-friends-family-cap-white-blue",
     "seagull-cap-khaki-brown",
     "seagull-cap-lavender",
@@ -41,6 +43,11 @@ test("home shop keeps all tees together and starts socks on the next row", () =>
     "celtic-gull-tee-washed-black",
     "sgl-patch-tee-sky-blue",
     "sgl-three-pair-sock-set"
+  ]);
+  assert.deepEqual(splitIntoProductRows(featured).map(row => row.map(product => product.slug)), [
+    featured.slice(0, 4).map(product => product.slug),
+    featured.slice(4, 8).map(product => product.slug),
+    ["sgl-three-pair-sock-set"]
   ]);
   assert.equal(getProductsByCategory("Wear")[8]?.slug, "sgl-three-pair-sock-set");
 });
