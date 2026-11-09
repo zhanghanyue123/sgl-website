@@ -1,4 +1,5 @@
 import { databaseConfigured, getDb } from "./db";
+import { readStoredAgentProjection } from "./agent-projections";
 
 export type AgentId = "retail" | "hello" | "fries";
 export type AgentOperationalStatus = "running" | "healthy" | "degraded" | "error" | "not_connected" | "not_deployed" | "stale";
@@ -146,13 +147,24 @@ function businessStatus(value: unknown, updatedAt: string | null): AgentOperatio
 async function readProjection(id: "retail" | "hello", urlName: string, tokenName: string) {
   const fallback = emptyAgent(id);
   const url = validServiceUrl(process.env[urlName]); const token = process.env[tokenName];
-  if (!url || !token) return { agent: fallback, activity: [] as AgentActivity[], errors: [] as AgentError[] };
+  if (!url || !token) {
+    const stored = await readStoredAgentProjection(id, "operations") as AgentProjection | null;
+    if (!stored) return { agent: fallback, activity: [] as AgentActivity[], errors: [] as AgentError[] };
+    return normalizeProjection(id, stored, fallback);
+  }
   try {
     const response = await fetch(url, { headers: { authorization: `Bearer ${token}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(3000) });
     if (!response.ok) return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Unavailable", sourceDetail: `${agentNames[id]} returned HTTP ${response.status}` }, activity: [], errors: [] };
-    const body = await response.json() as AgentProjection;
-    if (body.schemaVersion !== "sgl.admin.agent-operations.v1" || body.source !== id) return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Invalid projection", sourceDetail: `${agentNames[id]} returned an invalid Agent Operations contract` }, activity: [], errors: [] };
-    if (body.deploymentStatus === "not_deployed") return { agent: emptyAgent(id, "not_deployed"), activity: [], errors: [] };
+    return normalizeProjection(id, await response.json() as AgentProjection, fallback);
+  } catch (error) {
+    const timedOut = error instanceof Error && ["TimeoutError", "AbortError"].includes(error.name);
+    return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Unavailable", sourceDetail: timedOut ? `${agentNames[id]} projection timed out` : `${agentNames[id]} projection is unavailable` }, activity: [], errors: [] };
+  }
+}
+
+function normalizeProjection(id: "retail" | "hello", body: AgentProjection, fallback = emptyAgent(id)) {
+    if (body.schemaVersion !== "sgl.admin.agent-operations.v1" || body.source !== id) return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Invalid projection", sourceDetail: `${agentNames[id]} returned an invalid Agent Operations contract` }, activity: [] as AgentActivity[], errors: [] as AgentError[] };
+    if (body.deploymentStatus === "not_deployed") return { agent: emptyAgent(id, "not_deployed"), activity: [] as AgentActivity[], errors: [] as AgentError[] };
     const lastUpdated = optionalIso(body.lastUpdated);
     const agent: AgentSnapshot = {
       ...fallback, connectionStatus: lastUpdated && Date.now() - new Date(lastUpdated).valueOf() > STALE_AFTER_MS ? "stale" : "connected",
@@ -169,10 +181,6 @@ async function readProjection(id: "retail" | "hello", urlName: string, tokenName
       return ref && occurredAt && code ? [{ id: `${id}:${ref}`, agent: id, occurredAt, code, source: agent.source }] : [];
     }) : [];
     return { agent, activity, errors };
-  } catch (error) {
-    const timedOut = error instanceof Error && ["TimeoutError", "AbortError"].includes(error.name);
-    return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Unavailable", sourceDetail: timedOut ? `${agentNames[id]} projection timed out` : `${agentNames[id]} projection is unavailable` }, activity: [], errors: [] };
-  }
 }
 
 async function readFries(generatedAt: string) {

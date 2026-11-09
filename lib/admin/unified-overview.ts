@@ -1,4 +1,5 @@
 import { databaseConfigured, getDb } from "./db";
+import { readStoredAgentProjection } from "./agent-projections";
 
 export type OverviewStatus = "ok" | "stale" | "not_connected" | "error" | "n_a";
 export type OverviewMetric = {
@@ -71,13 +72,24 @@ function validOverviewUrl(raw: string | undefined) {
 type ProjectionPayload = { schemaVersion?: unknown; source?: unknown; status?: unknown; updatedAt?: unknown; counts?: unknown };
 async function projectionHealth(source: "station" | "retail" | "hello", label: string, urlName: string, tokenName: string): Promise<{ health: SourceHealth; counts: Record<string, number> }> {
   const url = validOverviewUrl(process.env[urlName]);
+  if (!url && source !== "station") {
+    const stored = await readStoredAgentProjection(source, "overview") as ProjectionPayload | null;
+    if (stored) return normalizeOverviewProjection(source, label, stored);
+  }
   if (!url) return { health: { source, label, status: "not_connected", updatedAt: null, detail: `${label} read-only projection is not configured` }, counts: {} };
   const token = process.env[tokenName];
   if (!token) return { health: { source, label, status: "not_connected", updatedAt: null, detail: `${label} service credential is not configured` }, counts: {} };
   try {
     const response = await fetch(url, { headers: { authorization: `Bearer ${token}`, accept: "application/json" }, cache: "no-store", signal: AbortSignal.timeout(3000) });
     if (!response.ok) return { health: { source, label, status: "error", updatedAt: null, detail: `${label} returned HTTP ${response.status}` }, counts: {} };
-    const body = await response.json() as ProjectionPayload;
+    return normalizeOverviewProjection(source, label, await response.json() as ProjectionPayload);
+  } catch (error) {
+    const detail = error instanceof Error && error.name === "TimeoutError" ? `${label} request timed out` : `${label} read-only projection is unavailable`;
+    return { health: { source, label, status: "error", updatedAt: null, detail }, counts: {} };
+  }
+}
+
+function normalizeOverviewProjection(source: "station" | "retail" | "hello", label: string, body: ProjectionPayload): { health: SourceHealth; counts: Record<string, number> } {
     if (body.schemaVersion !== "sgl.admin.overview.v1" || body.source !== source || typeof body.updatedAt !== "string") return { health: { source, label, status: "error", updatedAt: null, detail: `${label} returned an invalid projection contract` }, counts: {} };
     const updatedAt = new Date(body.updatedAt);
     if (!Number.isFinite(updatedAt.valueOf())) return { health: { source, label, status: "error", updatedAt: null, detail: `${label} returned an invalid timestamp` }, counts: {} };
@@ -85,10 +97,6 @@ async function projectionHealth(source: "station" | "retail" | "hello", label: s
     const counts = body.counts && typeof body.counts === "object" && !Array.isArray(body.counts)
       ? Object.fromEntries(Object.entries(body.counts as Record<string, unknown>).filter((entry): entry is [string, number] => Number.isFinite(entry[1]))) : {};
     return { health: { source, label, status, updatedAt: updatedAt.toISOString(), detail: status === "stale" ? `${label} projection is older than 15 minutes` : `${label} read-only projection connected` }, counts };
-  } catch (error) {
-    const detail = error instanceof Error && error.name === "TimeoutError" ? `${label} request timed out` : `${label} read-only projection is unavailable`;
-    return { health: { source, label, status: "error", updatedAt: null, detail }, counts: {} };
-  }
 }
 
 function baseOverview(generatedAt = nowIso()): UnifiedOverview {
