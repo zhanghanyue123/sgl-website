@@ -32,7 +32,7 @@ function assertStationMediaLayout(html: string) {
   const galleryEnd = stationLife.indexOf("</div>", galleryStart);
   const clubHouseImage = stationLife.indexOf("station-club-house-v2.webp");
 
-  assert.match(hero, /seagull-sunset\.webp/);
+  assert.match(hero, /seagull-coffee-characters-v2\.webp/);
   assert.doesNotMatch(hero, /shanghai-bike-studio|station-club-house/);
   assert.doesNotMatch(stationLife, /shanghai-bike-studio/);
   assert.match(stationLife, /station-club-house-v2\.webp/);

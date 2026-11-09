@@ -30,6 +30,21 @@ test("Wear begins with one row of caps followed by one row of tees", () => {
   ]);
 });
 
+test("home shop keeps all tees together and starts socks on the next row", () => {
+  assert.deepEqual(storefrontProducts.slice(0, 9).map(product => product.slug), [
+    "seagull-friends-family-cap-white-blue",
+    "seagull-cap-khaki-brown",
+    "seagull-cap-lavender",
+    "seagull-cap-black-grey",
+    "wheel-deal-logo-study-tee",
+    "wheel-deal-gull-rider-tee",
+    "celtic-gull-tee-washed-black",
+    "sgl-patch-tee-sky-blue",
+    "sgl-three-pair-sock-set"
+  ]);
+  assert.equal(getProductsByCategory("Wear")[8]?.slug, "sgl-three-pair-sock-set");
+});
+
 test("four tee products use the approved images, descriptions and USD 59 price", () => {
   const expected = [
     ["wheel-deal-logo-study-tee", "/products/tees/wheel-deal-logo-study-cream-red.webp"],

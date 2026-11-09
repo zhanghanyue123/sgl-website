@@ -114,7 +114,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <ProductGrid limit={8} />
+        <ProductGrid limit={9} />
       </section>
 
       <section data-content-section="home.station" className="border-y border-sglInk bg-sglAcid">

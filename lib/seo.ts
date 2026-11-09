@@ -3,7 +3,7 @@ import type { Product } from "@/data/products";
 import { languageAlternates, type Locale } from "@/lib/i18n";
 
 export const SITE_URL = "https://www.theseagulllabs.com";
-export const STATION_HERO_IMAGE = "/station/seagull-sunset.webp";
+export const STATION_HERO_IMAGE = "/station/seagull-coffee-characters-v2.webp";
 export const STATION_CLUB_HOUSE_IMAGE = "/station/station-club-house-v2.webp";
 export const STATION_BIKE_STUDIO_IMAGE = "/station/shanghai-bike-studio-v3.webp";
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();

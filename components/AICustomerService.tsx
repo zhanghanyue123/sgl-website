@@ -185,14 +185,14 @@ export default function AICustomerService() {
         </section>
       )}
 
-      <div className="relative h-[4.5rem] w-[4.5rem]">
+      <div className="relative h-[4.5rem] w-[4.5rem] transition hover:-translate-y-1 motion-reduce:transform-none">
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
           aria-label={open ? c.close : c.open}
           aria-expanded={open}
           aria-controls="sgl-ai-customer-service"
-          className="grid h-full w-full place-items-center overflow-hidden rounded-full border border-[#d5d2ca] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.14)] transition hover:-translate-y-1 focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid motion-reduce:transform-none"
+          className="grid h-full w-full place-items-center overflow-hidden rounded-full border border-[#d5d2ca] bg-sglPaper shadow-[0_8px_22px_rgba(17,17,17,0.14)] focus:outline-none focus-visible:ring-4 focus-visible:ring-sglAcid"
         >
           <Image
             src="/assistant/sgl-ai-assistant.webp"
@@ -203,7 +203,7 @@ export default function AICustomerService() {
             className="h-full w-full translate-y-1.5 scale-[1.08] object-contain"
           />
         </button>
-        <span className="pointer-events-none absolute right-[5px] top-[5px] z-10 h-3 w-3 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
+        <span className="pointer-events-none absolute right-[3px] top-[3px] z-10 h-4 w-4 rounded-full border-2 border-sglPaper bg-green-500" aria-hidden="true" />
       </div>
     </div>
   );

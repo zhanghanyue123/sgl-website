@@ -222,7 +222,7 @@ function Home({ locale }: { locale: LocalizedLocale }) {
     </section>
     <section {...sectionMarker("home", "shop")} className="mx-auto max-w-sgl px-4 py-16 md:px-8">
       <div className="mb-8 flex items-end justify-between gap-4"><div><p className="text-sm font-black uppercase tracking-[0.28em] opacity-60">{copy.shopKicker}</p><h2 className="mt-2 text-4xl font-black uppercase md:text-5xl">{copy.shopHeading}</h2><p className="mt-4 max-w-2xl text-lg leading-8 opacity-70">{copy.shopBody}</p></div><Link href={localizedPath("/shop", locale)} className="border-b border-sglInk font-black uppercase">{copy.viewAll}</Link></div>
-      <ProductCards locale={locale} products={storefrontProducts.slice(0, 8)} />
+      <ProductCards locale={locale} products={storefrontProducts.slice(0, 9)} />
     </section>
     <section {...sectionMarker("home", "station")} className="border-y border-sglInk bg-sglAcid">
       <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:grid-cols-3 md:px-8">

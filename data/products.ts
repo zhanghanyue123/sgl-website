@@ -2111,6 +2111,10 @@ const featuredStorefrontOrder = [
   "seagull-cap-khaki-brown",
   "seagull-cap-lavender",
   "seagull-cap-black-grey",
+  "wheel-deal-logo-study-tee",
+  "wheel-deal-gull-rider-tee",
+  "celtic-gull-tee-washed-black",
+  "sgl-patch-tee-sky-blue",
   "sgl-three-pair-sock-set"
 ];
 
