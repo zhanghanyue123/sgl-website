@@ -68,7 +68,7 @@ export default function AboutPage() {
       </section>
 
       <div data-content-section="about.brand-structure" className="border-y border-sglInk bg-sglAcid">
-        <div className="mx-auto grid max-w-5xl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="mx-auto grid max-w-sgl gap-8 px-4 py-16 md:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em]">Brand Structure</p>
             <h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">
@@ -79,14 +79,14 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <figure className="w-full max-w-xl overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end">
+          <figure className="w-full max-w-[690px] overflow-hidden border border-sglInk bg-sglPaper lg:justify-self-end">
             <Image
               src={STATION_BIKE_STUDIO_IMAGE}
               alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
               width={1671}
               height={941}
-              sizes="(max-width: 1023px) calc(100vw - 2rem), 48vw"
-              className="h-auto w-full object-cover"
+              sizes="(max-width: 1023px) calc(100vw - 2rem), (max-width: 1535px) 48vw, 690px"
+              className="h-auto w-full object-cover lg:h-[420px]"
             />
             <figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">
               SGL Bike Studio · Shanghai
