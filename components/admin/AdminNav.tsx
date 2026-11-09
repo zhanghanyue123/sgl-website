@@ -7,15 +7,15 @@ type NavItem = readonly [label: string, href: string, permission: AdminPermissio
 type NavGroup = { label: string; items: readonly NavItem[] };
 
 const groups: readonly NavGroup[] = [
-  { label: "Overview", items: [["Business Overview", "/admin", "dashboard:read"]] },
-  { label: "Commerce", items: [
+  { label: "Website Admin", items: [
+    ["Website Overview", "/admin", "dashboard:read"],
     ["Products & SKU", "/admin/products", "products:read"],
     ["Website Inventory", "/admin/inventory", "inventory:read"],
     ["Orders", "/admin/orders", "orders:read"],
     ["Shipping", "/admin/shipping", "shipping:write"],
     ["Payments", "/admin/payments", "payments:read"],
   ] },
-  { label: "Station Operations", items: [["Station Workspace", "/admin/station", "station:read"]] },
+  { label: "Station OS Admin", items: [["Station Operations", "/admin/station", "station:read"]] },
   { label: "Agent Operations", items: [
     ["Agent Overview", "/admin/agents", "agents:read"],
     ["Pending Approvals", "/admin/agent-actions", "agents:read"],

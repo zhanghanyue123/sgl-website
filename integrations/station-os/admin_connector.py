@@ -135,7 +135,7 @@ def collect_operations() -> dict[str, Any]:
 API_COMMANDS = {
     "station.product.upsert": ("/ops/products/upsert", "/ops/products/list", "products", "productId"),
     "station.material.upsert": ("/ops/materials/upsert", "/ops/materials/list", "materials", "materialId"),
-    "station.bom.upsert": ("/ops/bom/upsert", "/ops/bom/list", "items", "productId"),
+    "station.bom.upsert": ("/ops/bom/upsert", "/ops/bom/list", "bom", "productId"),
     "station.purchase.add": ("/ops/purchases/add", "/ops/purchases/list", "purchases", "purchaseId"),
     "station.staff.upsert": ("/ops/staff/upsert", "/ops/staff/list", "staff", "staffId"),
     "station.availability.submit": ("/ops/availability/submit", None, None, None),
@@ -193,6 +193,8 @@ def apply_command(db: sqlite3.Connection, command: dict[str, Any], write_token: 
                      changes.get("status"), completed, changes.get("status"), timestamp, entity_id),
                 )
             elif command_type in API_COMMANDS:
+                if not write_token:
+                    return False, "station_write_unavailable"
                 if command_type == "station.schedule.generate":
                     week_start = changes.get("weekStart")
                     if not isinstance(week_start, str):
@@ -223,7 +225,7 @@ def apply_command(db: sqlite3.Connection, command: dict[str, Any], write_token: 
 def run() -> int:
     base_url = required_env("SGL_ADMIN_BASE_URL")
     token = required_env("SGL_STATION_AGENT_TOKEN")
-    write_token = required_env("STATION_WRITE_TOKEN")
+    write_token = os.getenv("STATION_WRITE_TOKEN", "").strip()
     database_path = Path(os.getenv("SGL_STATION_DATABASE", "/opt/sgl-station-os/data/agent_ops.sqlite3"))
     if not database_path.is_file():
         raise RuntimeError("Station database is unavailable")
