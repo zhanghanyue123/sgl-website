@@ -8,7 +8,7 @@ Baseline: `fe8662a30c190cbb8b16f669f27e65ce6988729a`
 
 Optimization commit: `0e03b6f`
 
-Final acceptance commit: `3405555`
+Final acceptance commit: `4200356`
 
 ## Scope and safety
 
@@ -56,7 +56,7 @@ The connection and database round trips were the dominant source of delay. Exist
 
 ## Preview results
 
-Final Preview deployment: `https://sgl-website-9udqrajhq-zhanghanyue123s-projects.vercel.app`
+Final Preview deployment: `https://sgl-website-h2viurztt-zhanghanyue123s-projects.vercel.app`
 
 | Target | Optimized Preview | Observed change |
 | --- | ---: | ---: |
@@ -112,7 +112,7 @@ Authorized roles received the same permission-independent business data. Differe
 
 ### Same-environment comparison
 
-The pre-optimization commit `fe8662a` and final acceptance commit were deployed as separate protected Previews using the same Preview database, Owner authentication, test client, and five-request matrix. Values below are median TTFB.
+The pre-optimization commit `fe8662a` and cache acceptance commit `3405555` were deployed as separate protected Previews using the same Preview database, Owner authentication, test client, and five-request matrix. Commit `4200356` then bounded cold-cache external fallbacks without changing the rendered Admin bundle. Values below are median TTFB.
 
 | Target | Baseline Preview | Optimized Preview | Change |
 | --- | ---: | ---: | ---: |
