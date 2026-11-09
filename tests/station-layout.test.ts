@@ -58,6 +58,7 @@ function assertAboutMediaLayout(html: string, expectedTitle: string, expectedAlt
   assert.ok(bikeStudioFigure.includes(expectedAlt), `Bike Studio figure is missing the localized alt text`);
   assert.match(brandStructure, /max-w-5xl/);
   assert.match(brandStructure, /max-w-3xl text-center/);
+  assert.match(brandStructure, /mx-auto mt-10 max-w-3xl/);
   assert.match(brandStructure, /h-auto w-full object-cover/);
   assert.doesNotMatch(media, /shanghai-bike-studio/);
   assert.doesNotMatch(html, /station-club-house-v2\.webp/);

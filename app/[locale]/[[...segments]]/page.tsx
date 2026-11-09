@@ -254,7 +254,7 @@ function About({ locale }: { locale: LocalizedLocale }) {
     <section {...sectionMarker("about", "brand-structure")} className="border-y border-sglInk bg-sglAcid">
       <div className="mx-auto max-w-5xl px-4 py-16 md:px-8">
         <div className="mx-auto max-w-3xl text-center">{brand.kicker && <p className="text-sm font-black uppercase tracking-[0.28em]">{brand.kicker}</p>}<h2 className="mt-3 text-4xl font-black uppercase leading-none md:text-5xl">{brand.heading}</h2><p className="mt-6 text-lg leading-8">{brand.body}</p></div>
-        <figure className="mt-10 overflow-hidden border border-sglInk bg-sglPaper"><Image src={media.bikeStudioPhoto.src} alt={media.bikeStudioPhoto.alt} width={media.bikeStudioPhoto.width} height={media.bikeStudioPhoto.height} sizes="(max-width: 1023px) 100vw, 960px" className="h-auto w-full object-cover" /><figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">{media.bikeStudioPhoto.title}</figcaption></figure>
+        <figure className="mx-auto mt-10 max-w-3xl overflow-hidden border border-sglInk bg-sglPaper"><Image src={media.bikeStudioPhoto.src} alt={media.bikeStudioPhoto.alt} width={media.bikeStudioPhoto.width} height={media.bikeStudioPhoto.height} sizes="(max-width: 767px) calc(100vw - 2rem), 768px" className="h-auto w-full object-cover" /><figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">{media.bikeStudioPhoto.title}</figcaption></figure>
       </div>
     </section>
     <section {...sectionMarker("about", "media")} className="border-y border-sglInk bg-sglPaper"><div className="mx-auto grid max-w-sgl gap-4 px-4 py-16 md:grid-cols-12 md:px-8">

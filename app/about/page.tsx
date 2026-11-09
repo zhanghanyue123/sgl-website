@@ -95,13 +95,13 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <figure className="mt-10 overflow-hidden border border-sglInk bg-sglPaper">
+          <figure className="mx-auto mt-10 max-w-3xl overflow-hidden border border-sglInk bg-sglPaper">
             <Image
               src={STATION_BIKE_STUDIO_IMAGE}
               alt="SGL Bike Studio showroom in Shanghai with bicycles, apparel and riding goods"
               width={1671}
               height={941}
-              sizes="(max-width: 1023px) 100vw, 960px"
+              sizes="(max-width: 767px) calc(100vw - 2rem), 768px"
               className="h-auto w-full object-cover"
             />
             <figcaption className="border-t border-sglInk px-5 py-4 text-center text-sm font-black uppercase tracking-wide">
