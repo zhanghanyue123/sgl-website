@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh SGL Station OS Admin projection
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+RandomizedDelaySec=20s
+Persistent=true
+Unit=sgl-station-admin-connector.service
+
+[Install]
+WantedBy=timers.target

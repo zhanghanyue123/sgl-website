@@ -6,6 +6,12 @@ const botPattern = /bot|crawler|spider|slurp|bingpreview|facebookexternalhit|duc
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const first = pathname.split("/").filter(Boolean)[0];
+  const adminHost = (process.env.SGL_ADMIN_HOST || "admin.theseagulllabs.com").trim().toLowerCase();
+  const isAdminHost = request.nextUrl.hostname.toLowerCase() === adminHost;
+
+  if (isAdminHost && first !== "admin" && first !== "station-os") {
+    return NextResponse.redirect(new URL("/admin", request.url));
+  }
 
   if (first === "admin") {
     const headers = new Headers(request.headers);

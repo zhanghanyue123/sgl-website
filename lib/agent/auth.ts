@@ -8,14 +8,14 @@ export class AgentAuthError extends Error {
   constructor(public status: number, message: string) { super(message); }
 }
 
-export type AgentContext = { clientId: string; clientName: string; tokenId: string; scopes: string[] };
+export type AgentContext = { clientId: string; clientName: string; tokenId: string; scopes: string[]; organizationId: string; storeId: string | null };
 
 export async function requireAgent(request: NextRequest, required: AgentScope): Promise<AgentContext> {
   const token = parseBearerToken(request.headers.get("authorization"));
   if (!token) throw new AgentAuthError(401, "A valid agent bearer token is required");
   const db = getDb();
-  const rows = await db<{ token_id: string; client_id: string; client_name: string; scopes: string[] }[]>`
-    SELECT t.id AS token_id, c.id AS client_id, c.name AS client_name, t.scopes
+  const rows = await db<{ token_id: string; client_id: string; client_name: string; scopes: string[]; organization_id: string; store_id: string | null }[]>`
+    SELECT t.id AS token_id, c.id AS client_id, c.name AS client_name, t.scopes,c.organization_id,c.store_id
     FROM agent_tokens t JOIN agent_clients c ON c.id = t.client_id
     WHERE t.token_hash = ${hashToken(token)} AND t.revoked_at IS NULL AND t.expires_at > now()
       AND c.active = true AND c.revoked_at IS NULL LIMIT 1`;
@@ -29,7 +29,7 @@ export async function requireAgent(request: NextRequest, required: AgentScope): 
     throw new AgentAuthError(403, `Missing agent scope: ${required}`);
   }
   await db`UPDATE agent_tokens SET last_used_at = now() WHERE id = ${row.token_id}`;
-  return { clientId: row.client_id, clientName: row.client_name, tokenId: row.token_id, scopes };
+  return { clientId: row.client_id, clientName: row.client_name, tokenId: row.token_id, scopes, organizationId: row.organization_id, storeId: row.store_id };
 }
 
 export async function logAgentAction(request: NextRequest, context: AgentContext, action: string, outcome: "success" | "denied" | "failed", entity?: { type: string; id: string }, data: Record<string, unknown> = {}) {
