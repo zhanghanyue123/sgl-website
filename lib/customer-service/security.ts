@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { safePublicOrigin } from "@/lib/admin/security";
 import { decodeUtf8Body, readBoundedRequestBody, RequestBodyError } from "@/lib/http/read-bounded-body";
-import { consumeDatabaseRateLimit, type DatabaseRateLimitConsumer } from "@/lib/customer-service/rate-limit";
+import { consumeDatabaseRateLimit, databaseRateLimitHealth, type DatabaseRateLimitConsumer, type DatabaseRateLimitHealthProbe } from "@/lib/customer-service/rate-limit";
 
 const injectionPatterns = [
   /ignore (all|any|the|previous|prior) instructions/i,
@@ -66,6 +66,14 @@ export async function consumePublicRateLimit(key:string,limit=20,windowMs=60_000
   if(environment.DATABASE_URL?.trim()){try{return await databaseConsumer(key,limit,windowMs)}catch{if(environment.NODE_ENV==="production")throw Object.assign(new Error("Rate limiting is temporarily unavailable"),{status:503})}}
   if(environment.NODE_ENV==="production")throw Object.assign(new Error("Shared rate limiting is not configured"),{status:503});
   return consumeMemoryRateLimit(key,limit,windowMs);
+}
+
+export type SharedRateLimitHealth = "connected" | "unconfigured" | "unavailable";
+export async function sharedRateLimitHealth(environment:Readonly<Record<string,string|undefined>>=process.env,fetcher:typeof fetch=fetch,databaseHealth:DatabaseRateLimitHealthProbe=databaseRateLimitHealth):Promise<SharedRateLimitHealth>{
+  const baseUrl=(environment.UPSTASH_REDIS_REST_URL||environment.KV_REST_API_URL)?.trim(),token=(environment.UPSTASH_REDIS_REST_TOKEN||environment.KV_REST_API_TOKEN)?.trim();
+  if(baseUrl&&token){try{const response=await fetcher(`${baseUrl.replace(/\/$/,"")}/ping`,{headers:{authorization:`Bearer ${token}`},signal:AbortSignal.timeout(3_000),cache:"no-store"});if(!response.ok)return "unavailable";const body=await response.json() as {result?:unknown};return body.result==="PONG"?"connected":"unavailable"}catch{return "unavailable"}}
+  if(!environment.DATABASE_URL?.trim())return "unconfigured";
+  try{return await databaseHealth()?"connected":"unavailable"}catch{return "unavailable"}
 }
 
 export function rateLimitKey(request: Request, scope: string) {
