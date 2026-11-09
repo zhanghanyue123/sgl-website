@@ -28,6 +28,13 @@ test("Redis failure is not silently downgraded and health recovers", async () =>
   assert.equal(await sharedRateLimitHealth(env, async () => new Response(JSON.stringify({ result: "PONG" }), { status: 200, headers: { "content-type": "application/json" } })), "connected");
 });
 
+test("health reports the PostgreSQL shared limiter when Redis is absent", async () => {
+  const environment = { NODE_ENV: "production", DATABASE_URL: "configured" };
+  assert.equal(await sharedRateLimitHealth(environment, fetch, async () => true), "connected");
+  assert.equal(await sharedRateLimitHealth(environment, fetch, async () => false), "unavailable");
+  assert.equal(await sharedRateLimitHealth(environment, fetch, async () => { throw new Error("offline"); }), "unavailable");
+});
+
 test("contact form validates email, honeypot and duplicate identity", () => {
   assert.equal(validateContactSubmission(submission).email, "visitor@example.test");
   assert.throws(() => validateContactSubmission({ ...submission, email: "invalid" }), /email is invalid/);
@@ -62,4 +69,11 @@ test("Fries UI has five-language fallback and automatic recovery health polling"
   assert.match(source, /\/api\/support\/contact/);
   assert.match(source, /setMode\("chat"\)/);
   for (const phrase of ["temporarily unavailable", "暂时无法使用", "一時的に利用できません", "일시적으로 이용할 수 없습니다", "momentaneamente disponibile"]) assert.match(source, new RegExp(phrase));
+});
+
+test("Fries health checks the dedicated adapter rather than generic LLM variables", async () => {
+  const source = await readFile(new URL("../app/api/support/health/route.ts", import.meta.url), "utf8");
+  assert.match(source, /friesAdapterConfigurationStatus/);
+  assert.doesNotMatch(source, /SGL_LLM_(BASE_URL|API_KEY|MODEL)/);
+  assert.match(source, /FRIES_CONTACT_DELIVERY_URL/);
 });

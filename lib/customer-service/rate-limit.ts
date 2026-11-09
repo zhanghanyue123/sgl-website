@@ -11,6 +11,15 @@ export type DatabaseRateLimitConsumer = (
   windowMs: number
 ) => Promise<boolean>;
 
+export type DatabaseRateLimitHealthProbe = () => Promise<boolean>;
+
+export const databaseRateLimitHealth: DatabaseRateLimitHealthProbe = async () => {
+  const rows = await getDb()<Array<{ ready: boolean }>>`
+    SELECT to_regclass('public.public_rate_limit_buckets') IS NOT NULL AS ready
+  `;
+  return rows[0]?.ready === true;
+};
+
 async function ensureRateLimitSchema() {
   if (!globalThis.__sglRateLimitSchema) {
     const db = getDb();
