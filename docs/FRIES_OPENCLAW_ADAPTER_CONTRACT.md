@@ -14,7 +14,9 @@ The browser keeps calling the existing Website API. It never receives Adapter, O
 
 ## Request
 
-`POST SGL_FRIES_ADAPTER_URL` with `Authorization: Bearer ...`, `Content-Type: application/json` and `Idempotency-Key: requestId`.
+`POST SGL_FRIES_ADAPTER_URL` with `Authorization: Bearer ...`, `Content-Type: application/json`, `Idempotency-Key: requestId`, `X-SGL-Timestamp`, `X-SGL-Client-Key` and `X-SGL-Signature`.
+
+The signature is HMAC-SHA256 over the version, timestamp, HTTP method, path, SHA-256 body digest, idempotency key and bounded client key. Production accepts timestamps within 300 seconds. The idempotency key acts as the request nonce: a repeated key with a different body is rejected, an in-flight lease prevents parallel execution, and a completed identical request returns its stored result.
 
 ```json
 {
@@ -47,4 +49,4 @@ The Adapter accepts only the configured `fries` agent and `structured_generation
 
 The Adapter validates the final OpenClaw answer against the supplied JSON Schema and caches the completed response by idempotency key. Existing public knowledge grounding, PII redaction, prompt-injection handling, shared rate limiting, human takeover and audit persistence remain on the Website side.
 
-Production requirements: HTTPS, a dedicated token stored only in server environments, bounded request/response sizes, timeout, bounded retry, idempotency, and no redirects. OpenClaw alone owns the WireGuard and Model Gateway path.
+Production requirements: HTTPS, a dedicated token and HMAC secret stored only in server environments, bounded request/response sizes, timeout, bounded retry, idempotency, timestamp/replay protection, and no redirects. OpenClaw alone owns the WireGuard and Model Gateway path.
