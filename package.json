@@ -14,6 +14,7 @@
     "orders:expire": "tsx scripts/expire-order-reservations.ts",
     "admin:create": "tsx scripts/create-admin.ts",
     "agent:create-token": "tsx scripts/create-agent-token.ts"
+    ,"fries:agent-ops": "tsx scripts/fries-agent-ops-worker.ts"
   },
   "dependencies": {
     "next": "^16.4.3",

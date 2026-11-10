@@ -20,13 +20,46 @@ const boundedInteger = (value: string | undefined, fallback: number, minimum: nu
 };
 
 export function friesAdapterConfigurationStatus(environment: Environment = process.env) {
+  const healthUrl = environment.SGL_FRIES_ADAPTER_HEALTH_URL?.trim();
   return {
-    configured: Boolean(environment.SGL_FRIES_ADAPTER_URL?.trim() && environment.SGL_FRIES_ADAPTER_TOKEN?.trim() && environment.SGL_FRIES_OPENCLAW_AGENT?.trim()),
+    configured: Boolean(environment.SGL_FRIES_ADAPTER_URL?.trim() && healthUrl && environment.SGL_FRIES_ADAPTER_TOKEN?.trim() && environment.SGL_FRIES_OPENCLAW_AGENT?.trim()),
     provider: "openclaw-fries-adapter",
     agent: environment.SGL_FRIES_OPENCLAW_AGENT?.trim() || null,
+    healthUrl: healthUrl || null,
     timeoutMs: boundedInteger(environment.SGL_FRIES_ADAPTER_TIMEOUT_MS, 45_000, 1_000, 120_000),
     maxAttempts: boundedInteger(environment.SGL_FRIES_ADAPTER_MAX_ATTEMPTS, 2, 1, 3)
   };
+}
+
+export async function probeFriesAdapterHealth(
+  environment: Environment = process.env,
+  fetcher: typeof fetch = fetch
+): Promise<LlmProviderHealth> {
+  const status = friesAdapterConfigurationStatus(environment);
+  const checkedAt = new Date().toISOString();
+  if (!status.configured || !status.healthUrl || !status.agent) {
+    return { configured: false, ok: false, provider: status.provider, model: status.agent || "not-configured", status: "unavailable", latencyMs: null, checkedAt, errorCode: "not_configured" };
+  }
+  let endpoint: URL;
+  try { endpoint = new URL(status.healthUrl); }
+  catch { return { configured: true, ok: false, provider: status.provider, model: status.agent, status: "error", latencyMs: null, checkedAt, errorCode: "invalid_health_url" }; }
+  if (endpoint.protocol !== "https:" || endpoint.username || endpoint.password || endpoint.hash) {
+    return { configured: true, ok: false, provider: status.provider, model: status.agent, status: "error", latencyMs: null, checkedAt, errorCode: "invalid_health_url" };
+  }
+  const started = Date.now();
+  try {
+    const response = await fetcher(endpoint, {
+      method: "GET", redirect: "error", cache: "no-store",
+      headers: { accept: "application/json", authorization: `Bearer ${environment.SGL_FRIES_ADAPTER_TOKEN?.trim()}` },
+      signal: AbortSignal.timeout(3_000)
+    });
+    if (!response.ok) return { configured: true, ok: false, provider: status.provider, model: status.agent, status: "error", latencyMs: Date.now() - started, checkedAt, errorCode: `http_${response.status}` };
+    const body = await response.json().catch(() => null) as { status?: unknown; agent?: unknown } | null;
+    const ok = body?.status === "ok" && body.agent === status.agent;
+    return { configured: true, ok, provider: status.provider, model: status.agent, status: ok ? "ready" : "error", latencyMs: Date.now() - started, checkedAt, ...(ok ? {} : { errorCode: "invalid_health_response" }) };
+  } catch {
+    return { configured: true, ok: false, provider: status.provider, model: status.agent, status: "error", latencyMs: Date.now() - started, checkedAt, errorCode: "network_error" };
+  }
 }
 
 class DisabledFriesAgentProvider implements StructuredLlmProvider {

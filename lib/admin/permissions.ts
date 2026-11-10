@@ -11,6 +11,8 @@ export const adminPermissions = [
   "orders:read",
   "shipping:write",
   "customers:read",
+  "support:read",
+  "support:write",
   "payments:read",
   "settings:read",
   "settings:write",
@@ -22,7 +24,7 @@ export const adminPermissions = [
 export type AdminPermission = (typeof adminPermissions)[number];
 
 const all = new Set<AdminPermission>(adminPermissions);
-const readOnly = new Set<AdminPermission>(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "payments:read", "settings:read"]);
+const readOnly = new Set<AdminPermission>(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "support:read", "payments:read", "settings:read"]);
 
 export const rolePermissions: Record<AdminRole, ReadonlySet<AdminPermission>> = {
   owner: all,
@@ -30,7 +32,7 @@ export const rolePermissions: Record<AdminRole, ReadonlySet<AdminPermission>> = 
   editor: new Set(["dashboard:read", "products:read", "products:write", "products:publish", "inventory:read", "settings:read"]),
   inventory: new Set(["dashboard:read", "products:read", "inventory:read", "inventory:adjust"]),
   fulfillment: new Set(["dashboard:read", "products:read", "inventory:read", "orders:read", "shipping:write", "customers:read"]),
-  support: new Set(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "payments:read"]),
+  support: new Set(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "support:read", "support:write", "payments:read"]),
   viewer: readOnly
 };
 

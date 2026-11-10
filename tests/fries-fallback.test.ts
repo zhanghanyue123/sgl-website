@@ -73,7 +73,7 @@ test("Fries UI has five-language fallback and automatic recovery health polling"
 
 test("Fries health checks the dedicated adapter rather than generic LLM variables", async () => {
   const source = await readFile(new URL("../app/api/support/health/route.ts", import.meta.url), "utf8");
-  assert.match(source, /friesAdapterConfigurationStatus/);
+  assert.match(source, /probeFriesAdapterHealth/);
   assert.doesNotMatch(source, /SGL_LLM_(BASE_URL|API_KEY|MODEL)/);
   assert.match(source, /FRIES_CONTACT_DELIVERY_URL/);
 });

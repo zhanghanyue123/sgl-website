@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { LlmProviderRequestError, LlmUnavailableError } from "../lib/ai/provider";
-import { configuredFriesAgentProvider, friesAdapterConfigurationStatus, FriesOpenClawAdapterProvider } from "../lib/customer-service/fries-agent";
+import { configuredFriesAgentProvider, friesAdapterConfigurationStatus, FriesOpenClawAdapterProvider, probeFriesAdapterHealth } from "../lib/customer-service/fries-agent";
 
 const request = { name: "support_answer", system: "Return approved public information only.", prompt: "Where can I buy this product?", schema: { type: "object", additionalProperties: false, required: ["answer"], properties: { answer: { type: "string" } } } };
 
@@ -51,5 +51,21 @@ test("Fries Adapter rejects a mismatched response contract", async () => {
 });
 
 test("production Fries Adapter configuration requires HTTPS", () => {
-  assert.throws(() => configuredFriesAgentProvider({ NODE_ENV: "production", SGL_FRIES_ADAPTER_URL: "http://10.0.0.17:18081/v1/respond", SGL_FRIES_ADAPTER_TOKEN: "secret-token", SGL_FRIES_OPENCLAW_AGENT: "fries" }), (error: unknown) => error instanceof LlmUnavailableError && error.message.includes("HTTPS"));
+  assert.throws(() => configuredFriesAgentProvider({ NODE_ENV: "production", SGL_FRIES_ADAPTER_URL: "http://10.0.0.17:18081/v1/respond", SGL_FRIES_ADAPTER_HEALTH_URL: "https://fries.example.test/health", SGL_FRIES_ADAPTER_TOKEN: "secret-token", SGL_FRIES_OPENCLAW_AGENT: "fries" }), (error: unknown) => error instanceof LlmUnavailableError && error.message.includes("HTTPS"));
+});
+
+test("Fries health uses the dedicated authenticated Adapter probe", async () => {
+  let authorization: string | null = null;
+  const health = await probeFriesAdapterHealth({
+    SGL_FRIES_ADAPTER_URL: "https://fries.example.test/v1/respond",
+    SGL_FRIES_ADAPTER_HEALTH_URL: "https://fries.example.test/health",
+    SGL_FRIES_ADAPTER_TOKEN: "secret-token",
+    SGL_FRIES_OPENCLAW_AGENT: "fries"
+  }, async (_url, init) => {
+    authorization = new Headers(init?.headers).get("authorization");
+    return new Response(JSON.stringify({ status: "ok", agent: "fries" }), { status: 200, headers: { "content-type": "application/json" } });
+  });
+  assert.equal(health.ok, true);
+  assert.equal(authorization, "Bearer secret-token");
+  assert.equal((await probeFriesAdapterHealth({})).errorCode, "not_configured");
 });

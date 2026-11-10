@@ -84,6 +84,21 @@ export async function createTicket(input: { conversationId: string; category: Su
   });
 }
 
+export async function releaseHumanHandoff(conversationId: string, adminId: string) {
+  const db = getDb();
+  return db.begin(async (tx) => {
+    const rows = await tx<{ id: string }[]>`UPDATE support_conversations
+      SET human_handoff_requested=false,status='waiting_customer',assigned_user_id=COALESCE(assigned_user_id,${adminId}),updated_at=now()
+      WHERE id=${conversationId} AND human_handoff_requested=true AND status='waiting_staff' RETURNING id`;
+    if (!rows[0]) return null;
+    const eventId = randomUUID();
+    await tx`INSERT INTO audit_logs(id,actor_user_id,action,entity_type,entity_id,after_data)
+      VALUES(${randomUUID()},${adminId},'support.handoff_released','support_conversation',${conversationId},${tx.json(toJson({ status: 'waiting_customer', humanHandoffRequested: false }))})`;
+    await enqueueWebsiteSupportEvent(tx, { organizationId: DEFAULT_ORGANIZATION_ID, storeId: DEFAULT_STORE_ID, eventType: "support.conversation.updated", aggregateType: "support_conversation", aggregateId: conversationId, dedupeKey: `support-handoff-released:${eventId}`, payload: { status: "waiting_customer", humanActionRequired: false, signal: "handoff_released" } });
+    return rows[0].id;
+  });
+}
+
 export async function listTickets(filters: { status?: TicketStatus; category?: SupportCategory } = {}) {
   return getDb()`SELECT t.*,c.subject,c.locale,u.display_name AS assigned_name FROM support_tickets t
     JOIN support_conversations c ON c.id=t.conversation_id LEFT JOIN admin_users u ON u.id=t.assigned_user_id
