@@ -1,6 +1,5 @@
 export const agentScopes = [
   "catalog:read", "inventory:read", "orders:read", "fulfillment:read", "analytics:read", "actions:read",
-  "station-commands:read", "station-commands:ack", "station-snapshot:write",
   "content:read", "content:draft", "marketing:read", "marketing:draft",
   "seo:read", "seo:audit", "seo:keywords", "seo:performance", "seo:draft", "support:read", "support:draft",
   "support-events:read", "support-events:ack", "support-events:nack", "support-events:replay",

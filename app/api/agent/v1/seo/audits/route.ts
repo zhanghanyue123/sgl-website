@@ -1,0 +1,6 @@
+import { NextRequest, NextResponse } from "next/server";
+import { logAgentAction, requireAgent, type AgentContext } from "@/lib/agent/auth";
+import { agentErrorResponse, AgentValidationError } from "@/lib/agent/http";
+import { runSeoTechnicalAudit } from "@/lib/seo-growth/service";
+export const runtime="nodejs";export const dynamic="force-dynamic";
+export async function POST(request:NextRequest){let context:AgentContext|undefined;try{context=await requireAgent(request,"seo:audit");const body=await request.json();if(typeof body?.baseUrl!=="string")throw new AgentValidationError("baseUrl is required");const result=await runSeoTechnicalAudit({baseUrl:body.baseUrl,maxPages:Number(body.maxPages||50)}, {type:"agent",clientId:context.clientId,tokenId:context.tokenId,requestId:request.headers.get("x-request-id")});await logAgentAction(request,context,"seo.audit","success",{type:"seo_crawl_run",id:result.id},{pages:result.pages,issues:result.issues});return NextResponse.json({run:result},{status:201})}catch(error){if(context)await logAgentAction(request,context,"seo.audit","failed",undefined,{error:error instanceof Error?error.message.slice(0,300):"unknown"});return agentErrorResponse(error instanceof Error&&/required|invalid|approved|origin/i.test(error.message)?new AgentValidationError(error.message):error)}}
