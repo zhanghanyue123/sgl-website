@@ -11,6 +11,14 @@ test("Fries stays explicitly Not Deployed without a deployment declaration", () 
   assert.ok(agent.metrics.every(metric => metric.value === null && metric.status === "not_deployed"));
 });
 
+test("SEO Agent stays explicit when search providers are not connected", () => {
+  const agent = emptyAgent("seo");
+  assert.equal(agent.connectionStatus, "not_connected");
+  assert.equal(agent.operationalStatus, "not_connected");
+  assert.equal(agent.metrics.length, 8);
+  assert.ok(agent.metrics.every(metric => metric.value === null && metric.status === "not_connected"));
+});
+
 test("Agent activity accepts opaque references and rejects customer content", () => {
   const activity = normalizeProjectionActivity("hello", {
     id: "event_123", occurredAt: "2026-11-08T08:00:00.000Z", eventType: "hello.message.classified",

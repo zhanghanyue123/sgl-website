@@ -24,17 +24,26 @@ export const adminPermissions = [
   "users:manage",
   "agents:read",
   "agents:approve",
+  "content:read",
+  "content:write",
+  "content:approve",
+  "marketing:read",
+  "marketing:write",
+  "marketing:approve",
+  "seo:read",
+  "seo:write",
+  "seo:approve",
   "audit:read"
 ] as const;
 export type AdminPermission = (typeof adminPermissions)[number];
 
 const all = new Set<AdminPermission>(adminPermissions);
-const readOnly = new Set<AdminPermission>(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "payments:read", "station:read", "settings:read"]);
+const readOnly = new Set<AdminPermission>(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "payments:read", "station:read", "settings:read", "content:read", "marketing:read", "seo:read"]);
 
 export const rolePermissions: Record<AdminRole, ReadonlySet<AdminPermission>> = {
   owner: all,
   admin: new Set([...all].filter((permission) => permission !== "users:manage")),
-  editor: new Set(["dashboard:read", "products:read", "products:write", "products:publish", "inventory:read", "settings:read"]),
+  editor: new Set(["dashboard:read", "products:read", "products:write", "products:publish", "inventory:read", "settings:read", "content:read", "content:write", "content:approve", "marketing:read", "marketing:write", "marketing:approve", "seo:read", "seo:write", "seo:approve"]),
   inventory: new Set(["dashboard:read", "products:read", "inventory:read", "inventory:adjust", "station:read", "station:inventory:write", "station:bom:write", "station:purchasing:write"]),
   fulfillment: new Set(["dashboard:read", "products:read", "inventory:read", "orders:read", "shipping:write", "customers:read", "station:read", "station:schedule:write"]),
   support: new Set(["dashboard:read", "products:read", "inventory:read", "orders:read", "customers:read", "payments:read", "station:read"]),

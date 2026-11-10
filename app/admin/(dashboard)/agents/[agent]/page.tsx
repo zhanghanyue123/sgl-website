@@ -5,7 +5,7 @@ import { currentAdminWithPermission } from "@/lib/admin/current";
 import { getAgentOperations, type AgentId } from "@/lib/admin/agent-operations";
 
 export const dynamic = "force-dynamic";
-const agentIds = new Set<AgentId>(["retail", "hello", "fries"]);
+const agentIds = new Set<AgentId>(["retail", "hello", "fries", "seo"]);
 
 export default async function AgentDetailPage({ params }: { params: Promise<{ agent: string }> }) {
   if (!await currentAdminWithPermission("agents:read")) return <PermissionDenied />;

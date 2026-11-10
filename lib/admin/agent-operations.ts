@@ -1,7 +1,7 @@
 import { databaseConfigured, getDb } from "./db";
 import { readStoredAgentProjection } from "./agent-projections";
 
-export type AgentId = "retail" | "hello" | "fries";
+export type AgentId = "retail" | "hello" | "fries" | "seo";
 export type AgentOperationalStatus = "running" | "healthy" | "degraded" | "error" | "not_connected" | "not_deployed" | "stale";
 export type AgentConnectionStatus = "connected" | "error" | "not_connected" | "not_deployed" | "stale";
 
@@ -57,7 +57,7 @@ export type AgentOperations = {
 };
 
 const STALE_AFTER_MS = 15 * 60 * 1000;
-const agentNames: Record<AgentId, string> = { retail: "Retail Sales Agent", hello: "Hello Reception Agent", fries: "Fries Website Agent" };
+const agentNames: Record<AgentId, string> = { retail: "Retail Sales Agent", hello: "Hello Reception Agent", fries: "Fries Website Agent", seo: "SEO Growth Agent" };
 const metricLabels: Record<AgentId, Array<[string, string]>> = {
   retail: [
     ["researchCities", "研究城市"], ["searches", "搜索次数"], ["candidates", "候选店家"], ["crmCreated", "CRM 新增"],
@@ -72,6 +72,12 @@ const metricLabels: Record<AgentId, Array<[string, string]>> = {
     ["activeConversations", "活跃会话"], ["conversationsToday", "今日对话"], ["qualifiedLeads", "有效客户线索"], ["productEnquiries", "商品咨询"],
     ["partnershipEnquiries", "合作咨询"], ["humanHandoffs", "人工接管"], ["openTickets", "待处理工单"], ["outboxPending", "Outbox Pending"],
     ["outboxFailed", "Outbox Failed"]
+  ],
+  seo: [
+    ["technicalIssues", "Technical Issues"], ["searchPerformance", "Search Performance Rows"],
+    ["suggestedChanges", "Suggested Changes"], ["publishedChanges", "Published Changes"],
+    ["pendingApproval", "Pending Approval"], ["seoHistory", "SEO History"],
+    ["googleSearchConsole", "Google Search Console"], ["baiduSearchResource", "Baidu Search Resource"]
   ]
 };
 
@@ -104,7 +110,7 @@ export function emptyAgent(id: AgentId, status: "not_connected" | "not_deployed"
     runtimeStatus: status === "not_deployed" ? "Not Deployed" : "Not Connected",
     lastExecution: null, lastSuccessfulExecution: null, nextScheduledRun: null,
     tasksCompleted: null, errors: null, pendingActions: null, lastUpdated: null,
-    source: id === "fries" ? "website:postgresql" : `${id}:read-only-projection`,
+    source: id === "fries" ? "website:postgresql" : id === "seo" ? "website:seo-growth" : `${id}:read-only-projection`,
     sourceDetail: status === "not_deployed" ? `${agentNames[id]} production deployment is not declared` : `${agentNames[id]} read-only projection is not configured`,
     metrics: []
   };
@@ -216,13 +222,82 @@ async function readFries(generatedAt: string) {
   }
 }
 
+async function readSeo() {
+  const fallback = emptyAgent("seo");
+  if (!databaseConfigured()) return { agent: fallback, activity: [] as AgentActivity[], errors: [] as AgentError[], approvals: [] as AgentApproval[] };
+  try {
+    const db = getDb();
+    const [summaryRows, providerRows, activityRows, errorRows, approvalRows] = await Promise.all([
+      db`SELECT
+        (SELECT count(*)::int FROM seo_crawl_runs WHERE status='completed') AS completed_runs,
+        (SELECT count(*)::int FROM seo_crawl_runs WHERE status='failed') AS failed_runs,
+        (SELECT count(*)::int FROM seo_issues WHERE status='open') AS technical_issues,
+        (SELECT count(*)::int FROM seo_performance_snapshots) AS performance_rows,
+        (SELECT count(*)::int FROM content_drafts WHERE module='seo_growth') AS suggested_changes,
+        (SELECT count(*)::int FROM content_drafts WHERE module='seo_growth' AND status='published') AS published_changes,
+        (SELECT count(*)::int FROM content_drafts WHERE module='seo_growth' AND status IN ('draft','review')) AS pending_approval,
+        (SELECT count(*)::int FROM seo_optimization_results) AS seo_history,
+        (SELECT started_at FROM seo_crawl_runs ORDER BY started_at DESC LIMIT 1) AS last_execution,
+        (SELECT finished_at FROM seo_crawl_runs WHERE status='completed' ORDER BY finished_at DESC NULLS LAST LIMIT 1) AS last_success,
+        (SELECT max(COALESCE(finished_at,started_at)) FROM seo_crawl_runs) AS last_updated`,
+      db`SELECT
+        count(*) FILTER (WHERE provider='google_search_console')::int AS gsc_connections,
+        count(*) FILTER (WHERE provider='google_search_console' AND status='connected')::int AS gsc_connected,
+        (SELECT count(*)::int FROM search_console_evidence) AS gsc_rows
+        FROM search_console_connections`,
+      db`SELECT id::text,created_at AS occurred_at,action AS event_type,
+        CASE WHEN action LIKE '%.failed%' THEN 'error' ELSE 'success' END AS result,entity_id
+        FROM audit_logs WHERE action LIKE 'seo.%' ORDER BY created_at DESC LIMIT 20`,
+      db`SELECT id::text,COALESCE(finished_at,started_at) AS occurred_at,COALESCE(error_summary,'seo_run_failed') AS code
+        FROM seo_crawl_runs WHERE status='failed' ORDER BY started_at DESC LIMIT 10`,
+      db`SELECT id::text,created_at,title,status FROM content_drafts
+        WHERE module='seo_growth' AND status IN ('draft','review') ORDER BY created_at DESC LIMIT 30`
+    ]);
+    const summary = summaryRows[0] as any; const providers = providerRows[0] as any;
+    const lastUpdated = optionalIso(summary?.last_updated); const lastExecution = optionalIso(summary?.last_execution); const lastSuccess = optionalIso(summary?.last_success);
+    const gscConnected = Number(providers?.gsc_connected || 0) > 0;
+    const baiduConfigured = Boolean(process.env.BAIDU_SEARCH_RESOURCE_SITE?.trim());
+    const completed = Number(summary?.completed_runs || 0); const failed = Number(summary?.failed_runs || 0);
+    const stale = Boolean(lastSuccess && Date.now() - new Date(lastSuccess).valueOf() > 36 * 60 * 60 * 1000);
+    const agent: AgentSnapshot = {
+      ...fallback,
+      connectionStatus: gscConnected ? (stale ? "stale" : "connected") : "not_connected",
+      operationalStatus: failed > 0 && completed === 0 ? "error" : stale ? "stale" : completed > 0 ? "healthy" : "degraded",
+      runtimeStatus: completed > 0 ? "Technical audit available" : "Ready · schedules disabled",
+      lastExecution, lastSuccessfulExecution: lastSuccess, nextScheduledRun: null,
+      tasksCompleted: completed, errors: failed, pendingActions: Number(summary?.pending_approval || 0), lastUpdated,
+      sourceDetail: gscConnected
+        ? "Technical audit and verified Google Search Console evidence are available; Baidu remains independently scoped"
+        : "Technical audit is available; external search performance sources are Not Connected"
+    };
+    const values: Record<string, number> = {
+      technicalIssues: Number(summary?.technical_issues || 0), searchPerformance: Number(summary?.performance_rows || 0),
+      suggestedChanges: Number(summary?.suggested_changes || 0), publishedChanges: Number(summary?.published_changes || 0),
+      pendingApproval: Number(summary?.pending_approval || 0), seoHistory: Number(summary?.seo_history || 0),
+      googleSearchConsole: gscConnected ? Number(providers?.gsc_rows || 0) : 0, baiduSearchResource: 0
+    };
+    agent.metrics = metricLabels.seo.map(([key, label]) => ({
+      key, label, value: key === "googleSearchConsole" && !gscConnected || key === "baiduSearchResource" && !baiduConfigured ? null : values[key] ?? null,
+      status: key === "googleSearchConsole" && !gscConnected || key === "baiduSearchResource" ? "not_connected" : stale ? "stale" : "ok",
+      source: key === "baiduSearchResource" ? "baidu:read-only-provider" : key === "googleSearchConsole" ? "google-search-console:verified-evidence" : agent.source,
+      updatedAt: lastUpdated
+    }));
+    const activity: AgentActivity[] = (activityRows as any[]).map(value => ({ id: `seo:${String(value.id)}`, agent: "seo", occurredAt: new Date(value.occurred_at).toISOString(), eventType: String(value.event_type), result: value.result === "error" ? "error" : "success", customerId: null, taskId: safeReference(value.entity_id), source: agent.source }));
+    const errors: AgentError[] = (errorRows as any[]).map(value => ({ id: `seo:${String(value.id)}`, agent: "seo", occurredAt: new Date(value.occurred_at).toISOString(), code: String(value.code).slice(0, 80), source: agent.source }));
+    const approvals: AgentApproval[] = (approvalRows as any[]).map(value => ({ id: `seo:${String(value.id)}`, agent: "seo", label: String(value.title).slice(0, 100), requestedAt: new Date(value.created_at).toISOString(), href: "/admin/seo/proposals", source: "website:content_drafts" }));
+    return { agent, activity, errors, approvals };
+  } catch {
+    return { agent: { ...fallback, connectionStatus: "error" as const, operationalStatus: "error" as const, runtimeStatus: "Schema unavailable", sourceDetail: "SEO migrations or read model are unavailable" }, activity: [], errors: [], approvals: [] };
+  }
+}
+
 async function readApprovals(): Promise<AgentApproval[]> {
   if (!databaseConfigured()) return [];
   try {
     const rows = await getDb()`SELECT r.id::text,r.requested_at,c.name FROM agent_action_requests r JOIN agent_clients c ON c.id=r.client_id WHERE r.status='pending' ORDER BY r.requested_at DESC LIMIT 30`;
     return (rows as any[]).map(row => {
       const name = String(row.name).toLowerCase();
-      const agent: AgentId = name.includes("retail") ? "retail" : name.includes("hello") ? "hello" : "fries";
+      const agent: AgentId = name.includes("retail") ? "retail" : name.includes("hello") ? "hello" : name.includes("seo") ? "seo" : "fries";
       return { id: String(row.id), agent, label: `Agent action · ${String(row.name).slice(0, 80)}`, requestedAt: new Date(row.requested_at).toISOString(), href: "/admin/agent-actions", source: "website:agent_action_requests" };
     });
   } catch { return []; }
@@ -230,12 +305,12 @@ async function readApprovals(): Promise<AgentApproval[]> {
 
 export async function getAgentOperations(): Promise<AgentOperations> {
   const generatedAt = new Date().toISOString();
-  const [retail, hello, fries, approvals] = await Promise.all([
+  const [retail, hello, fries, seo, approvals] = await Promise.all([
     readProjection("retail", "SGL_RETAIL_AGENT_OPERATIONS_URL", "SGL_RETAIL_OVERVIEW_TOKEN"),
     readProjection("hello", "SGL_HELLO_AGENT_OPERATIONS_URL", "SGL_HELLO_OVERVIEW_TOKEN"),
-    readFries(generatedAt), readApprovals()
+    readFries(generatedAt), readSeo(), readApprovals()
   ]);
-  const activity = [...retail.activity, ...hello.activity, ...fries.activity].sort((a, b) => b.occurredAt.localeCompare(a.occurredAt)).slice(0, 40);
-  const errors = [...retail.errors, ...hello.errors, ...fries.errors].sort((a, b) => b.occurredAt.localeCompare(a.occurredAt)).slice(0, 30);
-  return { schemaVersion: "sgl.admin.agent-operations.v1", generatedAt, timezone: process.env.SGL_ADMIN_TIMEZONE || "Asia/Shanghai", agents: [retail.agent, hello.agent, fries.agent], activity, approvals, errors };
+  const activity = [...retail.activity, ...hello.activity, ...fries.activity, ...seo.activity].sort((a, b) => b.occurredAt.localeCompare(a.occurredAt)).slice(0, 40);
+  const errors = [...retail.errors, ...hello.errors, ...fries.errors, ...seo.errors].sort((a, b) => b.occurredAt.localeCompare(a.occurredAt)).slice(0, 30);
+  return { schemaVersion: "sgl.admin.agent-operations.v1", generatedAt, timezone: process.env.SGL_ADMIN_TIMEZONE || "Asia/Shanghai", agents: [retail.agent, hello.agent, fries.agent, seo.agent], activity, approvals: [...approvals, ...seo.approvals], errors };
 }

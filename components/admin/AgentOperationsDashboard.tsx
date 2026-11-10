@@ -11,7 +11,7 @@ const statusStyle: Record<AgentOperationalStatus, string> = {
   not_connected: "border-slate-400 bg-slate-100 text-slate-700", not_deployed: "border-slate-700 bg-slate-200 text-slate-900",
   stale: "border-orange-700 bg-orange-50 text-orange-900"
 };
-const agentLinks: Record<AgentId, string> = { retail: "/admin/agents/retail", hello: "/admin/agents/hello", fries: "/admin/agents/fries" };
+const agentLinks: Record<AgentId, string> = { retail: "/admin/agents/retail", hello: "/admin/agents/hello", fries: "/admin/agents/fries", seo: "/admin/agents/seo" };
 
 function StatusBadge({ status }: { status: AgentOperationalStatus }) {
   return <span className={`inline-flex border px-2 py-1 text-[10px] font-black uppercase tracking-wider ${statusStyle[status]}`}>{statusCopy[status]}</span>;
@@ -62,11 +62,12 @@ export default function AgentOperationsDashboard({ data, focus }: { data: AgentO
   const approvals = focus ? data.approvals.filter(item => item.agent === focus) : data.approvals;
   return <div className="space-y-8">
     <nav className="flex flex-wrap gap-2" aria-label="Agent Operations"><Link href="/admin/agents" className="border border-sglInk bg-white px-3 py-2 text-xs font-black uppercase">Overview</Link>{data.agents.map(agent => <Link key={agent.id} href={agentLinks[agent.id]} className={`border border-sglInk px-3 py-2 text-xs font-black uppercase ${focus === agent.id ? "bg-sglAcid" : "bg-white"}`}>{agent.id}</Link>)}</nav>
-    <div className={`grid gap-5 ${focus ? "grid-cols-1" : "lg:grid-cols-3"}`}>{agents.map(agent => <AgentSummary key={agent.id} agent={agent} timezone={data.timezone} />)}</div>
+    <div className={`grid gap-5 ${focus ? "grid-cols-1" : "lg:grid-cols-2 xl:grid-cols-4"}`}>{agents.map(agent => <AgentSummary key={agent.id} agent={agent} timezone={data.timezone} />)}</div>
     {focused && <Metrics agent={focused} timezone={data.timezone} />}
     {focus === "retail" && <RetailPolicy />}
     {focus === "hello" && <section className="border border-sglInk bg-white p-5"><h2 className="text-xl font-black uppercase">Privacy boundary</h2><p className="mt-2 text-sm">仅展示分类、脱敏标识和 Station Customer / Task 关联；完整邮件正文和邮箱凭证不会进入此视图。</p></section>}
     {focus === "fries" && focused?.operationalStatus === "not_deployed" && <section className="border border-slate-700 bg-slate-100 p-5"><h2 className="text-xl font-black uppercase">Not Deployed</h2><p className="mt-2 text-sm">Fries 尚未声明生产部署。测试数据不会被呈现为生产业务指标。</p></section>}
+    {focus === "seo" && <section className="border border-sglInk bg-white p-5"><h2 className="text-xl font-black uppercase">SEO controls</h2><p className="mt-2 text-sm">技术审计、关键词证据、Search Console、优化草稿和历史记录使用既有审批与审计流程。所有生产调度保持关闭。</p><Link href="/admin/seo" className="mt-4 inline-flex border border-sglInk bg-sglAcid px-3 py-2 text-xs font-black uppercase">打开 SEO Workspace →</Link></section>}
     <section className="grid gap-6 xl:grid-cols-2"><div><h2 className="mb-4 text-xl font-black uppercase">Pending Approvals</h2><div className="border border-sglInk bg-white">{approvals.map(item => <Link key={item.id} href={item.href} className="block border-b border-sglInk/15 p-4 last:border-0 hover:bg-sglAcid"><p className="font-black">{item.label}</p><p className="mt-1 text-xs opacity-60">{item.agent} · {time(item.requestedAt, data.timezone)} · {item.source}</p></Link>)}{!approvals.length && <p className="p-5 text-sm font-bold opacity-60">没有已连接来源报告的待审批项目。</p>}</div></div><div><h2 className="mb-4 text-xl font-black uppercase">Error Monitoring</h2><div className="border border-sglInk bg-white">{errors.map(item => <div key={item.id} className="border-b border-sglInk/15 p-4 last:border-0"><div className="flex items-center justify-between gap-3"><p className="font-mono text-sm font-black">{item.code}</p><StatusBadge status="error" /></div><p className="mt-1 text-xs opacity-60">{item.agent} · {time(item.occurredAt, data.timezone)} · {item.source}</p></div>)}{!errors.length && <p className="p-5 text-sm font-bold opacity-60">未发现已连接来源报告的错误；未连接不代表健康。</p>}</div></div></section>
     <ActivityTable data={data} focus={focus} timezone={data.timezone} />
     <p className="text-[10px] font-bold opacity-55">生成：{time(data.generatedAt, data.timezone)} · 所有外部凭证仅在服务端 BFF 使用。</p>
