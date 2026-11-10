@@ -1,4 +1,5 @@
 import type { Product } from "@/data/products";
+import { approvedSkuFor } from "./sku-standardization";
 
 export type DatabaseInventoryRow = {
   variant_id: string;
@@ -58,13 +59,13 @@ function canonicalRows(products: Product[]) {
   return products.flatMap((product) => {
     const variants: Product["variants"] = product.variants.length ? product.variants : [{ options: [], price: product.price }];
     return variants.map((variant, index) => ({
-      key: normalizedSku(variant.sku) ? `sku:${normalizedSku(variant.sku)}` : `catalogue:${product.slug}:${index}`,
+      key: `sku:${normalizedSku(variant.sku) || approvedSkuFor(product.slug, index)?.sku}`,
       slug: product.slug,
       product_title: product.title,
       variant_title: variant.options.length
         ? variant.options.map((option) => `${option.name}: ${option.value}`).join(" / ")
         : "Default",
-      sku: normalizedSku(variant.sku),
+      sku: normalizedSku(variant.sku) || approvedSkuFor(product.slug, index)?.sku || null,
       active: !product.hidden,
       image_url: variant.image || product.images[0] || null,
       price_cents: Math.round((variant.price ?? product.price) * 100),

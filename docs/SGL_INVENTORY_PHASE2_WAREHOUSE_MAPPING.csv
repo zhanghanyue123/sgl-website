@@ -1,0 +1,2 @@
+﻿warehouse_id,warehouse_code,warehouse_name,location,stock_ownership,source,production_verification,action
+00000000-0000-4000-8000-000000000003,ONLINE,Online Fulfillment,Logical store: SGL Online; physical address not recorded,The Seagull Labs organization (schema ownership; confirm physical owner),db/migrations/0005_phase3_commerce.sql,NOT EXPOSED BY CURRENT READ-ONLY BFF,VERIFY EXISTENCE/LOCATION/OWNERSHIP; DO NOT CREATE DUPLICATE
