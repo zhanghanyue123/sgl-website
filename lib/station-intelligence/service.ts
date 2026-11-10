@@ -8,6 +8,8 @@ import type {
   StationIntelligenceView,
   WeatherSnapshot,
 } from "./types";
+import { forecastDemand } from "./demand-forecast";
+import { planPreparation } from "./preparation-planner";
 
 type Row = Record<string, unknown>;
 type Fetcher = typeof fetch;
@@ -149,6 +151,69 @@ function buildReplenishment(snapshot: StationSnapshot | null, sourceAt: string |
   });
 }
 
+function buildPlanningExtensions(snapshot: StationSnapshot | null, generatedAt: string) {
+  const productRows = snapshot ? rows(snapshot.operations.products, "products") : [];
+  const productIds = productRows.map((item) => text(item.productId)).filter((value): value is string => Boolean(value));
+  const salesDate = text(record(snapshot?.operations.daily).date);
+  const cameraDate = text(record(snapshot?.operations.camera).date);
+  const salesDays = salesDate ? 1 : 0;
+  const footfallDays = cameraDate ? 1 : 0;
+  const asOfDate = generatedAt.slice(0, 10);
+  const demand = forecastDemand({
+    asOfDate,
+    updatedAt: generatedAt,
+    storeIds: ["shanghai-station"],
+    productIds,
+    history: [],
+    targets: [],
+  });
+  const preparation = productRows.map((item, index) => {
+    const productId = text(item.productId) || `unidentified-${index}`;
+    return planPreparation({
+      productId,
+      productName: text(item.name) || productId,
+      forecastQuantity: null,
+      safetyBuffer: null,
+      readyStock: null,
+      inProgressStock: null,
+      wasteRate: null,
+      shelfLifeMinutes: null,
+      readyStockRemainingShelfLifeMinutes: null,
+      minimumBatchSize: null,
+      maximumDailyCapacity: null,
+      requiredStaffPerBatch: null,
+      preparationMinutesPerBatch: null,
+      foodSafety: { approvedForPreparation: null, maximumHoldMinutes: null, controls: [] },
+      windows: [],
+      evidence: [],
+    });
+  });
+  return {
+    demand: {
+      status: "blocked" as const,
+      forecasts: demand.forecasts,
+      coverage: { salesDays, footfallDays, productRows: productRows.length },
+      message: "Insufficient Data: the current projection does not contain aligned hourly POS, anonymous footfall, future weather, calendar/events and business-hours history.",
+    },
+    preparation: {
+      status: "blocked" as const,
+      plans: preparation,
+      message: "Preparation quantities remain blocked until a verified demand forecast, ready/in-progress stock, shelf life, batch, capacity, staffing and food-safety controls are recorded.",
+    },
+    materialRequirements: {
+      status: "blocked" as const,
+      plan: null,
+      blockedProducts: productIds.map((productId) => ({ productId, reason: "Forecast quantity, confirmed SKU and confirmed BOM are required" })),
+      message: "No BOM conversion was attempted. Station /ops/bom/list is unavailable and Website SKU initialization is not confirmed.",
+    },
+    forecastAccuracy: {
+      status: "Insufficient Data" as const,
+      weeks: [],
+      message: "Weekly accuracy requires at least 7 forecast outcomes across 4 distinct business days; the production audit found only 3 sales dates and 1 anonymous-footfall date.",
+    },
+  };
+}
+
 export async function getStationWeather(fetcher: Fetcher = fetch, environment: NodeJS.ProcessEnv = process.env): Promise<WeatherSnapshot> {
   const latitude = environment.SGL_STATION_WEATHER_LATITUDE?.trim();
   const longitude = environment.SGL_STATION_WEATHER_LONGITUDE?.trim();
@@ -185,6 +250,7 @@ export async function buildStationIntelligence(input: {
   weather?: WeatherSnapshot;
 }): Promise<StationIntelligenceView> {
   const generatedAt = new Date().toISOString();
+  const planning = buildPlanningExtensions(input.snapshot, generatedAt);
   const weather = input.weather || await getStationWeather();
   const hourly = buildHourly(input.snapshot, input.generatedAt);
   const replenishment = buildReplenishment(input.snapshot, input.generatedAt);
@@ -257,6 +323,19 @@ export async function buildStationIntelligence(input: {
       draftScheduleAllowed: false,
       backtest: { status: cameraDays >= 7 ? "available" : "blocked", sampleDays: cameraDays, message: cameraDays >= 7 ? "Backtest can run when aligned daily sales history is also present." : "Insufficient distinct camera days for a defensible backtest." },
     },
+    demand: planning.demand,
+    preparation: planning.preparation,
+    materialRequirements: planning.materialRequirements,
+    forecastAccuracy: planning.forecastAccuracy,
+    dailyBriefing: [
+      { label: "Tomorrow footfall", value: "Insufficient Data", status: "blocked", source: "Anonymous camera history" },
+      { label: "Tomorrow sales", value: "Insufficient Data", status: "blocked", source: "Historical POS" },
+      { label: "Product preparation", value: "Not Recorded", status: "not_recorded", source: "Demand forecast + finished stock" },
+      { label: "Batch plan", value: "Not Recorded", status: "not_recorded", source: "Preparation constraints" },
+      { label: "Material shortage", value: "Blocked", status: "blocked", source: "Confirmed BOM + inventory" },
+      { label: "Purchase advice", value: "Manager approval required", status: "blocked", source: "Inventory + supplier terms" },
+      { label: "Staffing", value: uncovered > 0 ? `${uncovered} reported gap(s)` : "Demand forecast unavailable", status: uncovered > 0 ? "available" : "blocked", source: "Station schedule" },
+    ],
     replenishment: {
       status: replenishment.length ? "blocked" : sourceStatus === "available" ? "not_recorded" : sourceStatus,
       recommendations: replenishment,

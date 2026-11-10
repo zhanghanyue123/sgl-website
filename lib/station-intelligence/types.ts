@@ -1,3 +1,7 @@
+import type { ProductDemandForecast, WeeklyForecastAccuracy } from "./demand-forecast";
+import type { PreparationPlan } from "./preparation-planner";
+import type { MaterialPlanningResult } from "./material-planning";
+
 export type IntelligenceStatus = "available" | "not_recorded" | "not_connected" | "stale" | "blocked";
 
 export type EvidenceRef = {
@@ -72,6 +76,29 @@ export type StationIntelligenceView = {
     draftScheduleAllowed: false;
     backtest: { status: IntelligenceStatus; sampleDays: number; message: string };
   };
+  demand: {
+    status: IntelligenceStatus;
+    forecasts: ProductDemandForecast[];
+    coverage: { salesDays: number; footfallDays: number; productRows: number };
+    message: string;
+  };
+  preparation: {
+    status: IntelligenceStatus;
+    plans: PreparationPlan[];
+    message: string;
+  };
+  materialRequirements: {
+    status: IntelligenceStatus;
+    plan: MaterialPlanningResult | null;
+    blockedProducts: Array<{ productId: string; reason: string }>;
+    message: string;
+  };
+  forecastAccuracy: {
+    status: "Available" | "Insufficient Data";
+    weeks: WeeklyForecastAccuracy[];
+    message: string;
+  };
+  dailyBriefing: Array<{ label: string; value: string; status: IntelligenceStatus; source: string }>;
   replenishment: {
     status: IntelligenceStatus;
     recommendations: ReplenishmentRecommendation[];

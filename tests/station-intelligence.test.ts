@@ -66,6 +66,28 @@ test("sparse anonymous camera data is not promoted to a forecast", async () => {
   assert.equal(view.workforce.hourly[0].forecastFootfall, null);
   assert.equal(view.workforce.backtest.status, "blocked");
   assert.equal(view.workforce.draftScheduleAllowed, false);
+  assert.equal(view.demand.status, "blocked");
+  assert.ok(view.demand.forecasts.every((item) => item.forecastQuantity === null && item.confidence === "Insufficient Data"));
+  assert.equal(view.forecastAccuracy.status, "Insufficient Data");
+  assert.equal(view.forecastAccuracy.weeks.length, 0);
+});
+
+test("preparation and material planning do not coerce missing operational data to zero", async () => {
+  const view = await buildStationIntelligence({
+    connected: true,
+    stale: false,
+    generatedAt: "2026-11-10T08:00:00.000Z",
+    receivedAt: "2026-11-10T08:01:00.000Z",
+    snapshot: snapshot({ products: { products: [{ productId: "coffee", name: "Coffee" }] } }),
+    weather: { status: "not_connected", location: "Station", temperatureC: null, precipitationMm: null, windKph: null, alert: null, observedAt: null, source: "test" },
+  });
+  assert.equal(view.preparation.status, "blocked");
+  assert.equal(view.preparation.plans.length, 1);
+  assert.equal(view.preparation.plans[0].executionAllowed, false);
+  assert.equal(view.preparation.plans[0].netPreparationRequirement, null);
+  assert.equal(view.materialRequirements.plan, null);
+  assert.deepEqual(view.materialRequirements.blockedProducts, [{ productId: "coffee", reason: "Forecast quantity, confirmed SKU and confirmed BOM are required" }]);
+  assert.ok(view.dailyBriefing.every((item) => item.status !== "available" || item.label === "Staffing"));
 });
 
 test("purchase drafting stays blocked without MOQ, reserved and inbound stock", async () => {
