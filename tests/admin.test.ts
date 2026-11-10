@@ -61,9 +61,13 @@ test("admin passwords use a salted verifier", async () => {
 
 test("mutating requests require the configured same origin", () => {
   process.env.SITE_URL = "https://store.example";
+  process.env.VERCEL_URL = "sgl-preview.example.vercel.app";
   assert.equal(safeOrigin(new Request("https://store.example/api/admin", { headers: { origin: "https://store.example" } })), true);
+  assert.equal(safeOrigin(new Request("https://sgl-preview.example.vercel.app/api/admin", { headers: { origin: "https://sgl-preview.example.vercel.app" } })), true);
+  assert.equal(safeOrigin(new Request("https://other-preview.example.vercel.app/api/admin", { headers: { origin: "https://other-preview.example.vercel.app" } })), false);
   assert.equal(safeOrigin(new Request("https://store.example/api/admin", { headers: { origin: "https://evil.example" } })), false);
   delete process.env.SITE_URL;
+  delete process.env.VERCEL_URL;
 });
 
 test("product validation requires complete locales and keeps update slugs immutable", () => {
