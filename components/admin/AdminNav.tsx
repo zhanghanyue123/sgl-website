@@ -15,7 +15,10 @@ const groups: readonly NavGroup[] = [
     ["Shipping", "/admin/shipping", "shipping:write"],
     ["Payments", "/admin/payments", "payments:read"],
   ] },
-  { label: "Station OS Admin", items: [["Station Operations", "/admin/station", "station:read"]] },
+  { label: "Station OS Admin", items: [
+    ["Station Operations", "/admin/station", "station:read"],
+    ["Station Intelligence", "/admin/station/intelligence", "station:read"],
+  ] },
   { label: "Agent Operations", items: [
     ["Agent Overview", "/admin/agents", "agents:read"],
     ["SEO Growth", "/admin/agents/seo", "seo:read"],
