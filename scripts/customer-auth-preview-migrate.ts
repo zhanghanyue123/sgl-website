@@ -14,6 +14,7 @@ async function main() {
   }
   const database = decodeURIComponent(target.pathname.replace(/^\//, ""));
   if (!database) throw new Error("Preview database name is missing");
+  if (!target.port) target.port = "5432";
   target.searchParams.set("sslmode", "verify-full");
   process.env.DATABASE_URL = target.toString();
   process.env.DATABASE_SSL = "verify-full";
