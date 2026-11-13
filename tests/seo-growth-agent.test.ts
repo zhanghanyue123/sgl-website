@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { crawlWebsite, parseHtmlPage } from "../lib/seo-growth/crawler";
+import { crawlWebsite, isPublicSeoCrawlUrl, parseHtmlPage } from "../lib/seo-growth/crawler";
 import { auditTechnicalSeo, duplicateMetadataIssues, validateCanonical, validateHreflang, validateRobotsDocument, validateSitemapDocument } from "../lib/seo-growth/technical-audit";
 import { classifySearchIntent, DisabledKeywordProvider, detectKeywordCannibalization, KeywordProviderUnavailableError, mapKeywordToCatalog } from "../lib/seo-growth/keyword-research";
 import { assertEvidenceReferences } from "../lib/seo-growth/evidence";
@@ -25,6 +25,33 @@ test("crawler stays on the approved origin and records redirects and page struct
   const result = await crawlWebsite({ baseUrl: "https://www.theseagulllabs.com", maxPages: 5, fetcher: async (url) => responses.get(url) || new Response("missing", { status: 404 }) });
   assert.equal(result.pages.length, 2); assert.deepEqual(result.pages[0].headings.h1, ["Title"]); assert.equal(result.pages[1].internalLinks.length, 0);
   assert.throws(() => assertAllowedSeoCrawlUrl("http://127.0.0.1:8080/admin", {}), /not approved/);
+});
+
+test("crawler refuses private routes, sensitive localized routes, and oversized pages", async () => {
+  const origin = "https://www.theseagulllabs.com";
+  for (const path of ["/admin", "/api/orders", "/account", "/en/account/orders", "/checkout", "/payment/status", "/login"]) {
+    assert.equal(isPublicSeoCrawlUrl(origin + path, origin), false, path);
+  }
+  assert.equal(isPublicSeoCrawlUrl(origin + "/en/shop", origin), true);
+  const linkedPage = '<!doctype html><html lang="en"><head><title>SGL</title><meta name="description" content="SGL"><link rel="canonical" href="https://www.theseagulllabs.com/"></head><body><h1>SGL</h1><h2>Shop</h2><a href="/shop">Shop</a><a href="/admin">Admin</a><a href="/en/account">Account</a><a href="/api/orders">API</a></body></html>';
+  const result = await crawlWebsite({ baseUrl: origin, maxPages: 10, fetcher: async (url) => {
+    if (url === origin + "/") return new Response(linkedPage, { status: 200, headers: { "content-type": "text/html" } });
+    return new Response(html({ canonical: String(url), links: "https://external.example" }), { status: 200, headers: { "content-type": "text/html" } });
+  } });
+  assert.deepEqual(result.pages.map((page) => page.normalizedUrl), [origin + "/", origin + "/shop"]);
+  await assert.rejects(() => crawlWebsite({ baseUrl: origin, maxPages: 1, fetcher: async () => new Response("x", { headers: { "content-type": "text/html", "content-length": String(2 * 1024 * 1024 + 1) } }) }), /size limit/);
+});
+
+test("crawler follows directory-slash redirects without normalizing them into a loop", async () => {
+  const origin = "https://cn.theseagulllabs.com";
+  const requests: string[] = [];
+  const result = await crawlWebsite({ baseUrl: origin + "/shop", maxPages: 1, fetcher: async (url) => {
+    requests.push(String(url));
+    if (url === origin + "/shop") return new Response(null, { status: 301, headers: { location: "/shop/" } });
+    return new Response(html({ canonical: origin + "/shop/", links: "https://external.example" }), { status: 200, headers: { "content-type": "text/html" } });
+  } });
+  assert.deepEqual(requests, [origin + "/shop", origin + "/shop/"]);
+  assert.equal(result.pages[0]?.statusCode, 200);
 });
 
 test("canonical and technical validation report evidence-linked findings", () => {
