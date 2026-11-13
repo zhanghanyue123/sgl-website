@@ -8,6 +8,7 @@ import { assertEvidenceReferences } from "../lib/seo-growth/evidence";
 import { parseSeoOptimizationProposal } from "../lib/seo-growth/optimizer";
 import { DisabledSearchPerformanceProvider, SearchPerformanceUnavailableError, analyzeSearchPerformance } from "../lib/seo-growth/search-performance";
 import { assertSeoSchedulesInactive, seoScheduleTargets } from "../lib/seo-growth/scheduler";
+import { authorizeSeoCron, SeoCronError, shanghaiScheduleWindow } from "../lib/seo-growth/cron";
 import { assertAllowedSeoCrawlUrl } from "../lib/seo-growth/service";
 import { seoGrowthAgentTools } from "../lib/seo-growth/tools";
 import { assertDraftTransition } from "../lib/content-drafts/workflow";
@@ -137,4 +138,26 @@ test("SEO scopes, tools, schedules and database audit contracts are explicit", a
   const migration = await readFile(new URL("../db/migrations/0010_seo_growth_agent.sql", import.meta.url), "utf8");
   for (const table of ["seo_crawl_runs", "seo_crawl_pages", "seo_issues", "seo_keywords", "seo_keyword_mappings", "seo_performance_snapshots", "seo_optimization_results"]) assert.match(migration, new RegExp(`CREATE TABLE ${table}`));
   assert.match(migration, /REFERENCES products\(id\)/); assert.match(migration, /REFERENCES content_drafts\(id\)/); assert.doesNotMatch(migration, /CREATE TABLE (products|product_categories|admin_users|agent_clients)/);
+});
+
+test("SEO cron requires a server-only bearer secret and keeps schedules disabled by default", async () => {
+  const secret = "s".repeat(48);
+  assert.throws(() => authorizeSeoCron(null, { SEO_CRON_ENABLED: "true", CRON_SECRET: secret }), (error: unknown) => error instanceof SeoCronError && error.status === 401);
+  assert.throws(() => authorizeSeoCron(`Bearer ${secret}`, { SEO_CRON_ENABLED: "false", CRON_SECRET: secret }), (error: unknown) => error instanceof SeoCronError && error.status === 503);
+  assert.throws(() => authorizeSeoCron("Bearer short", { SEO_CRON_ENABLED: "true", CRON_SECRET: "short" }), (error: unknown) => error instanceof SeoCronError && error.status === 503);
+  assert.doesNotThrow(() => authorizeSeoCron(`Bearer ${secret}`, { SEO_CRON_ENABLED: "true", CRON_SECRET: secret }));
+  assert.equal(seoScheduleTargets.every((schedule) => schedule.active === false), true);
+});
+
+test("SEO cron uses the Asia/Shanghai calendar day and Vercel UTC schedules", async () => {
+  const before = shanghaiScheduleWindow(new Date("2026-11-15T15:59:59Z"));
+  const after = shanghaiScheduleWindow(new Date("2026-11-15T16:00:00Z"));
+  assert.equal(before.date, "2026-11-15");
+  assert.equal(after.date, "2026-11-16");
+  assert.equal(after.start.toISOString(), "2026-11-15T16:00:00.000Z");
+  const config = JSON.parse(await readFile(new URL("../vercel.json", import.meta.url), "utf8"));
+  assert.deepEqual(config.crons, [
+    { path: "/api/cron/seo/daily", schedule: "0 1 * * *" },
+    { path: "/api/cron/seo/weekly", schedule: "0 1 * * 1" }
+  ]);
 });
