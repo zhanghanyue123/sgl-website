@@ -97,3 +97,12 @@ test("verification delivery is server-only and never returns the token", async (
   assert.doesNotMatch(route, /token/);
   assert.doesNotMatch(route, /deliveryStatus|suppressed|accountExists/);
 });
+
+test("Preview migration helper is explicit, direct-Neon-only and contains no credential", async () => {
+  const helper = await source("scripts/customer-auth-preview-migrate.ts");
+  assert.match(helper, /SGL_PREVIEW_MIGRATION_APPROVAL/);
+  assert.match(helper, /DATABASE_URL_UNPOOLED/);
+  assert.match(helper, /hostname\.endsWith\("\.neon\.tech"\)/);
+  assert.match(helper, /hostname\.includes\("-pooler\."\)/);
+  assert.doesNotMatch(helper, /postgres(?:ql)?:\/\/[^\s]+:[^\s]+@/);
+});
