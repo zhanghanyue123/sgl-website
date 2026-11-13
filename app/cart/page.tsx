@@ -26,6 +26,7 @@ export default function CartPage() {
   const { lines, ready, storageError, setQuantity } = useCart();
   const paymentsEnabled = process.env.NEXT_PUBLIC_STORE_CHECKOUT_ENABLED === "true";
   const [busy, setBusy] = useState(false);
+  const [paymentProvider, setPaymentProvider] = useState<"stripe" | "paypal">("stripe");
   const [checkoutError, setCheckoutError] = useState("");
   const attempt = useRef({ cart: "", key: "" });
 
@@ -36,7 +37,7 @@ export default function CartPage() {
     const cart = JSON.stringify(lines);
     if (attempt.current.cart !== cart) attempt.current = { cart, key: crypto.randomUUID() };
     try {
-      const response = await fetch("/api/checkout", {
+      const response = await fetch(paymentProvider === "paypal" ? "/api/paypal/orders" : "/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Idempotency-Key": attempt.current.key },
         body: JSON.stringify({ items: lines, locale })
@@ -44,7 +45,9 @@ export default function CartPage() {
       const result = await response.json();
       if (!response.ok) throw new Error(c.error);
       const url = new URL(result.url);
-      if (url.protocol !== "https:" || url.hostname !== "checkout.stripe.com") throw new Error(c.invalid);
+      const stripe = paymentProvider === "stripe" && result.provider !== "paypal" && url.protocol === "https:" && url.hostname === "checkout.stripe.com";
+      const paypal = paymentProvider === "paypal" && result.provider === "paypal" && url.protocol === "https:" && url.hostname === "www.sandbox.paypal.com";
+      if (!stripe && !paypal) throw new Error(c.invalid);
       window.location.assign(url.href);
     } catch (error) {
       setCheckoutError(error instanceof Error ? error.message : c.error);
@@ -67,6 +70,12 @@ export default function CartPage() {
       </article>)}</div>
       <p className="mt-8 text-2xl font-black">{c.subtotal} $ {(total / 100).toFixed(2)}</p>
       <p className="mt-3">{c.note}</p>
+      <fieldset className="mt-6 max-w-md border border-sglInk p-4">
+        <legend className="px-2 font-black uppercase">Payment method</legend>
+        <label className="flex items-center gap-3"><input type="radio" name="payment-provider" value="stripe" checked={paymentProvider === "stripe"} onChange={() => setPaymentProvider("stripe")} /> Card</label>
+        <label className="mt-3 flex items-center gap-3"><input type="radio" name="payment-provider" value="paypal" checked={paymentProvider === "paypal"} onChange={() => setPaymentProvider("paypal")} /> PayPal Sandbox</label>
+        {paymentProvider === "paypal" && <p className="mt-3 text-sm">Sandbox testing only. No live PayPal credentials or real charges are used.</p>}
+      </fieldset>
       <button disabled={busy || !ready || !paymentsEnabled} onClick={checkout} className="mt-6 block border border-sglInk bg-sglInk p-4 font-bold text-sglCream disabled:opacity-50">{!paymentsEnabled ? c.unavailable : busy ? c.preparing : c.checkout}</button>
       {checkoutError && <p role="alert" className="mt-4">{checkoutError}</p>}
       <Link className="mt-6 inline-block border border-sglInk bg-sglAcid p-4 font-bold" href={localizedPath("/contact", locale)}>{c.contact}</Link>
