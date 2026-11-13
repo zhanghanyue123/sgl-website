@@ -31,20 +31,16 @@ export function shanghaiScheduleWindow(now = new Date()) {
   return { date, start, end: new Date(start.getTime() + 86_400_000) };
 }
 
-async function cronActor(): Promise<Extract<ContentDraftActor, { type: "agent" }>> {
-  const rows = await getDb()<Array<{ client_id: string; token_id: string }>>`
-    SELECT c.id AS client_id,t.id AS token_id
-    FROM agent_clients c JOIN agent_tokens t ON t.client_id=c.id
-    WHERE c.active=true AND c.revoked_at IS NULL AND t.revoked_at IS NULL AND t.expires_at>now()
-      AND t.scopes ? 'seo:audit'
-    ORDER BY t.created_at DESC LIMIT 1`;
-  if (!rows[0]) throw new SeoCronError(503, "No active SEO audit service identity is configured");
-  return { type: "agent", clientId: rows[0].client_id, tokenId: rows[0].token_id, requestId: `seo-cron-${randomUUID()}` };
+async function cronActor(): Promise<Extract<ContentDraftActor, { type: "admin" }>> {
+  const rows = await getDb()<Array<{ id: string }>>`
+    SELECT id FROM admin_users WHERE active=true AND role='owner' ORDER BY created_at LIMIT 1`;
+  if (!rows[0]) throw new SeoCronError(503, "No active Owner is available to audit the authorized SEO schedule");
+  return { type: "admin", adminId: rows[0].id, requestId: `seo-cron-${randomUUID()}` };
 }
 
 const safeError = (error: unknown) => (error instanceof Error ? error.message : "Unknown SEO audit failure").slice(0, 500);
 
-async function scheduledAudit(input: { baseUrl: string; cadence: SeoCronCadence; maxPages: number; actor: Extract<ContentDraftActor, { type: "agent" }>; now: Date }) {
+async function scheduledAudit(input: { baseUrl: string; cadence: SeoCronCadence; maxPages: number; actor: Extract<ContentDraftActor, { type: "admin" }>; now: Date }) {
   const db = getDb();
   const window = shanghaiScheduleWindow(input.now);
   const leaseKey = `seo:${input.cadence}:${window.date}:${new URL(input.baseUrl).origin}`;
@@ -68,13 +64,13 @@ async function scheduledAudit(input: { baseUrl: string; cadence: SeoCronCadence;
   });
 }
 
-async function weeklyReport(actor: Extract<ContentDraftActor, { type: "agent" }>, now: Date) {
+async function weeklyReport(actor: Extract<ContentDraftActor, { type: "admin" }>, now: Date) {
   const db = getDb(); const window = shanghaiScheduleWindow(now); const reportId = randomUUID();
   return db.begin(async (tx) => {
     const lock = await tx<Array<{ acquired: boolean }>>`SELECT pg_try_advisory_xact_lock(hashtextextended(${`seo:weekly-report:${window.date}`},0)) AS acquired`;
     if (!lock[0]?.acquired) return { status: "running" as const };
-    const existing = await tx<Array<{ entity_id: string }>>`SELECT entity_id FROM agent_audit_logs
-      WHERE client_id=${actor.clientId} AND action='seo.weekly_report.generated' AND created_at>=${window.start} AND created_at<${window.end}
+    const existing = await tx<Array<{ entity_id: string }>>`SELECT entity_id FROM audit_logs
+      WHERE actor_user_id=${actor.adminId} AND action='seo.weekly_report.generated' AND created_at>=${window.start} AND created_at<${window.end}
       ORDER BY created_at DESC LIMIT 1`;
     if (existing[0]) return { status: "skipped" as const, reportId: existing[0].entity_id };
     const keywordResult = await discoverCatalogKeywordOpportunities();
@@ -84,8 +80,8 @@ async function weeklyReport(actor: Extract<ContentDraftActor, { type: "agent" }>
         COALESCE(sum(issues_found),0)::int AS issues FROM seo_crawl_runs
       WHERE started_at>=${new Date(window.start.getTime()-6*86_400_000)} AND started_at<${window.end}`;
     const data = { periodEnd: window.date, ...summary[0], keywordOpportunities: keywordResult.opportunities.length, automaticPublishing: "off" };
-    await tx`INSERT INTO agent_audit_logs(id,client_id,token_id,method,path,action,entity_type,entity_id,request_id,outcome,data)
-      VALUES(${randomUUID()},${actor.clientId},${actor.tokenId},'GET','/api/cron/seo/weekly','seo.weekly_report.generated','seo_weekly_report',${reportId},${actor.requestId || null},'success',${tx.json(toJson(data))})`;
+    await tx`INSERT INTO audit_logs(id,actor_user_id,action,entity_type,entity_id,after_data,request_id)
+      VALUES(${randomUUID()},${actor.adminId},'seo.weekly_report.generated','seo_weekly_report',${reportId},${tx.json(toJson(data))},${actor.requestId || null})`;
     return { status: "completed" as const, reportId, summary: data };
   });
 }
