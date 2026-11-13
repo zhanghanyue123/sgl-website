@@ -53,11 +53,21 @@ test("public mutations accept the current Vercel Preview origin without widening
 });
 
 test("delivery only reports success after the relay confirms sending", async () => {
-  const env = { VERCEL_ENV: "production", FRIES_CONTACT_DELIVERY_URL: "https://hello.example.test/contact", FRIES_CONTACT_DELIVERY_TOKEN: "server-secret" };
+  const env = { VERCEL_ENV: "production", FRIES_CONTACT_DELIVERY_URL: "https://hello.example.test/contact", FRIES_CONTACT_DELIVERY_TOKEN: "server-secret", FRIES_CONTACT_DELIVERY_SIGNING_SECRET: "contact-signing-secret-at-least-32-chars", FRIES_CONTACT_DELIVERY_CLIENT_KEY: "vercel-fries-contact" };
   const success = await deliverContactSubmission(submission, env, async () => new Response(JSON.stringify({ sent: true, messageId: "message-1" }), { status: 200, headers: { "content-type": "application/json" } }) as never);
   assert.equal(success.providerMessageId, "message-1");
   await assert.rejects(() => deliverContactSubmission(submission, env, async () => new Response(JSON.stringify({ sent: false }), { status: 200, headers: { "content-type": "application/json" } }) as never), /not confirmed/);
   await assert.rejects(() => deliverContactSubmission(submission, { VERCEL_ENV: "production" }), /not configured/);
+});
+
+test("contact failures retry only when the relay confirms retry safety", async () => {
+  const repository = await readFile(new URL("../lib/customer-service/contact-repository.ts", import.meta.url), "utf8");
+  const route = await readFile(new URL("../app/api/support/contact/route.ts", import.meta.url), "utf8");
+  const migration = await readFile(new URL("../db/migrations/0016_fries_contact_retry.sql", import.meta.url), "utf8");
+  assert.match(repository, /status='failed'[\s\S]*retry_safe=true[\s\S]*attempts<3/);
+  assert.match(route, /retrySafe.*=== true/);
+  assert.match(migration, /attempts integer NOT NULL DEFAULT 1/);
+  assert.match(migration, /retry_safe boolean NOT NULL DEFAULT false/);
 });
 
 test("Fries UI has five-language fallback and automatic recovery health polling", async () => {

@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { supportLocales, type SupportLocale } from "./types";
+import { signedServiceHeaders } from "./fries-agent";
 
 export type ContactSubmission = {
   name: string;
@@ -48,21 +49,26 @@ export async function deliverContactSubmission(
   }
   const url = environment.FRIES_CONTACT_DELIVERY_URL?.trim();
   const token = environment.FRIES_CONTACT_DELIVERY_TOKEN?.trim();
-  if (!url || !token) throw Object.assign(new Error("Contact delivery is not configured"), { status: 503 });
+  const signingSecret = environment.FRIES_CONTACT_DELIVERY_SIGNING_SECRET?.trim() || "";
+  const clientKey = environment.FRIES_CONTACT_DELIVERY_CLIENT_KEY?.trim() || "";
+  if (!url || !token || signingSecret.length < 32 || !/^[A-Za-z0-9_-]{8,128}$/.test(clientKey)) {
+    throw Object.assign(new Error("Contact delivery is not configured"), { status: 503 });
+  }
+  const body = JSON.stringify({ schemaVersion: "fries.contact.relay.v1", replyTo: input.email, name: input.name, subject: input.subject, message: input.message, locale: input.locale });
   let response: Response;
   try {
     response = await fetcher(url, {
       method: "POST",
-      headers: { authorization: `Bearer ${token}`, "content-type": "application/json", "idempotency-key": input.idempotencyKey },
-      body: JSON.stringify({ to: "hello@theseagulllabs.com", replyTo: input.email, name: input.name, subject: input.subject, message: input.message, locale: input.locale }),
+      headers: { ...signedServiceHeaders({ url, method: "POST", body, idempotencyKey: input.idempotencyKey, token, signingSecret, clientKey }), "content-type": "application/json", "idempotency-key": input.idempotencyKey },
+      body,
       signal: AbortSignal.timeout(8_000),
       cache: "no-store"
     });
   } catch {
-    throw Object.assign(new Error("Contact delivery is temporarily unavailable"), { status: 503 });
+    throw Object.assign(new Error("Contact delivery is temporarily unavailable"), { status: 503, retrySafe: false });
   }
-  if (!response.ok) throw Object.assign(new Error("Contact delivery failed"), { status: response.status >= 500 ? 503 : 502 });
+  if (!response.ok) throw Object.assign(new Error("Contact delivery failed"), { status: response.status >= 500 ? 503 : 502, retrySafe: response.status < 500 });
   const result = await response.json().catch(() => null) as { sent?: unknown; messageId?: unknown } | null;
-  if (result?.sent !== true || typeof result.messageId !== "string" || !result.messageId) throw Object.assign(new Error("Contact delivery was not confirmed"), { status: 502 });
+  if (result?.sent !== true || typeof result.messageId !== "string" || !result.messageId) throw Object.assign(new Error("Contact delivery was not confirmed"), { status: 502, retrySafe: true });
   return { providerMessageId: result.messageId.slice(0, 200), mode: "relay" };
 }

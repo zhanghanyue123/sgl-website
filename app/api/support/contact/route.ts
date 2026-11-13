@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     await recordContactDelivery(reservation.id, delivery);
     return NextResponse.json({ sent: true }, { status: 201 });
   } catch (error) {
-    if (reservation?.created) await recordContactFailure(reservation.id, error instanceof Error ? error.message : "unknown_error").catch(() => undefined);
+    if (reservation?.created) await recordContactFailure(reservation.id, error instanceof Error ? error.message : "unknown_error", (error as { retrySafe?: unknown })?.retrySafe === true).catch(() => undefined);
     const status = typeof (error as { status?: unknown })?.status === "number" ? (error as { status: number }).status : 500;
     return NextResponse.json({ error: status >= 500 ? "We could not send your message. Please try again." : (error as Error).message }, { status });
   }

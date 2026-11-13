@@ -5,13 +5,21 @@ import { contactSubmissionHash, type ContactDeliveryResult, type ContactSubmissi
 export async function reserveContactSubmission(input: ContactSubmission) {
   const id = randomUUID();
   const hash = contactSubmissionHash(input);
-  const rows = await getDb()<Array<{ id: string; status: string }>>`INSERT INTO support_contact_submissions
+  const db = getDb();
+  const rows = await db<Array<{ id: string; status: string }>>`INSERT INTO support_contact_submissions
     (id,idempotency_key,content_hash,name,email,subject,message,locale,status)
     VALUES(${id},${input.idempotencyKey},${hash},${input.name},${input.email},${input.subject},${input.message},${input.locale},'pending')
-    ON CONFLICT(idempotency_key) DO UPDATE SET updated_at=support_contact_submissions.updated_at
+    ON CONFLICT(idempotency_key) DO NOTHING
     RETURNING id,status`;
-  const record = rows[0];
-  return { id: record.id, status: record.status, created: record.id === id };
+  if (rows[0]) return { id: rows[0].id, status: rows[0].status, created: true };
+  const retried = await db<Array<{ id: string; status: string }>>`UPDATE support_contact_submissions SET
+    status='pending',attempts=attempts+1,last_error_code=NULL,updated_at=now()
+    WHERE idempotency_key=${input.idempotencyKey} AND content_hash=${hash} AND status='failed'
+      AND retry_safe=true AND attempts<3
+    RETURNING id,status`;
+  if (retried[0]) return { id: retried[0].id, status: retried[0].status, created: true };
+  const existing = await db<Array<{ id: string; status: string }>>`SELECT id,status FROM support_contact_submissions WHERE idempotency_key=${input.idempotencyKey}`;
+  return { id: existing[0].id, status: existing[0].status, created: false };
 }
 
 export async function recordContactDelivery(id: string, result: ContactDeliveryResult) {
@@ -22,6 +30,6 @@ export async function recordContactDelivery(id: string, result: ContactDeliveryR
   });
 }
 
-export async function recordContactFailure(id: string, errorCode: string) {
-  await getDb()`UPDATE support_contact_submissions SET status='failed',last_error_code=${errorCode.slice(0,80)},updated_at=now() WHERE id=${id} AND status='pending'`;
+export async function recordContactFailure(id: string, errorCode: string, retrySafe = false) {
+  await getDb()`UPDATE support_contact_submissions SET status='failed',last_error_code=${errorCode.slice(0,80)},retry_safe=${retrySafe},updated_at=now() WHERE id=${id} AND status='pending'`;
 }

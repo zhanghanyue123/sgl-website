@@ -10,8 +10,11 @@ const baseEnvironment = {
   FRIES_STATION_EVENTS_URL: "https://station.example.test/api/integrations/fries/events",
   FRIES_STATION_EVENTS_TOKEN: "station-token",
   FRIES_STATION_SIGNING_SECRET: "station-signing-secret-at-least-24-chars",
+  FRIES_STATION_CLIENT_KEY: "vercel-fries-station",
   FRIES_WECOM_DELIVERY_URL: "https://wecom.example.test/deliver",
-  FRIES_WECOM_DELIVERY_TOKEN: "wecom-token"
+  FRIES_WECOM_DELIVERY_TOKEN: "wecom-token",
+  FRIES_WECOM_DELIVERY_SIGNING_SECRET: "wecom-signing-secret-at-least-32-chars",
+  FRIES_WECOM_DELIVERY_CLIENT_KEY: "vercel-fries-wecom"
 };
 
 const lease: SupportEventLease = {
@@ -42,11 +45,13 @@ test("Fries worker delivers Station and policy-approved WeCom events before ACK"
     if (url === baseEnvironment.FRIES_STATION_EVENTS_URL) {
       assert.equal(new Headers(init?.headers).get("authorization"), "Bearer station-token");
       assert.ok(new Headers(init?.headers).get("x-sgl-signature"));
+      assert.ok(new Headers(init?.headers).get("x-sgl-nonce"));
       return Response.json({ code: "accepted", taskId: "task-1" }, { status: 201 });
     }
     if (url === baseEnvironment.FRIES_WECOM_DELIVERY_URL) {
       const body = JSON.parse(String(init?.body));
       assert.doesNotMatch(JSON.stringify(body), /@|customer message/i);
+      assert.ok(new Headers(init?.headers).get("x-sgl-signature"));
       return Response.json({ delivered: true });
     }
     if (url === baseEnvironment.FRIES_WEBSITE_EVENTS_URL && init?.method === "POST") return Response.json({ status: "acknowledged" });

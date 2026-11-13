@@ -7,6 +7,7 @@ const links: readonly [string, string, AdminPermission][] = [
   ["Dashboard", "/admin", "dashboard:read"], ["Products", "/admin/products", "products:read"], ["Inventory", "/admin/inventory", "inventory:read"],
   ["Orders", "/admin/orders", "orders:read"], ["Shipping", "/admin/shipping", "shipping:write"], ["Customers", "/admin/customers", "customers:read"],
   ["Payments", "/admin/payments", "payments:read"], ["Agent actions", "/admin/agent-actions", "agents:read"],
+  ["Fries commerce", "/admin/fries-commerce", "agents:read"],
   ["Settings", "/admin/settings", "settings:read"], ["Audit", "/admin/audit", "audit:read"]
 ] as const;
 

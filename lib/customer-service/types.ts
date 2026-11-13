@@ -15,7 +15,12 @@ export type PublicProductFact = {
   category: string;
   description: string;
   details: string[];
-  variants: Array<{ options: Array<{ name: string; value: string }> }>;
+  image?: string | null;
+  priceCents?: number;
+  currency?: string;
+  link?: string;
+  availability?: "available" | "out_of_stock" | "not_recorded" | "stale";
+  variants: Array<{ id?: string; sku?: string | null; title?: string; options: Array<{ name: string; value: string }>; priceCents?: number; currency?: string; availability?: "available" | "out_of_stock" | "not_recorded" | "stale" }>;
 };
 
 export type ApprovedPolicyFact = { id: string; title: string; category: string; body: string };

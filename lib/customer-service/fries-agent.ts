@@ -29,8 +29,9 @@ function adapterSignature(input: { secret: string; timestamp: string; method: st
   return `v1=${createHmac("sha256", input.secret).update(canonical).digest("hex")}`;
 }
 
-function signedHeaders(input: { url: string; method: string; body?: string; idempotencyKey?: string; token: string; signingSecret: string; clientKey: string; now: () => number }) {
-  const timestamp = String(Math.floor(input.now() / 1_000));
+export function signedServiceHeaders(input: { url: string; method: string; body?: string; idempotencyKey?: string; token: string; signingSecret: string; clientKey: string; now?: () => number }) {
+  const now = input.now || Date.now;
+  const timestamp = String(Math.floor(now() / 1_000));
   const body = input.body || "";
   const idempotencyKey = input.idempotencyKey || "";
   return {
@@ -75,7 +76,7 @@ export async function probeFriesAdapterHealth(
   try {
     const response = await fetcher(endpoint, {
       method: "GET", redirect: "error", cache: "no-store",
-      headers: signedHeaders({ url: endpoint.toString(), method: "GET", token: environment.SGL_FRIES_ADAPTER_TOKEN!.trim(), signingSecret: environment.SGL_FRIES_ADAPTER_SIGNING_SECRET!.trim(), clientKey: environment.SGL_FRIES_ADAPTER_CLIENT_KEY!.trim(), now: Date.now }),
+      headers: signedServiceHeaders({ url: endpoint.toString(), method: "GET", token: environment.SGL_FRIES_ADAPTER_TOKEN!.trim(), signingSecret: environment.SGL_FRIES_ADAPTER_SIGNING_SECRET!.trim(), clientKey: environment.SGL_FRIES_ADAPTER_CLIENT_KEY!.trim(), now: Date.now }),
       signal: AbortSignal.timeout(3_000)
     });
     if (!response.ok) return { configured: true, ok: false, provider: status.provider, model: status.agent, status: "error", latencyMs: Date.now() - started, checkedAt, errorCode: `http_${response.status}` };
@@ -132,7 +133,7 @@ export class FriesOpenClawAdapterProvider implements StructuredLlmProvider {
       try {
         const response = await this.fetcher(this.endpoint, {
           method: "POST", redirect: "error",
-          headers: { ...signedHeaders({ url: this.endpoint, method: "POST", body, idempotencyKey: requestId, token: this.token, signingSecret: this.signingSecret, clientKey: this.clientKey, now: this.now }), "content-type": "application/json", "idempotency-key": requestId },
+          headers: { ...signedServiceHeaders({ url: this.endpoint, method: "POST", body, idempotencyKey: requestId, token: this.token, signingSecret: this.signingSecret, clientKey: this.clientKey, now: this.now }), "content-type": "application/json", "idempotency-key": requestId },
           body, signal: AbortSignal.timeout(this.timeoutMs)
         });
         if (!response.ok) throw new LlmProviderRequestError(`Fries Adapter request failed with HTTP ${response.status}`, response.status, retryableStatus(response.status));
