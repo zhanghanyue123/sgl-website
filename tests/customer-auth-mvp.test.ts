@@ -5,6 +5,7 @@ import { customerRequestOriginAllowed, cleanDisplayName } from "../lib/customer-
 import { hasPermission } from "../lib/admin/permissions";
 
 const source = (path: string) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+const customerAuthSchema = async () => `${await source("db/migrations/0015_customer_membership_accounts.sql")}\n${await source("db/migrations/0018_customer_auth_claim_hardening.sql")}`;
 
 test("customer mutations accept only the configured global or current Preview origin", () => {
   const previousSite = process.env.SITE_URL; const previousPreview = process.env.VERCEL_URL;
@@ -23,7 +24,7 @@ test("customer names strip controls and remain bounded", () => {
 });
 
 test("pending registration has no customer ownership or session relationship", async () => {
-  const migration = await source("db/migrations/0014_customer_auth_mvp.sql");
+  const migration = await customerAuthSchema();
   const auth = await source("lib/customer-auth/auth.ts");
   const route = await source("app/api/customer/register/route.ts");
   assert.match(migration, /CREATE TABLE customer_pending_registrations/);
@@ -59,11 +60,11 @@ test("only verified credentials can create or restore a session", async () => {
 });
 
 test("migration enforces normalized uniqueness and hashed session tokens", async () => {
-  const migration = await source("db/migrations/0014_customer_auth_mvp.sql");
+  const migration = await customerAuthSchema();
   assert.match(migration, /UNIQUE INDEX customer_pending_registrations_email_unique/);
   assert.match(migration, /token_hash text NOT NULL UNIQUE/);
   assert.match(migration, /customer_id uuid PRIMARY KEY REFERENCES customers/);
-  assert.match(migration, /email_verified_at timestamptz NOT NULL/);
+  assert.match(migration, /email_verified_at timestamptz NOT NULL|CHECK \(email_verified_at IS NOT NULL\)/);
   assert.doesNotMatch(migration, /CREATE TABLE customers/);
 });
 

@@ -31,6 +31,7 @@ async function main() {
     db,
     directory: path.join(process.cwd(), "db", "migrations"),
     expectedTarget: assertSafeMigrationTarget(),
+    acceptLegacyChecksums: true,
     log: console.log
   });
   console.log(JSON.stringify({ environment: "Preview", applied: result.applied, skipped: result.skipped.length }));
