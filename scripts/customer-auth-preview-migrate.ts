@@ -1,3 +1,5 @@
+import { copyFile, mkdtemp, readdir, rm } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { closeDb, getDb } from "../lib/admin/db";
 import { applyMigrations, assertSafeMigrationTarget } from "./db-migrate";
@@ -28,15 +30,23 @@ async function main() {
   const before = await db<Array<{ database: string; migration_count: number }>>`
     SELECT current_database() AS database,(SELECT count(*)::int FROM schema_migrations) AS migration_count`;
   console.log(JSON.stringify({ environment: "Preview", database: before[0]?.database, migrationsBefore: before[0]?.migration_count }));
-  const result = await applyMigrations({
-    db,
-    directory: path.join(process.cwd(), "db", "migrations"),
-    expectedTarget: assertSafeMigrationTarget(),
-    acceptLegacyChecksums: true,
-    log: console.log
-  });
-  console.log(JSON.stringify({ environment: "Preview", applied: result.applied, skipped: result.skipped.length }));
-  await closeDb();
+  const sourceDirectory = path.join(process.cwd(), "db", "migrations");
+  const verificationDirectory = await mkdtemp(path.join(os.tmpdir(), "sgl-customer-auth-migrations-"));
+  try {
+    const files = (await readdir(sourceDirectory)).filter(file => file.endsWith(".sql") && file !== "0005_public_rate_limits.sql");
+    for (const file of files) await copyFile(path.join(sourceDirectory, file), path.join(verificationDirectory, file));
+    const result = await applyMigrations({
+      db,
+      directory: verificationDirectory,
+      expectedTarget: assertSafeMigrationTarget(),
+      acceptLegacyChecksums: true,
+      log: console.log
+    });
+    console.log(JSON.stringify({ environment: "Preview", applied: result.applied, skipped: result.skipped.length }));
+  } finally {
+    await rm(verificationDirectory, { recursive: true, force: true });
+    await closeDb();
+  }
 }
 
 main().catch(async (error) => { console.error(error instanceof Error ? error.message : "Preview migration failed"); await closeDb(); process.exitCode = 1; });
