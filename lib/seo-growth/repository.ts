@@ -4,26 +4,31 @@ import type { ContentDraftActor } from "@/lib/content-drafts/types";
 import type { CrawledPage, KeywordOpportunity, SeoIssue, SearchPerformanceRow } from "./types";
 
 const actorIds = (actor: ContentDraftActor) => actor.type === "admin" ? { admin: actor.adminId, agent: null } : { admin: null, agent: actor.clientId };
+const issueFingerprint = (issue: SeoIssue) => `${issue.type}:${issue.pageUrl || "site"}`;
+
+export function dedupeSeoIssues(issues: readonly SeoIssue[]) {
+  return [...new Map(issues.map((issue) => [issueFingerprint(issue), issue])).values()];
+}
 
 export async function saveSeoAudit(input: { baseUrl: string; triggerType: "manual" | "scheduled"; scheduleScope?: "daily" | "weekly" | "monthly" | null; pages: CrawledPage[]; issues: SeoIssue[]; errorSummary?: string | null }, actor: ContentDraftActor) {
   return getDb().begin(async (tx) => {
-    const runId = randomUUID(); const actorId = actorIds(actor);
+    const runId = randomUUID(); const actorId = actorIds(actor); const issues = dedupeSeoIssues(input.issues);
     await tx`INSERT INTO seo_crawl_runs(id,base_url,trigger_type,schedule_scope,status,pages_discovered,pages_audited,issues_found,error_summary,created_by_admin_id,created_by_agent_client_id,finished_at)
-      VALUES(${runId},${input.baseUrl},${input.triggerType},${input.scheduleScope || null},${input.errorSummary ? "failed" : "completed"},${input.pages.length},${input.pages.length},${input.issues.length},${input.errorSummary || null},${actorId.admin},${actorId.agent},now())`;
+      VALUES(${runId},${input.baseUrl},${input.triggerType},${input.scheduleScope || null},${input.errorSummary ? "failed" : "completed"},${input.pages.length},${input.pages.length},${issues.length},${input.errorSummary || null},${actorId.admin},${actorId.agent},now())`;
     const pageIds = new Map<string, string>();
     for (const page of input.pages) {
       const id = randomUUID(); pageIds.set(page.normalizedUrl, id);
       await tx`INSERT INTO seo_crawl_pages(id,run_id,url,normalized_url,status_code,redirect_chain,canonical_url,locale,title,meta_description,headings,hreflang,internal_links,images,schema_types,mobile_metrics,response_ms,fetched_at)
         VALUES(${id},${runId},${page.url},${page.normalizedUrl},${page.statusCode},${tx.json(toJson(page.redirectChain))},${page.canonicalUrl},${page.locale},${page.title},${page.metaDescription},${tx.json(toJson(page.headings))},${tx.json(toJson(page.hreflang))},${tx.json(toJson(page.internalLinks))},${tx.json(toJson(page.images))},${tx.json(toJson(page.schemaTypes))},${tx.json(toJson(page.mobileMetrics))},${page.responseMs},${page.fetchedAt})`;
     }
-    for (const finding of input.issues) {
-      const fingerprint = `${finding.type}:${finding.pageUrl || "site"}`;
+    for (const finding of issues) {
+      const fingerprint = issueFingerprint(finding);
       await tx`INSERT INTO seo_issues(id,run_id,page_id,fingerprint,issue_type,severity,page_url,summary,evidence)
         VALUES(${randomUUID()},${runId},${finding.pageUrl ? pageIds.get(finding.pageUrl) || null : null},${fingerprint},${finding.type},${finding.severity},${finding.pageUrl},${finding.summary},${tx.json(toJson({ sources: finding.evidence }))})`;
     }
     if (actor.type === "admin") await tx`INSERT INTO audit_logs(id,actor_user_id,action,entity_type,entity_id,after_data,request_id)
-      VALUES(${randomUUID()},${actor.adminId},'seo.audit.completed','seo_crawl_run',${runId},${tx.json(toJson({ pages: input.pages.length, issues: input.issues.length, status: input.errorSummary ? "failed" : "completed" }))},${actor.requestId || null})`;
-    return { id: runId, pages: input.pages.length, issues: input.issues.length, status: input.errorSummary ? "failed" : "completed" };
+      VALUES(${randomUUID()},${actor.adminId},'seo.audit.completed','seo_crawl_run',${runId},${tx.json(toJson({ pages: input.pages.length, issues: issues.length, status: input.errorSummary ? "failed" : "completed" }))},${actor.requestId || null})`;
+    return { id: runId, pages: input.pages.length, issues: issues.length, status: input.errorSummary ? "failed" : "completed" };
   });
 }
 

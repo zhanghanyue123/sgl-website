@@ -9,6 +9,7 @@ import { parseSeoOptimizationProposal } from "../lib/seo-growth/optimizer";
 import { DisabledSearchPerformanceProvider, SearchPerformanceUnavailableError, analyzeSearchPerformance } from "../lib/seo-growth/search-performance";
 import { assertSeoSchedulesInactive, seoScheduleTargets } from "../lib/seo-growth/scheduler";
 import { authorizeSeoCron, SeoCronError, shanghaiScheduleWindow } from "../lib/seo-growth/cron";
+import { dedupeSeoIssues } from "../lib/seo-growth/repository";
 import { assertAllowedSeoCrawlUrl } from "../lib/seo-growth/service";
 import { seoGrowthAgentTools } from "../lib/seo-growth/tools";
 import { assertDraftTransition } from "../lib/content-drafts/workflow";
@@ -159,5 +160,14 @@ test("SEO cron uses the Asia/Shanghai calendar day and Vercel UTC schedules", as
   assert.deepEqual(config.crons, [
     { path: "/api/cron/seo/daily", schedule: "0 1 * * *" },
     { path: "/api/cron/seo/weekly", schedule: "0 1 * * 1" }
+  ]);
+});
+
+test("SEO audit persistence deduplicates issue fingerprints within one run", () => {
+  const evidence = { id: "crawl:shop", type: "crawl" as const, label: "Shop crawl", sourceUrl: "https://www.theseagulllabs.com/shop", observedAt: "2026-11-13T00:00:00.000Z" };
+  const issue = { type: "missing_meta_description", severity: "medium" as const, pageUrl: "https://www.theseagulllabs.com/shop", summary: "Missing description", evidence: [evidence] };
+  const distinct = { ...issue, type: "missing_title", summary: "Missing title" };
+  assert.deepEqual(dedupeSeoIssues([issue, { ...issue, summary: "Same fingerprint from another rule pass" }, distinct]), [
+    { ...issue, summary: "Same fingerprint from another rule pass" }, distinct
   ]);
 });
