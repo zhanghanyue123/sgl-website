@@ -14,11 +14,11 @@ export class SeoCronError extends Error {
 const digest = (value: string) => createHash("sha256").update(value).digest();
 
 export function authorizeSeoCron(authorization: string | null, environment: CronEnvironment = process.env) {
-  if (environment.SEO_CRON_ENABLED !== "true") throw new SeoCronError(503, "SEO schedules are disabled");
   const secret = environment.CRON_SECRET || "";
   if (secret.length < 32) throw new SeoCronError(503, "SEO cron authentication is not configured");
   const match = authorization?.match(/^Bearer (.+)$/);
   if (!match || !timingSafeEqual(digest(match[1]), digest(secret))) throw new SeoCronError(401, "Unauthorized");
+  if (environment.SEO_CRON_ENABLED !== "true") throw new SeoCronError(503, "SEO schedules are disabled");
 }
 
 export function shanghaiScheduleWindow(now = new Date()) {
