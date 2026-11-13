@@ -11,7 +11,9 @@ export async function deliverVerificationEmail(input: { email: string; token: st
   if (deliveryUrl.protocol !== "https:" || deliveryUrl.username || deliveryUrl.password) {
     throw new CustomerAuthError(503, "Email verification delivery is not configured");
   }
-  const site = new URL(process.env.SITE_URL || "https://www.theseagulllabs.com");
+  const site = new URL(process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.SITE_URL || "https://www.theseagulllabs.com");
   const verifyUrl = new URL("/verify-email", site);
   verifyUrl.searchParams.set("token", input.token);
   try {
