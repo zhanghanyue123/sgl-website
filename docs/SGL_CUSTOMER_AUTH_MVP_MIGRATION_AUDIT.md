@@ -21,11 +21,11 @@
 The existing Vercel Preview Neon database is not a clean `0001`–`0013` target. A read-only registry query on 2026-11-13 returned `0001`–`0017`:
 
 - `0014_fries_contact_fallback.sql` matches the reviewed checksum.
-- `0015_customer_membership_accounts.sql` is recorded as `6f57c2630c1c58a8d731220b2b02b1eb41613ef14f746e6df4a0b0aae0933871`; no accessible source file matches that checksum. The available file hashes to `6f50ec3d0a08e623ecc7aca6f76ad72b396d946a4bb265d9c1d009c4bc56c658`.
+- `0015_customer_membership_accounts.sql` is recorded as `6f57c2630c1c58a8d731220b2b02b1eb41613ef14f746e6df4a0b0aae0933871`. Its exact source was recovered from Git blob `46aced1a3ca2746b41bdd317edc659b0b9ed09c7`; the difference from the visible working copy was its final newline.
 - `0016_fries_contact_retry.sql` and `0017_fries_commerce_intelligence.sql` are recorded with `NULL` legacy checksums.
 - The Preview schema contains the old customer credentials, sessions and verification tables, but no pending-registration table.
 
-No migration was applied after this finding. The existing Preview database must not be reset or silently adopted. A fresh isolated Preview Neon branch/database based on `0001`–`0013` is required to test this branch's minimal `0014_customer_auth_mvp.sql`, unless the missing historical `0015` source is recovered and a separately reviewed forward migration is prepared.
+The existing Preview database was not reset. A separate compatibility branch, `preview/customer-auth-mvp-compat`, restored the exact historical sources, adopted only the reviewed `NULL` checksums for `0016` and `0017`, and applied forward-only `0018_customer_auth_claim_hardening.sql`. The clean Production candidate branch does not contain or execute those unrelated Fries migrations; it retains only the minimal `0014_customer_auth_mvp.sql` for a confirmed `0001`–`0013` Production registry.
 
 ## MVP migration
 
