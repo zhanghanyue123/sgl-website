@@ -16,6 +16,7 @@ const nav = [
 
 const localeIndex: Record<Locale, number> = { en: 0, "zh-CN": 1, "ja-JP": 2, "ko-KR": 3, "it-IT": 4 };
 const cartLabels: Record<Locale, string> = { en: "Shopping cart", "zh-CN": "购物车", "ja-JP": "ショッピングカート", "ko-KR": "장바구니", "it-IT": "Carrello" };
+const accountLabels: Record<Locale, string> = { en: "Customer account", "zh-CN": "客户账户", "ja-JP": "カスタマーアカウント", "ko-KR": "고객 계정", "it-IT": "Account cliente" };
 const mobileNavLabels: Record<Locale, string> = { en: "Mobile navigation", "zh-CN": "移动导航", "ja-JP": "モバイルナビゲーション", "ko-KR": "모바일 내비게이션", "it-IT": "Navigazione mobile" };
 
 export default function Header() {
@@ -47,11 +48,11 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <Link href={localizedPath("/cart", locale)} aria-label={cartLabels[locale]} title={cartLabels[locale]} className="flex h-11 w-11 items-center justify-center justify-self-end rounded-full transition hover:bg-sglAcid focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+        <div className="flex items-center justify-self-end"><Link href="/login" aria-label={accountLabels[locale]} title={accountLabels[locale]} className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-sglAcid focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-6 w-6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></Link><Link href={localizedPath("/cart", locale)} aria-label={cartLabels[locale]} title={cartLabels[locale]} className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-sglAcid focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
             <path d="M3 3h2l2.4 12h11.2l2-8H6" /><circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
           </svg>
-        </Link>
+        </Link></div>
       </div>
       <nav aria-label={mobileNavLabels[locale]} className="grid grid-cols-6 gap-1 text-center border-t border-sglInk/10 px-2 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wide lg:hidden">
         {nav.map((item) => <Link key={item.href} href={localizedPath(item.href, locale)} className="shrink-0 py-1">{item.labels[labelIndex]}</Link>)}

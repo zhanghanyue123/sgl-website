@@ -32,16 +32,44 @@ export async function getAdminOrder(id: string) {
   return { order: orders[0], items, addresses, events };
 }
 
-export async function listAdminCustomers() {
-  return getDb()`SELECT c.id, c.email, c.phone, c.display_name, c.locale, c.created_at, c.updated_at,
+export async function listAdminCustomers(input: { query?: string; status?: string; includePii?: boolean } = {}) {
+  const query = (input.query || "").trim().toLowerCase().slice(0, 120);
+  const pattern = `%${query.replace(/[%_]/g, "")}%`;
+  const status = ["all", "active", "guest"].includes(input.status || "") ? input.status! : "all";
+  const includePii = Boolean(input.includePii);
+  return getDb()`SELECT c.id,
+      CASE WHEN ${includePii} THEN c.email ELSE NULL END AS email,
+      CASE WHEN ${includePii} THEN c.phone ELSE NULL END AS phone,
+      c.display_name, c.locale, c.membership_status, c.created_at, c.updated_at,
+      (cc.customer_id IS NOT NULL) AS account_registered,
+      cc.email_verified_at, cc.last_login_at,
       count(o.id)::int AS order_count,
       count(o.id) FILTER (WHERE o.payment_status IN ('paid', 'partially_refunded', 'refunded', 'disputed'))::int AS paid_order_count,
       COALESCE(sum(o.total_cents) FILTER (WHERE o.payment_status IN ('paid', 'partially_refunded', 'refunded', 'disputed')), 0)::int AS lifetime_value_cents,
       max(o.created_at) AS latest_order_at,
       COALESCE(max(o.currency), 'CNY') AS currency
     FROM customers c
+    LEFT JOIN customer_credentials cc ON cc.customer_id = c.id
     LEFT JOIN orders o ON o.customer_id = c.id
-    GROUP BY c.id
+    WHERE (${query} = '' OR lower(COALESCE(c.display_name,'')) LIKE ${pattern}
+      OR (${includePii} AND lower(COALESCE(c.email,'')) LIKE ${pattern}))
+      AND (${status} = 'all' OR (${status} = 'active' AND cc.customer_id IS NOT NULL)
+        OR (${status} = 'guest' AND cc.customer_id IS NULL))
+    GROUP BY c.id,cc.customer_id,cc.email_verified_at,cc.last_login_at
     ORDER BY latest_order_at DESC NULLS LAST, c.created_at DESC
     LIMIT 250`;
+}
+
+export async function getAdminCustomer(id: string, includePii: boolean) {
+  const db = getDb();
+  const customers = await db`SELECT c.id,
+      CASE WHEN ${includePii} THEN c.email ELSE NULL END AS email,
+      CASE WHEN ${includePii} THEN c.phone ELSE NULL END AS phone,
+      c.display_name,c.locale,c.membership_status,c.created_at,c.updated_at,
+      (cc.customer_id IS NOT NULL) AS account_registered,cc.email_verified_at,cc.last_login_at
+    FROM customers c LEFT JOIN customer_credentials cc ON cc.customer_id=c.id WHERE c.id=${id} LIMIT 1`;
+  if (!customers[0]) return null;
+  const orders = await db`SELECT id,order_number,order_status,payment_status,fulfillment_status,currency,total_cents,created_at
+    FROM orders WHERE customer_id=${id} ORDER BY created_at DESC LIMIT 100`;
+  return { customer: customers[0], orders };
 }

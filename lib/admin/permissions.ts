@@ -11,6 +11,7 @@ export const adminPermissions = [
   "orders:read",
   "shipping:write",
   "customers:read",
+  "customers:pii",
   "payments:read",
   "station:read",
   "station:inventory:write",

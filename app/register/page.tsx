@@ -1,0 +1,3 @@
+import { CustomerAuthForm } from "@/components/customer/CustomerAuthForm";
+export const metadata = { title: "Register | The Seagull Labs", robots: { index: false, follow: false } };
+export default function RegisterPage() { return <main className="mx-auto max-w-xl px-4 py-14 md:px-8"><p className="text-sm font-black uppercase tracking-[.25em] opacity-60">SGL Customer Account</p><h1 className="mt-2 text-5xl font-black uppercase">Register</h1><p className="mt-4 leading-7 opacity-70">Create an account for the global website. Guest checkout remains available.</p><CustomerAuthForm mode="register" /></main>; }
