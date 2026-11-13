@@ -22,7 +22,7 @@ CREATE UNIQUE INDEX customer_pending_registrations_email_unique
 CREATE INDEX customer_pending_registrations_expiry_idx
   ON customer_pending_registrations (expires_at) WHERE status = 'pending';
 
-CREATE TABLE customer_email_verifications (
+CREATE TABLE customer_registration_verifications (
   id uuid PRIMARY KEY,
   pending_registration_id uuid NOT NULL REFERENCES customer_pending_registrations(id) ON DELETE CASCADE,
   token_hash text NOT NULL UNIQUE,
@@ -33,8 +33,8 @@ CREATE TABLE customer_email_verifications (
   delivery_error text,
   created_at timestamptz NOT NULL DEFAULT now()
 );
-CREATE INDEX customer_email_verifications_pending_idx
-  ON customer_email_verifications (pending_registration_id, created_at DESC);
+CREATE INDEX customer_registration_verifications_pending_idx
+  ON customer_registration_verifications (pending_registration_id, created_at DESC);
 
 CREATE TABLE customer_credentials (
   customer_id uuid PRIMARY KEY REFERENCES customers(id) ON DELETE CASCADE,

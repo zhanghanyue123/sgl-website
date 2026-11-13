@@ -27,6 +27,7 @@ test("pending registration has no customer ownership or session relationship", a
   const auth = await source("lib/customer-auth/auth.ts");
   const route = await source("app/api/customer/register/route.ts");
   assert.match(migration, /CREATE TABLE customer_pending_registrations/);
+  assert.match(migration, /CREATE TABLE customer_registration_verifications/);
   assert.doesNotMatch(migration.match(/CREATE TABLE customer_pending_registrations[\s\S]*?;\n/)?.[0] || "", /customer_id/);
   assert.match(auth, /status='pending'[\s\S]*FOR UPDATE OF v,p/);
   assert.match(auth, /pg_advisory_xact_lock/);
@@ -42,7 +43,7 @@ test("customer identity is linked only inside verified token transaction", async
   assert.match(verification, /token_hash=\$\{hashToken\(token\)\}/);
   assert.match(verification, /INSERT INTO customers/);
   assert.match(verification, /INSERT INTO customer_credentials/);
-  assert.match(verification, /UPDATE customer_email_verifications SET used_at=now\(\)/);
+  assert.match(verification, /UPDATE customer_registration_verifications SET used_at=now\(\)/);
   const registration = auth.slice(auth.indexOf("export async function registerCustomer"), verificationStart);
   assert.doesNotMatch(registration, /INSERT INTO customers/);
   assert.doesNotMatch(registration, /\bcreateSession\(/);

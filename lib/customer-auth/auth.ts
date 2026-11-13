@@ -50,7 +50,7 @@ export async function registerCustomer(input: { email: string; password: string;
       WHERE lower(email)=${email} AND status='pending'`;
     await tx`INSERT INTO customer_pending_registrations(id,email,display_name,password_hash,password_salt,expires_at)
       VALUES(${pendingId},${email},${displayName},${hash},${salt},${expiresAt})`;
-    await tx`INSERT INTO customer_email_verifications(id,pending_registration_id,token_hash,expires_at)
+    await tx`INSERT INTO customer_registration_verifications(id,pending_registration_id,token_hash,expires_at)
       VALUES(${verificationId},${pendingId},${tokenHash},${expiresAt})`;
   });
 
@@ -59,7 +59,7 @@ export async function registerCustomer(input: { email: string; password: string;
   if (accountExists[0]?.exists) return { accepted: true, deliveryStatus: "suppressed" as const };
 
   const delivery = await deliverVerificationEmail({ email, token });
-  await db`UPDATE customer_email_verifications SET delivery_status=${delivery.status},delivery_error=${delivery.error}
+  await db`UPDATE customer_registration_verifications SET delivery_status=${delivery.status},delivery_error=${delivery.error}
     WHERE id=${verificationId}`;
   return { accepted: true, deliveryStatus: delivery.status };
 }
@@ -72,7 +72,7 @@ export async function verifyCustomerEmail(token: string, request: Request) {
   return db.begin(async (tx) => {
     const rows = await tx<{ verification_id: string; pending_id: string; email: string; display_name: string | null; password_hash: string; password_salt: string }[]>`
       SELECT v.id AS verification_id,p.id AS pending_id,p.email,p.display_name,p.password_hash,p.password_salt
-      FROM customer_email_verifications v
+      FROM customer_registration_verifications v
       JOIN customer_pending_registrations p ON p.id=v.pending_registration_id
       WHERE v.token_hash=${hashToken(token)} AND v.used_at IS NULL AND v.expires_at>now()
         AND p.status='pending' AND p.expires_at>now()
@@ -84,7 +84,7 @@ export async function verifyCustomerEmail(token: string, request: Request) {
       SELECT c.id,EXISTS(SELECT 1 FROM customer_credentials cc WHERE cc.customer_id=c.id) AS has_credentials
       FROM customers c WHERE lower(c.email)=${pending.email} FOR UPDATE`;
     if (existing[0]?.has_credentials) {
-      await tx`UPDATE customer_email_verifications SET used_at=now() WHERE id=${pending.verification_id}`;
+      await tx`UPDATE customer_registration_verifications SET used_at=now() WHERE id=${pending.verification_id}`;
       await tx`UPDATE customer_pending_registrations SET status='superseded',updated_at=now() WHERE id=${pending.pending_id}`;
       return { verified: true, alreadyActive: true };
     }
@@ -99,7 +99,7 @@ export async function verifyCustomerEmail(token: string, request: Request) {
     }
     await tx`INSERT INTO customer_credentials(customer_id,password_hash,password_salt,email_verified_at)
       VALUES(${customerId},${pending.password_hash},${pending.password_salt},now())`;
-    await tx`UPDATE customer_email_verifications SET used_at=now() WHERE id=${pending.verification_id}`;
+    await tx`UPDATE customer_registration_verifications SET used_at=now() WHERE id=${pending.verification_id}`;
     await tx`UPDATE customer_pending_registrations SET status='verified',verified_at=now(),updated_at=now() WHERE id=${pending.pending_id}`;
     await tx`INSERT INTO customer_account_events(id,customer_id,event_type,entity_type,entity_id)
       VALUES(${randomUUID()},${customerId},'account.email_verified','customer',${customerId})`;
