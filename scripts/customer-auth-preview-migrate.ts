@@ -1,4 +1,6 @@
-import { getDb } from "../lib/admin/db";
+import path from "node:path";
+import { closeDb, getDb } from "../lib/admin/db";
+import { applyMigrations, assertSafeMigrationTarget } from "./db-migrate";
 
 async function main() {
   if (process.env.SGL_PREVIEW_MIGRATION_APPROVAL !== "customer-auth-mvp") {
@@ -25,7 +27,14 @@ async function main() {
   const before = await db<Array<{ database: string; migration_count: number }>>`
     SELECT current_database() AS database,(SELECT count(*)::int FROM schema_migrations) AS migration_count`;
   console.log(JSON.stringify({ environment: "Preview", database: before[0]?.database, migrationsBefore: before[0]?.migration_count }));
-  await import("./db-migrate");
+  const result = await applyMigrations({
+    db,
+    directory: path.join(process.cwd(), "db", "migrations"),
+    expectedTarget: assertSafeMigrationTarget(),
+    log: console.log
+  });
+  console.log(JSON.stringify({ environment: "Preview", applied: result.applied, skipped: result.skipped.length }));
+  await closeDb();
 }
 
-main().catch((error) => { console.error(error instanceof Error ? error.message : "Preview migration failed"); process.exitCode = 1; });
+main().catch(async (error) => { console.error(error instanceof Error ? error.message : "Preview migration failed"); await closeDb(); process.exitCode = 1; });

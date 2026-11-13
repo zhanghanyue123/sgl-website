@@ -16,6 +16,17 @@
 | `0016_fries_contact_retry.sql` | `ac04b446cc829fce4ffead991b412a9741d186bfbcf49b5b65c8d01bd6b9344a` | `0014_fries_contact_fallback.sql` | No | Adds retry metadata to Fries contact submissions. |
 | `0017_fries_commerce_intelligence.sql` | `13e23478f8aac68597d089d250ef046ee753713505311649772fda9e0749e161` | Existing support schema and `customers`; Phase 6 code also expects customer authentication | No | Adds read-only Fries commerce activity. |
 
+## Preview registry finding
+
+The existing Vercel Preview Neon database is not a clean `0001`–`0013` target. A read-only registry query on 2026-11-13 returned `0001`–`0017`:
+
+- `0014_fries_contact_fallback.sql` matches the reviewed checksum.
+- `0015_customer_membership_accounts.sql` is recorded as `6f57c2630c1c58a8d731220b2b02b1eb41613ef14f746e6df4a0b0aae0933871`; no accessible source file matches that checksum. The available file hashes to `6f50ec3d0a08e623ecc7aca6f76ad72b396d946a4bb265d9c1d009c4bc56c658`.
+- `0016_fries_contact_retry.sql` and `0017_fries_commerce_intelligence.sql` are recorded with `NULL` legacy checksums.
+- The Preview schema contains the old customer credentials, sessions and verification tables, but no pending-registration table.
+
+No migration was applied after this finding. The existing Preview database must not be reset or silently adopted. A fresh isolated Preview Neon branch/database based on `0001`–`0013` is required to test this branch's minimal `0014_customer_auth_mvp.sql`, unless the missing historical `0015` source is recovered and a separately reviewed forward migration is prepared.
+
 ## MVP migration
 
 The isolated branch introduces `0014_customer_auth_mvp.sql` because the active Production registry ends at `0013` and the MVP release must remain contiguous under the existing migration runner.
