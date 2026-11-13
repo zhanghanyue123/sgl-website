@@ -1,0 +1,5 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": { "api/paypal/events.js": { "maxDuration": 30 } },
+  "headers": [{ "source": "/api/paypal/events", "headers": [{ "key": "Cache-Control", "value": "no-store" }, { "key": "X-Content-Type-Options", "value": "nosniff" }] }]
+}

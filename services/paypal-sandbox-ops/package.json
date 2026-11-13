@@ -1,0 +1,13 @@
+{
+  "name": "sgl-paypal-sandbox-ops",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check api/paypal/events.js && node --check lib/events.js",
+    "migrate": "node scripts/migrate.js"
+  },
+  "dependencies": { "postgres": "^3.4.7" },
+  "engines": { "node": ">=20" }
+}
