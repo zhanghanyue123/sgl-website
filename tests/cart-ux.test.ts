@@ -60,14 +60,17 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   assert.match(localizedPages, /<ProductPurchase product=\{product\}/);
 });
 
-test("checkout exposes only configured Airwallex and PayPal Sandbox providers", () => {
+test("checkout exposes configured Airwallex and an environment-labelled PayPal provider", () => {
   const wrapper = readFileSync(new URL("../app/cart/page.tsx", import.meta.url), "utf8");
   const cart = readFileSync(new URL("../components/CartPageClient.tsx", import.meta.url), "utf8");
   const checkout = readFileSync(new URL("../app/api/checkout/route.ts", import.meta.url), "utf8");
   assert.match(wrapper, /AIRWALLEX_ENABLED/);
   assert.match(wrapper, /PAYPAL_ENABLED/);
+  assert.match(wrapper, /PAYPAL_LIVE_ENABLED/);
+  assert.match(wrapper, /PAYPAL_CLIENT_SECRET/);
   assert.match(cart, /Airwallex Sandbox/);
   assert.match(cart, /PayPal Sandbox/);
+  assert.match(cart, /paypalEnvironment === "live" \? "PayPal"/);
   assert.doesNotMatch(cart, /value="stripe"/);
   assert.match(checkout, /AIRWALLEX_ENABLED/);
   assert.match(checkout, /requireStableSku: true/);

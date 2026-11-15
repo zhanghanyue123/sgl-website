@@ -12,7 +12,8 @@ export async function POST(request: Request) {
   try {
     if (process.env.PAYPAL_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
     if (process.env.STORE_CHECKOUT_ENABLED !== "true") throw new StoreError(503, "Online payment is not available.");
-    paypalConfig();
+    const config = paypalConfig();
+    if (config.environment === "live" && process.env.PAYPAL_LIVE_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
     assertOpsConfig();
     const origin = siteOrigin();
     if (request.headers.get("origin") !== origin) throw new StoreError(403, "Please start checkout from the SGL cart.");
@@ -30,7 +31,7 @@ export async function POST(request: Request) {
     });
     const cartHash = createHash("sha256").update(JSON.stringify(items)).digest("hex");
     const quote = parseQuote(await opsRequest("/checkout/quotes", { items, cartHash }, requestKey));
-    if (quote.currency !== "usd") throw new StoreError(409, "PayPal Sandbox checkout currently supports USD only.");
+    if (quote.currency !== "usd") throw new StoreError(409, "PayPal checkout currently supports USD only.");
     const returnUrl = `${origin}${localizedPath("/checkout/paypal/return", locale)}`;
     const cancelUrl = `${origin}${localizedPath("/cart", locale)}?cancelled=1&provider=paypal`;
     const paypalOrder = await createPayPalOrder({
@@ -48,9 +49,9 @@ export async function POST(request: Request) {
       amountTotal: quote.amountTotal,
       currency: quote.currency,
       cartHash,
-      environment: "sandbox"
+      environment: config.environment
     }, `paypal-order-${paypalOrderId}`);
     parseDurableAck(ack, { orderId: quote.orderId });
-    return Response.json({ provider: "paypal", environment: "sandbox", paypalOrderId, url: approveUrl(paypalOrder) }, { headers: { "Cache-Control": "no-store" } });
+    return Response.json({ provider: "paypal", environment: config.environment, paypalOrderId, url: approveUrl(paypalOrder, config) }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) { return errorResponse(error); }
 }

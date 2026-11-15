@@ -1,4 +1,4 @@
-import { assertPayPalOrderMatches, capturePayPalOrder, getPayPalOrder, parsePayPalOrderId, paypalRequestId } from "@/lib/payments/paypal/client";
+import { assertPayPalOrderMatches, capturePayPalOrder, getPayPalOrder, parsePayPalOrderId, paypalConfig, paypalRequestId } from "@/lib/payments/paypal/client";
 import { parseDurableAck, parsePayPalCaptureContext } from "@/lib/payments/paypal/validation";
 import { errorResponse, opsRequest, siteOrigin } from "@/lib/store/server";
 import { parseRequestKey, StoreError } from "@/lib/store/validation";
@@ -9,6 +9,8 @@ export async function POST(request: Request) {
   try {
     if (process.env.PAYPAL_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
     if (process.env.STORE_CHECKOUT_ENABLED !== "true") throw new StoreError(503, "Online payment is not available.");
+    const config = paypalConfig();
+    if (config.environment === "live" && process.env.PAYPAL_LIVE_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
     const origin = siteOrigin();
     if (request.headers.get("origin") !== origin) throw new StoreError(403, "Please return from PayPal to the SGL website.");
     const requestKey = parseRequestKey(request.headers.get("idempotency-key"));
@@ -29,7 +31,7 @@ export async function POST(request: Request) {
     }
     const capture = order.purchase_units?.[0]?.payments?.captures?.[0];
     if (!capture?.id || !["COMPLETED", "PENDING"].includes(capture.status || "")) throw new StoreError(502, "PayPal did not return a valid capture status.");
-    const ack = await opsRequest("/payments/paypal/captures", { environment: "sandbox", order }, `paypal-capture-${capture.id}`);
+    const ack = await opsRequest("/payments/paypal/captures", { environment: config.environment, order }, `paypal-capture-${capture.id}`);
     parseDurableAck(ack, { orderId: context.orderId });
     return Response.json({ orderId: context.orderId, paymentStatus: capture.status === "COMPLETED" ? "paid" : "pending" }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) { return errorResponse(error); }

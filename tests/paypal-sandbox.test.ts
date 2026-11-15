@@ -32,7 +32,7 @@ function setEnvironment() {
 }
 
 function clearEnvironment() {
-  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
+  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_LIVE_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
   __resetPayPalTokenCacheForTests();
 }
 
@@ -43,9 +43,17 @@ const paypalOrder = (status = "CREATED"): PayPalOrder => ({
   links: [{ rel: "payer-action", method: "GET", href: "https://www.sandbox.paypal.com/checkoutnow?token=5O190127TN364715T" }]
 });
 
-test("PayPal configuration is sandbox-only and server credentials are required", () => {
-  assert.deepEqual(paypalConfig(config), { baseUrl: "https://api-m.sandbox.paypal.com", clientId: config.PAYPAL_CLIENT_ID, clientSecret: config.PAYPAL_CLIENT_SECRET, webhookId: config.PAYPAL_WEBHOOK_ID });
-  assert.throws(() => paypalConfig({ ...config, PAYPAL_ENV: "live" }));
+test("PayPal configuration separates sandbox and live credentials", () => {
+  const sandbox = paypalConfig(config);
+  assert.equal(sandbox.environment, "sandbox");
+  assert.equal(sandbox.baseUrl, "https://api-m.sandbox.paypal.com");
+  assert.equal(sandbox.approvalHost, "www.sandbox.paypal.com");
+  const live = paypalConfig({ ...config, PAYPAL_ENV: "live", PAYPAL_CLIENT_ID: "live-client-id", PAYPAL_CLIENT_SECRET: "live-client-secret", PAYPAL_WEBHOOK_ID: "live-webhook-id" });
+  assert.equal(live.environment, "live");
+  assert.equal(live.baseUrl, "https://api-m.paypal.com");
+  assert.equal(live.approvalHost, "www.paypal.com");
+  assert.notEqual(live.webhookId, sandbox.webhookId);
+  assert.throws(() => paypalConfig({ ...config, PAYPAL_ENV: "invalid" }));
   assert.throws(() => paypalConfig({ ...config, PAYPAL_CLIENT_SECRET: "" }));
 });
 
@@ -57,6 +65,20 @@ test("PayPal website routes stay closed unless the dedicated server flag is enab
   assert.equal(createResponse.status, 503);
   assert.equal(captureResponse.status, 503);
   assert.equal(webhookResponse.status, 503);
+});
+
+test("PayPal live order creation stays closed behind the second release gate", async () => {
+  setEnvironment();
+  process.env.PAYPAL_ENV = "live";
+  delete process.env.PAYPAL_LIVE_ENABLED;
+  try {
+    const response = await createOrderRoute(new Request("https://example.test/api/paypal/orders", {
+      method: "POST",
+      headers: { origin: "https://example.test", "content-type": "application/json", "idempotency-key": "paypal-live-gate-123456" },
+      body: JSON.stringify({ items: [{ slug: "sgl-three-pair-sock-set", variant: 0, quantity: 1 }], locale: "en" })
+    }));
+    assert.equal(response.status, 503);
+  } finally { clearEnvironment(); }
 });
 
 test("PayPal create order uses server amount, sandbox API and a bounded idempotency key", async () => {
@@ -83,8 +105,9 @@ test("PayPal create order uses server amount, sandbox API and a bounded idempote
 });
 
 test("approval and capture validation reject live hosts, wrong amounts and wrong SGL orders", () => {
-  assert.match(approveUrl(paypalOrder()), /^https:\/\/www\.sandbox\.paypal\.com\//);
-  assert.throws(() => approveUrl({ ...paypalOrder(), links: [{ rel: "approve", href: "https://www.paypal.com/checkoutnow?token=x" }] }));
+  const sandbox = paypalConfig(config);
+  assert.match(approveUrl(paypalOrder(), sandbox), /^https:\/\/www\.sandbox\.paypal\.com\//);
+  assert.throws(() => approveUrl({ ...paypalOrder(), links: [{ rel: "approve", href: "https://www.paypal.com/checkoutnow?token=x" }] }, sandbox));
   assert.doesNotThrow(() => assertPayPalOrderMatches(paypalOrder(), { paypalOrderId: "5O190127TN364715T", orderId: "order_123", amountTotal: 2500, currency: "usd" }));
   assert.throws(() => assertPayPalOrderMatches(paypalOrder(), { paypalOrderId: "5O190127TN364715T", orderId: "other", amountTotal: 2500, currency: "usd" }));
   assert.throws(() => assertPayPalOrderMatches(paypalOrder(), { paypalOrderId: "5O190127TN364715T", orderId: "order_123", amountTotal: 1, currency: "usd" }));
@@ -179,4 +202,23 @@ test("webhook requires successful PayPal signature verification and durable OPS 
     globalThis.fetch = async (input) => String(input).endsWith("/v1/oauth2/token") ? Response.json({ access_token: "access-token", expires_in: 300 }) : Response.json({ verification_status: "FAILURE" });
     assert.equal((await webhookRoute(new Request("https://example.test/api/paypal/webhook", { method: "POST", headers, body: JSON.stringify(event) }))).status, 400);
   } finally { globalThis.fetch = original; clearEnvironment(); }
+});
+
+test("webhook rejects event types outside the payment state allowlist", async () => {
+  setEnvironment();
+  const now = new Date().toISOString();
+  try {
+    const response = await webhookRoute(new Request("https://example.test/api/paypal/webhook", {
+      method: "POST",
+      headers: {
+        "paypal-transmission-time": now,
+        "paypal-cert-url": "https://api-m.sandbox.paypal.com/v1/notifications/certs/CERT-TEST",
+        "paypal-auth-algo": "SHA256withRSA",
+        "paypal-transmission-id": "transmission-test",
+        "paypal-transmission-sig": "signature-test"
+      },
+      body: JSON.stringify({ id: "WH-UNSUPPORTED-1234", event_type: "CUSTOMER.DISPUTE.CREATED", resource: {} })
+    }));
+    assert.equal(response.status, 400);
+  } finally { clearEnvironment(); }
 });

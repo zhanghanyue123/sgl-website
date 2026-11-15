@@ -2,7 +2,9 @@ import { createHash } from "node:crypto";
 import { StoreError } from "@/lib/store/validation";
 
 const SANDBOX_API = "https://api-m.sandbox.paypal.com";
-const APPROVAL_HOSTS = new Set(["www.sandbox.paypal.com"]);
+const LIVE_API = "https://api-m.paypal.com";
+
+export type PayPalMode = "sandbox" | "live";
 
 type PayPalEnvironment = {
   PAYPAL_ENV?: string;
@@ -28,20 +30,31 @@ export type PayPalOrder = {
 export type PayPalWebhookEvent = { id?: string; event_type?: string; resource?: unknown; [key: string]: unknown };
 
 export function paypalConfig(env: PayPalEnvironment = process.env as PayPalEnvironment) {
-  if (env.PAYPAL_ENV !== "sandbox") throw new StoreError(503, "PayPal Sandbox is not configured.");
+  const environment = env.PAYPAL_ENV;
+  if (environment !== "sandbox" && environment !== "live") throw new StoreError(503, "PayPal is not configured.");
   const clientId = env.PAYPAL_CLIENT_ID?.trim();
   const clientSecret = env.PAYPAL_CLIENT_SECRET?.trim();
   const webhookId = env.PAYPAL_WEBHOOK_ID?.trim();
   if (!clientId || !clientSecret || !webhookId || clientId.length > 256 || clientSecret.length > 256 || webhookId.length > 128) {
-    throw new StoreError(503, "PayPal Sandbox is not configured.");
+    throw new StoreError(503, "PayPal is not configured.");
   }
-  return { baseUrl: SANDBOX_API, clientId, clientSecret, webhookId };
+  return {
+    environment,
+    baseUrl: environment === "live" ? LIVE_API : SANDBOX_API,
+    approvalHost: environment === "live" ? "www.paypal.com" : "www.sandbox.paypal.com",
+    certificateHosts: environment === "live"
+      ? new Set(["api-m.paypal.com", "api.paypal.com"])
+      : new Set(["api-m.sandbox.paypal.com", "api.sandbox.paypal.com"]),
+    clientId,
+    clientSecret,
+    webhookId
+  };
 }
 
 let tokenCache: { token: string; expiresAt: number; clientIdHash: string } | null = null;
 
 async function accessToken(fetcher: typeof fetch, config = paypalConfig()) {
-  const clientIdHash = createHash("sha256").update(config.clientId).digest("hex");
+  const clientIdHash = createHash("sha256").update(`${config.baseUrl}\u0000${config.clientId}`).digest("hex");
   if (tokenCache && tokenCache.clientIdHash === clientIdHash && tokenCache.expiresAt > Date.now() + 30_000) return tokenCache.token;
   let response: Response;
   try {
@@ -57,11 +70,11 @@ async function accessToken(fetcher: typeof fetch, config = paypalConfig()) {
       body: "grant_type=client_credentials"
     });
   } catch {
-    throw new StoreError(503, "PayPal Sandbox is temporarily unavailable.");
+    throw new StoreError(503, "PayPal is temporarily unavailable.");
   }
-  if (!response.ok) throw new StoreError(503, "PayPal Sandbox authentication failed.");
+  if (!response.ok) throw new StoreError(503, "PayPal authentication failed.");
   const body = await response.json().catch(() => null) as { access_token?: string; expires_in?: number } | null;
-  if (!body?.access_token || typeof body.expires_in !== "number") throw new StoreError(502, "PayPal Sandbox returned an invalid authentication response.");
+  if (!body?.access_token || typeof body.expires_in !== "number") throw new StoreError(502, "PayPal returned an invalid authentication response.");
   tokenCache = { token: body.access_token, expiresAt: Date.now() + Math.max(60, body.expires_in) * 1000, clientIdHash };
   return body.access_token;
 }
@@ -79,14 +92,14 @@ async function paypalRequest<T>(path: string, init: RequestInit, fetcher: typeof
       headers: { Authorization: `Bearer ${token}`, Accept: "application/json", ...init.headers }
     });
   } catch {
-    throw new StoreError(503, "PayPal Sandbox is temporarily unavailable.");
+    throw new StoreError(503, "PayPal is temporarily unavailable.");
   }
   if (!response.ok) {
     if (response.status === 409 || response.status === 422) throw new StoreError(409, "PayPal order state changed. Please refresh and try again.");
-    throw new StoreError(503, "PayPal Sandbox could not process the request.");
+    throw new StoreError(503, "PayPal could not process the request.");
   }
   const body = await response.json().catch(() => null);
-  if (!body || typeof body !== "object") throw new StoreError(502, "PayPal Sandbox returned an invalid response.");
+  if (!body || typeof body !== "object") throw new StoreError(502, "PayPal returned an invalid response.");
   return body as T;
 }
 
@@ -100,11 +113,11 @@ export function parsePayPalOrderId(value: unknown) {
   return value;
 }
 
-export function approveUrl(order: PayPalOrder) {
+export function approveUrl(order: PayPalOrder, config = paypalConfig()) {
   const href = order.links?.find(link => link.rel === "payer-action" || link.rel === "approve")?.href;
   if (!href) throw new StoreError(502, "PayPal approval link is missing.");
   const url = new URL(href);
-  if (url.protocol !== "https:" || !APPROVAL_HOSTS.has(url.hostname) || url.username || url.password) throw new StoreError(502, "PayPal approval link is invalid.");
+  if (url.protocol !== "https:" || url.hostname !== config.approvalHost || url.username || url.password) throw new StoreError(502, "PayPal approval link is invalid.");
   return url.href;
 }
 
@@ -129,7 +142,7 @@ export async function createPayPalOrder(input: {
   orderId: string; amountTotal: number; currency: string; returnUrl: string; cancelUrl: string; requestId: string;
 }, fetcher: typeof fetch = fetch) {
   const currency = input.currency.toUpperCase();
-  if (currency !== "USD") throw new StoreError(409, "PayPal Sandbox checkout currently supports USD only.");
+  if (currency !== "USD") throw new StoreError(409, "PayPal checkout currently supports USD only.");
   const order = await paypalRequest<PayPalOrder>("/v2/checkout/orders", {
     method: "POST",
     headers: {
@@ -154,7 +167,7 @@ export async function createPayPalOrder(input: {
       } } }
     })
   }, fetcher);
-  if (!order.id || !["CREATED", "PAYER_ACTION_REQUIRED"].includes(order.status || "")) throw new StoreError(502, "PayPal Sandbox did not create an approvable order.");
+  if (!order.id || !["CREATED", "PAYER_ACTION_REQUIRED"].includes(order.status || "")) throw new StoreError(502, "PayPal did not create an approvable order.");
   return order;
 }
 
@@ -182,7 +195,8 @@ export async function verifyPayPalWebhook(headers: Headers, event: PayPalWebhook
   if (!Number.isFinite(timestamp) || Math.abs(Date.now() - timestamp) > 10 * 60 * 1000) throw new StoreError(400, "PayPal webhook timestamp is invalid.");
   const certUrl = requiredHeader(headers, "paypal-cert-url");
   const cert = new URL(certUrl);
-  if (cert.protocol !== "https:" || !["api-m.sandbox.paypal.com", "api.sandbox.paypal.com"].includes(cert.hostname)) throw new StoreError(400, "PayPal webhook certificate URL is invalid.");
+  const config = paypalConfig();
+  if (cert.protocol !== "https:" || !config.certificateHosts.has(cert.hostname)) throw new StoreError(400, "PayPal webhook certificate URL is invalid.");
   const result = await paypalRequest<{ verification_status?: string }>("/v1/notifications/verify-webhook-signature", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -192,7 +206,7 @@ export async function verifyPayPalWebhook(headers: Headers, event: PayPalWebhook
       transmission_id: requiredHeader(headers, "paypal-transmission-id"),
       transmission_sig: requiredHeader(headers, "paypal-transmission-sig"),
       transmission_time: transmissionTime,
-      webhook_id: paypalConfig().webhookId,
+      webhook_id: config.webhookId,
       webhook_event: event
     })
   }, fetcher);

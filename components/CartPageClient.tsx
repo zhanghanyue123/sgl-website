@@ -32,7 +32,11 @@ const copy: Record<Locale, {
   "it-IT": { title: "Il tuo carrello", loading: "Caricamento del carrello…", empty: "Il carrello è vuoto.", browse: "Vai al negozio →", each: "cad.", quantity: "Quantità", remove: "Rimuovi", subtotal: "Subtotale", note: "Tutti i prezzi sono espressi in dollari statunitensi (USD). Spese di spedizione e disponibilità vengono confermate prima del pagamento; l’aggiunta al carrello non riserva gli articoli.", unavailable: "Il pagamento online non è disponibile", preparing: "Preparazione del pagamento sicuro…", checkout: "Procedi al pagamento", contact: "Contatta SGL per confermare un ordine", storage: "Questo browser non può salvare il carrello, che potrebbe andare perso alla chiusura della pagina.", error: "Il checkout non è temporaneamente disponibile. Riprova più tardi o contatta SGL.", invalid: "Non è stato possibile verificare l’indirizzo del checkout sicuro. Contatta SGL.", cancelled: "L’autorizzazione al pagamento è stata annullata. Il carrello non è cambiato." }
 };
 
-export default function CartPageClient({ airwallexEnabled, paypalEnabled }: { airwallexEnabled: boolean; paypalEnabled: boolean }) {
+export default function CartPageClient({ airwallexEnabled, paypalEnabled, paypalEnvironment }: {
+  airwallexEnabled: boolean;
+  paypalEnabled: boolean;
+  paypalEnvironment: "sandbox" | "live" | null;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const locale = localeFromPath(pathname);
@@ -76,7 +80,8 @@ export default function CartPageClient({ airwallexEnabled, paypalEnabled }: { ai
         return;
       }
       const url = new URL(result.url);
-      const paypal = paymentProvider === "paypal" && result.provider === "paypal" && url.protocol === "https:" && url.hostname === "www.sandbox.paypal.com";
+      const expectedPayPalHost = paypalEnvironment === "live" ? "www.paypal.com" : "www.sandbox.paypal.com";
+      const paypal = paymentProvider === "paypal" && result.provider === "paypal" && result.environment === paypalEnvironment && url.protocol === "https:" && url.hostname === expectedPayPalHost;
       if (!paypal) throw new Error(c.invalid);
       window.location.assign(url.href);
     } catch (error) {
@@ -105,8 +110,8 @@ export default function CartPageClient({ airwallexEnabled, paypalEnabled }: { ai
       {(airwallexEnabled || paypalEnabled) && <fieldset className="mt-6 max-w-md border border-sglInk p-4">
         <legend className="px-2 font-black uppercase">Payment method</legend>
         {airwallexEnabled && <label className="flex items-center gap-3"><input type="radio" name="payment-provider" value="airwallex" checked={paymentProvider === "airwallex"} onChange={() => setPaymentProvider("airwallex")} /> Airwallex Sandbox</label>}
-        {paypalEnabled && <label className="mt-3 flex items-center gap-3"><input type="radio" name="payment-provider" value="paypal" checked={paymentProvider === "paypal"} onChange={() => setPaymentProvider("paypal")} /> PayPal Sandbox</label>}
-        <p className="mt-3 text-sm">Sandbox testing only. No live credentials or real charges are used.</p>
+        {paypalEnabled && <label className="mt-3 flex items-center gap-3"><input type="radio" name="payment-provider" value="paypal" checked={paymentProvider === "paypal"} onChange={() => setPaymentProvider("paypal")} /> {paypalEnvironment === "live" ? "PayPal" : "PayPal Sandbox"}</label>}
+        {paypalEnvironment !== "live" && <p className="mt-3 text-sm">Sandbox testing only. No live PayPal credentials or real PayPal charges are used.</p>}
       </fieldset>}
       <button disabled={busy || !ready || !paymentsEnabled || !paymentProvider} onClick={checkout} className="mt-6 block border border-sglInk bg-sglInk p-4 font-bold text-sglCream disabled:opacity-50">{!paymentsEnabled || !paymentProvider ? c.unavailable : busy ? c.preparing : c.checkout}</button>
       {checkoutError && <p role="alert" className="mt-4">{checkoutError}</p>}
