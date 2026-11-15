@@ -11,6 +11,9 @@ type PayPalEnvironment = {
   PAYPAL_CLIENT_ID?: string;
   PAYPAL_CLIENT_SECRET?: string;
   PAYPAL_WEBHOOK_ID?: string;
+  PAYPAL_LIVE_CLIENT_ID?: string;
+  PAYPAL_LIVE_CLIENT_SECRET?: string;
+  PAYPAL_LIVE_WEBHOOK_ID?: string;
 };
 
 type PayPalLink = { href?: string; rel?: string; method?: string };
@@ -32,9 +35,9 @@ export type PayPalWebhookEvent = { id?: string; event_type?: string; resource?: 
 export function paypalConfig(env: PayPalEnvironment = process.env as PayPalEnvironment) {
   const environment = env.PAYPAL_ENV;
   if (environment !== "sandbox" && environment !== "live") throw new StoreError(503, "PayPal is not configured.");
-  const clientId = env.PAYPAL_CLIENT_ID?.trim();
-  const clientSecret = env.PAYPAL_CLIENT_SECRET?.trim();
-  const webhookId = env.PAYPAL_WEBHOOK_ID?.trim();
+  const clientId = (environment === "live" ? env.PAYPAL_LIVE_CLIENT_ID : env.PAYPAL_CLIENT_ID)?.trim();
+  const clientSecret = (environment === "live" ? env.PAYPAL_LIVE_CLIENT_SECRET : env.PAYPAL_CLIENT_SECRET)?.trim();
+  const webhookId = (environment === "live" ? env.PAYPAL_LIVE_WEBHOOK_ID : env.PAYPAL_WEBHOOK_ID)?.trim();
   if (!clientId || !clientSecret || !webhookId || clientId.length > 256 || clientSecret.length > 256 || webhookId.length > 128) {
     throw new StoreError(503, "PayPal is not configured.");
   }

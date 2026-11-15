@@ -68,6 +68,7 @@ test("checkout exposes configured Airwallex and an environment-labelled PayPal p
   assert.match(wrapper, /PAYPAL_ENABLED/);
   assert.match(wrapper, /PAYPAL_LIVE_ENABLED/);
   assert.match(wrapper, /PAYPAL_CLIENT_SECRET/);
+  assert.match(wrapper, /PAYPAL_LIVE_CLIENT_SECRET/);
   assert.match(cart, /Airwallex Sandbox/);
   assert.match(cart, /PayPal Sandbox/);
   assert.match(cart, /paypalEnvironment === "live" \? "PayPal"/);

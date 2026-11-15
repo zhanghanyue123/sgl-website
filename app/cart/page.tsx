@@ -1,10 +1,11 @@
 import CartPageClient from "@/components/CartPageClient";
 
 export default function CartPage() {
+  const paypalIsLive = process.env.PAYPAL_ENV === "live";
   const paypalCredentialsPresent = Boolean(
-    process.env.PAYPAL_CLIENT_ID?.trim() &&
-    process.env.PAYPAL_CLIENT_SECRET?.trim() &&
-    process.env.PAYPAL_WEBHOOK_ID?.trim()
+    (paypalIsLive ? process.env.PAYPAL_LIVE_CLIENT_ID : process.env.PAYPAL_CLIENT_ID)?.trim() &&
+    (paypalIsLive ? process.env.PAYPAL_LIVE_CLIENT_SECRET : process.env.PAYPAL_CLIENT_SECRET)?.trim() &&
+    (paypalIsLive ? process.env.PAYPAL_LIVE_WEBHOOK_ID : process.env.PAYPAL_WEBHOOK_ID)?.trim()
   );
   const paypalEnvironment = process.env.PAYPAL_ENV === "sandbox" ||
     (process.env.PAYPAL_ENV === "live" && process.env.PAYPAL_LIVE_ENABLED === "true")

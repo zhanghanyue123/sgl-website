@@ -50,9 +50,9 @@ Supported webhook events:
 The following values must be created from one verified PayPal Business Live REST app and stored only in the Website Production server environment:
 
 - `PAYPAL_ENV=live`
-- `PAYPAL_CLIENT_ID`
-- `PAYPAL_CLIENT_SECRET`
-- `PAYPAL_WEBHOOK_ID` from the separate Live webhook
+- `PAYPAL_LIVE_CLIENT_ID`
+- `PAYPAL_LIVE_CLIENT_SECRET`
+- `PAYPAL_LIVE_WEBHOOK_ID` from the separate Live webhook
 - `PAYPAL_ENABLED=false` during readiness checks
 - `PAYPAL_LIVE_ENABLED=false` until final approval
 
@@ -86,4 +86,3 @@ Subscribe only to the supported payment events listed above. Before creation:
 10. Disable the acceptance window or keep it enabled only after Owner approval.
 
 No Live transaction, Live webhook, credential change, Production data mutation, or provider enablement was performed during this readiness phase.
-

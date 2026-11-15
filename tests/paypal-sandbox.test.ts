@@ -32,7 +32,7 @@ function setEnvironment() {
 }
 
 function clearEnvironment() {
-  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_LIVE_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
+  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_LIVE_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "PAYPAL_LIVE_CLIENT_ID", "PAYPAL_LIVE_CLIENT_SECRET", "PAYPAL_LIVE_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
   __resetPayPalTokenCacheForTests();
 }
 
@@ -48,11 +48,12 @@ test("PayPal configuration separates sandbox and live credentials", () => {
   assert.equal(sandbox.environment, "sandbox");
   assert.equal(sandbox.baseUrl, "https://api-m.sandbox.paypal.com");
   assert.equal(sandbox.approvalHost, "www.sandbox.paypal.com");
-  const live = paypalConfig({ ...config, PAYPAL_ENV: "live", PAYPAL_CLIENT_ID: "live-client-id", PAYPAL_CLIENT_SECRET: "live-client-secret", PAYPAL_WEBHOOK_ID: "live-webhook-id" });
+  const live = paypalConfig({ ...config, PAYPAL_ENV: "live", PAYPAL_LIVE_CLIENT_ID: "live-client-id", PAYPAL_LIVE_CLIENT_SECRET: "live-client-secret", PAYPAL_LIVE_WEBHOOK_ID: "live-webhook-id" });
   assert.equal(live.environment, "live");
   assert.equal(live.baseUrl, "https://api-m.paypal.com");
   assert.equal(live.approvalHost, "www.paypal.com");
   assert.notEqual(live.webhookId, sandbox.webhookId);
+  assert.throws(() => paypalConfig({ ...config, PAYPAL_ENV: "live" }));
   assert.throws(() => paypalConfig({ ...config, PAYPAL_ENV: "invalid" }));
   assert.throws(() => paypalConfig({ ...config, PAYPAL_CLIENT_SECRET: "" }));
 });
@@ -70,6 +71,9 @@ test("PayPal website routes stay closed unless the dedicated server flag is enab
 test("PayPal live order creation stays closed behind the second release gate", async () => {
   setEnvironment();
   process.env.PAYPAL_ENV = "live";
+  process.env.PAYPAL_LIVE_CLIENT_ID = "live-client-id";
+  process.env.PAYPAL_LIVE_CLIENT_SECRET = "live-client-secret";
+  process.env.PAYPAL_LIVE_WEBHOOK_ID = "live-webhook-id";
   delete process.env.PAYPAL_LIVE_ENABLED;
   try {
     const response = await createOrderRoute(new Request("https://example.test/api/paypal/orders", {
