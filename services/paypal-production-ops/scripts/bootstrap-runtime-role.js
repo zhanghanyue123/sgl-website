@@ -11,10 +11,12 @@ const password = randomBytes(36).toString("base64url");
 const sql = postgres(parsed.href, { ssl: "verify-full", max: 1, connect_timeout: 10, prepare: false });
 try {
   const exists = await sql`SELECT 1 FROM pg_roles WHERE rolname=${role}`;
-  const ddl = await sql`SELECT format(${exists.length ? "ALTER ROLE %I LOGIN PASSWORD %L" : "CREATE ROLE %I LOGIN PASSWORD %L"},${role},${password}) statement`;
+  const ddl = exists.length
+    ? await sql`SELECT format('ALTER ROLE %I LOGIN PASSWORD %L',${role}::text,${password}::text) statement`
+    : await sql`SELECT format('CREATE ROLE %I LOGIN PASSWORD %L',${role}::text,${password}::text) statement`;
   await sql.unsafe(ddl[0].statement);
   const db = parsed.pathname.slice(1);
-  const connect = await sql`SELECT format('GRANT CONNECT ON DATABASE %I TO %I',${db},${role}) statement`;
+  const connect = await sql`SELECT format('GRANT CONNECT ON DATABASE %I TO %I',${db}::text,${role}::text) statement`;
   await sql.unsafe(connect[0].statement);
   await sql.unsafe(`GRANT USAGE ON SCHEMA paypal_ops TO ${role}`);
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.register_order(uuid,text,integer,text,text,text) TO ${role}`);
