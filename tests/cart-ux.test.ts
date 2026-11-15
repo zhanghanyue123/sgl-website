@@ -69,7 +69,11 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   assert.match(card, /className="mt-auto px-5 pb-5"/);
   assert.match(header, /cartItemCount/);
   assert.match(header, /99\+/);
+  assert.match(toast, /createPortal/);
   assert.match(toast, /fixed bottom-5/);
+  assert.match(toast, /document\.body/);
+  assert.match(toast, /bg-white/);
+  assert.doesNotMatch(toast, /sglAcid|d6ff00/);
   assert.match(productPage, /<ProductPurchase product=\{product\}/);
   assert.match(localizedPages, /<ProductPurchase product=\{product\}/);
 });
