@@ -18,6 +18,9 @@ try {
   const db = parsed.pathname.slice(1);
   const connect = await sql`SELECT format('GRANT CONNECT ON DATABASE %I TO %I',${db}::text,${role}::text) statement`;
   await sql.unsafe(connect[0].statement);
+  const owner = await sql`SELECT current_user name`;
+  const membership = await sql`SELECT format('GRANT %I TO %I',${role}::text,${owner[0].name}::text) statement`;
+  await sql.unsafe(membership[0].statement);
   await sql.unsafe(`GRANT USAGE ON SCHEMA paypal_ops TO ${role}`);
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.register_order(uuid,text,integer,text,text,text) TO ${role}`);
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.capture_context(text) TO ${role}`);
