@@ -113,7 +113,7 @@ export default function CartPageClient({ airwallexEnabled, paypalEnabled, paypal
         {paypalEnabled && <label className="mt-3 flex items-center gap-3"><input type="radio" name="payment-provider" value="paypal" checked={paymentProvider === "paypal"} onChange={() => setPaymentProvider("paypal")} /> {paypalEnvironment === "live" ? "PayPal" : "PayPal Sandbox"}</label>}
         {paypalEnvironment !== "live" && <p className="mt-3 text-sm">Sandbox testing only. No live PayPal credentials or real PayPal charges are used.</p>}
       </fieldset>}
-      <button disabled={busy || !ready || !paymentsEnabled || !paymentProvider} onClick={checkout} className="mt-6 block w-full max-w-md border border-sglInk bg-sglInk px-6 py-5 text-xl font-black text-sglCream disabled:opacity-50">{!paymentsEnabled || !paymentProvider ? c.unavailable : busy ? c.preparing : paypalEnabled && !airwallexEnabled ? c.paypalCheckout : c.checkout}</button>
+      <button disabled={busy || !ready || !paymentsEnabled || !paymentProvider} onClick={checkout} className="mt-6 block w-full border border-sglInk bg-sglInk px-6 py-6 text-2xl font-black text-sglCream disabled:opacity-50">{!paymentsEnabled || !paymentProvider ? c.unavailable : busy ? c.preparing : paypalEnabled && !airwallexEnabled ? c.paypalCheckout : c.checkout}</button>
       {checkoutError && <p role="alert" className="mt-4">{checkoutError}</p>}
       <Link className="mt-6 inline-block border border-sglInk bg-sglAcid p-4 font-bold" href={localizedPath("/contact", locale)}>{c.contact}</Link>
     </>}
