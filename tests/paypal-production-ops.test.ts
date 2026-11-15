@@ -19,6 +19,7 @@ test("production OPS routes require bearer identity and durable idempotency", as
   const create = await readFile(new URL("../app/api/internal/paypal-ops/checkout/paypal/orders/route.ts", import.meta.url), "utf8");
   const capture = await readFile(new URL("../app/api/internal/paypal-ops/payments/paypal/captures/route.ts", import.meta.url), "utf8");
   const events = await readFile(new URL("../app/api/internal/paypal-ops/payments/paypal/events/route.ts", import.meta.url), "utf8");
+  const health = await readFile(new URL("../app/api/internal/paypal-ops/health/route.ts", import.meta.url), "utf8");
   assert.match(helper, /PAYPAL_OPS_TOKEN/);
   assert.match(helper, /timingSafeEqual/);
   assert.match(helper, /PAYPAL_OPS_DATABASE_URL/);
@@ -27,4 +28,7 @@ test("production OPS routes require bearer identity and durable idempotency", as
   assert.match(capture, /opsIdempotencyKey/);
   assert.match(events, /key !== eventId/);
   assert.match(events, /Unsupported PayPal event/);
+  assert.match(health, /authorizePayPalOps/);
+  assert.match(health, /roleScoped: true/);
+  assert.match(health, /NOT has_table_privilege\(current_user,'public\.customers','select'\)/);
 });
