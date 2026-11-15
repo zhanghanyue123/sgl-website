@@ -25,15 +25,15 @@ test("Station and About venue assets remain available", () => {
 test("cart persistence is locale-independent and rejects invalid or sold-out lines", () => {
   assert.equal(CART_STORAGE_KEY, "sgl-cart-v1");
   assert.equal(localizedPath("/cart", "it-IT"), "/it/cart");
-  assert.equal(validCartLine({ slug: "seagull-cap-lavender", variant: 0, quantity: 1 }), true);
+  assert.equal(validCartLine({ slug: "sgl-three-pair-sock-set", variant: 0, quantity: 1 }), true);
   assert.equal(validCartLine({ slug: "seagull-cap-khaki-brown", variant: 0, quantity: 1 }), false);
-  assert.equal(validCartLine({ slug: "seagull-cap-lavender", variant: 99, quantity: 1 }), false);
-  assert.equal(validCartLine({ slug: "seagull-cap-lavender", variant: 0, quantity: 100 }), false);
+  assert.equal(validCartLine({ slug: "sgl-three-pair-sock-set", variant: 99, quantity: 1 }), false);
+  assert.equal(validCartLine({ slug: "sgl-three-pair-sock-set", variant: 0, quantity: 100 }), false);
   assert.deepEqual(normalizeSavedCart([
-    { slug: "seagull-cap-lavender", variant: 0, quantity: 1 },
-    { slug: "seagull-cap-lavender", variant: 0, quantity: 2 },
+    { slug: "sgl-three-pair-sock-set", variant: 0, quantity: 1 },
+    { slug: "sgl-three-pair-sock-set", variant: 0, quantity: 2 },
     { slug: "missing", variant: 0, quantity: 1 }
-  ]), [{ slug: "seagull-cap-lavender", variant: 0, quantity: 2 }]);
+  ]), [{ slug: "sgl-three-pair-sock-set", variant: 0, quantity: 2 }]);
 });
 
 test("public smoke matrix includes every locale, core page and visible product", () => {

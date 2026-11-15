@@ -253,6 +253,7 @@ export const products: Product[] = [
 
   {
     "slug": "chrissy-p",
+    "soldOut": true,
     "hidden": true,
     "originalHandle": "chrissy-p",
     "title": "Chrissy P",
@@ -313,6 +314,7 @@ export const products: Product[] = [
   },
   {
     "slug": "chrissy-m",
+    "soldOut": true,
     hidden: true,
     "originalHandle": "chrissy-m",
     "title": "Chrissy M",
@@ -364,6 +366,7 @@ export const products: Product[] = [
   },
   {
     "slug": "chrissy",
+    "soldOut": true,
     "originalHandle": "chrissy",
     "title": "Chrissy",
     "category": "Bikes",
@@ -520,6 +523,7 @@ export const products: Product[] = [
   },
   {
     "slug": "chrissy-team",
+    "soldOut": true,
     "originalHandle": "chrissy-team",
     "title": "Chrissy Team",
     "category": "Bikes",
@@ -677,6 +681,7 @@ export const products: Product[] = [
   },
   {
     "slug": "chrissy-special",
+    "soldOut": true,
     "originalHandle": "chrissy-special",
     "title": "Chrissy Special",
     "category": "Bikes",
@@ -1130,6 +1135,7 @@ export const products: Product[] = [
   },
   {
     "slug": "reveal-shoe-sack",
+    "soldOut": true,
     "originalHandle": "reveal-shoe-sack",
     "title": "SGL Shoe Bag",
     "category": "Bags & Carry",
@@ -2129,8 +2135,25 @@ const featuredStorefrontRank = new Map(
   featuredStorefrontOrder.map((slug, index) => [slug, index])
 );
 
+function projectProductionStorefront(product: Product): Product {
+  if (product.slug !== "chrissy1") return product;
+
+  return {
+    ...product,
+    badge: "1 Model",
+    variants: [{
+      sku: "SGL-BIK-CTI-V00",
+      options: [{ name: "Model", value: "Chrissy Ti" }],
+      price: product.price,
+      inventory: 10,
+      image: product.images[0] ?? null
+    }]
+  };
+}
+
 export const storefrontProducts = products
   .filter(isProductReadyForStorefront)
+  .map(projectProductionStorefront)
   .sort((a, b) => {
     const aRank = featuredStorefrontRank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
     const bRank = featuredStorefrontRank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;

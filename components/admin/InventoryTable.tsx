@@ -8,7 +8,7 @@ type InventoryRow = {
   row_id: string; variant_id: string | null; product_title: string; variant_title: string; sku: string | null;
   image_url: string | null; price_cents: number; currency: string; warehouse_id: string | null; warehouse_name: string | null;
   on_hand: number | null; reserved: number | null; available: number | null; updated_at: string | null; low_stock: boolean | null;
-  inventory_status: "recorded" | "not_recorded";
+  inventory_status: "recorded" | "not_recorded"; active: boolean;
 };
 
 type InventoryMovement = {
@@ -74,8 +74,8 @@ export default function InventoryTable({ workspace, canAdjust }: { workspace: Wo
         <td className="p-3"><div className="flex min-w-64 gap-3">{row.image_url ? <img src={row.image_url} alt="" className="h-14 w-14 border border-black/15 object-cover" /> : <div className="h-14 w-14 border border-dashed border-black/25 bg-black/5" />}<div><span className="font-black">{row.product_title}</span><div className="text-xs opacity-60">{row.variant_title}</div></div></div></td>
         <td className="p-3">{row.sku || <span className="font-bold text-black/45">Not assigned</span>}</td><td className="p-3">{row.currency} {(row.price_cents / 100).toFixed(2)}</td>
         <td className="p-3">{numberOrNA(row.on_hand)}</td><td className="p-3">{numberOrNA(row.reserved)}</td><td className="p-3 font-black">{numberOrNA(row.available)}</td>
-        <td className="p-3">{row.warehouse_name || <span className="font-bold text-black/45">Not Recorded</span>}</td><td className="p-3 font-black uppercase">{row.inventory_status === "not_recorded" ? "Not Recorded" : row.available === 0 ? "0 · Out of stock" : row.low_stock ? "Low stock" : "Recorded"}</td><td className="p-3">{row.updated_at ? new Date(row.updated_at).toLocaleString("en-CA") : "N/A"}</td>
-        <td className="p-3">{canAdjust && row.inventory_status === "recorded" && row.variant_id && row.warehouse_id ? <button className="font-black uppercase underline" onClick={() => setActive(row)}>Adjust</button> : <span className="text-xs font-bold uppercase text-black/35">Read only</span>}</td>
+        <td className="p-3">{row.warehouse_name || <span className="font-bold text-black/45">Not Recorded</span>}</td><td className="p-3 font-black uppercase">{!row.active ? "Historical alias" : row.inventory_status === "not_recorded" ? "Not Recorded" : row.available === 0 ? "0 · Out of stock" : row.low_stock ? "Low stock" : "Recorded"}</td><td className="p-3">{row.updated_at ? new Date(row.updated_at).toLocaleString("en-CA") : "N/A"}</td>
+        <td className="p-3">{canAdjust && row.active && row.inventory_status === "recorded" && row.variant_id && row.warehouse_id ? <button className="font-black uppercase underline" onClick={() => setActive(row)}>Adjust</button> : <span className="text-xs font-bold uppercase text-black/35">Read only</span>}</td>
       </tr>)}</tbody></table></div>{!rows.length && <div className="border-x border-b border-sglInk bg-white p-8 text-center font-bold">No matching catalogue rows.</div>}
     </section>
 

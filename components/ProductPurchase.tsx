@@ -24,7 +24,7 @@ export default function ProductPurchase({ product }: { product: Product }) {
   const price = product.variants[variant]?.price ?? product.price;
   const soldOut = product.soldOut || product.variants[variant]?.soldOut;
   return <div className="mt-8 border border-sglInk p-5">
-    {product.variants.length > 0 && <label className="block font-bold">{copy.options}
+    {product.variants.length > 1 && <label className="block font-bold">{copy.options}
       <select className="mt-3 w-full border border-sglInk bg-sglPaper p-3" value={variant} onChange={event => { setVariant(Number(event.target.value)); cartAdd.reset(); }}>
         {product.variants.map((option, index) => <option key={index} value={index} disabled={option.soldOut}>{option.options.map(item => item.value).join(" / ") || option.sku || `${copy.option} ${index + 1}`}{option.soldOut ? ` — ${copy.soldOut}` : ""}</option>)}
       </select>

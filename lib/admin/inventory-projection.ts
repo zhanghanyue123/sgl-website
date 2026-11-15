@@ -112,6 +112,7 @@ export function mergeWebsiteCatalogueWithInventory(products: Product[], database
         variant_id: match.variant_id,
         product_id: match.product_id,
         ...catalogue,
+        active: match.active,
         warehouse_id: match.warehouse_id,
         warehouse_name: match.warehouse_name,
         on_hand: recorded ? match.on_hand : null,

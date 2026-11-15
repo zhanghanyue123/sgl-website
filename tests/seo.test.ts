@@ -10,7 +10,8 @@ test("sitemap contains only canonical public pages and visible products", () => 
   assert.equal(new Set(urls).size, urls.length);
   assert.ok(urls.every(url => url.startsWith(SITE_URL + "/")));
   for (const product of storefrontProducts) assert.ok(urls.includes(`${SITE_URL}/shop/${product.slug}`));
-  for (const product of products.filter(p => !storefrontProducts.includes(p))) assert.ok(!urls.includes(`${SITE_URL}/shop/${product.slug}`));
+  const storefrontSlugs = new Set(storefrontProducts.map(product => product.slug));
+  for (const product of products.filter(product => !storefrontSlugs.has(product.slug))) assert.ok(!urls.includes(`${SITE_URL}/shop/${product.slug}`));
   for (const path of ["/cart", "/checkout/success", "/api/checkout"]) assert.ok(!urls.includes(SITE_URL + path));
 });
 

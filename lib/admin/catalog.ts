@@ -9,7 +9,7 @@ type Actor = { userId: string; requestId?: string | null; ipHash?: string | null
 type AdminProductListRow = {
   id: string | null; slug: string; original_handle: string; status: string; base_price_cents: number; currency: string;
   sold_out_override: boolean; updated_at: Date | string | null; category: string; title: string; image_url: string | null;
-  variant_count: number; missing_sku_count: number; inventory_record_count: number; on_hand: number | null;
+  variant_count: number; historical_alias_count: number; missing_sku_count: number; inventory_record_count: number; on_hand: number | null;
   reserved: number | null; available: number | null; database_recorded: boolean;
 };
 
@@ -24,8 +24,9 @@ export async function listAdminProducts() {
   const databaseProducts = await db<AdminProductListRow[]>`SELECT p.id, p.slug, p.original_handle, p.status, p.base_price_cents, p.currency,
       p.sold_out_override, p.updated_at, c.name AS category,
       COALESCE(l.title, p.slug) AS title,
-      count(DISTINCT v.id)::int AS variant_count,
-      count(DISTINCT v.id) FILTER (WHERE v.sku IS NULL)::int AS missing_sku_count,
+      count(DISTINCT v.id) FILTER (WHERE v.active)::int AS variant_count,
+      count(DISTINCT v.id) FILTER (WHERE NOT v.active)::int AS historical_alias_count,
+      count(DISTINCT v.id) FILTER (WHERE v.active AND v.sku IS NULL)::int AS missing_sku_count,
       count(DISTINCT i.variant_id)::int AS inventory_record_count,
       sum(i.on_hand) FILTER (WHERE v.active)::int AS on_hand,
       sum(i.reserved) FILTER (WHERE v.active)::int AS reserved,
@@ -55,6 +56,7 @@ export async function listAdminProducts() {
       title: product.title,
       image_url: product.images[0] || null,
       variant_count: database?.variant_count ?? variants.length,
+      historical_alias_count: database?.historical_alias_count ?? 0,
       missing_sku_count: database?.missing_sku_count ?? variants.filter((variant) => !variant.sku?.trim()).length,
       inventory_record_count: database?.inventory_record_count || 0,
       on_hand: database?.on_hand ?? null,

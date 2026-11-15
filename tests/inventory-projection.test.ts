@@ -52,3 +52,10 @@ test("inventory mappings prefer an explicit SKU and retain warehouse identity", 
   assert.equal(recorded?.reserved, 2);
   assert.equal(recorded?.available, 6);
 });
+
+test("inactive database variants remain read-only historical aliases", () => {
+  const rows = mergeWebsiteCatalogueWithInventory([product], [databaseRow({ active: false, warehouse_id: null, warehouse_name: null, on_hand: null, reserved: null, available: null })]);
+  const alias = rows.find((row) => row.sku === "SGL-BAG-BLK");
+  assert.equal(alias?.active, false);
+  assert.equal(alias?.inventory_status, "not_recorded");
+});

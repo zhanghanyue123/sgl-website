@@ -18,6 +18,28 @@ test("storefront hides products without a real image or price", () => {
   assert.ok(getProduct("seat-bag"));
 });
 
+test("storefront availability matches the Owner-approved Production inventory projection", () => {
+  const chrissyTi = getProduct("chrissy1")!;
+  assert.equal(chrissyTi.soldOut, undefined);
+  assert.equal(chrissyTi.badge, "1 Model");
+  assert.equal(chrissyTi.variants.length, 1);
+  assert.equal(chrissyTi.variants[0]?.sku, "SGL-BIK-CTI-V00");
+  assert.deepEqual(chrissyTi.variants[0]?.options, [{ name: "Model", value: "Chrissy Ti" }]);
+
+  for (const slug of ["chrissy", "chrissy-team", "chrissy-special", "reveal-shoe-sack"]) {
+    assert.equal(getProduct(slug)?.soldOut, true, `${slug} must remain sold out`);
+  }
+
+  for (const slug of ["chrissy-p", "chrissy-m"]) {
+    const historical = products.find(product => product.slug === slug)!;
+    assert.equal(historical.hidden, true);
+    assert.equal(historical.soldOut, true);
+  }
+
+  const rawTi = products.find(product => product.slug === "chrissy1")!;
+  assert.equal(rawTi.variants.length, 7, "historical Ti variants remain available to catalogue audit");
+});
+
 test("Wear begins with one row of caps followed by one row of tees", () => {
   assert.deepEqual(getProductsByCategory("Wear").slice(0, 8).map(product => product.slug), [
     "seagull-friends-family-cap-white-blue",

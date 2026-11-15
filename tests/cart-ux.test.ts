@@ -34,15 +34,25 @@ test("different variants stay independent and saved cart state survives normaliz
   assert.deepEqual(normalizeSavedCart(JSON.parse(JSON.stringify(lines))), lines);
 });
 
-test("Owner-confirmed sold-out caps and tees cannot enter or survive the cart", () => {
+test("Owner-confirmed sold-out products cannot enter or survive the cart", () => {
   const soldOutSlugs = [
     "seagull-cap-khaki-brown", "seagull-cap-lavender", "seagull-cap-black-grey", "seagull-friends-family-cap-white-blue",
-    "wheel-deal-logo-study-tee", "wheel-deal-gull-rider-tee", "celtic-gull-tee-washed-black", "sgl-patch-tee-sky-blue"
+    "wheel-deal-logo-study-tee", "wheel-deal-gull-rider-tee", "celtic-gull-tee-washed-black", "sgl-patch-tee-sky-blue",
+    "chrissy", "chrissy-team", "chrissy-special", "reveal-shoe-sack"
   ];
   for (const slug of soldOutSlugs) {
     assert.deepEqual(normalizeSavedCart([{ slug, variant: 0, quantity: 1 }]), []);
     assert.throws(() => addCartLine([], { slug, variant: 0, quantity: 1 }), /invalid/);
   }
+});
+
+test("Chrissy Ti exposes only the unified active Production variant", () => {
+  const ti = storefrontProducts.find(product => product.slug === "chrissy1")!;
+  assert.equal(ti.variants.length, 1);
+  assert.equal(ti.variants[0]?.sku, "SGL-BIK-CTI-V00");
+  assert.doesNotThrow(() => addCartLine([], { slug: ti.slug, variant: 0, quantity: 1 }));
+  assert.throws(() => addCartLine([], { slug: ti.slug, variant: 1, quantity: 1 }), /invalid/);
+  assert.deepEqual(normalizeSavedCart([{ slug: ti.slug, variant: 6, quantity: 1 }]), []);
 });
 
 test("cart UI exposes loading, success, error, badge and same-line duplicate guards", () => {
