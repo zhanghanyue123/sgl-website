@@ -26,11 +26,11 @@ export function parsePayload(value, idempotencyKey) {
 
 export async function persist(sql, input) {
   const rows = await sql`
-    INSERT INTO paypal_sandbox_webhook_events (event_id, event_type, payload_sha256, resource_id)
+    INSERT INTO paypal_sandbox_events (event_id, event_type, payload_sha256, resource_id)
     VALUES (${input.id}, ${input.eventType}, ${input.payloadSha256}, ${input.resourceId})
     ON CONFLICT (event_id) DO UPDATE SET
       last_seen_at = now(),
-      delivery_count = paypal_sandbox_webhook_events.delivery_count + 1
+      delivery_count = paypal_sandbox_events.delivery_count + 1
     RETURNING event_id, delivery_count
   `;
   return { persisted: true, eventId: rows[0].event_id, status: rows[0].delivery_count === 1 ? "created" : "duplicate" };

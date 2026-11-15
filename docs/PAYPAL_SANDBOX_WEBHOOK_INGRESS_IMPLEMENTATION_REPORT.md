@@ -42,7 +42,9 @@ This change adds two isolated Sandbox-only services without changing the SGL Web
 - Deployment ID: `dpl_9q6o5WWKeEEvbFsuDBpUupF8T3nJ`
 - Deployment state: Ready
 - Anonymous request test: HTTP 401
-- Database connection: blocked pending explicit authorization to inject the existing Preview Neon `DATABASE_URL` into this isolated project
+- Database connection: connected through the dedicated `paypal_sandbox_ops_runtime` role
+- Runtime table access: `SELECT`, `INSERT`, and `UPDATE` on `paypal_sandbox_events` only
+- Runtime role cannot delete events, create schema objects, or access Website business tables
 
 The SGL Website Preview continues to redirect anonymous requests to the Vercel SSO endpoint and retains `x-robots-tag: noindex`.
 
@@ -66,9 +68,18 @@ The SGL Website Preview continues to redirect anonymous requests to the Vercel S
 - Git diff check: passed
 - Secret scan: no committed credentials found
 
-## Pending acceptance blockers
+## Durable delivery acceptance
 
-1. Preview Neon connection: the automatic approval system rejected transferring the Website Preview `DATABASE_URL` into the isolated OPS project without a more specific user authorization. The migration has not been executed and durable ACK has therefore not been exercised against a real database.
-2. Sandbox Buyer: no PayPal Personal Sandbox Buyer credentials are available locally, and the PayPal Developer Dashboard remains unauthorized. A real Buyer approval/capture flow cannot be completed without a Sandbox Personal account email and password stored locally.
+- First OPS event: HTTP 200, `created`
+- Same event redelivery: HTTP 200, `duplicate`
+- Invalid OPS token: HTTP 401
+- Official PayPal `PAYMENT.CAPTURE.PENDING` simulated delivery: HTTP 202 and durably received
+- Official PayPal `PAYMENT.CAPTURE.DENIED` simulated delivery: HTTP 202 and durably received
+- Migration checksum: `ca71b458e8e7c9b630e00e1afecffbc203f6ce7f5cc18874769b1a3c9061cfff`
+- Current OPS deployment: `dpl_GACeyMKkreuJ6A6yY2TcrjP88khv`
+
+## Pending acceptance blocker
+
+The protected file `/Users/hanyue/.config/sgl/paypal-sandbox-buyer.env` exists with mode 0600 but is empty. A real Buyer approval/capture flow, real order-status synchronization, and real amount-mismatch acceptance cannot be completed without a Sandbox Personal account email and password stored locally.
 
 No Production configuration, Production data, Live PayPal credentials, Airwallex setting, or Website Preview SSO setting was changed.

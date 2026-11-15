@@ -1,6 +1,6 @@
 # PayPal Sandbox Preview OPS
 
-Minimal, API-only persistence service for verified PayPal Sandbox webhook events. It accepts only allowlisted events, requires a dedicated bearer token and writes only to Preview Neon.
+Minimal, API-only persistence service for verified PayPal Sandbox webhook events. It accepts only allowlisted events, requires a dedicated bearer token and writes only to Preview Neon. The runtime PostgreSQL role has `SELECT`, `INSERT`, and `UPDATE` privileges only on `paypal_sandbox_events`; it cannot delete rows or access Website business tables.
 
 Required server-only variables: `DEPLOYMENT_ENVIRONMENT=preview`, `PAYPAL_ENV=sandbox`, `DATABASE_URL`, and `PREVIEW_OPS_TOKEN`.
 
