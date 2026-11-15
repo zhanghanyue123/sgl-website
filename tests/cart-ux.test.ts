@@ -53,6 +53,9 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   assert.match(purchase, /role="alert"/);
   assert.match(card, /Quick add/);
   assert.match(card, /Choose options/);
+  assert.match(card, /group flex h-full flex-col/);
+  assert.match(card, /href=\{productPath\} className="flex flex-1 flex-col"/);
+  assert.match(card, /className="mt-auto px-5 pb-5"/);
   assert.match(header, /cartItemCount/);
   assert.match(header, /99\+/);
   assert.match(toast, /fixed bottom-5/);
