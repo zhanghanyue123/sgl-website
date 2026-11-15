@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Product } from "@/data/products";
 import { useCartAdd } from "./useCartAdd";
+import CartAddToast from "./CartAddToast";
 import { localeFromPath, localizedPath, type Locale } from "@/lib/i18n";
 const purchaseCopy: Record<Locale, { options: string; option: string; quantity: string; add: string; adding: string; added: string; addedButton: string; error: string; cart: string; soldOut: string }> = {
   en: { options: "Options", option: "Option", quantity: "Quantity", add: "Add to cart", adding: "Adding…", added: "Added to cart.", addedButton: "Added to cart", error: "Could not add this item. Please try again.", cart: "View cart →", soldOut: "Sold out" },
@@ -34,5 +35,6 @@ export default function ProductPurchase({ product }: { product: Product }) {
     </label>}
     <button disabled={!cartAdd.ready || soldOut || cartAdd.busy} aria-busy={cartAdd.busy} onClick={() => void cartAdd.submit(product.slug, variant, quantity)} className="mt-5 w-full border border-sglInk bg-sglAcid p-4 font-black disabled:opacity-50">{soldOut ? copy.soldOut : cartAdd.busy ? copy.adding : cartAdd.status === "added" ? copy.addedButton : copy.add}</button>
     <p aria-live="polite" className="mt-3">{cartAdd.status === "added" && <>{copy.added} <Link className="underline" href={localizedPath("/cart", locale)}>{copy.cart}</Link></>}{cartAdd.status === "error" && <span role="alert">{copy.error}</span>}</p>
+    <CartAddToast status={cartAdd.status} message={copy.added} cartLabel={copy.cart} cartHref={localizedPath("/cart", locale)} />
   </div>;
 }

@@ -83,13 +83,13 @@ async function loadOrder(tx: TransactionSql, id: string): Promise<PendingOrder> 
   };
 }
 
-async function resolveLines(tx: TransactionSql, items: CheckoutItem[]): Promise<OrderLine[]> {
+async function resolveLines(tx: TransactionSql, items: CheckoutItem[], requireStableSku = false): Promise<OrderLine[]> {
   const lines: OrderLine[] = [];
   for (const item of items) {
     const variants = await tx<{
-      product_id: string; variant_id: string; sku: string | null; product_title: string; variant_title: string;
+      product_id: string; variant_id: string; sku: string | null; sku_approval_status: string; sku_reviewed_value: string | null; product_title: string; variant_title: string;
       options: JSONValue; image_url: string | null; price_cents: number; currency: string;
-    }[]>`SELECT p.id AS product_id, v.id AS variant_id, v.sku,
+    }[]>`SELECT p.id AS product_id, v.id AS variant_id, v.sku, v.sku_approval_status, v.sku_reviewed_value,
         COALESCE(l.title, p.slug) AS product_title, v.title AS variant_title, v.options,
         COALESCE(v.image_url, image.url) AS image_url, v.price_cents, v.currency
       FROM products p
@@ -102,6 +102,9 @@ async function resolveLines(tx: TransactionSql, items: CheckoutItem[]): Promise<
       ORDER BY v.position, v.id`;
     const variant = variants[item.variant];
     if (!variant) throw new StoreError(409, "A product or variant is no longer available.");
+    if (requireStableSku && (!variant.sku?.trim() || variant.sku_approval_status !== "approved" || variant.sku_reviewed_value !== variant.sku)) {
+      throw new StoreError(409, "商品缺少已批准的稳定 SKU，暂不能发起支付。");
+    }
     const lineTotalCents = variant.price_cents * item.quantity;
     if (!Number.isSafeInteger(lineTotalCents)) throw new StoreError(409, "The cart total is invalid.");
     lines.push({
@@ -122,20 +125,21 @@ async function resolveLines(tx: TransactionSql, items: CheckoutItem[]): Promise<
   return lines;
 }
 
-export async function createPendingOrder(input: { items: unknown; locale: unknown; idempotencyKey: string }): Promise<PendingOrder> {
+export async function createPendingOrder(input: { items: unknown; locale: unknown; idempotencyKey: string; requireStableSku?: boolean }): Promise<PendingOrder> {
   const items = parseItems({ items: input.items });
   const locale: Locale = typeof input.locale === "string" && isLocale(input.locale) ? input.locale : "en";
   const idempotencyKey = parseRequestKey(input.idempotencyKey);
   const requestHash = hashOrderRequest(items, locale);
   const db = getDb();
   return db.begin(async (tx) => {
+    await tx`SELECT pg_advisory_xact_lock(hashtextextended(${'order:' + idempotencyKey},0))`;
     const existing = await tx<{ id: string; request_hash: string }[]>`SELECT id, request_hash FROM orders WHERE idempotency_key = ${idempotencyKey} FOR UPDATE`;
     if (existing[0]) {
       if (existing[0].request_hash !== requestHash) throw new StoreError(409, "This checkout key was already used for a different cart.");
       return loadOrder(tx, existing[0].id);
     }
 
-    const lines = await resolveLines(tx, items);
+    const lines = await resolveLines(tx, items, input.requireStableSku === true);
     const itemsSubtotalCents = lines.reduce((sum, line) => sum + line.lineTotalCents, 0);
     if (!Number.isSafeInteger(itemsSubtotalCents) || itemsSubtotalCents <= 0) throw new StoreError(409, "The cart total is invalid.");
     const orderId = randomUUID();

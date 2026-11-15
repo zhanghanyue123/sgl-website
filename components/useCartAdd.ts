@@ -9,6 +9,8 @@ function nextPaint() {
   return new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 }
 
+const MINIMUM_LOADING_MS = 250;
+
 export function useCartAdd() {
   const { add, ready } = useCart();
   const [status, setStatus] = useState<CartAddStatus>("idle");
@@ -23,9 +25,12 @@ export function useCartAdd() {
     setError("");
     setStatus("loading");
     try {
+      const startedAt = performance.now();
       await nextPaint();
       const result = await add(slug, variant, quantity, operationId.current);
       if (result.status === "duplicate") return false;
+      const remaining = MINIMUM_LOADING_MS - (performance.now() - startedAt);
+      if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
       operationId.current = undefined;
       setStatus("added");
       return true;

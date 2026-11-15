@@ -6,13 +6,14 @@ import { usePathname } from "next/navigation";
 import type { Product } from "@/data/products";
 import { localeFromPath, localizedPath, type Locale } from "@/lib/i18n";
 import { useCartAdd } from "./useCartAdd";
+import CartAddToast from "./CartAddToast";
 
-const quickAddCopy: Record<Locale, { add: string; adding: string; added: string; choose: string; error: string; soldOut: string }> = {
-  en: { add: "Quick add", adding: "Adding…", added: "Added", choose: "Choose options", error: "Could not add. Try again.", soldOut: "Sold out" },
-  "zh-CN": { add: "快速加入", adding: "正在加入…", added: "已加入", choose: "选择规格", error: "加入失败，请重试。", soldOut: "售罄" },
-  "ja-JP": { add: "クイック追加", adding: "追加中…", added: "追加済み", choose: "オプションを選択", error: "追加できませんでした。", soldOut: "売り切れ" },
-  "ko-KR": { add: "빠른 담기", adding: "담는 중…", added: "담기 완료", choose: "옵션 선택", error: "담지 못했습니다.", soldOut: "품절" },
-  "it-IT": { add: "Aggiungi", adding: "Aggiunta…", added: "Aggiunto", choose: "Scegli opzioni", error: "Aggiunta non riuscita.", soldOut: "Esaurito" }
+const quickAddCopy: Record<Locale, { add: string; adding: string; added: string; cart: string; choose: string; error: string; soldOut: string }> = {
+  en: { add: "Quick add", adding: "Adding…", added: "Added to cart", cart: "View cart →", choose: "Choose options", error: "Could not add. Try again.", soldOut: "Sold out" },
+  "zh-CN": { add: "快速加入", adding: "正在加入…", added: "已加入购物车", cart: "查看购物车 →", choose: "选择规格", error: "加入失败，请重试。", soldOut: "售罄" },
+  "ja-JP": { add: "クイック追加", adding: "追加中…", added: "カートに追加しました", cart: "カートを見る →", choose: "オプションを選択", error: "追加できませんでした。", soldOut: "売り切れ" },
+  "ko-KR": { add: "빠른 담기", adding: "담는 중…", added: "장바구니에 담았습니다", cart: "장바구니 보기 →", choose: "옵션 선택", error: "담지 못했습니다.", soldOut: "품절" },
+  "it-IT": { add: "Aggiungi", adding: "Aggiunta…", added: "Aggiunto al carrello", cart: "Vai al carrello →", choose: "Scegli opzioni", error: "Aggiunta non riuscita.", soldOut: "Esaurito" }
 };
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -65,6 +66,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {canQuickAdd ? <button disabled={!cartAdd.ready || cartAdd.busy} aria-busy={cartAdd.busy} onClick={() => void cartAdd.submit(product.slug, availableVariants[0], 1)} className="w-full border border-sglInk bg-sglAcid px-4 py-3 text-sm font-black uppercase disabled:opacity-50">{cartAdd.busy ? copy.adding : cartAdd.status === "added" ? copy.added : copy.add}</button> : !product.soldOut && availableVariants.length > 1 ? <Link href={productPath} className="block w-full border border-sglInk px-4 py-3 text-center text-sm font-black uppercase">{copy.choose}</Link> : null}
         <p aria-live="polite" className="mt-2 min-h-5 text-sm">{cartAdd.status === "error" && <span role="alert">{copy.error}</span>}</p>
       </div>
+      <CartAddToast status={cartAdd.status} message={copy.added} cartLabel={copy.cart} cartHref={localizedPath("/cart", locale)} />
     </article>
   );
 }

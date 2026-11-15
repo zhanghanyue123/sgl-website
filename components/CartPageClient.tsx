@@ -6,20 +6,33 @@ import { useRef, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { getProduct } from "@/data/products";
 import { localeFromPath, localizedPath, type Locale } from "@/lib/i18n";
+import { redirectToAirwallexHostedCheckout } from "@/lib/payments/airwallex/browser";
+
+type PaymentProvider = "airwallex" | "paypal";
+const CHECKOUT_CLIENT_STORAGE_KEY = "sgl-checkout-client-v1";
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function checkoutClientId() {
+  const saved = localStorage.getItem(CHECKOUT_CLIENT_STORAGE_KEY);
+  if (saved && uuidPattern.test(saved)) return saved;
+  const created = crypto.randomUUID();
+  localStorage.setItem(CHECKOUT_CLIENT_STORAGE_KEY, created);
+  return created;
+}
 
 const copy: Record<Locale, {
   title: string; loading: string; empty: string; browse: string; each: string;
   quantity: string; remove: string; subtotal: string; note: string; unavailable: string;
   preparing: string; checkout: string; contact: string; storage: string; error: string; invalid: string; cancelled: string;
 }> = {
-  en: { title: "Your cart", loading: "Loading your cart…", empty: "Your cart is empty.", browse: "Browse the shop →", each: "each", quantity: "Quantity", remove: "Remove", subtotal: "Subtotal", note: "All prices are shown in USD. Shipping and stock are confirmed before payment; adding an item does not reserve inventory.", unavailable: "Online payment is not available", preparing: "Preparing secure checkout…", checkout: "Checkout", contact: "Contact SGL to confirm an order", storage: "This browser cannot save the cart, so it may be lost when the page closes.", error: "Checkout is temporarily unavailable. Please try again later or contact SGL.", invalid: "The secure checkout address could not be verified. Please contact SGL.", cancelled: "PayPal approval was cancelled. Your cart has not changed." },
-  "zh-CN": { title: "购物车", loading: "正在加载购物车…", empty: "购物车还是空的。", browse: "浏览商品 →", each: "每件", quantity: "数量", remove: "移除", subtotal: "商品小计", note: "所有价格均以美元（USD）显示。运费和库存将在付款前确认；加入购物车不会预留库存。", unavailable: "在线支付暂未开放", preparing: "正在准备安全支付…", checkout: "前往支付", contact: "联系 SGL 确认订单", storage: "浏览器无法保存购物车，关闭页面后可能丢失。", error: "暂时无法结账，请稍后重试或联系 SGL。", invalid: "无法验证安全支付地址，请联系 SGL。", cancelled: "PayPal 授权已取消，购物车内容没有变化。" },
-  "ja-JP": { title: "ショッピングカート", loading: "カートを読み込んでいます…", empty: "カートは空です。", browse: "ショップを見る →", each: "1点", quantity: "数量", remove: "削除", subtotal: "小計", note: "価格はすべて米ドル（USD）表示です。送料と在庫は支払い前に確認され、カート追加では在庫は確保されません。", unavailable: "オンライン決済は現在利用できません", preparing: "安全な決済を準備しています…", checkout: "決済へ進む", contact: "SGLへ注文を確認する", storage: "このブラウザではカートを保存できないため、ページを閉じると失われる場合があります。", error: "現在決済を利用できません。後でもう一度お試しいただくか、SGLへお問い合わせください。", invalid: "安全な決済ページを確認できませんでした。SGLへお問い合わせください。", cancelled: "PayPalの承認はキャンセルされました。カートの内容は変更されていません。" },
-  "ko-KR": { title: "장바구니", loading: "장바구니를 불러오는 중…", empty: "장바구니가 비어 있습니다.", browse: "스토어 보기 →", each: "개당", quantity: "수량", remove: "삭제", subtotal: "소계", note: "모든 가격은 미국 달러(USD)로 표시됩니다. 배송비와 재고는 결제 전에 확인되며 장바구니 담기는 재고를 예약하지 않습니다.", unavailable: "온라인 결제를 현재 이용할 수 없습니다", preparing: "안전한 결제를 준비하는 중…", checkout: "결제하기", contact: "SGL에 주문 확인하기", storage: "이 브라우저는 장바구니를 저장할 수 없어 페이지를 닫으면 내용이 사라질 수 있습니다.", error: "현재 결제를 이용할 수 없습니다. 나중에 다시 시도하거나 SGL에 문의해 주세요.", invalid: "안전한 결제 주소를 확인할 수 없습니다. SGL에 문의해 주세요.", cancelled: "PayPal 승인이 취소되었습니다. 장바구니는 변경되지 않았습니다." },
-  "it-IT": { title: "Il tuo carrello", loading: "Caricamento del carrello…", empty: "Il carrello è vuoto.", browse: "Vai al negozio →", each: "cad.", quantity: "Quantità", remove: "Rimuovi", subtotal: "Subtotale", note: "Tutti i prezzi sono espressi in dollari statunitensi (USD). Spese di spedizione e disponibilità vengono confermate prima del pagamento; l’aggiunta al carrello non riserva gli articoli.", unavailable: "Il pagamento online non è disponibile", preparing: "Preparazione del pagamento sicuro…", checkout: "Procedi al pagamento", contact: "Contatta SGL per confermare un ordine", storage: "Questo browser non può salvare il carrello, che potrebbe andare perso alla chiusura della pagina.", error: "Il checkout non è temporaneamente disponibile. Riprova più tardi o contatta SGL.", invalid: "Non è stato possibile verificare l’indirizzo del checkout sicuro. Contatta SGL.", cancelled: "L’autorizzazione PayPal è stata annullata. Il carrello non è cambiato." }
+  en: { title: "Your cart", loading: "Loading your cart…", empty: "Your cart is empty.", browse: "Browse the shop →", each: "each", quantity: "Quantity", remove: "Remove", subtotal: "Subtotal", note: "All prices are shown in USD. Shipping and stock are confirmed before payment; adding an item does not reserve inventory.", unavailable: "Online payment is not available", preparing: "Preparing secure checkout…", checkout: "Checkout", contact: "Contact SGL to confirm an order", storage: "This browser cannot save the cart, so it may be lost when the page closes.", error: "Checkout is temporarily unavailable. Please try again later or contact SGL.", invalid: "The secure checkout address could not be verified. Please contact SGL.", cancelled: "Payment approval was cancelled. Your cart has not changed." },
+  "zh-CN": { title: "购物车", loading: "正在加载购物车…", empty: "购物车还是空的。", browse: "浏览商品 →", each: "每件", quantity: "数量", remove: "移除", subtotal: "商品小计", note: "所有价格均以美元（USD）显示。运费和库存将在付款前确认；加入购物车不会预留库存。", unavailable: "在线支付暂未开放", preparing: "正在准备安全支付…", checkout: "前往支付", contact: "联系 SGL 确认订单", storage: "浏览器无法保存购物车，关闭页面后可能丢失。", error: "暂时无法结账，请稍后重试或联系 SGL。", invalid: "无法验证安全支付地址，请联系 SGL。", cancelled: "支付授权已取消，购物车内容没有变化。" },
+  "ja-JP": { title: "ショッピングカート", loading: "カートを読み込んでいます…", empty: "カートは空です。", browse: "ショップを見る →", each: "1点", quantity: "数量", remove: "削除", subtotal: "小計", note: "価格はすべて米ドル（USD）表示です。送料と在庫は支払い前に確認され、カート追加では在庫は確保されません。", unavailable: "オンライン決済は現在利用できません", preparing: "安全な決済を準備しています…", checkout: "決済へ進む", contact: "SGLへ注文を確認する", storage: "このブラウザではカートを保存できないため、ページを閉じると失われる場合があります。", error: "現在決済を利用できません。後でもう一度お試しいただくか、SGLへお問い合わせください。", invalid: "安全な決済ページを確認できませんでした。SGLへお問い合わせください。", cancelled: "決済の承認はキャンセルされました。カートの内容は変更されていません。" },
+  "ko-KR": { title: "장바구니", loading: "장바구니를 불러오는 중…", empty: "장바구니가 비어 있습니다.", browse: "스토어 보기 →", each: "개당", quantity: "수량", remove: "삭제", subtotal: "소계", note: "모든 가격은 미국 달러(USD)로 표시됩니다. 배송비와 재고는 결제 전에 확인되며 장바구니 담기는 재고를 예약하지 않습니다.", unavailable: "온라인 결제를 현재 이용할 수 없습니다", preparing: "안전한 결제를 준비하는 중…", checkout: "결제하기", contact: "SGL에 주문 확인하기", storage: "이 브라우저는 장바구니를 저장할 수 없어 페이지를 닫으면 내용이 사라질 수 있습니다.", error: "현재 결제를 이용할 수 없습니다. 나중에 다시 시도하거나 SGL에 문의해 주세요.", invalid: "안전한 결제 주소를 확인할 수 없습니다. SGL에 문의해 주세요.", cancelled: "결제 승인이 취소되었습니다. 장바구니는 변경되지 않았습니다." },
+  "it-IT": { title: "Il tuo carrello", loading: "Caricamento del carrello…", empty: "Il carrello è vuoto.", browse: "Vai al negozio →", each: "cad.", quantity: "Quantità", remove: "Rimuovi", subtotal: "Subtotale", note: "Tutti i prezzi sono espressi in dollari statunitensi (USD). Spese di spedizione e disponibilità vengono confermate prima del pagamento; l’aggiunta al carrello non riserva gli articoli.", unavailable: "Il pagamento online non è disponibile", preparing: "Preparazione del pagamento sicuro…", checkout: "Procedi al pagamento", contact: "Contatta SGL per confermare un ordine", storage: "Questo browser non può salvare il carrello, che potrebbe andare perso alla chiusura della pagina.", error: "Il checkout non è temporaneamente disponibile. Riprova più tardi o contatta SGL.", invalid: "Non è stato possibile verificare l’indirizzo del checkout sicuro. Contatta SGL.", cancelled: "L’autorizzazione al pagamento è stata annullata. Il carrello non è cambiato." }
 };
 
-export default function CartPageClient({ paypalEnabled }: { paypalEnabled: boolean }) {
+export default function CartPageClient({ airwallexEnabled, paypalEnabled }: { airwallexEnabled: boolean; paypalEnabled: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const locale = localeFromPath(pathname);
@@ -27,12 +40,12 @@ export default function CartPageClient({ paypalEnabled }: { paypalEnabled: boole
   const { lines, ready, storageError, setQuantity } = useCart();
   const paymentsEnabled = process.env.NEXT_PUBLIC_STORE_CHECKOUT_ENABLED === "true";
   const [busy, setBusy] = useState(false);
-  const [paymentProvider, setPaymentProvider] = useState<"stripe" | "paypal">("stripe");
+  const [paymentProvider, setPaymentProvider] = useState<PaymentProvider | "">(airwallexEnabled ? "airwallex" : paypalEnabled ? "paypal" : "");
   const [checkoutError, setCheckoutError] = useState("");
   const attempt = useRef({ cart: "", key: "" });
 
   async function checkout() {
-    if (busy || !ready) return;
+    if (busy || !ready || !paymentProvider) return;
     setBusy(true);
     setCheckoutError("");
     const cart = JSON.stringify(lines);
@@ -40,15 +53,31 @@ export default function CartPageClient({ paypalEnabled }: { paypalEnabled: boole
     try {
       const response = await fetch(paymentProvider === "paypal" ? "/api/paypal/orders" : "/api/checkout", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Idempotency-Key": attempt.current.key },
-        body: JSON.stringify({ items: lines, locale })
+        headers: {
+          "Content-Type": "application/json",
+          "Idempotency-Key": attempt.current.key,
+          ...(paymentProvider === "airwallex" ? { "X-SGL-Checkout-Client": checkoutClientId() } : {})
+        },
+        body: JSON.stringify({ items: lines, locale, provider: paymentProvider })
       });
       const result = await response.json();
       if (!response.ok) throw new Error(c.error);
+      if (paymentProvider === "airwallex") {
+        if (result.provider !== "airwallex") throw new Error(c.invalid);
+        const airwallexLocales: Record<Locale, string> = { en: "en", "zh-CN": "zh", "ja-JP": "ja", "ko-KR": "ko", "it-IT": "it" };
+        await redirectToAirwallexHostedCheckout({
+          intentId: result.intentId,
+          clientSecret: result.clientSecret,
+          currency: result.currency,
+          successUrl: result.successUrl,
+          cancelUrl: result.cancelUrl,
+          locale: airwallexLocales[locale]
+        });
+        return;
+      }
       const url = new URL(result.url);
-      const stripe = paymentProvider === "stripe" && result.provider !== "paypal" && url.protocol === "https:" && url.hostname === "checkout.stripe.com";
       const paypal = paymentProvider === "paypal" && result.provider === "paypal" && url.protocol === "https:" && url.hostname === "www.sandbox.paypal.com";
-      if (!stripe && !paypal) throw new Error(c.invalid);
+      if (!paypal) throw new Error(c.invalid);
       window.location.assign(url.href);
     } catch (error) {
       setCheckoutError(error instanceof Error ? error.message : c.error);
@@ -61,7 +90,7 @@ export default function CartPageClient({ paypalEnabled }: { paypalEnabled: boole
     return product ? [{ ...line, product, price: Math.round((product.variants[line.variant]?.price ?? product.price) * 100) }] : [];
   });
   const total = items.reduce((sum, line) => sum + line.price * line.quantity, 0);
-  const paypalCancelled = searchParams.get("cancelled") === "1" && searchParams.get("provider") === "paypal";
+  const paymentCancelled = searchParams.get("cancelled") === "1" && ["paypal", "airwallex"].includes(searchParams.get("provider") || "");
 
   return <section data-content-section="cart.cart" className="mx-auto max-w-sgl px-4 py-12 md:px-8">
     <h1 className="text-5xl font-black uppercase">{c.title}</h1>
@@ -72,14 +101,14 @@ export default function CartPageClient({ paypalEnabled }: { paypalEnabled: boole
       </article>)}</div>
       <p className="mt-8 text-2xl font-black">{c.subtotal} $ {(total / 100).toFixed(2)}</p>
       <p className="mt-3">{c.note}</p>
-      {paypalCancelled && <p role="status" className="mt-4 border border-sglInk bg-sglPaper p-3">{c.cancelled}</p>}
-      <fieldset className="mt-6 max-w-md border border-sglInk p-4">
+      {paymentCancelled && <p role="status" className="mt-4 border border-sglInk bg-sglPaper p-3">{c.cancelled}</p>}
+      {(airwallexEnabled || paypalEnabled) && <fieldset className="mt-6 max-w-md border border-sglInk p-4">
         <legend className="px-2 font-black uppercase">Payment method</legend>
-        <label className="flex items-center gap-3"><input type="radio" name="payment-provider" value="stripe" checked={paymentProvider === "stripe"} onChange={() => setPaymentProvider("stripe")} /> Card</label>
+        {airwallexEnabled && <label className="flex items-center gap-3"><input type="radio" name="payment-provider" value="airwallex" checked={paymentProvider === "airwallex"} onChange={() => setPaymentProvider("airwallex")} /> Airwallex Sandbox</label>}
         {paypalEnabled && <label className="mt-3 flex items-center gap-3"><input type="radio" name="payment-provider" value="paypal" checked={paymentProvider === "paypal"} onChange={() => setPaymentProvider("paypal")} /> PayPal Sandbox</label>}
-        {paypalEnabled && paymentProvider === "paypal" && <p className="mt-3 text-sm">Sandbox testing only. No live PayPal credentials or real charges are used.</p>}
-      </fieldset>
-      <button disabled={busy || !ready || !paymentsEnabled} onClick={checkout} className="mt-6 block border border-sglInk bg-sglInk p-4 font-bold text-sglCream disabled:opacity-50">{!paymentsEnabled ? c.unavailable : busy ? c.preparing : c.checkout}</button>
+        <p className="mt-3 text-sm">Sandbox testing only. No live credentials or real charges are used.</p>
+      </fieldset>}
+      <button disabled={busy || !ready || !paymentsEnabled || !paymentProvider} onClick={checkout} className="mt-6 block border border-sglInk bg-sglInk p-4 font-bold text-sglCream disabled:opacity-50">{!paymentsEnabled || !paymentProvider ? c.unavailable : busy ? c.preparing : c.checkout}</button>
       {checkoutError && <p role="alert" className="mt-4">{checkoutError}</p>}
       <Link className="mt-6 inline-block border border-sglInk bg-sglAcid p-4 font-bold" href={localizedPath("/contact", locale)}>{c.contact}</Link>
     </>}

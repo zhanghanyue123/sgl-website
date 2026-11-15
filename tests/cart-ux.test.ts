@@ -40,9 +40,13 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   const purchase = readFileSync(new URL("../components/ProductPurchase.tsx", import.meta.url), "utf8");
   const card = readFileSync(new URL("../components/ProductCard.tsx", import.meta.url), "utf8");
   const header = readFileSync(new URL("../components/Header.tsx", import.meta.url), "utf8");
+  const toast = readFileSync(new URL("../components/CartAddToast.tsx", import.meta.url), "utf8");
+  const productPage = readFileSync(new URL("../app/shop/[slug]/page.tsx", import.meta.url), "utf8");
+  const localizedPages = readFileSync(new URL("../app/[locale]/[[...segments]]/page.tsx", import.meta.url), "utf8");
   assert.match(hook, /pending\.current/);
   assert.match(hook, /crypto\.randomUUID/);
   assert.match(hook, /requestAnimationFrame/);
+  assert.match(hook, /MINIMUM_LOADING_MS = 250/);
   assert.match(provider, /pendingLines\.current\.has/);
   assert.match(provider, /persistCart\(localStorage, next\)/);
   assert.match(purchase, /aria-busy/);
@@ -51,6 +55,23 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   assert.match(card, /Choose options/);
   assert.match(header, /cartItemCount/);
   assert.match(header, /99\+/);
+  assert.match(toast, /fixed bottom-5/);
+  assert.match(productPage, /<ProductPurchase product=\{product\}/);
+  assert.match(localizedPages, /<ProductPurchase product=\{product\}/);
+});
+
+test("checkout exposes only configured Airwallex and PayPal Sandbox providers", () => {
+  const wrapper = readFileSync(new URL("../app/cart/page.tsx", import.meta.url), "utf8");
+  const cart = readFileSync(new URL("../components/CartPageClient.tsx", import.meta.url), "utf8");
+  const checkout = readFileSync(new URL("../app/api/checkout/route.ts", import.meta.url), "utf8");
+  assert.match(wrapper, /AIRWALLEX_ENABLED/);
+  assert.match(wrapper, /PAYPAL_ENABLED/);
+  assert.match(cart, /Airwallex Sandbox/);
+  assert.match(cart, /PayPal Sandbox/);
+  assert.doesNotMatch(cart, /value="stripe"/);
+  assert.match(checkout, /AIRWALLEX_ENABLED/);
+  assert.match(checkout, /requireStableSku: true/);
+  assert.doesNotMatch(checkout, /getStripe|stripe\.checkout/);
 });
 
 test("cart persistence surfaces storage failures and permits a later retry", () => {
