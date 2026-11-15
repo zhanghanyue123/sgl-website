@@ -34,6 +34,17 @@ test("different variants stay independent and saved cart state survives normaliz
   assert.deepEqual(normalizeSavedCart(JSON.parse(JSON.stringify(lines))), lines);
 });
 
+test("Owner-confirmed sold-out caps and tees cannot enter or survive the cart", () => {
+  const soldOutSlugs = [
+    "seagull-cap-khaki-brown", "seagull-cap-lavender", "seagull-cap-black-grey", "seagull-friends-family-cap-white-blue",
+    "wheel-deal-logo-study-tee", "wheel-deal-gull-rider-tee", "celtic-gull-tee-washed-black", "sgl-patch-tee-sky-blue"
+  ];
+  for (const slug of soldOutSlugs) {
+    assert.deepEqual(normalizeSavedCart([{ slug, variant: 0, quantity: 1 }]), []);
+    assert.throws(() => addCartLine([], { slug, variant: 0, quantity: 1 }), /invalid/);
+  }
+});
+
 test("cart UI exposes loading, success, error, badge and same-line duplicate guards", () => {
   const hook = readFileSync(new URL("../components/useCartAdd.ts", import.meta.url), "utf8");
   const provider = readFileSync(new URL("../components/CartProvider.tsx", import.meta.url), "utf8");

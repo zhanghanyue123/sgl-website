@@ -57,6 +57,7 @@ export const products: Product[] = [
 },
 {
   "slug": "wheel-deal-logo-study-tee",
+  "soldOut": true,
   "originalHandle": "wheel-deal-logo-study-tee",
   "title": "Wheel Deal Logo Study Tee — Cream / Red",
   "category": "Wear",
@@ -77,6 +78,7 @@ export const products: Product[] = [
 },
 {
   "slug": "wheel-deal-gull-rider-tee",
+  "soldOut": true,
   "originalHandle": "wheel-deal-gull-rider-tee",
   "title": "Wheel Deal Gull Rider Tee — Sand",
   "category": "Wear",
@@ -97,6 +99,7 @@ export const products: Product[] = [
 },
 {
   "slug": "celtic-gull-tee-washed-black",
+  "soldOut": true,
   "originalHandle": "celtic-gull-tee-washed-black",
   "title": "Celtic Gull Tee — Washed Black",
   "category": "Wear",
@@ -117,6 +120,7 @@ export const products: Product[] = [
 },
 {
   "slug": "sgl-patch-tee-sky-blue",
+  "soldOut": true,
   "originalHandle": "sgl-patch-tee-sky-blue",
   "title": "SGL Patch Tee — Sky Blue",
   "category": "Wear",
@@ -183,6 +187,7 @@ export const products: Product[] = [
 },
 {
   "slug": "seagull-cap-lavender",
+  "soldOut": true,
   "originalHandle": "seagull-cap-lavender",
   "title": "SGL Friends & Family Cap — Navy / Grey",
   "category": "Wear",
@@ -204,6 +209,7 @@ export const products: Product[] = [
 },
 {
   "slug": "seagull-cap-black-grey",
+  "soldOut": true,
   "originalHandle": "seagull-cap-black-grey",
   "title": "Sea Gull Cap — Black / Grey",
   "category": "Wear",
@@ -226,6 +232,7 @@ export const products: Product[] = [
 },
 {
   "slug": "seagull-friends-family-cap-white-blue",
+  "soldOut": true,
   "originalHandle": "seagull-friends-family-cap-white-blue",
   "title": "Sea Gull Friends & Family Cap — White / Blue",
   "category": "Wear",

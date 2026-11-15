@@ -52,7 +52,7 @@ test("home shop keeps all tees together and starts socks on the next row", () =>
   assert.equal(getProductsByCategory("Wear")[8]?.slug, "sgl-three-pair-sock-set");
 });
 
-test("four tee products use the approved images, descriptions and USD 59 price", () => {
+test("four tee products use the approved images and remain Owner-confirmed sold out", () => {
   const expected = [
     ["wheel-deal-logo-study-tee", "/products/tees/wheel-deal-logo-study-cream-red.webp"],
     ["wheel-deal-gull-rider-tee", "/products/tees/wheel-deal-gull-rider-sand.webp"],
@@ -66,6 +66,7 @@ test("four tee products use the approved images, descriptions and USD 59 price",
     assert.equal(tee.priceLabel, "59");
     assert.equal(tee.images[0], image);
     assert.ok(tee.description.length > 40);
+    assert.equal(tee.soldOut, true);
   }
 });
 
@@ -114,8 +115,9 @@ test("cap prices and newly supplied primary images match the approved catalogue"
   assert.match(navyGrey.description, /washed navy and charcoal-grey/i);
   assert.equal(getProduct("seagull-cap-black-grey")?.images[0], "/products/caps/black-grey-studio.webp");
 
-  assert.equal(getProduct("seagull-cap-khaki-brown")?.soldOut, true);
-  assert.equal(navyGrey.soldOut, undefined);
+  for (const slug of ["seagull-cap-khaki-brown", "seagull-cap-lavender", "seagull-cap-black-grey", "seagull-friends-family-cap-white-blue"]) {
+    assert.equal(getProduct(slug)?.soldOut, true);
+  }
   assert.equal(getProduct("reflective-gear-safety-reflector-baby-seagull")?.soldOut, true);
 
   assert.equal(getProduct("sgl-three-pair-sock-set")?.images[0], "/products/socks/sgl-three-pair-sock-set-studio.webp");
