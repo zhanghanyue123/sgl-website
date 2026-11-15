@@ -22,6 +22,7 @@ const config = {
 
 function setEnvironment() {
   Object.assign(process.env, config, {
+    PAYPAL_ENABLED: "true",
     STORE_CHECKOUT_ENABLED: "true",
     SITE_URL: "https://example.test",
     OPS_STORE_API_URL: "https://ops.example.test/store",
@@ -31,7 +32,7 @@ function setEnvironment() {
 }
 
 function clearEnvironment() {
-  for (const key of ["PAYPAL_ENV", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
+  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
   __resetPayPalTokenCacheForTests();
 }
 
@@ -46,6 +47,16 @@ test("PayPal configuration is sandbox-only and server credentials are required",
   assert.deepEqual(paypalConfig(config), { baseUrl: "https://api-m.sandbox.paypal.com", clientId: config.PAYPAL_CLIENT_ID, clientSecret: config.PAYPAL_CLIENT_SECRET, webhookId: config.PAYPAL_WEBHOOK_ID });
   assert.throws(() => paypalConfig({ ...config, PAYPAL_ENV: "live" }));
   assert.throws(() => paypalConfig({ ...config, PAYPAL_CLIENT_SECRET: "" }));
+});
+
+test("PayPal website routes stay closed unless the dedicated server flag is enabled", async () => {
+  clearEnvironment();
+  const createResponse = await createOrderRoute(new Request("https://example.test/api/paypal/orders", { method: "POST" }));
+  const captureResponse = await captureRoute(new Request("https://example.test/api/paypal/orders/capture", { method: "POST" }));
+  const webhookResponse = await webhookRoute(new Request("https://example.test/api/paypal/webhook", { method: "POST" }));
+  assert.equal(createResponse.status, 503);
+  assert.equal(captureResponse.status, 503);
+  assert.equal(webhookResponse.status, 503);
 });
 
 test("PayPal create order uses server amount, sandbox API and a bounded idempotency key", async () => {

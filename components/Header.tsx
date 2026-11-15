@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { localeFromPath, localizedPath, type Locale } from "@/lib/i18n";
+import { cartItemCount } from "@/lib/cart";
+import { useCart } from "./CartProvider";
 
 const nav = [
   { href: "/shop", labels: ["Shop", "商店", "ショップ", "스토어", "Negozio"] },
@@ -22,6 +24,9 @@ export default function Header() {
   const pathname = usePathname();
   const locale = localeFromPath(pathname);
   const labelIndex = localeIndex[locale];
+  const { lines, ready } = useCart();
+  const cartCount = ready ? cartItemCount(lines) : 0;
+  const cartLabel = cartCount ? `${cartLabels[locale]} (${cartCount})` : cartLabels[locale];
   return (
     <header className="sticky top-0 z-50 border-b border-sglInk bg-sglCream/95 backdrop-blur">
       <div className="mx-auto grid max-w-sgl grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr] px-4 py-3 md:px-8">
@@ -47,10 +52,11 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <Link href={localizedPath("/cart", locale)} aria-label={cartLabels[locale]} title={cartLabels[locale]} className="flex h-11 w-11 items-center justify-center justify-self-end rounded-full transition hover:bg-sglAcid focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+        <Link href={localizedPath("/cart", locale)} aria-label={cartLabel} title={cartLabel} className="relative flex h-11 w-11 items-center justify-center justify-self-end rounded-full transition hover:bg-sglAcid focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6" aria-hidden="true">
             <path d="M3 3h2l2.4 12h11.2l2-8H6" /><circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
           </svg>
+          {cartCount > 0 && <span aria-hidden="true" className="absolute -right-1 -top-1 min-w-5 rounded-full border border-sglInk bg-sglAcid px-1 text-center text-[10px] font-black leading-[18px] text-sglInk">{cartCount > 99 ? "99+" : cartCount}</span>}
         </Link>
       </div>
       <nav aria-label={mobileNavLabels[locale]} className="grid grid-cols-6 gap-1 text-center border-t border-sglInk/10 px-2 py-2 text-[10px] sm:text-xs font-bold uppercase tracking-wide lg:hidden">

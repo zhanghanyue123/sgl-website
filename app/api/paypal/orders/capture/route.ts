@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
+    if (process.env.PAYPAL_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
     if (process.env.STORE_CHECKOUT_ENABLED !== "true") throw new StoreError(503, "Online payment is not available.");
     const origin = siteOrigin();
     if (request.headers.get("origin") !== origin) throw new StoreError(403, "Please return from PayPal to the SGL website.");

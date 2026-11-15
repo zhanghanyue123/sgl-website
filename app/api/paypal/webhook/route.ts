@@ -7,6 +7,7 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
+    if (process.env.PAYPAL_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
     const raw = await request.text();
     if (!raw || raw.length > 256_000) throw new StoreError(413, "PayPal webhook payload is too large.");
     let event: PayPalWebhookEvent;
