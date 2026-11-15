@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import {
   __resetPayPalTokenCacheForTests,
   approveUrl,
@@ -117,39 +118,12 @@ test("approval and capture validation reject live hosts, wrong amounts and wrong
   assert.throws(() => assertPayPalOrderMatches(paypalOrder(), { paypalOrderId: "5O190127TN364715T", orderId: "order_123", amountTotal: 1, currency: "usd" }));
 });
 
-test("PayPal checkout route gets an OPS quote, creates an order and requires durable binding", async () => {
-  setEnvironment();
-  const original = globalThis.fetch;
-  const calls: string[] = [];
-  try {
-    globalThis.fetch = async (input, init) => {
-      const url = String(input); calls.push(url);
-      if (url.endsWith("/checkout/quotes")) return Response.json({
-        orderId: "order_123", expiresAt: Math.floor(Date.now() / 1000) + 3600, currency: "usd", amountTotal: 2500,
-        shippingRateId: "shr_test", shippingAmount: 500, allowedCountries: ["US"], lines: [{ priceId: "price_test", quantity: 1, unitAmount: 2000 }]
-      });
-      if (url.endsWith("/v1/oauth2/token")) return Response.json({ access_token: "access-token", expires_in: 300 });
-      if (url.endsWith("/v2/checkout/orders")) return Response.json(paypalOrder(), { status: 201 });
-      if (url.endsWith("/checkout/paypal/orders")) {
-        const body = JSON.parse(String(init?.body));
-        assert.equal(body.amountTotal, 2500);
-        assert.equal(body.orderId, "order_123");
-        return Response.json({ persisted: true, orderId: "order_123" });
-      }
-      throw new Error(`Unexpected request ${url}`);
-    };
-    const response = await createOrderRoute(new Request("https://example.test/api/paypal/orders", {
-      method: "POST",
-      headers: { origin: "https://example.test", "content-type": "application/json", "idempotency-key": "paypal-checkout-123456789" },
-      body: JSON.stringify({ items: [{ slug: "sgl-three-pair-sock-set", variant: 0, quantity: 1 }], locale: "en" })
-    }));
-    assert.equal(response.status, 200);
-    const body = await response.json();
-    assert.equal(body.provider, "paypal");
-    assert.equal(body.environment, "sandbox");
-    assert.equal(body.paypalOrderId, "5O190127TN364715T");
-    assert.deepEqual(calls.map(url => new URL(url).pathname), ["/store/checkout/quotes", "/v1/oauth2/token", "/v2/checkout/orders", "/store/checkout/paypal/orders"]);
-  } finally { globalThis.fetch = original; clearEnvironment(); }
+test("PayPal checkout creates the SGL order locally and gives OPS only the payment association", async () => {
+  const route = await readFile(new URL("../app/api/paypal/orders/route.ts", import.meta.url), "utf8");
+  assert.match(route, /createPendingOrder\(\{ items, locale, idempotencyKey: requestKey, requireStableSku: true \}\)/);
+  assert.match(route, /opsRequest\("\/checkout\/paypal\/orders"/);
+  assert.doesNotMatch(route, /opsRequest\("\/checkout\/quotes"/);
+  assert.doesNotMatch(route, /customer_email|customer_name|order_addresses/);
 });
 
 test("capture validates the server-owned context and only succeeds after OPS persists it", async () => {
