@@ -12,7 +12,7 @@ test("OPS token is mandatory and compared exactly", () => {
 });
 
 test("only sandbox allowlisted events with matching idempotency keys are accepted", () => {
-  assert.deepEqual(parsePayload(event, event.event.id), { id: event.event.id, eventType: event.event.event_type, payloadSha256: event.payloadSha256, resourceId: "CAPTURE-1" });
+  assert.deepEqual(parsePayload(event, event.event.id), { id: event.event.id, eventType: event.event.event_type, payloadSha256: event.payloadSha256, resourceId: "CAPTURE-1", paypalOrderId: null, captureId: "CAPTURE-1", providerStatus: null, amountCents: null, currency: null });
   assert.throws(() => parsePayload({ ...event, environment: "live" }, event.event.id));
   assert.throws(() => parsePayload(event, "WH-OTHER123"));
   assert.throws(() => parsePayload({ ...event, event: { ...event.event, event_type: "CUSTOMER.DISPUTE.CREATED" } }, event.event.id));
@@ -22,8 +22,8 @@ test("durable persistence reports created and duplicate ACKs", async () => {
   let count = 0;
   const sql = async () => [{ event_id: event.event.id, delivery_count: ++count }];
   const input = parsePayload(event, event.event.id);
-  assert.deepEqual(await persist(sql, input), { persisted: true, eventId: event.event.id, status: "created" });
-  assert.deepEqual(await persist(sql, input), { persisted: true, eventId: event.event.id, status: "duplicate" });
+  assert.deepEqual(await persist(sql, input), { persisted: true, eventId: event.event.id, status: "created", orderSyncStatus: undefined });
+  assert.deepEqual(await persist(sql, input), { persisted: true, eventId: event.event.id, status: "duplicate", orderSyncStatus: undefined });
 });
 
 test("runtime role is constrained to the sandbox event table", async () => {
@@ -34,4 +34,23 @@ test("runtime role is constrained to the sandbox event table", async () => {
   assert.doesNotMatch(bootstrap, /GRANT[^\n]*DELETE/);
   assert.match(bootstrap, /REVOKE CREATE ON SCHEMA public/);
   assert.match(bootstrap, /unexpected\.length/);
+  assert.match(bootstrap, /GRANT EXECUTE ON FUNCTION apply_paypal_sandbox_event/);
+  assert.match(bootstrap, /REVOKE ALL ON TABLE paypal_sandbox_test_orders/);
+});
+
+test("capture events project only bounded order and amount fields", () => {
+  const value = {
+    environment: "sandbox",
+    event: {
+      id: "WH-CAPTURE123", event_type: "PAYMENT.CAPTURE.COMPLETED",
+      resource: { id: "CAPTURE-2", status: "COMPLETED", amount: { value: "1.00", currency_code: "usd" }, supplementary_data: { related_ids: { order_id: "ORDER-2" } } }
+    },
+    payloadSha256: "b".repeat(64)
+  };
+  const parsed = parsePayload(value, value.event.id);
+  assert.equal(parsed.paypalOrderId, "ORDER-2");
+  assert.equal(parsed.captureId, "CAPTURE-2");
+  assert.equal(parsed.amountCents, 100);
+  assert.equal(parsed.currency, "USD");
+  assert.equal(parsed.providerStatus, "COMPLETED");
 });

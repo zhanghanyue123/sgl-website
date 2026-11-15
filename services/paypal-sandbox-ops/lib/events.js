@@ -21,17 +21,37 @@ export function parsePayload(value, idempotencyKey) {
   if (typeof eventType !== "string" || !EVENT_ALLOWLIST.has(eventType)) throw new HttpError(400, "Event type is not allowed.");
   if (typeof value.payloadSha256 !== "string" || !/^[a-f0-9]{64}$/.test(value.payloadSha256)) throw new HttpError(400, "Invalid payload digest.");
   const resourceId = resource && typeof resource === "object" && typeof resource.id === "string" && resource.id.length <= 128 ? resource.id : null;
-  return { id, eventType, payloadSha256: value.payloadSha256, resourceId };
+  const relatedOrderId = resource && typeof resource === "object" && resource.supplementary_data?.related_ids?.order_id;
+  const paypalOrderId = eventType.startsWith("CHECKOUT.ORDER.") ? resourceId : (typeof relatedOrderId === "string" ? relatedOrderId : null);
+  const captureId = eventType.startsWith("PAYMENT.CAPTURE.") ? resourceId : null;
+  const amount = resource && typeof resource === "object" ? resource.amount : null;
+  let amountCents = null;
+  let currency = null;
+  if (amount && typeof amount === "object" && typeof amount.value === "string" && /^\d+(?:\.\d{2})$/.test(amount.value) && typeof amount.currency_code === "string") {
+    amountCents = Math.round(Number(amount.value) * 100);
+    currency = amount.currency_code.toUpperCase();
+  }
+  const providerStatus = resource && typeof resource === "object" && typeof resource.status === "string" ? resource.status.slice(0, 64) : null;
+  return { id, eventType, payloadSha256: value.payloadSha256, resourceId, paypalOrderId, captureId, providerStatus, amountCents, currency };
 }
 
 export async function persist(sql, input) {
   const rows = await sql`
-    INSERT INTO paypal_sandbox_events (event_id, event_type, payload_sha256, resource_id)
-    VALUES (${input.id}, ${input.eventType}, ${input.payloadSha256}, ${input.resourceId})
-    ON CONFLICT (event_id) DO UPDATE SET
-      last_seen_at = now(),
-      delivery_count = paypal_sandbox_events.delivery_count + 1
-    RETURNING event_id, delivery_count
+    WITH stored AS (
+      INSERT INTO paypal_sandbox_events (event_id, event_type, payload_sha256, resource_id)
+      VALUES (${input.id}, ${input.eventType}, ${input.payloadSha256}, ${input.resourceId})
+      ON CONFLICT (event_id) DO UPDATE SET
+        last_seen_at = now(),
+        delivery_count = paypal_sandbox_events.delivery_count + 1
+      RETURNING event_id, delivery_count
+    ), projected AS (
+      SELECT apply_paypal_sandbox_event(
+        ${input.eventType}, ${input.paypalOrderId}, ${input.captureId}, ${input.providerStatus},
+        ${input.amountCents}, ${input.currency}
+      ) AS order_sync_status
+    )
+    SELECT stored.event_id, stored.delivery_count, projected.order_sync_status
+    FROM stored CROSS JOIN projected
   `;
-  return { persisted: true, eventId: rows[0].event_id, status: rows[0].delivery_count === 1 ? "created" : "duplicate" };
+  return { persisted: true, eventId: rows[0].event_id, status: rows[0].delivery_count === 1 ? "created" : "duplicate", orderSyncStatus: rows[0].order_sync_status };
 }
