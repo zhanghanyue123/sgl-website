@@ -78,6 +78,14 @@ The SGL Website Preview continues to redirect anonymous requests to the Vercel S
 - Migration checksum: `ca71b458e8e7c9b630e00e1afecffbc203f6ce7f5cc18874769b1a3c9061cfff`
 - Current OPS deployment: `dpl_GACeyMKkreuJ6A6yY2TcrjP88khv`
 
+## Test-data cleanup
+
+- Direct durable-ACK test events removed: 1
+- PayPal simulated webhook events removed: 2
+- Controlled test event rows remaining: 0
+- Real Sandbox orders created: 0
+- Production orders or payments touched: 0
+
 ## Pending acceptance blocker
 
 The protected file `/Users/hanyue/.config/sgl/paypal-sandbox-buyer.env` exists with mode 0600 but is empty. A real Buyer approval/capture flow, real order-status synchronization, and real amount-mismatch acceptance cannot be completed without a Sandbox Personal account email and password stored locally.
