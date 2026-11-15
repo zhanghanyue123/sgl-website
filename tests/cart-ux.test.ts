@@ -102,6 +102,9 @@ test("checkout exposes configured providers and simplifies the PayPal-only actio
   assert.match(cart, /paypalEnvironment === "live" \? "PayPal"/);
   assert.match(cart, /airwallexEnabled && paypalEnabled && <fieldset/);
   assert.match(cart, /busy \? c\.preparing : c\.checkout/);
+  assert.match(cart, /sm:w-\[36rem\]/);
+  assert.doesNotMatch(cart, /Contact SGL to confirm an order/);
+  assert.doesNotMatch(cart, /c\.contact/);
   assert.doesNotMatch(cart, /Checkout with PayPal/);
   assert.doesNotMatch(cart, /value="stripe"/);
   assert.match(checkout, /AIRWALLEX_ENABLED/);
