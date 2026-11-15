@@ -73,8 +73,8 @@ test("checkout exposes configured providers and simplifies the PayPal-only actio
   assert.match(cart, /PayPal Sandbox/);
   assert.match(cart, /paypalEnvironment === "live" \? "PayPal"/);
   assert.match(cart, /airwallexEnabled && paypalEnabled && <fieldset/);
-  assert.match(cart, /paypalEnabled && !airwallexEnabled \? c\.paypalCheckout/);
-  assert.match(cart, /Checkout with PayPal/);
+  assert.match(cart, /busy \? c\.preparing : c\.checkout/);
+  assert.doesNotMatch(cart, /Checkout with PayPal/);
   assert.doesNotMatch(cart, /value="stripe"/);
   assert.match(checkout, /AIRWALLEX_ENABLED/);
   assert.match(checkout, /requireStableSku: true/);
