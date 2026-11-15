@@ -4,10 +4,11 @@ import postgres from "postgres";
 const ownerUrl = process.env.PRODUCTION_DATABASE_URL;
 if (!ownerUrl) throw new Error("PRODUCTION_DATABASE_URL is required");
 const parsed = new URL(ownerUrl);
-if (!parsed.hostname.endsWith(".neon.tech") || parsed.searchParams.get("sslmode") !== "verify-full") throw new Error("Production Neon verify-full URL required");
+if (!parsed.hostname.endsWith(".neon.tech") || parsed.hostname.includes("-pooler.")) throw new Error("Production direct Neon URL required");
+parsed.searchParams.set("sslmode", "verify-full");
 const role = "sgl_paypal_ops_runtime";
 const password = randomBytes(36).toString("base64url");
-const sql = postgres(ownerUrl, { ssl: "verify-full", max: 1, connect_timeout: 10, prepare: false });
+const sql = postgres(parsed.href, { ssl: "verify-full", max: 1, connect_timeout: 10, prepare: false });
 try {
   const exists = await sql`SELECT 1 FROM pg_roles WHERE rolname=${role}`;
   const ddl = await sql`SELECT format(${exists.length ? "ALTER ROLE %I LOGIN PASSWORD %L" : "CREATE ROLE %I LOGIN PASSWORD %L"},${role},${password}) statement`;
@@ -22,7 +23,7 @@ try {
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.save_webhook(text,text,text,text,text,text,integer,text) TO ${role}`);
   await sql.unsafe(`ALTER ROLE ${role} SET statement_timeout='10s'`);
   await sql.unsafe(`ALTER ROLE ${role} SET idle_in_transaction_session_timeout='10s'`);
-  const runtime = new URL(ownerUrl);
+  const runtime = new URL(parsed.href);
   runtime.username = role;
   runtime.password = password;
   console.log(JSON.stringify({ role, runtimeDatabaseUrl: runtime.href, rotated: exists.length > 0 }));

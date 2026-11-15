@@ -7,8 +7,9 @@ const checksum = createHash("sha256").update(source).digest("hex");
 const url = process.env.PRODUCTION_DATABASE_URL;
 if (!url) throw new Error("PRODUCTION_DATABASE_URL is required");
 const parsed = new URL(url);
-if (!parsed.hostname.endsWith(".neon.tech") || parsed.searchParams.get("sslmode") !== "verify-full") throw new Error("Production Neon verify-full URL required");
-const sql = postgres(url, { ssl: "verify-full", max: 1, connect_timeout: 10, prepare: false });
+if (!parsed.hostname.endsWith(".neon.tech") || parsed.hostname.includes("-pooler.")) throw new Error("Production direct Neon URL required");
+parsed.searchParams.set("sslmode", "verify-full");
+const sql = postgres(parsed.href, { ssl: "verify-full", max: 1, connect_timeout: 10, prepare: false });
 try {
   await sql.begin(async tx => {
     await tx`SELECT pg_advisory_xact_lock(hashtextextended('sgl:paypal-production-ops:migration',0))`;
