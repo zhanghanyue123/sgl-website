@@ -21,12 +21,13 @@ export type PayPalAmount = { currency_code?: string; value?: string };
 export type PayPalOrder = {
   id?: string;
   status?: string;
+  update_time?: string;
   links?: PayPalLink[];
   purchase_units?: Array<{
     reference_id?: string;
     custom_id?: string;
     amount?: PayPalAmount;
-    payments?: { captures?: Array<{ id?: string; status?: string; amount?: PayPalAmount }> };
+    payments?: { captures?: Array<{ id?: string; status?: string; amount?: PayPalAmount; update_time?: string; create_time?: string }> };
   }>;
 };
 

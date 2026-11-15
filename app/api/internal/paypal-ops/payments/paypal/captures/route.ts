@@ -23,9 +23,19 @@ export async function POST(request: Request) {
     const value = text(amount?.value, /^\d+\.\d{2}$/, "Invalid PayPal capture amount.");
     const amountCents = positiveInt(Math.round(Number(value) * 100), "Invalid PayPal capture amount.");
     const currency = text(amount?.currency_code, /^USD$/, "Invalid PayPal capture currency.");
+    const occurredRaw = typeof capture.update_time === "string" ? capture.update_time :
+      typeof capture.create_time === "string" ? capture.create_time :
+      typeof order.update_time === "string" ? order.update_time : null;
+    if (!occurredRaw) throw new StoreError(400, "Invalid PayPal capture timestamp.");
+    const occurredAt = new Date(occurredRaw);
+    if (!Number.isFinite(occurredAt.getTime()) || occurredAt.getTime() > Date.now() + 10 * 60_000) {
+      throw new StoreError(400, "Invalid PayPal capture timestamp.");
+    }
     const sql = paypalOpsDb();
     const rows = await sql<{ result: unknown }[]>`
-      SELECT paypal_ops.save_capture(${paypalOrderId},${captureId},${status},${amountCents},${currency},${key}) AS result`;
+      SELECT paypal_ops.save_capture_v2(
+        ${paypalOrderId},${captureId},${status},${amountCents},${currency},${key},${occurredAt},${key}
+      ) AS result`;
     return Response.json(rows[0]?.result, { headers: { "Cache-Control": "no-store" } });
   } catch (error) { return errorResponse(error); }
 }

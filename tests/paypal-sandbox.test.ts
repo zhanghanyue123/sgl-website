@@ -138,7 +138,7 @@ test("capture validates the server-owned context and only succeeds after OPS per
       if (url.endsWith("/v1/oauth2/token")) return Response.json({ access_token: "access-token", expires_in: 300 });
       if (url.endsWith("/v2/checkout/orders/5O190127TN364715T") && init?.method === "GET") return Response.json(paypalOrder("APPROVED"));
       if (url.endsWith("/capture")) return Response.json({ ...paypalOrder("COMPLETED"), purchase_units: [{ ...paypalOrder().purchase_units![0], payments: { captures: [{ id: "3Y662965014333303", status: "COMPLETED", amount: { currency_code: "USD", value: "25.00" } }] } }] });
-      if (url.endsWith("/payments/paypal/captures")) return Response.json({ persisted: true, orderId: "order_123" });
+      if (url.endsWith("/payments/paypal/captures")) return Response.json({ persisted: true, orderId: "order_123", status: "created", paymentStatus: "paid" });
       throw new Error(`Unexpected request ${url}`);
     };
     const response = await captureRoute(new Request("https://example.test/api/paypal/orders/capture", {

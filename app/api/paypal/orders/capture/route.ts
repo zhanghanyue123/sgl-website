@@ -31,8 +31,14 @@ export async function POST(request: Request) {
     }
     const capture = order.purchase_units?.[0]?.payments?.captures?.[0];
     if (!capture?.id || !["COMPLETED", "PENDING"].includes(capture.status || "")) throw new StoreError(502, "PayPal did not return a valid capture status.");
-    const ack = await opsRequest("/payments/paypal/captures", { environment: config.environment, order }, `paypal-capture-${capture.id}`);
-    parseDurableAck(ack, { orderId: context.orderId });
-    return Response.json({ orderId: context.orderId, paymentStatus: capture.status === "COMPLETED" ? "paid" : "pending" }, { headers: { "Cache-Control": "no-store" } });
+    const ack = parseDurableAck(
+      await opsRequest("/payments/paypal/captures", { environment: config.environment, order }, `paypal-capture-${capture.id}`),
+      { orderId: context.orderId }
+    );
+    const persistedStatus = typeof ack.paymentStatus === "string" ? ack.paymentStatus : null;
+    const paymentStatus = capture.status === "COMPLETED" && ack.status !== "requires_review" && persistedStatus === "paid"
+      ? "paid"
+      : ack.status === "requires_review" ? "review" : "pending";
+    return Response.json({ orderId: context.orderId, paymentStatus }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) { return errorResponse(error); }
 }

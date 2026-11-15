@@ -27,7 +27,8 @@ test("production OPS routes require bearer identity and durable idempotency", as
   assert.match(create, /opsIdempotencyKey/);
   assert.match(capture, /opsIdempotencyKey/);
   assert.match(events, /key !== eventId/);
-  assert.match(events, /Unsupported PayPal event/);
+  assert.match(events, /parsePayPalOpsEvent/);
+  assert.match(events, /save_webhook_v2/);
   assert.match(health, /authorizePayPalOps/);
   assert.match(health, /roleScoped: true/);
   assert.match(health, /NOT has_table_privilege\(current_user,'public\.customers','select'\)/);

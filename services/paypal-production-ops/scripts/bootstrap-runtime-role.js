@@ -26,6 +26,8 @@ try {
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.capture_context(text) TO ${role}`);
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.save_capture(text,text,text,integer,text,text) TO ${role}`);
   await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.save_webhook(text,text,text,text,text,text,integer,text) TO ${role}`);
+  await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.save_capture_v2(text,text,text,integer,text,text,timestamptz,text) TO ${role}`);
+  await sql.unsafe(`GRANT EXECUTE ON FUNCTION paypal_ops.save_webhook_v2(text,text,text,text,text,text,text,text,integer,text,timestamptz) TO ${role}`);
   await sql.unsafe(`ALTER ROLE ${role} SET statement_timeout='10s'`);
   await sql.unsafe(`ALTER ROLE ${role} SET idle_in_transaction_session_timeout='10s'`);
   const runtime = new URL(parsed.href);

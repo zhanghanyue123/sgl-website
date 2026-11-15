@@ -15,7 +15,9 @@ export async function GET(request: Request) {
       AND has_function_privilege(current_user,'paypal_ops.register_order(uuid,text,integer,text,text,text)','execute')
       AND has_function_privilege(current_user,'paypal_ops.capture_context(text)','execute')
       AND has_function_privilege(current_user,'paypal_ops.save_capture(text,text,text,integer,text,text)','execute')
-      AND has_function_privilege(current_user,'paypal_ops.save_webhook(text,text,text,text,text,text,integer,text)','execute') AS scoped`;
+      AND has_function_privilege(current_user,'paypal_ops.save_webhook(text,text,text,text,text,text,integer,text)','execute')
+      AND has_function_privilege(current_user,'paypal_ops.save_capture_v2(text,text,text,integer,text,text,timestamptz,text)','execute')
+      AND has_function_privilege(current_user,'paypal_ops.save_webhook_v2(text,text,text,text,text,text,text,text,integer,text,timestamptz)','execute') AS scoped`;
     if (!rows[0]?.scoped) return Response.json({ connected: false }, { status: 503, headers: { "Cache-Control": "no-store" } });
     return Response.json({ connected: true, roleScoped: true }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) { return errorResponse(error); }
