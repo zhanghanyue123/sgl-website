@@ -17,7 +17,7 @@ const allowedEvents = new Set([
 
 export async function POST(request: Request) {
   try {
-    if (process.env.PAYPAL_ENABLED !== "true") throw new StoreError(503, "PayPal checkout is not available.");
+    if (process.env.PAYPAL_WEBHOOK_ENABLED !== "true") throw new StoreError(503, "PayPal webhook is not available.");
     const config = paypalConfig();
     const raw = await request.text();
     if (!raw || raw.length > 256_000) throw new StoreError(413, "PayPal webhook payload is too large.");

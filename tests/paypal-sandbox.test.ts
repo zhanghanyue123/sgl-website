@@ -24,6 +24,7 @@ const config = {
 function setEnvironment() {
   Object.assign(process.env, config, {
     PAYPAL_ENABLED: "true",
+    PAYPAL_WEBHOOK_ENABLED: "true",
     STORE_CHECKOUT_ENABLED: "true",
     SITE_URL: "https://example.test",
     OPS_STORE_API_URL: "https://ops.example.test/store",
@@ -33,7 +34,7 @@ function setEnvironment() {
 }
 
 function clearEnvironment() {
-  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_LIVE_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "PAYPAL_LIVE_CLIENT_ID", "PAYPAL_LIVE_CLIENT_SECRET", "PAYPAL_LIVE_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
+  for (const key of ["PAYPAL_ENV", "PAYPAL_ENABLED", "PAYPAL_LIVE_ENABLED", "PAYPAL_WEBHOOK_ENABLED", "PAYPAL_CLIENT_ID", "PAYPAL_CLIENT_SECRET", "PAYPAL_WEBHOOK_ID", "PAYPAL_LIVE_CLIENT_ID", "PAYPAL_LIVE_CLIENT_SECRET", "PAYPAL_LIVE_WEBHOOK_ID", "STORE_CHECKOUT_ENABLED", "SITE_URL", "OPS_STORE_API_URL", "OPS_STORE_API_TOKEN"]) delete process.env[key];
   __resetPayPalTokenCacheForTests();
 }
 
