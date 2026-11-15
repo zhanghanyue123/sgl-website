@@ -74,6 +74,7 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   assert.match(purchase, /role="alert"/);
   assert.match(card, /Quick add/);
   assert.match(card, /Choose options/);
+  assert.match(card, /bg-white px-4 py-3 text-sm font-black uppercase/);
   assert.match(card, /group flex h-full flex-col/);
   assert.match(card, /href=\{productPath\} className="flex flex-1 flex-col"/);
   assert.match(card, /className="mt-auto px-5 pb-5"/);

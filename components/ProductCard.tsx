@@ -63,7 +63,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
       <div className="mt-auto px-5 pb-5">
-        {canQuickAdd ? <button disabled={!cartAdd.ready || cartAdd.busy} aria-busy={cartAdd.busy} onClick={() => void cartAdd.submit(product.slug, availableVariants[0], 1)} className="w-full border border-sglInk bg-sglAcid px-4 py-3 text-sm font-black uppercase disabled:opacity-50">{cartAdd.busy ? copy.adding : cartAdd.status === "added" ? copy.added : copy.add}</button> : !product.soldOut && availableVariants.length > 1 ? <Link href={productPath} className="block w-full border border-sglInk px-4 py-3 text-center text-sm font-black uppercase">{copy.choose}</Link> : null}
+        {canQuickAdd ? <button disabled={!cartAdd.ready || cartAdd.busy} aria-busy={cartAdd.busy} onClick={() => void cartAdd.submit(product.slug, availableVariants[0], 1)} className="w-full border border-sglInk bg-white px-4 py-3 text-sm font-black uppercase disabled:opacity-50">{cartAdd.busy ? copy.adding : cartAdd.status === "added" ? copy.added : copy.add}</button> : !product.soldOut && availableVariants.length > 1 ? <Link href={productPath} className="block w-full border border-sglInk bg-white px-4 py-3 text-center text-sm font-black uppercase">{copy.choose}</Link> : null}
         <p aria-live="polite" className="mt-2 min-h-5 text-sm">{cartAdd.status === "error" && <span role="alert">{copy.error}</span>}</p>
       </div>
       <CartAddToast status={cartAdd.status} message={copy.added} cartLabel={copy.cart} cartHref={localizedPath("/cart", locale)} />
