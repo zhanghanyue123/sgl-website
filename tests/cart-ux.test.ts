@@ -77,7 +77,7 @@ test("cart UI exposes loading, success, error, badge and same-line duplicate gua
   assert.match(card, /bg-white px-4 py-3 text-sm font-black uppercase/);
   assert.match(card, /group flex h-full flex-col/);
   assert.match(card, /href=\{productPath\} className="flex flex-1 flex-col"/);
-  assert.match(card, /className="mt-auto px-5 pb-5"/);
+  assert.match(card, /className="mt-auto px-5 pb-5 pt-10"/);
   assert.match(header, /cartItemCount/);
   assert.match(header, /99\+/);
   assert.match(toast, /createPortal/);
@@ -103,7 +103,7 @@ test("checkout exposes configured providers and simplifies the PayPal-only actio
   assert.match(cart, /paypalEnvironment === "live" \? "PayPal"/);
   assert.match(cart, /airwallexEnabled && paypalEnabled && <fieldset/);
   assert.match(cart, /busy \? c\.preparing : c\.checkout/);
-  assert.match(cart, /sm:w-\[36rem\]/);
+  assert.match(cart, /sm:w-\[20rem\]/);
   assert.doesNotMatch(cart, /Contact SGL to confirm an order/);
   assert.doesNotMatch(cart, /c\.contact/);
   assert.doesNotMatch(cart, /Checkout with PayPal/);
